@@ -31,7 +31,7 @@ router.post('/attemptLogin', function(req, res) {
       if (result.length !== 0 && result[0].password === req.body.password) {
           res.render('index', { title: 'Logged In' });
       } else {
-          res.render('login', { title: 'Failed' });
+          res.render('login', { message: 'Failed' });
       }
   });
 });
