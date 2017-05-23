@@ -25,19 +25,9 @@ router.get('/viewWorkout', function(req, res, next) {
     res.render('workoutView', { title: 'Workout View' });
 });
 
-router.post('/login', function(req, res) {
-
-  var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
-    
-  connection.query(sql, function (err, result) {
-      if (err) throw err;
-
-      if (result.length !== 0 && result[0].password === req.body.password) {
-          res.render('index', { title: 'Logged In' });
-      } else {
-          res.render('index', { title: 'Failed' });
-      }
-  });
+/* GET home page. */
+router.get('/login', function(req, res, next) {
+    res.render('login', {message: '' });
 });
 
 module.exports = router;
