@@ -11,6 +11,19 @@ var login = require('./routes/login');
 var workoutView = require('./routes/workoutView');
 
 var app = express();
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host     : 'footballdb.cr1jtswtem4i.us-west-2.rds.amazonaws.com',
+    user     : 'masterUsername',
+    password : 'HNuxJSEjqXUS!auk-eRV6CG8+!^JJAt2M?-Lc4y#+',
+    database : 'master'
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +44,23 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/users', users);
 app.use('/login', login);
-app.use('/attemptLogin', login);
-app.use('/viewWorkout', workoutView);
+
+/* GET home page. */
+app.get('/', function(req, res, next) {
+    res.render('index', { title: 'Express' });
+});
+
+/* GET home page. */
+app.get('/viewWorkout', function(req, res, next) {
+    res.render('workoutView', { title: 'Workout View' });
+});
+
+/* GET home page. */
+app.get('/login', function(req, res, next) {
+    res.render('login', {message: '' });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
