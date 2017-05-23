@@ -26,6 +26,7 @@ Set the params as follows
 * Connection Method: Standard (TCP/IP)
 
 * hostname : 'footballdb.cr1jtswtem4i.us-west-2.rds.amazonaws.com'
+* port     : 3306
 * username : 'masterUsername'
 * password : 'HNuxJSEjqXUS!auk-eRV6CG8+!^JJAt2M?-Lc4y#+'
 
