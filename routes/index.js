@@ -17,7 +17,12 @@ connection.connect(function(err) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express' });
+});
+
+/* GET home page. */
+router.get('/viewWorkout', function(req, res, next) {
+    res.render('workoutView', { title: 'Workout View' });
 });
 
 router.post('/login', function(req, res) {
