@@ -14,14 +14,14 @@ There is quite a bit of things that need to be setup in order to run the project
 First, install node.js
 * https://nodejs.org/en/download/
 
-Once you have node.js installed, install express. Run this command in terminal (assuming mac)
+Once you have node.js installed, install express. Run this command in terminal (assuming mac) (may not be needed).
 * npm install express
 
 Next, we need to you connected to the database. Install MySQLWorkbench
 * https://dev.mysql.com/downloads/workbench/
 
 Once this is done, we can now connect to the database. Click the '+' near MySQLConnections to add a new connection. 
-Set the params as follows
+Set the params as follows. Once you get to this step, let me know because I need to add you as a valid IP address.
 * Database Name: whatever you want (mine is footballdb)
 * Connection Method: Standard (TCP/IP)
 
