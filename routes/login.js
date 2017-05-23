@@ -16,17 +16,3 @@ connection.connect(function(err) {
 });
 
 module.exports = router;
-
-router.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
-
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-
-        if (result.length !== 0 && result[0].password === req.body.password) {
-            res.render('index', { title: 'Logged In' });
-        } else {
-            res.render('login', { message: 'Failed' });
-        }
-    });
-});

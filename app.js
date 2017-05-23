@@ -10,6 +10,8 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutView = require('./routes/workoutView');
 
+var session = require('client-sessions');
+
 var app = express();
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -24,7 +26,6 @@ connection.connect(function(err) {
     console.log("Connected!");
 });
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -34,7 +35,6 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -43,12 +43,40 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use(session({
+    cookieName: 'session',
+    secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+    ephemeral: true
+}));
+
 app.use('/users', users);
-app.use('/login', login);
+
+// Get session
+app.use(function(req, res, next) {
+    if (req.session && req.session.user) {
+        var sql = "SELECT username FROM testUser WHERE username= " + "'" + req.session.user + "'";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            if (result.length !== 0) {
+                req.user = result[0].username;
+                req.session.user = result[0].username;  //refresh the session value
+                res.locals.user = result[0].username;
+            }
+            next();
+        });
+    } else {
+        next();
+    }
+});
 
 /* GET home page. */
-app.get('/', function(req, res, next) {
+app.get('/', requireLogin, function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
@@ -60,6 +88,34 @@ app.get('/viewWorkout', function(req, res, next) {
 /* GET home page. */
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
+});
+
+app.post('/attemptLogin', function(req, res) {
+    var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
+
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        if (result.length !== 0 && result[0].password === req.body.password) {
+            req.session.user = req.body.username;
+            res.render('index', { title: 'Logged In' });
+        } else {
+            res.render('login', { message: 'Failed' });
+        }
+    });
+});
+
+function requireLogin (req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+}
+
+app.get('/logout', function(req, res) {
+    req.session.reset();
+    res.redirect('/');
 });
 
 // catch 404 and forward to error handler
