@@ -43,6 +43,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Starts a session for the user.
 app.use(session({
     cookieName: 'session',
     secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
@@ -53,9 +54,7 @@ app.use(session({
     ephemeral: true
 }));
 
-app.use('/users', users);
-
-// Get session
+// Checks to see if the user is already in a session. If so, update the req to have that session data and pass it along.
 app.use(function(req, res, next) {
     if (req.session && req.session.user) {
         var sql = "SELECT username FROM testUser WHERE username= " + "'" + req.session.user + "'";
@@ -85,11 +84,12 @@ app.get('/viewWorkout', function(req, res, next) {
     res.render('workoutView', { title: 'Workout View' });
 });
 
-/* GET home page. */
+// GET login page //
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
 });
 
+// Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
     var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
 
@@ -105,6 +105,7 @@ app.post('/attemptLogin', function(req, res) {
     });
 });
 
+// Forces a user to login before proceeding
 function requireLogin (req, res, next) {
     if (!req.user) {
         res.redirect('/login');
@@ -113,6 +114,7 @@ function requireLogin (req, res, next) {
     }
 }
 
+// logs a user out.
 app.get('/logout', function(req, res) {
     req.session.reset();
     res.redirect('/');
