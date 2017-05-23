@@ -3,11 +3,9 @@ Project for the Iowa State football team. The goal is to create a platform that 
 
 The web implemention of this platform will be built with the following stack.
 * Database: MYSQL hosted on AWS
-  * Username: masterUsername
-  * Password: HNuxJSEjqXUS!auk-eRV6CG8+!^JJAt2M?-Lc4y#+
 * Client Side: Javascript
-* Web Server: Node.js
-* Front End: HTML5 (Bootstrap), CSS
+* Web Server: Node.js with Express
+* Front End: HTML5 (Bootstrap), CSS and EJS
 
 Setup:
 
