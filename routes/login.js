@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/attemptLogin', function(req, res) {
-
+console.log(req)
   var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
     
   connection.query(sql, function (err, result) {
