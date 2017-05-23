@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+var coachDashboard = require('./routes/coachDashboard');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutView = require('./routes/workoutView');
@@ -76,7 +76,7 @@ app.use(function(req, res, next) {
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('coachDashboard', { username: req.session.user });
 });
 
 /* GET home page. */
@@ -98,7 +98,7 @@ app.post('/attemptLogin', function(req, res) {
 
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
-            res.render('index', { title: 'Logged In' });
+            res.render('coachDashboard', { username: req.session.user});
         } else {
             res.render('login', { message: 'Failed' });
         }
