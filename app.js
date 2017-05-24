@@ -43,11 +43,11 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/index', index);
+
 app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
-app.use('/generateWorkout', index);
+
 
 // Starts a session for the user.
 app.use(session({
@@ -102,12 +102,12 @@ app.get('/playerData', requireLogin, function(req, res, next) {
 
 // GET login page //
 app.get('/login', function(req, res, next) {
-    res.render('login', {message: '' });
+    res.render('login', {message: '' , errormessage: ''});
 });
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
+    var sql = "SELECT username, password FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
@@ -116,7 +116,7 @@ app.post('/attemptLogin', function(req, res) {
             req.session.user = req.body.username;
             res.render('coachDashboard', { username: req.session.user});
         } else {
-            res.render('login', { message: 'Failed' });
+            res.render('login', { message: 'Failed', errormessage: '' });
         }
     });
 });
@@ -135,6 +135,23 @@ app.get('/logout', function(req, res) {
     req.session.reset();
     res.redirect('/');
 });
+
+
+app.post('/register', function(req,res){
+    var sql = "INSERT INTO user VALUES('" + req.body.username + "' , '" + req.body.password + "' , '" + req.body.role + "' , '"
+        + req.body.firstname + "' , '" + req.body.lastname + "' , '" + req.body.telephone + "' , '" + req.body.position + "')";
+
+    if (req.body.password !== req.body.confirm_password){
+        res.render('login', {message: '', errormessage: 'Passwords do not match'});
+    }
+
+    
+    else{
+    connection.query(sql, function(err,result){
+        if (err) throw err;
+    });}
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
