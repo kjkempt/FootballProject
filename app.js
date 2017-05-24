@@ -84,6 +84,11 @@ app.get('/viewWorkout', function(req, res, next) {
     res.render('workoutView', { title: 'Workout View' });
 });
 
+/* Workout Manager page */
+app.get('/workoutManager', requireLogin, function(req, res, next) {
+    res.render('workoutManager', { username: req.session.user });
+});
+
 // GET login page //
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
