@@ -43,7 +43,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/index', index);
 app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
