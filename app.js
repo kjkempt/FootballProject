@@ -138,17 +138,46 @@ app.get('/logout', function(req, res) {
 
 
 app.post('/register', function(req,res){
-    var sql = "INSERT INTO user VALUES('" + req.body.username + "' , '" + req.body.password + "' , '" + req.body.role + "' , '"
-        + req.body.firstname + "' , '" + req.body.lastname + "' , '" + req.body.telephone + "' , '" + req.body.position + "')";
 
-    if (req.body.password !== req.body.confirm_password){
-        res.render('login', {message: '', errormessage: 'Passwords do not match'});
+
+    var phone = "";
+    var num = "1234567890";
+    for(var i=0; i < req.body.telephone.length; i++){
+        if(num.includes(req.body.telephone.charAt(i))){
+            phone += req.body.telephone.charAt(i);
+        }
     }
 
+    var sql = "INSERT INTO user VALUES('" + req.body.username + "' , '" + req.body.password + "' , '" + req.body.role + "' , '"
+        + req.body.firstname + "' , '" + req.body.lastname + "' , '" + phone + "' , '" + req.body.position + "')";
+
     
+    if (req.body.password !== req.body.confirm_password){
+        res.render('login', {message: '', errormessage: 'Passwords do not match.'});
+    }
+
+
+    if (phone.length !== 10){
+        res.render('login', {message: '', errormessage: 'Please enter a valid phone number.'});
+    }
+
+    if (req.body.role === "Coach" && req.body.access_code !== "ISUcoach"){
+        res.render('login', {message: '', errormessage: 'Please enter a valid access code.'});
+    }
+
+    if (req.body.role === "Player" && req.body.access_code !== "Cyclone"){
+        res.render('login', {message: '', errormessage: 'Please enter a valid access code.'});
+    }
+
+
+
     else{
     connection.query(sql, function(err,result){
         if (err) throw err;
+
+        else{
+
+        }
     });}
 });
 
