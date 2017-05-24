@@ -9,6 +9,8 @@ var coachDashboard = require('./routes/coachDashboard');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutView = require('./routes/workoutView');
+var index = require("./routes/index");
+var workoutManager = require('./routes/workoutManager');
 
 var session = require('client-sessions');
 
@@ -43,6 +45,14 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//<<<<<<< HEAD
+//app.use('/index', index);
+app.use('/login', login);
+app.use('/attemptLogin', login);
+app.use('/viewWorkout', workoutView);
+//app.use('/generateWorkout', index);
+app.use('/addWorkout', workoutManager);
+//=======
 // Starts a session for the user.
 app.use(session({
     cookieName: 'session',
@@ -129,6 +139,7 @@ app.get('/logout', function(req, res) {
     req.session.reset();
     res.redirect('/');
 });
+//>>>>>>> c7362bc6ed4bb287359a7877239b4902279d9928
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

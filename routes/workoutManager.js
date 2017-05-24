@@ -22,4 +22,21 @@ router.get('/', function(req, res, next) {
     res.render('workoutManager', { title: 'Express' });
 });
 
+
+
+router.post('/addWorkout', function(req, res, next) {
+    console.log(req)
+    var sql = "SELECT name FROM workouts";
+
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+    console.log(results.name[0]);
+    console.log(results.name[1]);
+
+
+
+    });
+});
+
+
 module.exports = router;
