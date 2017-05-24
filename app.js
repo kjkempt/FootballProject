@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
 var workoutView = require('./routes/workoutView');
+var playerData = require('./routes/playerData');
 
 var session = require('client-sessions');
 
@@ -48,6 +49,8 @@ app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
 app.use('/workoutManager', workoutManager);
+app.use('/playerData', playerData);
+
 
 // Starts a session for the user.
 app.use(session({
