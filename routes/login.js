@@ -15,25 +15,4 @@ connection.connect(function(err) {
     console.log("Connected!");
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  // Verify if already logged in.
-  res.render('login', { title: 'Express' });
-});
-
-router.post('/attemptLogin', function(req, res) {
-console.log(req)
-  var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
-    
-  connection.query(sql, function (err, result) {
-      if (err) throw err;
-
-      if (result.length !== 0 && result[0].password === req.body.password) {
-          res.render('index', { title: 'Logged In' });
-      } else {
-          res.render('login', { message: 'Failed' });
-      }
-  });
-});
-
 module.exports = router;
