@@ -6,8 +6,16 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+      <script src="/scripts/indexController.js"></script>
   </head>
   <body>
+  <form action = "/generateWorkout" method = "post">
+  Player Name:
+  <select name = "playerName" id = "playerNameSelect">
+  </select>
+      <br>
+  <input type = "submit">
+  </form>
   <h1><%= title %></h1>
     <!-- Latest compiled and minified JavaScript -->
     </body>

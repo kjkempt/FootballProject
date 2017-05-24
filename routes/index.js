@@ -45,4 +45,19 @@ router.post('/attemptLogin', function(req, res) {
     });
 });
 
+router.post("/generateWorkout", function(req, res){
+    var sql = "SELECT workoutID FROM testTable WHERE playerName = " + "'" + req.body.playerName + "'";
+
+    connection.query(sql, function(err, result){
+        if (err) throw err;
+
+        console.log(result[0].workoutID);
+        for(i = 0, text = ""; i < result.length; i++){
+            text += result[i].workoutID + " ";
+        }
+        res.render('index', { title: text});
+        });
+
+    });
+
 module.exports = router;
