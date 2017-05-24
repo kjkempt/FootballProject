@@ -229,17 +229,17 @@
                         $(document).ready(function () {
                             $("#mySelect").change(function () {
                                 $.post("/playerData/updateGraph",
-                                        {username: $('#mySelect :selected').text()},
-                                        function(d) {
-                                            $("#morris-area-chart").empty();
+                                    {username: $('#mySelect :selected').text()},
+                                    function(d) {
+                                        $("#morris-area-chart").empty();
 
-                                            new Morris.Line({
-                                                element: 'morris-area-chart',
-                                                data: d,
-                                                xkey: 'period',
-                                                ykeys: ['player', 'coach_prediction'],
-                                                labels: ['Player', "Coach Prediction"]
-                                            });
+                                        new Morris.Line({
+                                            element: 'morris-area-chart',
+                                            data: d,
+                                            xkey: 'period',
+                                            ykeys: ['player', 'coach_prediction'],
+                                            labels: ['Player', "Coach Prediction"]
+                                        });
                                 });
                             });
                         });

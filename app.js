@@ -66,7 +66,7 @@ app.use(session({
 // Checks to see if the user is already in a session. If so, update the req to have that session data and pass it along.
 app.use(function(req, res, next) {
     if (req.session && req.session.user) {
-        var sql = "SELECT username FROM testUser WHERE username= " + "'" + req.session.user + "'";
+        var sql = "SELECT username FROM user WHERE username= " + "'" + req.session.user + "'";
 
         connection.query(sql, function (err, result) {
             if (err) throw err;
@@ -121,7 +121,7 @@ app.get('/login', function(req, res, next) {
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password FROM testUser WHERE username= " + "'" + req.body.username + "'";
+    var sql = "SELECT username, password FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
