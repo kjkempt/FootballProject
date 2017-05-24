@@ -97,7 +97,18 @@ app.get('/workoutManager', requireLogin, function(req, res, next) {
 
 /* Player Data page */
 app.get('/playerData', requireLogin, function(req, res, next) {
-    res.render('playerData', { username: req.session.user });
+    var sql = "SELECT DISTINCT username FROM player_workouts";
+
+    var allPlayerData = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        allPlayerData = result;
+
+        res.render('playerData', {
+            username: req.session.user,
+            allPlayerData: allPlayerData
+        });
+    });
 });
 
 // GET login page //
