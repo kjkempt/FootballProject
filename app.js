@@ -43,6 +43,12 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', index);
+app.use('/login', login);
+app.use('/attemptLogin', login);
+app.use('/viewWorkout', workoutView);
+app.use('/generateWorkout', index);
+
 // Starts a session for the user.
 app.use(session({
     cookieName: 'session',
