@@ -89,6 +89,11 @@ app.get('/workoutManager', requireLogin, function(req, res, next) {
     res.render('workoutManager', { username: req.session.user });
 });
 
+/* Player Data page */
+app.get('/playerData', requireLogin, function(req, res, next) {
+    res.render('playerData', { username: req.session.user });
+});
+
 // GET login page //
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
