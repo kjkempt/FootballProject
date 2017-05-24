@@ -213,10 +213,11 @@
             <div class="form-group">
                 <label for="sel1">Select list:</label>
                 <select class="form-control" id="mySelect" onchange="updatePlayerData()">
-                    <option>Blake</option>
-                    <option>Evan</option>
-                    <option>John</option>
-                    <option>Steve</option>
+                    <% print.forEach(function (user) { %>
+                    <tr>
+                        <option><%= user %></option>
+                    </tr>
+                    <% }) %>
                 </select>
             </div>
 
