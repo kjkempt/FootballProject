@@ -218,6 +218,7 @@
                 <label for="sel1">Select list:</label>
                 <div class="form-group">
                     <select class="form-control" id="mySelect" name="username">
+                        <option disabled selected value> -- select a player -- </option>
                         <% allPlayerData.forEach(function (user) { %>
                         <tr>
                             <option><%= user.username %></option>
@@ -232,23 +233,7 @@
                                     {username: $('#mySelect :selected').text()},
                                     function(d) {
                                         $("#morris-area-chart").empty();
-
-                                        new Morris.Line({
-                                            element: 'morris-area-chart',
-                                            data: d,
-                                            xkey: 'period',
-                                            ykeys: ['player', 'coach_prediction', 'average'],
-                                            labels: ['Player', "Coach Prediction", 'Average'],
-                                            xLabels: 'day',
-                                            xLabelFormat: function(date) {
-                                                return (date.getMonth()+1) +'/'+date.getDate()+'/'+date.getFullYear();
-                                            },
-                                            period:'day',
-                                            dateFormat: function(period) {
-                                                d = new Date(period);
-                                                return (d.getMonth()+1) +'/'+d.getDate()+'/'+d.getFullYear();
-                                            }
-                                        });
+                                        buildPlayerGraph(d);
                                 });
                             });
                         });
@@ -425,6 +410,8 @@
 <script src="../js/plugins/morris/raphael.min.js"></script>
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
+
+<script src="../js/updateGraph.js"></script>
 
 </body>
 
