@@ -15,14 +15,6 @@ connection.connect(function(err) {
     console.log("Connected! WM");
 });
 
-
-
-/* GET home page. Template for if you need to add an custom routers for this.*/
-router.get('/', function(req, res, next) {
-    res.render('workoutManager', { title: 'Express' });
-});
-
-
 /*
     add workout form names
     coachRPE
