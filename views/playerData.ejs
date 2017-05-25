@@ -231,10 +231,15 @@
                             $("#mySelect").change(function () {
                                 $.post("/playerData/updateGraph",
                                     {username: $('#mySelect :selected').text()},
-                                    function(d) {
-                                        $("#morris-area-chart").empty();
-                                        buildPlayerGraph(d);
-                                });
+                                        function(d) {
+                                            $("#morris-area-chart").empty();
+                                            buildPlayerGraph(d);
+                                            $("#3_day_load_chart").empty();
+                                            buildLoadGraph(d, 3, '3_day_load_chart');
+                                            $("#7_day_load_chart").empty();
+                                            buildLoadGraph(d, 7, '7_day_load_chart');
+                                        }
+                                );
                             });
                         });
                     </script>
@@ -244,10 +249,34 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Player Workout Chart</h3>
                         </div>
                         <div class="panel-body">
                             <div id="morris-area-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 3 Day - Player Load Chart</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="3_day_load_chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 7 Day - Player Load Chart</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="7_day_load_chart"></div>
                         </div>
                     </div>
                 </div>
