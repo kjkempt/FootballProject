@@ -31,6 +31,14 @@
     <![endif]-->
 
     <script>
+        function isValidDate(dateString) {
+            var regEx = /^\d{4}-\d{2}-\d{2}$/;
+            return dateString.match(regEx) != null;
+        };
+    </script>
+
+
+    <script>
         function validateForm() {
             var x1 = document.forms["WMform"]["workoutName"].value;
             var x2 = document.forms["WMform"]["workoutDate"].value;
@@ -43,6 +51,13 @@
                 alert("One or more field(s) is empty");
                 return false;
             }
+
+            if(!isValidDate(x2))
+            {
+                alert("Incorrect date syntax");
+                return false;
+            }
+
         }
     </script>
 
