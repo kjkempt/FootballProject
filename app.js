@@ -8,7 +8,9 @@ var bodyParser = require('body-parser');
 var coachDashboard = require('./routes/coachDashboard');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var workoutManager = require('./routes/workoutManager');
 var workoutView = require('./routes/workoutView');
+var playerData = require('./routes/playerData');
 
 var session = require('client-sessions');
 
@@ -47,6 +49,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
+app.use('/workoutManager', workoutManager);
+app.use('/playerData', playerData);
+
 
 
 // Starts a session for the user.
@@ -97,7 +102,18 @@ app.get('/workoutManager', requireLogin, function(req, res, next) {
 
 /* Player Data page */
 app.get('/playerData', requireLogin, function(req, res, next) {
-    res.render('playerData', { username: req.session.user });
+    var sql = "SELECT DISTINCT username FROM player_workouts";
+
+    var allPlayerData = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        allPlayerData = result;
+
+        res.render('playerData', {
+            username: req.session.user,
+            allPlayerData: allPlayerData
+        });
+    });
 });
 
 // GET login page //
@@ -151,7 +167,7 @@ app.post('/register', function(req,res){
     var sql = "INSERT INTO user VALUES('" + req.body.username + "' , '" + req.body.password + "' , '" + req.body.role + "' , '"
         + req.body.firstname + "' , '" + req.body.lastname + "' , '" + phone + "' , '" + req.body.position + "')";
 
-    
+
     if (req.body.password !== req.body.confirm_password){
         res.render('login', {message: '', errormessage: 'Passwords do not match.'});
     }
