@@ -50,7 +50,7 @@ app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
 app.use('/workoutManager', workoutManager);
 app.use('/playerData', playerData);
-
+app.use('/addWorkout', workoutManager);
 
 // Starts a session for the user.
 app.use(session({
