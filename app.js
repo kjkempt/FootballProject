@@ -128,7 +128,11 @@ app.post('/attemptLogin', function(req, res) {
 
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
-            res.render('coachDashboard', { username: req.session.user});
+            if (req.body.privileges == "Coach") {
+                res.render('coachDashboard', {username: req.session.user});
+            } else {
+                res.render('playerDashboard', {username: req.session.user});
+            }
         } else {
             res.render('login', { message: 'Failed' });
         }
