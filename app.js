@@ -121,14 +121,14 @@ app.get('/login', function(req, res, next) {
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password FROM user WHERE username= " + "'" + req.body.username + "'";
+    var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
-            if (req.body.privileges == "Coach") {
+            if (result[0].privileges == "Coach") {
                 res.render('coachDashboard', {username: req.session.user});
             } else {
                 res.render('playerDashboard', {username: req.session.user});
