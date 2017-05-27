@@ -192,7 +192,23 @@
                     </h1>
                     <form name = "playerForm" action="/playerInput/playerInput" method="post" role="form"
                     onsubmit="return validateForm()" style=" display: block;">
-                    <div class="form-group">
+
+                        <label for="sel1">Select list:</label>
+                        <div class="form-group">
+                            <select class="form-control" id="mySelect" name="username">
+                                <option disabled selected value> -- select a workout -- </option>
+                                <% recentDates.forEach(function (workout) { %>
+                                <tr>
+                                    <option><%= workout.date %></option>
+                                </tr>
+                                <% }) %>
+                            </select>
+
+
+
+
+
+
                         <label for="sel1">Select sRPE score for your most recent workout:</label>
                         <select name = "playerRPE" class="form-control" id="sel1">
                             <option selected value = "rpeDefault">--sRPE--</option>
@@ -210,10 +226,12 @@
                         <br>
                         <input name="playerName" value="<%=username%>">
                         <input type = "submit" name = "Submit" class="btn btn-default">
+                        </div>
 
 
                     </div>
                     </form>
+
 
 
 
@@ -246,6 +264,8 @@
 <script src="../js/plugins/morris/raphael.min.js"></script>
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
+
+
 
 </body>
 

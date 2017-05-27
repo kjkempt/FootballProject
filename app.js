@@ -118,8 +118,27 @@ app.get('/playerData', requireLogin, function(req, res, next) {
 
 /* Player Dashboard page */
 app.get('/playerDashboard', requireLogin, function(req, res, next) {
-    res.render('playerDashboard', {
-        username: req.session.user });
+    var sql = "SELECT date FROM workouts ORDER BY date DESC LIMIT 3;";
+
+    var recentDates = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length = 0) {
+            console.log["Bad"];
+        }
+        else
+        {
+            console.log["Good"];
+        }
+
+
+        recentDates = result;
+
+        res.render('playerDashboard', {
+            username: req.session.user,
+            recentDates: recentDates
+        });
+    });
 });
 
 app.get('/playerDashboard/playerInput', requireLogin, function(req, res, next) {
@@ -146,7 +165,30 @@ app.post('/attemptLogin', function(req, res) {
             if (result[0].privileges == "Coach") {
                 res.render('coachDashboard', {username: req.session.user});
             } else {
-                res.render('playerDashboard', {username: req.session.user});
+
+
+                sql = "SELECT * FROM master.workouts ORDER BY date DESC LIMIT 3;";
+
+                var recentDates = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                    if (result.length == 0) {
+                        res.send["Bad"];
+                    }
+                    else
+                    {
+                        res.send["Good"];
+                    }
+
+
+                    recentDates = result;
+
+                    res.render('playerDashboard', {
+                        username: req.session.user,
+                        recentDates: recentDates
+
+                    });
+                });;
             }
         } else {
             res.render('login', { message: 'Failed' });
