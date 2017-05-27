@@ -22,7 +22,8 @@ router.post('/updateGraph', function(req, res, next) {
 
         var sql = "SELECT * " +
         "FROM " +
-        "((SELECT player_workouts.username, workouts.name, workouts.workoutid, player_workouts.player_sRPE, workouts.sRPE, workouts.date "+
+        "((SELECT player_workouts.username, workouts.name, workouts.duration, workouts.workoutid, player_workouts.player_sRPE, " +
+            "workouts.sRPE, workouts.date as date "+
         "FROM player_workouts " +
         "INNER JOIN workouts ON player_workouts.workoutID = workouts.workoutid " +
         "WHERE username = '" + req.body.username + "') A " +
@@ -30,24 +31,20 @@ router.post('/updateGraph', function(req, res, next) {
         "INNER JOIN  (SELECT workoutID, AVG(player_sRPE) as average " +
         "FROM master.player_workouts " +
         "GROUP BY workoutID) B " +
-        "ON A.workoutid = B.workoutID) ";
+        "ON A.workoutid = B.workoutID) ORDER BY date";
 
         var data = connection.query(sql);
         return data;
     }).then(function (rows) {
-        // Logs out a list of hobbits
-        console.log(rows);
-        return rows;
-    }).then(function (rows) {
         var data = [];
         for (var i = 0; i < rows.length; i++) {
             var d = new Date(rows[i].date).format("yyyy-mm-dd");
-            console.log(d);
             data.push({
                 period: d,
                 player: rows[i].player_sRPE,
                 coach_prediction: rows[i].sRPE,
-                average: rows[i].average
+                average: rows[i].average,
+                duration: rows[i].duration
             });
         }
 

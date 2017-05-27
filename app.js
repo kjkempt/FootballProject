@@ -11,6 +11,7 @@ var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
 var workoutView = require('./routes/workoutView');
 var playerData = require('./routes/playerData');
+var playerDashboard = require('./routes/playerDashboard');
 
 var session = require('client-sessions');
 
@@ -51,6 +52,7 @@ app.use('/viewWorkout', workoutView);
 app.use('/workoutManager', workoutManager);
 app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
+app.use('/playerInput', playerDashboard);
 
 // Starts a session for the user.
 app.use(session({
@@ -114,6 +116,19 @@ app.get('/playerData', requireLogin, function(req, res, next) {
     });
 });
 
+/* Player Dashboard page */
+app.get('/playerDashboard', requireLogin, function(req, res, next) {
+    res.render('playerDashboard', {
+        username: req.session.user });
+});
+
+app.get('/playerDashboard/playerInput', requireLogin, function(req, res, next) {
+    res.render('playerDashboard', {
+        username: req.session.user });
+});
+
+
+
 // GET login page //
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
@@ -121,14 +136,18 @@ app.get('/login', function(req, res, next) {
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password FROM user WHERE username= " + "'" + req.body.username + "'";
+    var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
-            res.render('coachDashboard', { username: req.session.user});
+            if (result[0].privileges == "Coach") {
+                res.render('coachDashboard', {username: req.session.user});
+            } else {
+                res.render('playerDashboard', {username: req.session.user});
+            }
         } else {
             res.render('login', { message: 'Failed' });
         }

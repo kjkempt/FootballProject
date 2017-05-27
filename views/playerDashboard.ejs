@@ -9,9 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Player Data</title>
-
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Player Data Input</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -30,9 +28,24 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <![endif]-->
+
+    <script>
+        function validateForm() {
+            var xx = document.forms["playerForm"]["playerRPE"].value;
+
+            if (x == "rpeDefault")
+            {
+                alert("Please select a valid RPE");
+                return false;
+            }
+
+
+
+        }
+    </script>
+
+
 
 </head>
 
@@ -50,7 +63,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Coach Portal</a>
+            <a class="navbar-brand" href="/">Player Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -156,14 +169,11 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li>
+                <li class="active">
                     <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager</a>
-                </li>
-                <li class="active">
-                    <a href = "/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
+                    <a href="/viewPlayerData"><i class="fa fa-fw fa-bar-chart-o"></i> View Data</a>
                 </li>
             </ul>
         </div>
@@ -178,84 +188,45 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Player Data <small>View your players workout data.</small>
+                        Welcome <small><%=username%></small>
                     </h1>
-                    <ol class="breadcrumb">
-                        <li class="active">
-                            <i class="fa fa-dashboard"></i> Dashboard
-                        </li>
-                    </ol>
+                    <form name = "playerForm" action="/playerInput/playerInput" method="post" role="form"
+                    onsubmit="return validateForm()" style=" display: block;">
+                    <div class="form-group">
+                        <label for="sel1">Select sRPE score for your most recent workout:</label>
+                        <select name = "playerRPE" class="form-control" id="sel1">
+                            <option selected value = "rpeDefault">--sRPE--</option>
+                            <option value = "1">1</option>
+                            <option value = "2">2</option>
+                            <option value = "3">3</option>
+                            <option value = "4">4</option>
+                            <option value = "5">5</option>
+                            <option value = "6">6</option>
+                            <option value = "7">7</option>
+                            <option value = "8">8</option>
+                            <option value = "9">9</option>
+                            <option value = "10">10</option>
+                        </select>
+                        <br>
+                        <input name="playerName" value="<%=username%>">
+                        <input type = "submit" name = "Submit" class="btn btn-default">
+
+
+                    </div>
+                    </form>
+
+
+
                 </div>
             </div>
             <!-- /.row -->
-            <form class="form-group" action="/playerData/updateGraph" method="post">
-                <label for="sel1">Select list:</label>
-                <div class="form-group">
-                    <select class="form-control" id="mySelect" name="username">
-                        <option disabled selected value> -- select a player -- </option>
-                        <% allPlayerData.forEach(function (user) { %>
-                        <tr>
-                            <option><%= user.username %></option>
-                        </tr>
-                        <% }) %>
-                    </select>
-                    <script>
-                        var $ = jQuery;
-                        $(document).ready(function () {
-                            $("#mySelect").change(function () {
-                                $.post("/playerData/updateGraph",
-                                    {username: $('#mySelect :selected').text()},
-                                        function(d) {
-                                            $("#morris-area-chart").empty();
-                                            buildPlayerGraph(d);
-                                            $("#3_day_load_chart").empty();
-                                            buildLoadGraph(d, 3, '3_day_load_chart');
-                                            $("#7_day_load_chart").empty();
-                                            buildLoadGraph(d, 7, '7_day_load_chart');
-                                        }
-                                );
-                            });
-                        });
-                    </script>
-                </div>
-            </form>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Player Workout Chart</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 3 Day - Player Load Chart</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="3_day_load_chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 7 Day - Player Load Chart</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="7_day_load_chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
+
+
             <!-- /.row -->
+
         </div>
         <!-- /.container-fluid -->
 
@@ -266,7 +237,7 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="../js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="../js/bootstrap.min.js"></script>
@@ -275,8 +246,6 @@
 <script src="../js/plugins/morris/raphael.min.js"></script>
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
-
-<script src="../js/updateGraph.js"></script>
 
 </body>
 
