@@ -118,7 +118,7 @@ app.get('/playerData', requireLogin, function(req, res, next) {
 
 /* Player Dashboard page */
 app.get('/playerDashboard', requireLogin, function(req, res, next) {
-    var sql = "SELECT date FROM workouts ORDER BY date DESC LIMIT 3;";
+    var sql = "SELECT date, workoutid FROM workouts ORDER BY date DESC LIMIT 3;";
 
     var recentDates = [];
     connection.query(sql, function (err, result) {

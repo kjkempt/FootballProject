@@ -24,7 +24,7 @@ router.post('/playerInput', function(req, res, next) {
 
 
      sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE) " +
-        "VALUES('"+req.body.playerName+"', '1' ,'"+req.body.playerRPE+"')";
+        "VALUES('"+req.body.playerName+"', '"+req.body.date_id+"' ,'"+req.body.playerRPE+"')";
 
     connection.query(sql, function (err, result) {
         if (err) {

@@ -195,11 +195,13 @@
 
                         <label for="sel1">Select list:</label>
                         <div class="form-group">
-                            <select class="form-control" id="mySelect" name="username">
+                            <select class="form-control" id="mySelect" name="date_id">
                                 <option disabled selected value> -- select a workout -- </option>
-                                <% recentDates.forEach(function (workout) { %>
+                                <% recentDates.forEach(function (workout) {
+                                var id = workout.workoutid%>
                                 <tr>
-                                    <option><%= workout.date %></option>
+                                    <option value = "<%= id %>">
+                                        <%= workout.date %>, <%= id %></option>
                                 </tr>
                                 <% }) %>
                             </select>
@@ -211,7 +213,7 @@
 
                         <label for="sel1">Select sRPE score for your most recent workout:</label>
                         <select name = "playerRPE" class="form-control" id="sel1">
-                            <option selected value = "rpeDefault">--sRPE--</option>
+                            <option disabled selected value = "rpeDefault">--sRPE--</option>
                             <option value = "1">1</option>
                             <option value = "2">2</option>
                             <option value = "3">3</option>
