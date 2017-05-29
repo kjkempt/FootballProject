@@ -86,7 +86,7 @@ router.post('/addWorkout', function(req, res, next) {
         if (err) {
             throw err;
         } else
-            res.redirect('coachDashboard');
+            res.send("success");
     });
 
 
