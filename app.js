@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var coachDashboard = require('./routes/coachDashboard');
+var playerDashboard = require('./routes/playerDashboard');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
@@ -50,6 +51,8 @@ app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
 app.use('/workoutManager', workoutManager);
+app.use('/coachDashboard', coachDashboard);
+app.use('/playerDashboard', playerDashboard);
 app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
 app.use('/playerInput', playerDashboard);
