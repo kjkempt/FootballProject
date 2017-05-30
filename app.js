@@ -47,6 +47,26 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Checks to see if the user is already in a session. If so, update the req to have that session data and pass it along.
+app.use(function(req, res, next) {
+    if (req.session && req.session.user) {
+        var sql = "SELECT username FROM user WHERE username= " + "'" + req.session.user + "'";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            if (result.length !== 0) {
+                req.user = result[0].username;
+                req.session.user = result[0].username;  //refresh the session value
+                res.locals.user = result[0].username;
+            }
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
 app.use('/login', login);
 app.use('/attemptLogin', login);
 app.use('/viewWorkout', workoutView);
@@ -67,26 +87,6 @@ app.use(session({
     secure: true,
     ephemeral: true
 }));
-
-// Checks to see if the user is already in a session. If so, update the req to have that session data and pass it along.
-app.use(function(req, res, next) {
-    if (req.session && req.session.user) {
-        var sql = "SELECT username FROM user WHERE username= " + "'" + req.session.user + "'";
-
-        connection.query(sql, function (err, result) {
-            if (err) throw err;
-
-            if (result.length !== 0) {
-                req.user = result[0].username;
-                req.session.user = result[0].username;  //refresh the session value
-                res.locals.user = result[0].username;
-            }
-            next();
-        });
-    } else {
-        next();
-    }
-});
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var app = require('../app.js');
 
 module.exports = router;
 
@@ -21,8 +22,6 @@ connection.connect(function(err) {
 
 
 router.post('/playerInput', function(req, res, next) {
-
-
      sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE) " +
         "VALUES('"+req.body.playerName+"', '"+req.body.date_id+"' ,'"+req.body.playerRPE+"')";
 
