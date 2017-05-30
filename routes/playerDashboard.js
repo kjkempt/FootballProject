@@ -30,7 +30,7 @@ router.post('/playerInput', function(req, res, next) {
         if (err) {
             throw err;
         } else
-            res.send("success");
+            res.send("Success");
     });
 
 
