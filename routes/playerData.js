@@ -18,6 +18,7 @@ router.post('/updateGraph', function(req, res, next) {
         password: 'HNuxJSEjqXUS!auk-eRV6CG8+!^JJAt2M?-Lc4y#+',
         database: 'master'
     }).then(function (conn) {
+        
         connection = conn;
 
         var sql = "SELECT * " +
