@@ -49,6 +49,17 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Starts a session for the user.
+app.use(session({
+    cookieName: 'session',
+    secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+    ephemeral: true
+}));
+
 // Checks to see if the user is already in a session. If so, update the req to have that session data and pass it along.
 app.use(function(req, res, next) {
     if (req.session && req.session.user) {
@@ -78,17 +89,6 @@ app.use('/playerDashboard', playerDashboard);
 app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
 app.use('/playerInput', playerDashboard);
-
-// Starts a session for the user.
-app.use(session({
-    cookieName: 'session',
-    secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
-    duration: 30 * 60 * 1000,
-    activeDuration: 5 * 60 * 1000,
-    httpOnly: true,
-    secure: true,
-    ephemeral: true
-}));
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {
