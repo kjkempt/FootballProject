@@ -186,28 +186,38 @@
                         <div class = "panel-body">
 
 
-                            <table id="table_id" class="display">
+                            <table id="player_table" class="display">
                                 <thead>
                                 <tr>
-                                    <th>Column 1</th>
-                                    <th>Column 2</th>
+                                    <th>Username</th>
+                                    <th>sRPE</th>
+                                    <th>Duration</th>
+                                    <th>Chronic Load</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <% player_data.forEach(function (data) {
+                                var chronicLoad = data.rpeSUM * data.durationSUM; %>
                                 <tr>
-                                    <td>Row 1 Data 1</td>
-                                    <td>Row 1 Data 2</td>
+                                    <!-- Multiply sum of player RPE and duration for chronic load -->
+
+                                    <td> <%= data.username %></td>
+                                    <td><%= data.rpeSUM%></td>
+                                    <td><%= data.durationSUM%></td>
+                                    <td><%= chronicLoad %> </td>
+
+
                                 </tr>
-                                <tr>
-                                    <td>Row 2 Data 1</td>
-                                    <td>Row 2 Data 2</td>
-                                </tr>
+                                <% }) %>
                                 </tbody>
                             </table>
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
-                                    $('#table_id').DataTable();
+                                    $('#player_table').DataTable(
+
+
+                                    );
                                 } );
 
 

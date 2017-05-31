@@ -42,7 +42,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -170,8 +170,35 @@ app.post('/attemptLogin', function(req, res) {
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
             if (result[0].privileges == "Coach") {
-                res.render('coachDashboard', {username: req.session.user});
-            } else {
+
+
+                sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                "WHERE u.username = w.username " +
+                "AND w.workoutID = m.workoutid " +
+                "AND m.date " +
+                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE() " +
+                " GROUP BY u.username;"
+                ;
+
+
+                var data = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                    if (result.length == 0) {
+                    }
+
+
+                    data = result;
+
+                    res.render('coachDashboard', {username: req.session.user,
+                                                    player_data: data});
+                });
+            }
+
+
+
+            else {
 
 
                 sql = "SELECT * FROM master.workouts ORDER BY date DESC LIMIT 3;";
@@ -180,12 +207,8 @@ app.post('/attemptLogin', function(req, res) {
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     if (result.length == 0) {
-                        res.send["Bad"];
                     }
-                    else
-                    {
-                        res.send["Good"];
-                    }
+
 
 
                     recentDates = result;
