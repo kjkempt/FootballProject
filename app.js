@@ -182,21 +182,48 @@ app.post('/attemptLogin', function(req, res) {
                 ;
 
 
-                var data = [];
+                var four_week_data = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     if (result.length == 0) {
                     }
 
 
-                    data = result;
+                    four_week_data = result;
 
-                    res.render('coachDashboard', {username: req.session.user,
-                                                    player_data: data});
-                });
+                    sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                        "WHERE u.username = w.username " +
+                        "AND w.workoutID = m.workoutid " +
+                        "AND m.date " +
+                        "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
+                        " GROUP BY u.username;"
+                    ;
+
+
+                    var one_week_data = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+                        if (result.length == 0) {
+                        }
+
+
+                        one_week_data = result;
+                        res.render('coachDashboard', {username: req.session.user,
+                            player_data: four_week_data,
+                            one_week_data: one_week_data});
+                    });
+
+            });
+
+
+
+
+
+
+
+
             }
-
-
 
             else {
 

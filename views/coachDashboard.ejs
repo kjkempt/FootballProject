@@ -192,22 +192,35 @@
                                     <th>Username</th>
                                     <th>sRPE</th>
                                     <th>Duration</th>
-                                    <th>Chronic Load</th>
+                                    <th>Acute Load</th>
+                                    <th>Rolling Load (Chronic - 28 day)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <% player_data.forEach(function (data) {
                                 var chronicLoad = data.rpeSUM * data.durationSUM; %>
+
+                                <% one_week_data.forEach(function (oneweek) {
+                                    var acuteLoad = oneweek.rpeSUM * oneweek.durationSUM; %>
                                 <tr>
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
 
                                     <td> <%= data.username %></td>
                                     <td><%= data.rpeSUM%></td>
                                     <td><%= data.durationSUM%></td>
+
+                                    <% if (oneweek.username == data.username){%>
+                                    <td><%=acuteLoad%></td>
+                                    <%}%>
+                                    <% if (oneweek.username != data.username){%>
+                                    <td>No data</td>
+                                    <%}%>
+
                                     <td><%= chronicLoad %> </td>
 
 
                                 </tr>
+                                <% }) %>
                                 <% }) %>
                                 </tbody>
                             </table>
