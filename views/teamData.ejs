@@ -160,8 +160,8 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li class="active">
-                    <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <li>
+                    <a href="/coachDashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager</a>
@@ -169,8 +169,8 @@
                 <li>
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
                 </li>
-                <li>
-                    <a href="/teamData"><i class="fa fa-fw fa-table"></i> Team Data</a>
+                <li class="active">
+                    <a href="/"><i class="fa fa-fw fa-table"></i> Team Data</a>
                 </li>
             </ul>
         </div>
@@ -192,39 +192,40 @@
                             <table id="player_table" class="display">
                                 <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>sRPE</th>
-                                    <th>Duration</th>
-                                    <th>Acute Load</th>
-                                    <th>Rolling Load (Chronic - 28 day)</th>
+                                    <th>Group</th>
+                                    <th>Chronic RPE Average (28 day)</th>
+                                    <th>Chronic Duration</th>
+                                    <th>Chronic Load</th>
+                                    <th>Acute RPE Avergae (7 day)</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <% player_data.forEach(function (data) {
-                                var chronicLoad = data.rpeSUM * data.durationSUM; %>
+
+                                <% four_week_data.forEach(function (fourweek) {
+                                    var chronicLoad = fourweek.rpeAVG * fourweek.durationSUM; %>
 
                                 <% one_week_data.forEach(function (oneweek) {
-                                    var acuteLoad = oneweek.rpeSUM * oneweek.durationSUM; %>
+                                    var acuteLoad = oneweek.rpeAVG * oneweek.durationSUM; %>
                                 <tr>
+
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
-
-                                    <td> <%= data.username %></td>
-                                    <td><%= data.rpeSUM%></td>
-                                    <td><%= data.durationSUM%></td>
-
-                                    <% if (oneweek.username == data.username){%>
-                                    <td><%=acuteLoad%></td>
-                                    <%}%>
-                                    <% if (oneweek.username != data.username){%>
-                                    <td>No data</td>
-                                    <%}%>
-
-                                    <td><%= chronicLoad %> </td>
+                                    <% var chronicLoad = fourweek.rpeAVG * fourweek.durationSUM%>
+                                      <% var acuteLoad = oneweek.rpeAVG * oneweek.durationSUM%>
+                                    <td>Team </td>
+                                    <td><%=fourweek.rpeAVG %></td>
+                                    <td><%= fourweek.durationSUM%></td>
+                                    <td><%= chronicLoad%></td>
+                                    <td><%= oneweek.rpeAVG%></td>
+                                    <td><%= oneweek.durationSUM%></td>
+                                    <td><%= acuteLoad%></td>
 
 
                                 </tr>
                                 <% }) %>
                                 <% }) %>
+
                                 </tbody>
                             </table>
                             <script>

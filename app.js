@@ -15,6 +15,7 @@ var workoutManager = require('./routes/workoutManager');
 var workoutView = require('./routes/workoutView');
 var playerData = require('./routes/playerData');
 var playerDashboard = require('./routes/playerDashboard');
+var teamData = require('./routes/teamData')
 
 
 
@@ -91,6 +92,7 @@ app.use('/playerDashboard', playerDashboard);
 app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
 app.use('/playerInput', playerDashboard);
+app.use('/teamData', teamData);
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {
@@ -120,6 +122,63 @@ app.get('/playerData', requireLogin, function(req, res, next) {
             username: req.session.user,
             allPlayerData: allPlayerData
         });
+    });
+});
+
+/* Team Data page */
+app.get('/teamData', requireLogin, function(req, res, next) {
+    var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
+
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+
+        sql = "SELECT AVG(w.player_sRPE) as rpeAVG, SUM(m.duration) as durationSUM, m.date " +
+            "FROM master.user u, master.player_workouts w, master.workouts m " +
+            "WHERE u.username = w.username " +
+            "AND w.workoutID = m.workoutid " +
+            "AND m.date " +
+            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE(); "
+        ;
+
+
+        var four_week_data = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length == 0) {
+            }
+
+
+            four_week_data = result;
+
+            sql = "SELECT AVG(w.player_sRPE) as rpeAVG, SUM(m.duration) as durationSUM, m.date " +
+                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                "WHERE u.username = w.username " +
+                "AND w.workoutID = m.workoutid " +
+                "AND m.date " +
+                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE(); "
+            ;
+
+
+
+            var one_week_data = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                if (result.length == 0) {
+                }
+
+
+                one_week_data = result;
+                res.render('teamData', {
+                    username: req.session.user,
+                    four_week_data: four_week_data,
+                    one_week_data: one_week_data
+                });
+            });
+
+        });
+
+
     });
 });
 
@@ -158,6 +217,63 @@ app.get('/playerDashboard/playerInput', requireLogin, function(req, res, next) {
 // GET login page //
 app.get('/login', function(req, res, next) {
     res.render('login', {message: '' });
+});
+
+app.get('/coachDashboard', requireLogin, function(req, res, next) {
+    var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
+
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+
+        sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+            "FROM master.user u, master.player_workouts w, master.workouts m " +
+            "WHERE u.username = w.username " +
+            "AND w.workoutID = m.workoutid " +
+            "AND m.date " +
+            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE() " +
+            " GROUP BY u.username;"
+        ;
+
+
+        var four_week_data = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length == 0) {
+            }
+
+
+            four_week_data = result;
+
+            sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                "WHERE u.username = w.username " +
+                "AND w.workoutID = m.workoutid " +
+                "AND m.date " +
+                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
+                " GROUP BY u.username;"
+            ;
+
+
+            var one_week_data = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                if (result.length == 0) {
+                }
+
+
+                one_week_data = result;
+                res.render('coachDashboard', {
+                    username: req.session.user,
+                    player_data: four_week_data,
+                    one_week_data: one_week_data
+                });
+            });
+
+        });
+
+
+    });
 });
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.

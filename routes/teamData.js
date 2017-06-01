@@ -1,8 +1,17 @@
+/**
+ * Created by kemptk on 5/31/17.
+ */
+
 var express = require('express');
 var router = express.Router();
+var app = require('../app.js');
 
 
-
+/* GET home page. */
+/*
+router.get('/', function(req, res, next) {
+    res.render('teamData', { title: 'Express' });
+});*/
 
 module.exports = router;
 
@@ -17,6 +26,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("Connected! CD");
+    console.log("Connected! TD");
 });
 
