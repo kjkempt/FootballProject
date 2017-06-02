@@ -253,32 +253,24 @@
 
                                 <% var chronicLoad = chronic.rpeAVG * fd.fwdtotal%>
 
+                                <%if(acute.position == chronic.position) {%>
 
+                                <% var acuteLoad = acute.rpeAVG * od.owdtotal%>
+
+                                
                                 <tr>
                                     <td> <%=chronic.position %> </td>
                                     <td><%=chronic.rpeAVG%> </td>
                                     <td><%= fd.fwdtotal%></td>
                                     <td><%=Math.round(chronicLoad)%> </td>
-
-                                    <%if(acute.position == chronic.position) {%>
-
                                     <td><%=acute.rpeAVG%> </td>
                                     <td><%= od.owdtotal%></td>
-
-                                    <% var acuteLoad = acute.rpeAVG * od.owdtotal%>
-
-                                    <%}%>
-                                    <%if(acute.position != chronic.position) {%>
-                                    <td> 0 </td>
-                                    <td><%= 0%></td>
-
-                                    <% var acuteLoad = acute.rpeAVG * 0%>
-
-                                    <%}%>
 
                                     <td><%=Math.round(acuteLoad)%> </td>
 
                                 </tr>
+
+                                <%}%>
 
 
 
