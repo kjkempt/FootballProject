@@ -184,7 +184,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Chart</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
                         </div>
                         <div class = "panel-body">
 
@@ -203,28 +203,91 @@
                                 </thead>
                                 <tbody>
 
+                                <!-- TEAM AVERAGE FUNCTIONS   -->
+
+
+                                <% four_week_duration.forEach(function (fd) {
+                                    %>
+
+                                <% one_week_duration.forEach(function (od) {
+                                     %>
+
+
                                 <% four_week_data.forEach(function (fourweek) {
-                                    var chronicLoad = fourweek.rpeAVG * fourweek.durationSUM; %>
+                                     %>
 
                                 <% one_week_data.forEach(function (oneweek) {
-                                    var acuteLoad = oneweek.rpeAVG * oneweek.durationSUM; %>
+                                     %>
                                 <tr>
 
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
-                                    <% var chronicLoad = fourweek.rpeAVG * fourweek.durationSUM%>
-                                      <% var acuteLoad = oneweek.rpeAVG * oneweek.durationSUM%>
-                                    <td>Team </td>
-                                    <td><%=fourweek.rpeAVG %></td>
-                                    <td><%= fourweek.durationSUM%></td>
-                                    <td><%= chronicLoad%></td>
-                                    <td><%= oneweek.rpeAVG%></td>
-                                    <td><%= oneweek.durationSUM%></td>
-                                    <td><%= acuteLoad%></td>
+                                    <% var chronicLoad = fourweek.rpeAVG * fd.fwdtotal%>
+                                      <% var acuteLoad = oneweek.rpeAVG * od.owdtotal%>
 
+                                    <td>Team </td>
+                                    <td><%= fourweek.rpeAVG %></td>
+                                    <td><%= fd.fwdtotal%></td>
+                                    <td><%= Math.round(chronicLoad)%></td>
+                                    <td><%= oneweek.rpeAVG%></td>
+                                    <td><%= od.owdtotal%></td>
+                                    <td><%= Math.round(acuteLoad)%></td>
 
                                 </tr>
                                 <% }) %>
                                 <% }) %>
+
+
+                                <!--****END TEAM AVERAGE FUNCTIONS  ****-->
+
+                                <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
+
+
+
+
+
+                               <% positionGroup.forEach( function(chronic) {%>
+
+                                <% positionAcuteData.forEach( function(acute) {%>
+
+
+
+                                <% var chronicLoad = chronic.rpeAVG * fd.fwdtotal%>
+
+
+                                <tr>
+                                    <td> <%=chronic.position %> </td>
+                                    <td><%=chronic.rpeAVG%> </td>
+                                    <td><%= fd.fwdtotal%></td>
+                                    <td><%=Math.round(chronicLoad)%> </td>
+
+                                    <%if(acute.position == chronic.position) {%>
+
+                                    <td><%=acute.rpeAVG%> </td>
+                                    <td><%= od.owdtotal%></td>
+
+                                    <% var acuteLoad = acute.rpeAVG * od.owdtotal%>
+
+                                    <%}%>
+                                    <%if(acute.position != chronic.position) {%>
+                                    <td> 0 </td>
+                                    <td><%= 0%></td>
+
+                                    <% var acuteLoad = acute.rpeAVG * 0%>
+
+                                    <%}%>
+
+                                    <td><%=Math.round(acuteLoad)%> </td>
+
+                                </tr>
+
+
+
+
+                                <%}); %>
+                                <%}); %>
+                                <%}); %>
+                                <%}); %>
+
 
                                 </tbody>
                             </table>

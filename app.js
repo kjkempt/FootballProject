@@ -133,7 +133,7 @@ app.get('/teamData', requireLogin, function(req, res, next) {
         if (err) throw err;
 
 
-        sql = "SELECT AVG(w.player_sRPE) as rpeAVG, SUM(m.duration) as durationSUM, m.date " +
+        sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
             "FROM master.user u, master.player_workouts w, master.workouts m " +
             "WHERE u.username = w.username " +
             "AND w.workoutID = m.workoutid " +
@@ -151,7 +151,7 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 
             four_week_data = result;
 
-            sql = "SELECT AVG(w.player_sRPE) as rpeAVG, SUM(m.duration) as durationSUM, m.date " +
+            sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
@@ -169,15 +169,115 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 
 
                 one_week_data = result;
-                res.render('teamData', {
-                    username: req.session.user,
-                    four_week_data: four_week_data,
-                    one_week_data: one_week_data
+
+
+                sql = "SELECT SUM(m.duration) as fwdtotal ,m.date " +
+                "FROM master.workouts m " +
+                "WHERE m.date " +
+                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE(); ";
+
+                var four_week_duration = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+
+                    four_week_duration = result;
+
+
+
+                    sql = "SELECT SUM(m.duration) as owdtotal ,m.date " +
+                        "FROM master.workouts m " +
+                        "WHERE m.date " +
+                        "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE(); ";
+
+
+
+                        var one_week_duration = [];
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            if (result.length == 0) {
+                            }
+
+                            one_week_duration = result;
+
+
+
+
+                            sql = "SELECT u.position, AVG(w.player_sRPE) as rpeAVG, m.date " +
+                            "FROM master.user u, master.player_workouts w, master.workouts m " +
+                            "WHERE u.username = w.username " +
+                            "AND w.workoutID = m.workoutid " +
+                            "AND m.date " +
+                            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE() " +
+                            "GROUP BY u.position;";
+
+
+                            var positionGroup = [];
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+                                if (result.length == 0) {
+                                }
+
+                                positionGroup = result;
+
+
+                                sql = "SELECT u.position, AVG(w.player_sRPE) as rpeAVG, m.date " +
+                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                    "WHERE u.username = w.username " +
+                                    "AND w.workoutID = m.workoutid " +
+                                    "AND m.date " +
+                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
+                                    "GROUP BY u.position;";
+
+
+                                var acutePosition = [];
+                                connection.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                    if (result.length == 0) {
+                                    }
+
+                                    acutePosition = result;
+
+
+
+
+
+                                    res.render('teamData', {
+                                        username: req.session.user,
+                                        four_week_data: four_week_data,
+                                        one_week_data: one_week_data,
+                                        one_week_duration: one_week_duration,
+                                        four_week_duration: four_week_duration,
+                                        positionGroup: positionGroup,
+                                        positionAcuteData: acutePosition
+                                    });
+
+
+
+
+
+                                });
+
+
+                            });
+                        });
+
+                    });
+
+
                 });
-            });
+
+
+
+
+
+
+
+
+
+
 
         });
-
 
     });
 });
@@ -226,7 +326,8 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
         if (err) throw err;
 
 
-        sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+        sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+            "SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
             "FROM master.user u, master.player_workouts w, master.workouts m " +
             "WHERE u.username = w.username " +
             "AND w.workoutID = m.workoutid " +
@@ -288,7 +389,8 @@ app.post('/attemptLogin', function(req, res) {
             if (result[0].privileges == "Coach") {
 
 
-                sql = "SELECT u.username, SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
+                sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                    " SUM(w.player_sRPE) as rpeSUM, SUM(m.duration) as durationSUM, m.date " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
