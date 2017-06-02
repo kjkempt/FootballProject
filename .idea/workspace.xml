@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachDashboard.ejs" afterPath="$PROJECT_DIR$/views/coachDashboard.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/playerDashboard.ejs" afterPath="$PROJECT_DIR$/views/playerDashboard.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/teamData.ejs" afterPath="$PROJECT_DIR$/views/teamData.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/workoutManager.ejs" afterPath="$PROJECT_DIR$/views/workoutManager.ejs" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,13 +25,13 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="251" column="72" lean-forward="false" selection-start-line="251" selection-start-column="72" selection-end-line="251" selection-end-column="72" />
+            <state relative-caret-position="42">
+              <caret line="328" column="58" lean-forward="false" selection-start-line="328" selection-start-column="58" selection-end-line="328" selection-end-column="58" />
               <folding>
                 <element signature="e#3522#3865#0" expanded="false" />
+                <element signature="e#3950#8946#0" expanded="false" />
                 <element signature="e#9045#9547#0" expanded="false" />
                 <element signature="e#9630#9708#0" expanded="false" />
-                <element signature="e#9892#11764#0" expanded="false" />
                 <element signature="e#11907#14844#0" expanded="false" />
                 <element signature="e#14196#14751#0" expanded="false" />
               </folding>
@@ -43,7 +39,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teamData.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="teamData.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/teamData.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-421">
@@ -53,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coachDashboard.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="coachDashboard.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/coachDashboard.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-183">
-              <caret line="186" column="118" lean-forward="false" selection-start-line="186" selection-start-column="118" selection-end-line="186" selection-end-column="118" />
+            <state relative-caret-position="355">
+              <caret line="232" column="37" lean-forward="true" selection-start-line="232" selection-start-column="37" selection-end-line="232" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -111,9 +107,9 @@
         <option value="$PROJECT_DIR$/views/playerData.ejs" />
         <option value="$PROJECT_DIR$/views/workoutManager.ejs" />
         <option value="$PROJECT_DIR$/views/playerDashboard.ejs" />
-        <option value="$PROJECT_DIR$/views/coachDashboard.ejs" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/teamData.ejs" />
+        <option value="$PROJECT_DIR$/views/coachDashboard.ejs" />
       </list>
     </option>
   </component>
@@ -428,7 +424,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92982000" />
+    <option name="totallyTimeSpent" value="94134000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -502,7 +498,7 @@
           <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="56" />
+      <option name="time" value="57" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -830,29 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="251" column="72" lean-forward="false" selection-start-line="251" selection-start-column="72" selection-end-line="251" selection-end-column="72" />
-          <folding>
-            <element signature="e#3522#3865#0" expanded="false" />
-            <element signature="e#9045#9547#0" expanded="false" />
-            <element signature="e#9630#9708#0" expanded="false" />
-            <element signature="e#9892#11764#0" expanded="false" />
-            <element signature="e#11907#14844#0" expanded="false" />
-            <element signature="e#14196#14751#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/coachDashboard.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-183">
-          <caret line="186" column="118" lean-forward="false" selection-start-line="186" selection-start-column="118" selection-end-line="186" selection-end-column="118" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/playerDashboard.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -865,6 +838,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-421">
           <caret line="186" column="116" lean-forward="false" selection-start-line="186" selection-start-column="116" selection-end-line="186" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="328" column="58" lean-forward="false" selection-start-line="328" selection-start-column="58" selection-end-line="328" selection-end-column="58" />
+          <folding>
+            <element signature="e#3522#3865#0" expanded="false" />
+            <element signature="e#3950#8946#0" expanded="false" />
+            <element signature="e#9045#9547#0" expanded="false" />
+            <element signature="e#9630#9708#0" expanded="false" />
+            <element signature="e#11907#14844#0" expanded="false" />
+            <element signature="e#14196#14751#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachDashboard.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="232" column="37" lean-forward="true" selection-start-line="232" selection-start-column="37" selection-end-line="232" selection-end-column="37" />
           <folding />
         </state>
       </provider>
