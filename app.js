@@ -106,7 +106,9 @@ app.get('/viewWorkout', function(req, res, next) {
 
 /* Workout Manager page */
 app.get('/workoutManager', requireLogin, function(req, res, next) {
-    res.render('workoutManager', { username: req.session.user });
+    res.render('workoutManager', {
+        username: req.session.user,
+        message: ''});
 });
 
 /* Player Data page */
@@ -280,34 +282,14 @@ app.get('/teamData', requireLogin, function(req, res, next) {
     });
 });
 
-/* Player Dashboard page */
+/* Player Dashboard page - Handles player data input  */
 app.get('/playerDashboard', requireLogin, function(req, res, next) {
-    var sql = "SELECT date, workoutid FROM workouts ORDER BY date DESC LIMIT 3;";
 
-    var recentDates = [];
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-        if (result.length = 0) {
-            console.log["Bad"];
-        }
-        else
-        {
-            console.log["Good"];
-        }
-
-
-        recentDates = result;
 
         res.render('playerDashboard', {
             username: req.session.user,
-            recentDates: recentDates
+            message: ''
         });
-    });
-});
-
-app.get('/playerDashboard/playerInput', requireLogin, function(req, res, next) {
-    res.render('playerDashboard', {
-        username: req.session.user });
 });
 
 
@@ -562,25 +544,10 @@ app.post('/attemptLogin', function(req, res) {
 
             else {
 
-
-                sql = "SELECT * FROM master.workouts ORDER BY date DESC LIMIT 3;";
-
-                var recentDates = [];
-                connection.query(sql, function (err, result) {
-                    if (err) throw err;
-                    if (result.length == 0) {
-                    }
-
-
-
-                    recentDates = result;
-
                     res.render('playerDashboard', {
                         username: req.session.user,
-                        recentDates: recentDates
-
+                        message: ''
                     });
-                });;
             }
         } else {
             res.render('login', { message: 'Failed' });

@@ -161,10 +161,10 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="/coachDashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <a href="/coachDashboard"><i class="fa fa-fw fa-dashboard"></i> Individual Player Analysis</a>
                 </li>
                 <li>
-                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager</a>
+                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager - Create New</a>
                 </li>
                 <li>
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
@@ -193,8 +193,9 @@
                                 <thead>
                                 <tr>
 
-                                    <th>First Name</th>
+                                    <!-- Table Headers -->
                                     <th>Last Name</th>
+                                    <th>First Name</th>
                                     <th>Postion</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
@@ -204,21 +205,43 @@
 
                                 <tbody>
 
-                                <% player_data.forEach(function (data) {
+
+
+                                <% player_data.forEach(function (fourweek) {
+                                  //fourweek holds query for 4 week chronic load
+                                    //and is also used to display position, first and last name
                                    %>
 
                                 <% one_week_data.forEach(function (oneweek) {
+                                   //one week is used for acute load and acute mean for a single player
+                                    //the set of oneweek contains all players though
+
                                     %>
 
-                                <% if (oneweek.username == data.username){
+                                <% if (oneweek.username == fourweek.username){
+                                    //this if statement makes sure that the right
+                                //element in oneweek is chosen based on the matching usernames
+                                //between fourweek and one week and so a bunch of data
+                                //is not repeated multiple times within the row
+                                //since this runs as a double nested loop
+
+
                                     //For an individual player
                                 var acute = oneweek.acuteSum;
-                                var chronic = data.chronicSum;
+                                var chronic = fourweek.chronicSum;
+
+                                //These two variables are need for standard deviation calcs
                                 var acuteMean = oneweek.acuteMeanSum
                                 var variance = 0;
 
+
+                                //daily_load is used to calc the 7 day variance from the acuteMean load
                                 daily_load.forEach(function (dload) {
 
+
+
+                                //dload is a set of all players daily loads from the week so we need the if
+                                // statement to choose the right player's daily loads that we need
                                 if(dload.username == oneweek.username)
                                 {
                                     variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
@@ -230,11 +253,15 @@
 
                                 var standard_dev = Math.sqrt(variance);
                                 var day_load = 0;
+
+                                //sessions has the most current single session load, which is put into day_load
                                 session.forEach(function(single)
                                 {
-                                    day_load = Math.round(single.sessionLoad);
+                                    day_load = single.sessionLoad;
                                 })
 
+
+                                //monotony score is calculated and rounded to the nearest tenth - subject to change
                                 var monotony = day_load / standard_dev;
                                 monotony = Math.round(monotony * 10)/10;
 
@@ -244,9 +271,9 @@
 
 
 
-                                    <td> <%= data.last_name %></td>
-                                    <td><%= data.first_name%></td>
-                                    <td><%= data.position%></td>
+                                    <td> <%= fourweek.last_name %></td>
+                                    <td><%= fourweek.first_name%></td>
+                                    <td><%= fourweek.position%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
                                     <td> <%= monotony%> </td>
@@ -263,6 +290,8 @@
                                 <% }) %>
                                 </tbody>
                             </table>
+
+                            <!-- **Script for datatables Plug-In **-->
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
@@ -300,7 +329,7 @@
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
 
-
+<!-- Datatables Javascript -->
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 
 

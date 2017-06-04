@@ -4,6 +4,9 @@ var app = require('../app.js');
 
 module.exports = router;
 
+var mysql = require('promise-mysql');
+
+
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -23,14 +26,25 @@ connection.connect(function(err) {
 
 router.post('/playerInput', function(req, res, next) {
 
-     sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE) " +
-        "VALUES('"+req.user +"', '"+req.body.date_id+"' ,'"+req.body.playerRPE+"')";
-
+    var sql = "SELECT date, workoutid FROM workouts ORDER BY date DESC LIMIT 1;";
+    var workout = [];
     connection.query(sql, function (err, result) {
-        if (err) {
-            throw err;
-        } else
-            res.send("Success");
+
+        workout = result;
+
+        sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE) " +
+            "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "')";
+
+        connection.query(sql, function (err, result) {
+            if (err) {
+                throw err;
+            } else
+                res.render('playerDashboard', {
+                    username: req.user,
+                    message: 'Submission successful'
+                });
+        });
+
     });
 
 

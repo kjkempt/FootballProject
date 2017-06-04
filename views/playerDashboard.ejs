@@ -191,28 +191,14 @@
                 <div class="col-md-4 col-md-offset-1">
                     <div class="panel panel-login">
                         <div class="panel-body">
-                            <div class="row">
-                                <h1 class="page-header">
+                            <h1 class="page-header">
                         Welcome <small><%=username%></small>
-                    </h1>
+                            </h1>
 
 
                                 <form name = "playerForm" action="/playerInput/playerInput" method="post" role="form"
       onsubmit="return validateForm()" style=" display: block;">
 
-                        <label for="sel1">Select workout date:</label>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1" name="date_id">
-                                <option disabled selected value> -- select a workout -- </option>
-                                <% recentDates.forEach(function (workout) {
-                                var id = workout.workoutid%>
-                                <tr>
-                                    <option value = "<%= id %>">
-                                        <%= workout.date %></option>
-                                </tr>
-                                <% }) %>
-                            </select>
-                            <br>
 
 
 
@@ -232,11 +218,13 @@
                         </select>
                         <br>
                             <input type = "submit" name = "Submit" class="btn btn-default">
-                        </div>
                     </form>
+
                             </div>
                         </div>
-                    </div>
+                    <p class = "text-success"><%= message %></p>
+
+                </div>
                 </div>
             </div>
         </div>

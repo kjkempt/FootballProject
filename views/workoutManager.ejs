@@ -187,7 +187,7 @@
                     <a href="/coachDashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li class="active">
-                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager</a>
+                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager - Create New</a>
                 </li>
                 <li>
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
@@ -211,7 +211,7 @@
                                 <div class="row">
                                     <span class = "text-nowrap">
                                     <h1 class="page-header" >
-                                        Workout Manager <small> Input workout data below </small>
+                                        Workout Manager <small> Create new workout below </small>
                                     </h1>
                                     </span>
 
@@ -235,11 +235,11 @@
 
                                             <h5>Workout Name</h5>
                                             <input type = "text" name = "workoutName" class="form-control">
-                                            <h5>Type</h5>
+                                            <h5>Type - (i.e. Weight Room, Conditioning, ect.)</h5>
                                             <input type = "text" name = "workoutType" class="form-control">
                                             <h5>Date - (yyyy-mm-dd) ex: 2015-08-10</h5>
                                             <input type = "date" name = "workoutDate" class="form-control">
-                                            <h5>Duration (min)</h5>
+                                            <h5>Duration (minutes)</h5>
                                             <input type="text" name = "workoutDuration"
                                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                    class="form-control">
@@ -253,6 +253,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p class = "text-success"><%= message %></p>
                     </div>
                 </div>
             </div>
