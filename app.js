@@ -132,7 +132,6 @@ app.get('/teamData', requireLogin, function(req, res, next) {
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
-
         sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
             "FROM master.user u, master.player_workouts w, master.workouts m " +
             "WHERE u.username = w.username " +
@@ -140,8 +139,7 @@ app.get('/teamData', requireLogin, function(req, res, next) {
             "AND m.date " +
             "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE(); "
         ;
-
-
+        
         var four_week_data = [];
         connection.query(sql, function (err, result) {
             if (err) throw err;
