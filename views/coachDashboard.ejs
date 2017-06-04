@@ -196,22 +196,49 @@
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Postion</th>
-                                    <th>sRPE</th>
-                                    <th>Duration</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
+                                    <th>Monotony Score</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
 
                                 <% player_data.forEach(function (data) {
-                                    var chronicLoad = data.rpeSUM * data.durationSUM; %>
+                                   %>
 
                                 <% one_week_data.forEach(function (oneweek) {
-                                    var acuteLoad = oneweek.rpeSUM * oneweek.durationSUM; %>
+                                    %>
 
-                                <% if (oneweek.username == data.username){%>
+                                <% if (oneweek.username == data.username){
+                                    //For an individual player
+                                var acute = oneweek.acuteSum;
+                                var chronic = data.chronicSum;
+                                var acuteMean = oneweek.acuteMeanSum
+                                var variance = 0;
+
+                                daily_load.forEach(function (dload) {
+
+                                if(dload.username == oneweek.username)
+                                {
+                                    variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
+                                }
+
+                                })
+
+                                //Standard deviation calculation below
+
+                                var standard_dev = Math.sqrt(variance);
+                                var day_load = 0;
+                                session.forEach(function(single)
+                                {
+                                    day_load = Math.round(single.sessionLoad);
+                                })
+
+                                var monotony = day_load / standard_dev;
+                                monotony = Math.round(monotony * 10)/10;
+
+                                %>
                                 <tr>
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
 
@@ -220,10 +247,9 @@
                                     <td> <%= data.last_name %></td>
                                     <td><%= data.first_name%></td>
                                     <td><%= data.position%></td>
-                                    <td><%= data.rpeSUM%></td>
-                                    <td><%= data.durationSUM%></td>
-                                    <td><%=acuteLoad%></td>
-                                    <td><%= chronicLoad %> </td>
+                                    <td><%= acute %></td>
+                                    <td><%=  chronic %> </td>
+                                    <td> <%= monotony%> </td>
 
 
 
