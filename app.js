@@ -142,14 +142,14 @@ app.get('/teamData', requireLogin, function(req, res, next) {
             "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE(); "
         ;
         
-        var four_week_data = [];
+        var rpe_four = [];
         connection.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 0) {
             }
 
 
-            four_week_data = result;
+            rpe_four = result;
 
             sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -161,14 +161,14 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 
 
 
-            var one_week_data = [];
+            var rpe_one = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
                 if (result.length == 0) {
                 }
 
 
-                one_week_data = result;
+                rpe_one = result;
 
 
                 sql = "SELECT m.duration, m.date " +
@@ -212,13 +212,13 @@ app.get('/teamData', requireLogin, function(req, res, next) {
                             "GROUP BY u.position;";
 
 
-                            var positionGroup = [];
+                            var chronicPosition = [];
                             connection.query(sql, function (err, result) {
                                 if (err) throw err;
                                 if (result.length == 0) {
                                 }
 
-                                positionGroup = result;
+                                chronicPosition = result;
 
 
                                 sql = "SELECT u.position, AVG(w.player_sRPE) as rpeAVG, m.date " +
@@ -244,12 +244,12 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 
                                     res.render('teamData', {
                                         username: req.session.user,
-                                        four_week_data: four_week_data,
-                                        one_week_data: one_week_data,
+                                        rpe_fourweek: rpe_four,
+                                        rpe_oneweek: rpe_one,
                                         one_week_duration: one_week_duration,
                                         four_week_duration: four_week_duration,
-                                        positionGroup: positionGroup,
-                                        positionAcuteData: acutePosition
+                                        chronicPosition: chronicPosition,
+                                        acutePosition: acutePosition
                                     });
 
 

@@ -170,7 +170,7 @@
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
                 </li>
                 <li class="active">
-                    <a href="/"><i class="fa fa-fw fa-table"></i> Team Data</a>
+                    <a href="/teamData"><i class="fa fa-fw fa-table"></i> Team Data</a>
                 </li>
             </ul>
         </div>
@@ -193,47 +193,60 @@
                                 <thead>
                                 <tr>
                                     <th>Group</th>
-                                    <th>Chronic RPE Average (28 day)</th>
+                                    <th>Chronic RPE Average</th>
                                     <th>Chronic Duration</th>
                                     <th>Chronic Load</th>
-                                    <th>Acute RPE Avergae (7 day)</th>
+                                    <th>Acute RPE Avergae</th>
                                     <th>Acute Duration</th>
                                     <th>Acute Load </th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <!-- TEAM AVERAGE FUNCTIONS
+                                <!-- TEAM AVERAGE FUNCTIONS -->
 
-                                ****DO THE DURATION MATH HERE
-                                THE SET OF DURATIONS WAS SENT TO THIS
-                                PAGE FOR fd AND od-->
+                                <%
+
+                                    //find total durations over 1/4 week periods by adding the
+                                    //set of the durations together based on the query that returns
+                                    //each workout length from the specified period of time
+                                    var chronicDuration = 0;
+                                four_week_duration.forEach(function(d)
+                                {
+                                    chronicDuration = chronicDuration + d.duration;
+                                });
+
+                                    var acuteDuration = 0;
+                                    one_week_duration.forEach(function(d)
+                                    {
+                                        acuteDuration = acuteDuration + d.duration;
+                                    });
 
 
-                                <% four_week_duration.forEach(function (fd) {
+                                %>
+
+
+
+                                <% rpe_fourweek.forEach(function (team_chronic_rpe) {
                                     %>
 
-                                <% one_week_duration.forEach(function (od) {
+                                <% rpe_oneweek.forEach(function (team_acute_rpe) {
                                      %>
 
 
-                                <% four_week_data.forEach(function (fourweek) {
-                                     %>
 
-                                <% one_week_data.forEach(function (oneweek) {
-                                     %>
                                 <tr>
 
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
-                                    <% var chronicLoad = fourweek.rpeAVG * fd.fwdtotal%>
-                                      <% var acuteLoad = oneweek.rpeAVG * od.owdtotal%>
+                                    <% var chronicLoad = team_chronic_rpe.rpeAVG * chronicDuration%>
+                                      <% var acuteLoad = team_acute_rpe.rpeAVG * acuteDuration%>
 
                                     <td>Team </td>
-                                    <td><%= fourweek.rpeAVG %></td>
-                                    <td><%= fd.fwdtotal%></td>
+                                    <td><%= team_chronic_rpe.rpeAVG %></td>
+                                    <td><%= chronicDuration%></td>
                                     <td><%= Math.round(chronicLoad)%></td>
-                                    <td><%= oneweek.rpeAVG%></td>
-                                    <td><%= od.owdtotal%></td>
+                                    <td><%= team_acute_rpe.rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
                                     <td><%= Math.round(acuteLoad)%></td>
 
                                 </tr>
@@ -243,34 +256,33 @@
 
                                 <!--****END TEAM AVERAGE FUNCTIONS  ****-->
 
+
+
+
                                 <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
 
 
+                               <% chronicPosition.forEach( function(chronic) {%>
+
+                                <% acutePosition.forEach( function(acute) {%>
 
 
 
-                               <% positionGroup.forEach( function(chronic) {%>
-
-                                <% positionAcuteData.forEach( function(acute) {%>
 
 
-
-                                <% var chronicLoad = chronic.rpeAVG * fd.fwdtotal%>
-
-                                <%if(acute.position == chronic.position) {%>
-
-                                <% var acuteLoad = acute.rpeAVG * od.owdtotal%>
+                                <%if(acute.position == chronic.position) {
+                                    var acuteLoad = acute.rpeAVG * acuteDuration;
+                                    var chronicLoad = chronic.rpeAVG * chronicDuration  %>
 
                                 
                                 <tr>
                                     <td> <%=chronic.position %> </td>
-                                    <td><%=chronic.rpeAVG%> </td>
-                                    <td><%= fd.fwdtotal%></td>
-                                    <td><%=Math.round(chronicLoad)%> </td>
-                                    <td><%=acute.rpeAVG%> </td>
-                                    <td><%= od.owdtotal%></td>
-
-                                    <td><%=Math.round(acuteLoad)%> </td>
+                                    <td><%= chronic.rpeAVG%> </td>
+                                    <td><%= chronicDuration%></td>
+                                    <td><%= Math.round(chronicLoad)%> </td>
+                                    <td><%= acute.rpeAVG%> </td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= Math.round(acuteLoad)%> </td>
 
                                 </tr>
 
@@ -281,8 +293,7 @@
 
                                 <%}); %>
                                 <%}); %>
-                                <%}); %>
-                                <%}); %>
+
 
 
                                 </tbody>
