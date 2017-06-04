@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+var deployMode = true;
 
 /**
  * Module dependencies.
@@ -13,11 +14,19 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
+var localHost = '127.0.0.1';
+var deploy = '174.138.58.63';
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8081;
+var server_ip_address = "";
 
-var port = normalizePort(process.env.PORT || '3000');
+if (deployMode) {
+  server_ip_address = deploy;
+} else {
+  server_ip_address = localHost;
+}
+
+var port = normalizePort(process.env.PORT || '8081');
 app.set('port', port);
 
 /**
