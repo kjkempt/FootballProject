@@ -414,14 +414,59 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
-                        res.render('coachDashboard', {
-                            username: req.session.user,
-                            player_data: four_week_data,
-                            one_week_data: one_week_data,
-                            daily_load: daily_load,
-                            session: session
-                        });
+                        sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                            "(w.player_sRPE * m.duration) as dayLoad " +
+                            "FROM master.user u, master.player_workouts w, master.workouts m " +
+                            "WHERE u.username = w.username " +
+                            "AND w.workoutID = m.workoutid " +
+                            "AND m.date " +
+                            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
 
+
+                        var three_days = [];
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            if (result.length == 0) {
+                            }
+
+
+                            three_days = result;
+
+
+
+
+                            sql = "SELECT * FROM master.player_workouts " +
+                                "WHERE workoutID IN " +
+                                "(SELECT MAX(workoutID) FROM master.player_workouts);" ;
+
+
+                            var current_rpe = [];
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+                                if (result.length == 0) {
+                                }
+
+
+                                current_rpe = result;
+
+
+
+
+                                res.render('coachDashboard', {
+                                    username: req.session.user,
+                                    player_data: four_week_data,
+                                    one_week_data: one_week_data,
+                                    daily_load: daily_load,
+                                    session: session,
+                                    three_day_load: three_days,
+                                    current_rpe: current_rpe
+                                });
+
+
+                            });
+
+
+                        });
 
                     });
 
@@ -561,13 +606,34 @@ app.post('/attemptLogin', function(req, res) {
 
 
 
-                                        res.render('coachDashboard', {
-                                            username: req.session.user,
-                                            player_data: four_week_data,
-                                            one_week_data: one_week_data,
-                                            daily_load: daily_load,
-                                            session: session,
-                                            three_day_load: three_days
+                                        sql = "SELECT * FROM master.player_workouts " +
+                                            "WHERE workoutID IN " +
+                                            "(SELECT MAX(workoutID) FROM master.player_workouts);" ;
+
+
+                                        var current_rpe = [];
+                                        connection.query(sql, function (err, result) {
+                                            if (err) throw err;
+                                            if (result.length == 0) {
+                                            }
+
+
+                                            current_rpe = result;
+
+
+
+
+                                            res.render('coachDashboard', {
+                                                username: req.session.user,
+                                                player_data: four_week_data,
+                                                one_week_data: one_week_data,
+                                                daily_load: daily_load,
+                                                session: session,
+                                                three_day_load: three_days,
+                                                current_rpe: current_rpe
+                                            });
+
+
                                         });
 
 

@@ -33,6 +33,9 @@
     <![endif]-->
 
 
+
+
+
     <!-- Datatables CSS and JS links  -->
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
@@ -262,10 +265,28 @@
                                 var standard_dev = Math.sqrt(variance);
                                 var day_load = 0;
 
+                                //Empty array that will hold the usernames of the people who are
+                                //   -/+2 over the session RPE average
+                                flags = [];
+
+
+
                                 //sessions has the most current single session load, which is put into day_load
                                 session.forEach(function(single)
                                 {
                                     day_load = single.sessionLoad;
+
+                                    current_rpe.forEach(function(current)
+                                    {
+                                        var flag_check = single.sessionRPE;
+                                        flag_check = flag_check - current.player_sRPE; //player is flagged if +/-2
+
+                                        if(flag_check >= 2 || flag_check <= -2)
+                                        {
+                                            flags.push(current.username); //push the username of the flagged player into
+                                            //the array variable
+                                        }
+                                    })
                                 })
 
 
@@ -317,10 +338,30 @@
 
 
                                 </tr>
-                                <%}%>
+                                <% } %>
 
                                 <% }) %>
                                 <% }) %>
+                                </tbody>
+                            </table>
+
+
+                            <table id="flags_table" class="display">
+                                <thead>
+                                <tr>
+                                <th>Username</th>
+                                <tr>
+                                </thead>
+                                <tbody>
+                                <% if(flags.length > 0){   %>
+
+                                <% flags.forEach(function(f) { %>
+                                <tr>
+                                    <td> <%= f %> </td>
+                                </tr>
+
+                                <%})%>
+                                <%}%>
                                 </tbody>
                             </table>
 
@@ -337,6 +378,10 @@
                                         }*/
 
 
+                                        }
+                                    );
+                                    $('#flags_table').DataTable({
+                                            "scrollX": true
                                         }
                                     );
                                 } );
