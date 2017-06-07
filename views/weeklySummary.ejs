@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Player Data</title>
+    <title>Coach Performance Tracker</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -30,9 +30,13 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <![endif]-->
+
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
 
 </head>
 
@@ -165,13 +169,13 @@
                 <li>
                     <a href="/updateWorkout"><i class="fa fa-fw fa-table"></i> Workout Manager - Update RPE</a>
                 </li>
-                <li class="active">
-                    <a href = "/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
+                <li>
+                    <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
                 </li>
                 <li>
                     <a href="/teamData"><i class="fa fa-fw fa-table"></i> Team Data</a>
                 </li>
-                <li>
+                <li class = "active">
                     <a href="/weeklySummary"><i class="fa fa-fw fa-table"></i> Weekly Summaries</a>
                 </li>
             </ul>
@@ -182,57 +186,41 @@
     <div id="page-wrapper">
 
         <div class="container-fluid">
-
-            <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Player Data <small>View your players workout data.</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li class="active">
-                            <i class="fa fa-dashboard"></i> Dashboard
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <!-- /.row -->
-            <form class="form-group" action="/playerData/updateGraph" method="post">
-                <label for="sel1">Select list:</label>
-                <div class="form-group">
-                    <select class="form-control" id="mySelect" name="username">
-                        <option disabled selected value> -- select a player -- </option>
-                        <% allPlayerData.forEach(function (user) { %>
-                        <tr>
-                            <option><%= user.username %></option>
-                        </tr>
-                        <% }) %>
-                    </select>
-                    <script>
-                        var $ = jQuery;
-                        $(document).ready(function () {
-                            $("#mySelect").change(function () {
-                                $.post("/playerData/updateGraph",
-                                    {username: $('#mySelect :selected').text()},
-                                        function(d) {
-                                            $("#morris-area-chart").empty();
-                                            buildPlayerGraph(d);
-                                            $("#3_day_load_chart").empty();
-                                            buildLoadGraph(d, 3, '3_day_load_chart');
-                                            $("#7_day_load_chart").empty();
-                                            buildLoadGraph(d, 7, '7_day_load_chart');
-                                        }
-                                );
-                            });
-                        });
-                    </script>
-                </div>
-            </form>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Player Workout Chart</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
+                        </div>
+                        <div class = "panel-body">
+
+
+                            <table id="player_table" class="display">
+                                <thead>
+                                <tr>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready( function () {
+                                    $('#player_table').DataTable(
+
+
+                                    );
+                                } );
+
+
+                            </script>
                         </div>
                         <div class="panel-body">
                             <div id="morris-area-chart"></div>
@@ -240,31 +228,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 3 Day - Player Load Chart</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="3_day_load_chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 7 Day - Player Load Chart</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="7_day_load_chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- /.row -->
+
         </div>
         <!-- /.container-fluid -->
 
@@ -275,7 +240,7 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="../js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="../js/bootstrap.min.js"></script>
@@ -285,7 +250,9 @@
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
 
-<script src="../js/updateGraph.js"></script>
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
 
 </body>
 

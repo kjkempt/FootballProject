@@ -15,7 +15,9 @@ var workoutManager = require('./routes/workoutManager');
 var workoutView = require('./routes/workoutView');
 var playerData = require('./routes/playerData');
 var playerDashboard = require('./routes/playerDashboard');
-var teamData = require('./routes/teamData')
+var teamData = require('./routes/teamData');
+var weeklySummary = require('./routes/weeklySummary');
+var updateWorkout = require('./routes/updateWorkout');
 
 
 
@@ -93,6 +95,9 @@ app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
 app.use('/playerInput', playerDashboard);
 app.use('/teamData', teamData);
+app.use('/weeklySummary', weeklySummary);
+app.use('/updateWorkout', updateWorkout);
+app.use('/update', updateWorkout);
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {
@@ -279,6 +284,28 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 
         });
 
+    });
+});
+
+
+//Weekly Summary Page
+app.get('/weeklySummary', requireLogin, function(req, res, next) {
+
+
+
+    res.render('weeklySummary', {
+        username: req.session.user
+    });
+});
+
+
+app.get('/updateWorkout', requireLogin, function(req, res, next) {
+
+
+
+    res.render('updateWorkout', {
+        username: req.session.user,
+        message: ''
     });
 });
 
@@ -513,12 +540,37 @@ app.post('/attemptLogin', function(req, res) {
 
 
 
-                                    res.render('coachDashboard', {
-                                        username: req.session.user,
-                                        player_data: four_week_data,
-                                        one_week_data: one_week_data,
-                                        daily_load: daily_load,
-                                        session: session
+                                    sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                                    "(w.player_sRPE * m.duration) as dayLoad " +
+                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                    "WHERE u.username = w.username " +
+                                    "AND w.workoutID = m.workoutid " +
+                                    "AND m.date " +
+                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
+
+
+                                    var three_days = [];
+                                    connection.query(sql, function (err, result) {
+                                        if (err) throw err;
+                                        if (result.length == 0) {
+                                        }
+
+
+                                        three_days = result;
+
+
+
+
+                                        res.render('coachDashboard', {
+                                            username: req.session.user,
+                                            player_data: four_week_data,
+                                            one_week_data: one_week_data,
+                                            daily_load: daily_load,
+                                            session: session,
+                                            three_day_load: three_days
+                                        });
+
+
                                     });
 
 

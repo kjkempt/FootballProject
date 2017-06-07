@@ -161,16 +161,22 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="/coachDashboard"><i class="fa fa-fw fa-dashboard"></i> Individual Player Analysis</a>
+                    <a href="/coachDashboard"><i class="fa fa-fw fa-chart"></i> Individual Player Analysis</a>
                 </li>
                 <li>
                     <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager - Create New</a>
+                </li>
+                <li>
+                    <a href="/updateWorkout"><i class="fa fa-fw fa-table"></i> Workout Manager - Update RPE</a>
                 </li>
                 <li>
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
                 </li>
                 <li>
                     <a href="/teamData"><i class="fa fa-fw fa-table"></i> Team Data</a>
+                </li>
+                <li>
+                    <a href="/weeklySummary"><i class="fa fa-fw fa-table"></i> Weekly Summary</a>
                 </li>
             </ul>
         </div>
@@ -197,9 +203,11 @@
                                     <th>Last Name</th>
                                     <th>First Name</th>
                                     <th>Postion</th>
+                                    <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
                                     <th>Monotony Score</th>
+                                    <th>Strain</th>
                                 </tr>
                                 </thead>
 
@@ -263,7 +271,30 @@
 
                                 //monotony score is calculated and rounded to the nearest tenth - subject to change
                                 var monotony = day_load / standard_dev;
-                                monotony = Math.round(monotony * 10)/10;
+
+
+                                //strain calc is monotony * individual's acute load
+                                var strain = monotony * acute;
+                                strain = Math.round(strain); //round to nearest whole number
+
+                                monotony = Math.round(monotony * 10)/10; //nearest tenth
+
+
+
+
+                                var three = 0;
+                                var check = 0;
+
+                                three_day_load.forEach(function(t){
+                                    if(t.username == oneweek.username)
+                                    {
+                                        three = three + t.dayLoad;
+                                        check++;
+                                    }
+
+                                    if(check == 0)
+                                    {three = 0;}
+                                })
 
                                 %>
                                 <tr>
@@ -274,9 +305,11 @@
                                     <td> <%= fourweek.last_name %></td>
                                     <td><%= fourweek.first_name%></td>
                                     <td><%= fourweek.position%></td>
+                                    <td><%= three%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
                                     <td> <%= monotony%> </td>
+                                    <td><%= strain%></td>
 
 
 
@@ -295,7 +328,17 @@
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
-                                    $('#player_table').DataTable();
+                                    $('#player_table').DataTable({
+                                            "scrollX": true
+                                        /*"createdRow": function( row, data, dataIndex){
+                                            if( data[2] ==  "someVal"){
+                                                $(row).addClass('redClass');
+                                            }
+                                        }*/
+
+
+                                        }
+                                    );
                                 } );
 
 
