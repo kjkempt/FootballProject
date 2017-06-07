@@ -268,6 +268,7 @@
                                 //Empty array that will hold the usernames of the people who are
                                 //   -/+2 over the session RPE average
                                 flags = [];
+                                flag_rpe = [];
 
 
 
@@ -285,6 +286,7 @@
                                         {
                                             flags.push(current.username); //push the username of the flagged player into
                                             //the array variable
+                                            flag_rpe.push(current.player_sRPE);
                                         }
                                     })
                                 })
@@ -346,53 +348,87 @@
                             </table>
 
 
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Flagged Players</h3>
+                        </div>
+                        <div class = "panel-body">
+
+
                             <table id="flags_table" class="display">
                                 <thead>
                                 <tr>
-                                <th>Username</th>
-                                <tr>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>RPE</th>
+                                </tr>
                                 </thead>
-                                <tbody>
-                                <% if(flags.length > 0){   %>
 
-                                <% flags.forEach(function(f) { %>
+                                <tbody>
+
+
+                                <% flags.forEach(function(f, i) { %>
+
+                                <%player_data.forEach(function(player){%>
+
+                                <%if(player.username == f) {%>
+
                                 <tr>
-                                    <td> <%= f %> </td>
+
+
+                                <td> <%= player.last_name %> </td>
+                                    <td><%= player.first_name %></td>
+                                    <td><%= flag_rpe[i] %></td>
+
                                 </tr>
 
-                                <%})%>
                                 <%}%>
+
+                                <%})%>
+
+                                <%})%>
+
+
+
                                 </tbody>
                             </table>
 
-                            <!-- **Script for datatables Plug-In **-->
-                            <script>
-                                var $ = jQuery;
-                                $(document).ready( function () {
-                                    $('#player_table').DataTable({
-                                            "scrollX": true
-                                        /*"createdRow": function( row, data, dataIndex){
-                                            if( data[2] ==  "someVal"){
-                                                $(row).addClass('redClass');
-                                            }
-                                        }*/
 
-
-                                        }
-                                    );
-                                    $('#flags_table').DataTable({
-                                            "scrollX": true
-                                        }
-                                    );
-                                } );
-
-
-                            </script>
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
                         </div>
                     </div>
+                    <!-- **Script for datatables Plug-In **-->
+                    <script>
+                        var $ = jQuery;
+                        $(document).ready( function () {
+                            $('#player_table').DataTable({
+                                    "scrollX": true
+                                        /*"createdRow": function( row, data, dataIndex){
+                                         if( data[2] ==  "someVal"){
+                                         $(row).addClass('redClass');
+                                         }
+                                         }*/
+
+
+                                }
+                            );
+                            $('#flags_table').DataTable({
+                                    
+                                }
+                            );
+                        } );
+                            </script>
                 </div>
             </div>
             <!-- /.row -->
