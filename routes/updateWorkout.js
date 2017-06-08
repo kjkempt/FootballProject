@@ -28,12 +28,56 @@ router.post('/update', function(req, res, next) {
     connection.query(sql, function (err, result) {
 
         workout = result;
+/*
+        if(req.body.coachRPE != 'coachRPE' && req.body.workoutDuration != '') {
+            sql = "UPDATE workouts " +
+                " SET sRPE = " + req.body.coachRPE + " , duration = " + req.body.workoutDuration + " " +
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
 
-        sql = "UPDATE workouts " +
-            " SET sRPE = "+ req.body.coachRPE +" " +
-            " WHERE workoutid = "+ workout[0].workoutid +";";
+        else if(req.body.coachRPE == 'coachRPE' && req.body.workoutDuration != '')
+        {
+            sql = "UPDATE workouts " +
+                " SET duration = " + req.body.workoutDuration + " " +
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE != 'coachRPE' && req.body.workoutDuration == '')
+        {
+            sql = "UPDATE workouts " +
+                " SET sRPE = " + req.body.coachRPE + " " +
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE == 'coachRPE' && req.body.workoutDuration == '')
+        {
+            res.render('updateWorkout', {
+                username: req.user,
+                message: 'Error - Both forms left empty'
+            });
+        }
+        */
 
-        connection.query(sql, function (err, result) {
+        if(req.body.coachRPE != 'coachRPE' && req.body.workoutDuration != '') {
+           res.send("success 1");
+        }
+
+        else if(req.body.coachRPE == 'coachRPE' && req.body.workoutDuration != '')
+        {
+            res.send("success 2");
+        }
+        else if(req.body.coachRPE != 'coachRPE' && req.body.workoutDuration == '')
+        {
+            res.send("success 3");
+        }
+        else if(req.body.coachRPE == 'coachRPE' && req.body.workoutDuration == '')
+        {
+            res.send("success 4");
+        }
+
+/*
+            connection.query(sql, function (err, result) {
+
+
+
             if (err) {
                 throw err;
             } else
@@ -43,6 +87,8 @@ router.post('/update', function(req, res, next) {
                 });
         });
 
+
+*/
     });
 
 
