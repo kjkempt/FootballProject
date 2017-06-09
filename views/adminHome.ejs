@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Workout Manager</title>
+    <title>Coach Performance Tracker</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +32,10 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
 
 </head>
@@ -163,7 +169,7 @@
                 <li>
                     <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
                 </li>
-                <li class = "active">
+                <li>
                     <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Workout Manager - Update RPE</a>
                 </li>
                 <li>
@@ -177,55 +183,54 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
     <div id="page-wrapper">
 
         <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-1">
-                        <div class="panel panel-login">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <span class = "text-nowrap">
-                                    <h1 class="page-header" >
-                                        Workout Manager<small> Update most recent workout below </small>
-                                    </h1>
-                                    </span>
-
-                                    <form name="update_form" action="/updateWorkout/update" method="post" role="form"
-                                           style=" display: block;">
-                                        <div class="form-group">
-                                            <h5>Updated workout sRPE score:</h5>
-                                            <select name = "coachRPE" class="form-control">
-                                                <option selected value = "rpeDefault">--sRPE--</option>
-                                                <option value = "1">1 - Rest</option>
-                                                <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
-                                                <option value = "3">3 - Easy (Dynamic warm-up)</option>
-                                                <option value = "4">4 - Moderate</option>
-                                                <option value = "5">5 - Challenging (Can repeat, recover between reps & sets)</option>
-                                                <option value = "6">6 - Hard</option>
-                                                <option value = "7">7 - Very Hard - (You need to push hard, incomplete recovery between sets & reps)</option>
-                                                <option value = "8">8 - Really Hard</option>
-                                                <option value = "9">9 - Really, Really Hard</option>
-                                                <option value = "10">10 - Maximal (Hardest session experienced to date)</option>
-                                            </select>
-                                            <h5>Updated Duration (minutes) - (leave blank if same)</h5>
-                                            <input type="text" name = "workoutDuration"
-                                                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                   class="form-control">
-                                            </input>
-                                            <input type = "submit" name = "Submit" class="btn btn-default">
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
                         </div>
-                        <p class = "text-success"><%= message %></p>
+                        <div class = "panel-body">
+
+
+                            <table id="player_table" class="display">
+                                <thead>
+                                <tr>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready( function () {
+                                    $('#player_table').DataTable(
+
+
+                                    );
+                                } );
+
+
+                            </script>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- /.row -->
+
         </div>
         <!-- /.container-fluid -->
 
@@ -246,7 +251,10 @@
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
 
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
 </body>
 
 </html>
-

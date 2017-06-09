@@ -1,5 +1,10 @@
+/**
+ * Created by kemptk on 6/9/17.
+ */
 var express = require('express');
 var router = express.Router();
+
+module.exports = router;
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -12,8 +17,5 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected! CD");
 });
-
-
-module.exports = router;

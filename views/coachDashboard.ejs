@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Coach Performance Tracker</title>
+    <title>Recent Workout Data</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -57,7 +57,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Coach Portal</a>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -161,42 +161,48 @@
             </li>
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" >
+            <ul class="nav navbar-nav side-nav" >
                 <li class="active">
-                    <a href="/coachDashboard"><i class="fa fa-fw fa-chart"></i> Individual Player Analysis</a>
+                    <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
                 </li>
                 <li>
-                    <a href="/workoutManager"><i class="fa fa-fw fa-bar-chart-o"></i> Workout Manager - Create New</a>
+                    <a href="/teamData"><i class="glyphicon glyphicon-stats"></i> Team/Position Group Analysis</a>
                 </li>
                 <li>
-                    <a href="/updateWorkout"><i class="fa fa-fw fa-table"></i> Workout Manager - Update RPE</a>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
+                </li>
+                <li>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Workout Manager - Update RPE</a>
                 </li>
                 <li>
                     <a href="/playerData"><i class="fa fa-fw fa-table"></i> Player Data</a>
                 </li>
+
                 <li>
-                    <a href="/teamData"><i class="fa fa-fw fa-table"></i> Team Data</a>
-                </li>
-                <li>
-                    <a href="/weeklySummary"><i class="fa fa-fw fa-table"></i> Weekly Summary</a>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-calendar"></i> Weekly Summary</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-
     <div id="page-wrapper">
 
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+                    <span class = "text-nowrap">
+                                    <h1 class="page-header" >
+                                        Recent Workout Data <small> Players/Positions/Team </small>
+                                    </h1>
+                                    </span>
+
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Player Analysis</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
                         </div>
                         <div class = "panel-body">
-
 
                             <table id="player_table" class="display">
                                 <thead>
@@ -347,18 +353,131 @@
                                 </tbody>
                             </table>
 
-
-
-
-
-
-
-
-
                         </div>
 
                     </div>
 
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Groups</h3>
+                        </div>
+                        <div class = "panel-body">
+
+
+                            <table id="team_table" class="display">
+                                <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Chronic RPE Average</th>
+                                    <th>Chronic Duration</th>
+                                    <th>Chronic Load</th>
+                                    <th>Acute RPE Average</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <!-- TEAM AVERAGE FUNCTIONS -->
+
+                                <%
+
+                                //find total durations over 1/4 week periods by adding the
+                                //set of the durations together based on the query that returns
+                                //each workout length from the specified period of time
+                                var chronicDuration = 0;
+                                four_week_duration.forEach(function(d)
+                                {
+                                    chronicDuration = chronicDuration + d.duration;
+                                });
+
+                                var acuteDuration = 0;
+                                one_week_duration.forEach(function(d)
+                                {
+                                    acuteDuration = acuteDuration + d.duration;
+                                });
+
+
+                                %>
+
+
+
+                                <% rpe_fourweek.forEach(function (team_chronic_rpe) {
+                                %>
+
+                                <% rpe_oneweek.forEach(function (team_acute_rpe) {
+                                %>
+
+
+
+                                <tr>
+
+                                    <!-- Multiply sum of player RPE and duration for chronic load -->
+                                    <% var chronicLoad = team_chronic_rpe.rpeAVG * chronicDuration%>
+                                    <% var acuteLoad = team_acute_rpe.rpeAVG * acuteDuration%>
+
+                                    <td>Team </td>
+                                    <td><%= team_chronic_rpe.rpeAVG %></td>
+                                    <td><%= chronicDuration%></td>
+                                    <td><%= Math.round(chronicLoad)%></td>
+                                    <td><%= team_acute_rpe.rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= Math.round(acuteLoad)%></td>
+
+                                </tr>
+                                <% }) %>
+                                <% }) %>
+
+
+                                <!--****END TEAM AVERAGE FUNCTIONS  ****-->
+
+
+
+
+                                <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
+
+
+                                <% chronicPosition.forEach( function(chronic) {%>
+
+                                <% acutePosition.forEach( function(acute) {%>
+
+
+
+
+
+                                <%if(acute.position == chronic.position) {
+                                    var acuteLoad = acute.rpeAVG * acuteDuration;
+                                    var chronicLoad = chronic.rpeAVG * chronicDuration  %>
+
+
+                                <tr>
+                                    <td> <%=chronic.position %> </td>
+                                    <td><%= chronic.rpeAVG%> </td>
+                                    <td><%= chronicDuration%></td>
+                                    <td><%= Math.round(chronicLoad)%> </td>
+                                    <td><%= acute.rpeAVG%> </td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= Math.round(acuteLoad)%> </td>
+
+                                </tr>
+
+                                <%}%>
+
+
+
+
+                                <%}); %>
+                                <%}); %>
+
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -425,6 +544,10 @@
                             );
                             $('#flags_table').DataTable({
                                     
+                                }
+                            );
+                            $('#team_table').DataTable({
+
                                 }
                             );
                         } );
