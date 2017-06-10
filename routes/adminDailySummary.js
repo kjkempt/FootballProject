@@ -26,7 +26,7 @@ router.post('/dailySum', function(req, res, next) {
 //insert query below inserts form data into workouts database with the submitted workout info
     sql = "SELECT * FROM master.player_workouts p " +
     "INNER JOIN master.user u ON u.username = p.username " +
-    "WHERE workoutID = '44'; ";
+    "WHERE workoutID = '"+req.body.recent_date+"'; ";
 
 //query changes ****
 
