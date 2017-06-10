@@ -18,6 +18,7 @@ var teamData = require('./routes/teamData');
 var weeklySummary = require('./routes/weeklySummary');
 var updateWorkout = require('./routes/updateWorkout');
 var adminHome = require('./routes/adminHome');
+var adminDailySummary = require('./routes/adminDailySummary');
 
 
 
@@ -98,6 +99,7 @@ app.use('/weeklySummary', weeklySummary);
 app.use('/updateWorkout', updateWorkout);
 app.use('/update', updateWorkout);
 app.use('/adminHome', adminHome);
+app.use('/adminDailySummary', adminDailySummary);
 
 /* GET home page. */
 app.get('/', requireLogin, function(req, res, next) {
@@ -297,15 +299,33 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
 //Admin Home Page
 app.get('/adminHome', requireLogin, function(req, res, next) {
-
-
-
     res.render('adminHome', {
         username: req.session.user
     });
 });
 
+//Admin Home Page
+app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
+    var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
+
+    var recent_dates = [];
+    connection.query(sql, function(err, result){
+        if (err) throw err;
+
+        recent_dates = result;
+
+        var workout = [];
+        res.render('adminDailySummary', {
+            username: req.session.user,
+            recent: recent_dates,
+            workout: workout
+        });
+
+    })
+
+
+});
 
 app.get('/updateWorkout', requireLogin, function(req, res, next) {
 

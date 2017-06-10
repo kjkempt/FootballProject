@@ -164,9 +164,6 @@
                     <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
                 </li>
                 <li>
-                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
-                </li>
-                <li>
                     <a href="/teamData"><i class="glyphicon glyphicon-stats"></i> Team/Position Group Analysis</a>
                 </li>
                 <li>
@@ -186,7 +183,6 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-
     <div id="page-wrapper">
 
         <div class="container-fluid">
@@ -198,29 +194,59 @@
                         </div>
                         <div class = "panel-body">
 
+                        <form name="dailySumForm"  class = "form-inline" action="/adminDailySummary/dailySum" method="post" role="form"
+                               style=" display: block;">
+                            <label for="sel1">Select workout date:</label>
+                            <div class="form-group">
+                                <select class="form-control" id="mySelect" name="date_select">
+                                    <option disabled selected value> -- select a workout -- </option>
+                                    <% recent.forEach(function (workout) { %>
+                                    <tr>
+                                        <option value = "<%= workout.workoutid %>" ><%= workout.date %></option>
+                                    </tr>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
 
-                            <table id="player_table" class="display">
+
+
+
+                            <!-- Dropdown arrow selecting most recent workouts (10)
+                             Shows the RPE scores of every player plus pre and post coach
+                             scores and have a tab on the side that allows notes to be
+                             put in on a player-->
+
+
+
+                            <table id="daily_sum" class="display">
                                 <thead>
                                 <tr>
-
+                                    <td>Last Name</td>
+                                    <td>First Name</td>
+                                    <td>sRPE</td>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr>
+                                <% workout.forEach(function(player_daily){  %>
 
+                                <tr>
+                                    <td><%= player_daily.last_name%></td>
+                                    <td><%= player_daily.first_name%></td>
+                                    <td><%= player_daily.player_sRPE%></td>
 
                                 </tr>
+                                <%})%>
 
                                 </tbody>
                             </table>
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
-                                    $('#player_table').DataTable(
 
-
-                                    );
+                                    $('#daily_sum').DataTable();
                                 } );
 
 
