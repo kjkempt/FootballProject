@@ -200,9 +200,9 @@
                             <div class="form-group">
                                 <select class="form-control" id="mySelect" name="date_select">
                                     <option disabled selected value> -- select a workout -- </option>
-                                    <% recent.forEach(function (workout) { %>
+                                    <% recent.forEach(function (rec) { %>
                                     <tr>
-                                        <option value = "<%= workout.workoutid %>" ><%= workout.date %></option>
+                                        <option value = "<%= rec.workoutid %>" ><%= rec.date %></option>
                                     </tr>
                                     <% }) %>
                                 </select>
