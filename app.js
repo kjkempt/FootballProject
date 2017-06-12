@@ -370,21 +370,43 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
 
 
-                                                            res.render('coachRecentData', {
-                                                                username: req.session.user,
-                                                                player_data: four_week_data,
-                                                                one_week_data: one_week_data,
-                                                                daily_load: daily_load,
-                                                                session: session,
-                                                                three_day_load: three_days,
-                                                                current_rpe: current_rpe,
-                                                                rpe_fourweek: rpe_four,
-                                                                rpe_oneweek: rpe_one,
-                                                                one_week_duration: one_week_duration,
-                                                                four_week_duration: four_week_duration,
-                                                                chronicPosition: chronicPosition,
-                                                                acutePosition: acutePosition
+                                                            sql = "SELECT t1.* " +
+                                                                "FROM master.player_workouts t1 " +
+                                                                "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
+                                                                "FROM master.player_workouts t2 " +
+                                                                "WHERE t2.username = t1.username); " ;
+
+
+                                                            var recent_rpe = [];
+                                                            connection.query(sql, function (err, result) {
+                                                                if (err) throw err;
+                                                                if (result.length == 0) {
+                                                                }
+
+                                                                recent_rpe = result;
+
+                                                                res.render('coachDashboard', {
+                                                                    username: req.session.user,
+                                                                    player_data: four_week_data,
+                                                                    one_week_data: one_week_data,
+                                                                    daily_load: daily_load,
+                                                                    session: session,
+                                                                    three_day_load: three_days,
+                                                                    current_rpe: current_rpe,
+                                                                    rpe_fourweek: rpe_four,
+                                                                    rpe_oneweek: rpe_one,
+                                                                    one_week_duration: one_week_duration,
+                                                                    four_week_duration: four_week_duration,
+                                                                    chronicPosition: chronicPosition,
+                                                                    acutePosition: acutePosition,
+                                                                    recent_rpe: recent_rpe
+                                                                });
+
+
+
                                                             });
+
+
 
 
 
@@ -918,20 +940,40 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
-                                                            res.render('coachDashboard', {
-                                                                username: req.session.user,
-                                                                player_data: four_week_data,
-                                                                one_week_data: one_week_data,
-                                                                daily_load: daily_load,
-                                                                session: session,
-                                                                three_day_load: three_days,
-                                                                current_rpe: current_rpe,
-                                                                rpe_fourweek: rpe_four,
-                                                                rpe_oneweek: rpe_one,
-                                                                one_week_duration: one_week_duration,
-                                                                four_week_duration: four_week_duration,
-                                                                chronicPosition: chronicPosition,
-                                                                acutePosition: acutePosition
+                                                            sql = "SELECT t1.* " +
+                                                            "FROM master.player_workouts t1 " +
+                                                            "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
+                                                            "FROM master.player_workouts t2 " +
+                                                            "WHERE t2.username = t1.username); " ;
+
+
+                                                            var recent_rpe = [];
+                                                            connection.query(sql, function (err, result) {
+                                                                if (err) throw err;
+                                                                if (result.length == 0) {
+                                                                }
+
+                                                                recent_rpe = result;
+
+                                                                res.render('coachDashboard', {
+                                                                    username: req.session.user,
+                                                                    player_data: four_week_data,
+                                                                    one_week_data: one_week_data,
+                                                                    daily_load: daily_load,
+                                                                    session: session,
+                                                                    three_day_load: three_days,
+                                                                    current_rpe: current_rpe,
+                                                                    rpe_fourweek: rpe_four,
+                                                                    rpe_oneweek: rpe_one,
+                                                                    one_week_duration: one_week_duration,
+                                                                    four_week_duration: four_week_duration,
+                                                                    chronicPosition: chronicPosition,
+                                                                    acutePosition: acutePosition,
+                                                                    recent_rpe: recent_rpe
+                                                                });
+
+
+
                                                             });
 
 

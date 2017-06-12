@@ -198,6 +198,7 @@
                                     <th>Last Name</th>
                                     <th>First Name</th>
                                     <th>Postion</th>
+                                    <th>Recent RPE</th>
                                     <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
@@ -312,6 +313,18 @@
                                     })
 
                                 %>
+
+                                <% var player_recent_rpe = 0;
+                                    recent_rpe.forEach(function(recentRPE){
+                                        if(recentRPE.username == fourweek.username)
+                                        {
+                                            player_recent_rpe = recentRPE.player_sRPE;
+                                        }
+
+
+
+                                    });%>
+
                                 <tr>
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
 
@@ -320,6 +333,7 @@
                                     <td> <%= fourweek.last_name %></td>
                                     <td><%= fourweek.first_name%></td>
                                     <td><%= fourweek.position%></td>
+                                    <td><%= player_recent_rpe%></td>
                                     <td><%= three%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>

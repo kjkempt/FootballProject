@@ -167,7 +167,7 @@
                     <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
                 </li>
                 <li>
-                    <a href="/teamData"><i class="glyphicon glyphicon-stats"></i> Team/Position Group Analysis</a>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
                 </li>
                 <li>
                     <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
@@ -183,8 +183,7 @@
                     <a href="/weeklySummary"><i class="glyphicon glyphicon-calendar"></i> Weekly Summary</a>
                 </li>
             </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+        </div>        <!-- /.navbar-collapse -->
     </nav>
     <div id="page-wrapper">
 
@@ -212,6 +211,7 @@
                                     <th>Last Name</th>
                                     <th>First Name</th>
                                     <th>Postion</th>
+                                    <th>Recent RPE</th>
                                     <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
@@ -326,6 +326,18 @@
                                 })
 
                                 %>
+
+                                <% var player_recent_rpe = 0;
+                                    recent_rpe.forEach(function(recentRPE){
+                                    if(recentRPE.username == fourweek.username)
+                                    {
+                                        player_recent_rpe = recentRPE.player_sRPE;
+                                    }
+
+
+
+                                });%>
+
                                 <tr>
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
 
@@ -334,6 +346,7 @@
                                     <td> <%= fourweek.last_name %></td>
                                     <td><%= fourweek.first_name%></td>
                                     <td><%= fourweek.position%></td>
+                                    <td><%= player_recent_rpe%></td>
                                     <td><%= three%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
