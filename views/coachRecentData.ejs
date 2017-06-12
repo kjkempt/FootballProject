@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Recent Workout Data</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/coachHome">Coach Portal</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu message-dropdown">
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-footer">
+                        <a href="#">Read All New Messages</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu alert-dropdown">
+                    <li>
+                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">View All</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse" >
+            <ul class="nav navbar-nav side-nav" >
+                <li class="active">
+                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
+                </li>
+                <li>
+                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class = "text-nowrap">
+                                    <h1 class="page-header" >
+                                        Recent Workout Data <small> Players/Positions/Team </small>
+                                    </h1>
+                                    </span>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
+                        </div>
+                        <div class = "panel-body">
+
+                            <table id="player_table" class="display">
+                                <thead>
+                                <tr>
+
+                                    <!-- Table Headers -->
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Postion</th>
+                                    <th>Rolling 3 Day Load</th>
+                                    <th>Acute Load</th>
+                                    <th>Rolling Load (Chronic - 28 day)</th>
+                                    <th>Monotony Score</th>
+                                    <th>Strain</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+
+
+                                <% player_data.forEach(function (fourweek) {
+                                    //fourweek holds query for 4 week chronic load
+                                    //and is also used to display position, first and last name
+                                %>
+
+                                <% one_week_data.forEach(function (oneweek) {
+                                    //one week is used for acute load and acute mean for a single player
+                                    //the set of oneweek contains all players though
+
+                                %>
+
+                                <% if (oneweek.username == fourweek.username){
+                                    //this if statement makes sure that the right
+                                    //element in oneweek is chosen based on the matching usernames
+                                    //between fourweek and one week and so a bunch of data
+                                    //is not repeated multiple times within the row
+                                    //since this runs as a double nested loop
+
+
+                                    //For an individual player
+                                    var acute = oneweek.acuteSum;
+                                    var chronic = fourweek.chronicSum;
+
+                                    //These two variables are need for standard deviation calcs
+                                    var acuteMean = oneweek.acuteMeanSum
+                                    var variance = 0;
+
+
+                                    //daily_load is used to calc the 7 day variance from the acuteMean load
+                                    daily_load.forEach(function (dload) {
+
+
+
+                                        //dload is a set of all players daily loads from the week so we need the if
+                                        // statement to choose the right player's daily loads that we need
+                                        if(dload.username == oneweek.username)
+                                        {
+                                            variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
+                                        }
+
+                                    })
+
+                                    //Standard deviation calculation below
+
+                                    var standard_dev = Math.sqrt(variance);
+                                    var day_load = 0;
+
+                                    //Empty array that will hold the usernames of the people who are
+                                    //   -/+2 over the session RPE average
+                                    flags = [];
+                                    flag_rpe = [];
+
+
+
+                                    //sessions has the most current single session load, which is put into day_load
+                                    session.forEach(function(single)
+                                    {
+                                        day_load = single.sessionLoad;
+
+                                        current_rpe.forEach(function(current)
+                                        {
+                                            var flag_check = single.sessionRPE;
+                                            flag_check = flag_check - current.player_sRPE; //player is flagged if +/-2
+
+                                            if(flag_check >= 2 || flag_check <= -2)
+                                            {
+                                                flags.push(current.username); //push the username of the flagged player into
+                                                //the array variable
+                                                flag_rpe.push(current.player_sRPE);
+                                            }
+                                        })
+                                    })
+
+
+                                    //monotony score is calculated and rounded to the nearest tenth - subject to change
+                                    var monotony = day_load / standard_dev;
+
+
+                                    //strain calc is monotony * individual's acute load
+                                    var strain = monotony * acute;
+                                    strain = Math.round(strain); //round to nearest whole number
+
+                                    monotony = Math.round(monotony * 10)/10; //nearest tenth
+
+
+
+
+                                    var three = 0;
+                                    var check = 0;
+
+                                    three_day_load.forEach(function(t){
+                                        if(t.username == oneweek.username)
+                                        {
+                                            three = three + t.dayLoad;
+                                            check++;
+                                        }
+
+                                        if(check == 0)
+                                        {three = 0;}
+                                    })
+
+                                %>
+                                <tr>
+                                    <!-- Multiply sum of player RPE and duration for chronic load -->
+
+
+
+                                    <td> <%= fourweek.last_name %></td>
+                                    <td><%= fourweek.first_name%></td>
+                                    <td><%= fourweek.position%></td>
+                                    <td><%= three%></td>
+                                    <td><%= acute %></td>
+                                    <td><%=  chronic %> </td>
+                                    <td> <%= monotony%> </td>
+                                    <td><%= strain%></td>
+
+
+
+
+
+
+                                </tr>
+                                <% } %>
+
+                                <% }) %>
+                                <% }) %>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Groups</h3>
+                        </div>
+                        <div class = "panel-body">
+
+
+                            <table id="team_table" class="display">
+                                <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Chronic RPE Average</th>
+                                    <th>Chronic Duration</th>
+                                    <th>Chronic Load</th>
+                                    <th>Acute RPE Average</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <!-- TEAM AVERAGE FUNCTIONS -->
+
+                                <%
+
+                                //find total durations over 1/4 week periods by adding the
+                                //set of the durations together based on the query that returns
+                                //each workout length from the specified period of time
+                                var chronicDuration = 0;
+                                four_week_duration.forEach(function(d)
+                                {
+                                    chronicDuration = chronicDuration + d.duration;
+                                });
+
+                                var acuteDuration = 0;
+                                one_week_duration.forEach(function(d)
+                                {
+                                    acuteDuration = acuteDuration + d.duration;
+                                });
+
+
+                                %>
+
+
+
+                                <% rpe_fourweek.forEach(function (team_chronic_rpe) {
+                                %>
+
+                                <% rpe_oneweek.forEach(function (team_acute_rpe) {
+                                %>
+
+
+
+                                <tr>
+
+                                    <!-- Multiply sum of player RPE and duration for chronic load -->
+                                    <% var chronicLoad = team_chronic_rpe.rpeAVG * chronicDuration%>
+                                    <% var acuteLoad = team_acute_rpe.rpeAVG * acuteDuration%>
+
+                                    <td>Team </td>
+                                    <td><%= team_chronic_rpe.rpeAVG %></td>
+                                    <td><%= chronicDuration%></td>
+                                    <td><%= Math.round(chronicLoad)%></td>
+                                    <td><%= team_acute_rpe.rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= Math.round(acuteLoad)%></td>
+
+                                </tr>
+                                <% }) %>
+                                <% }) %>
+
+
+                                <!--****END TEAM AVERAGE FUNCTIONS  ****-->
+
+
+
+
+                                <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
+
+
+                                <% chronicPosition.forEach( function(chronic) {%>
+
+                                <% acutePosition.forEach( function(acute) {%>
+
+
+
+
+
+                                <%if(acute.position == chronic.position) {
+                                    var acuteLoad = acute.rpeAVG * acuteDuration;
+                                    var chronicLoad = chronic.rpeAVG * chronicDuration  %>
+
+
+                                <tr>
+                                    <td> <%=chronic.position %> </td>
+                                    <td><%= chronic.rpeAVG%> </td>
+                                    <td><%= chronicDuration%></td>
+                                    <td><%= Math.round(chronicLoad)%> </td>
+                                    <td><%= acute.rpeAVG%> </td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= Math.round(acuteLoad)%> </td>
+
+                                </tr>
+
+                                <%}%>
+
+
+
+
+                                <%}); %>
+                                <%}); %>
+
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Flagged Players</h3>
+                        </div>
+                        <div class = "panel-body">
+
+
+                            <table id="flags_table" class="display">
+                                <thead>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>RPE</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+
+                                <% flags.forEach(function(f, i) { %>
+
+                                <%player_data.forEach(function(player){%>
+
+                                <%if(player.username == f) {%>
+
+                                <tr>
+
+
+                                    <td> <%= player.last_name %> </td>
+                                    <td><%= player.first_name %></td>
+                                    <td><%= flag_rpe[i] %></td>
+
+                                </tr>
+
+                                <%}%>
+
+                                <%})%>
+
+                                <%})%>
+
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <!-- **Script for datatables Plug-In **-->
+                    <script>
+                        var $ = jQuery;
+                        $(document).ready( function () {
+                            $('#player_table').DataTable({
+                                    //"scrollX": true
+                                        /*"createdRow": function( row, data, dataIndex){
+                                         if( data[2] ==  "someVal"){
+                                         $(row).addClass('redClass');
+                                         }
+                                         }*/
+
+
+                                }
+                            );
+                            $('#flags_table').DataTable({
+
+                                }
+                            );
+                            $('#team_table').DataTable({
+
+                                }
+                            );
+                        } );
+                    </script>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../js/plugins/morris/raphael.min.js"></script>
+<script src="../js/plugins/morris/morris.min.js"></script>
+<script src="../js/plugins/morris/morris-data.js"></script>
+
+<!-- Datatables Javascript -->
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
+</body>
+
+</html>
