@@ -49,12 +49,23 @@ router.post('/coachDailySum', function(req, res, next) {
 
             recent_dates = result;
 
+            var sql = "SELECT notes FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
 
-            res.render('coachDailySummary', {
-                username: req.user,
-                workout: workout,
-                recent: recent_dates
+            var note = [];
+            connection.query(sql, function(err, result) {
+                if (err) throw err;
+
+                note = result;
+
+                res.render('coachDailySummary', {
+                    username: req.user,
+                    workout: workout,
+                    recent: recent_dates,
+                    note: note
+                });
+
             });
+
 
 
         });

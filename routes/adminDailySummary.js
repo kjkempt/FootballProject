@@ -39,8 +39,6 @@ router.post('/dailySum', function(req, res, next) {
 
 
 
-
-
             var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
             var recent_dates = [];
             connection.query(sql, function(err, result) {
@@ -49,10 +47,21 @@ router.post('/dailySum', function(req, res, next) {
                 recent_dates = result;
 
 
-                res.render('adminDailySummary', {
-                    username: req.user,
-                    workout: workout,
-                    recent: recent_dates
+                var sql = "SELECT notes FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
+
+                var note = [];
+                connection.query(sql, function(err, result) {
+                    if (err) throw err;
+
+                    note = result;
+
+                    res.render('adminDailySummary', {
+                        username: req.user,
+                        workout: workout,
+                        recent: recent_dates,
+                        note: note
+                    });
+
                 });
 
 

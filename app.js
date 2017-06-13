@@ -126,10 +126,12 @@ app.get('/coachDailySummary', requireLogin, function(req, res, next) {
         recent_dates = result;
 
         var workout = [];
+        var note = [];
         res.render('coachDailySummary', {
             username: req.session.user,
             recent: recent_dates,
-            workout: workout
+            workout: workout,
+            note: note
         });
 
     })
@@ -687,10 +689,12 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
         recent_dates = result;
 
         var workout = [];
+        var note = [];
         res.render('adminDailySummary', {
             username: req.session.user,
             recent: recent_dates,
-            workout: workout
+            workout: workout,
+            note: note
         });
 
     })
