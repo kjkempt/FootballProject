@@ -29,25 +29,50 @@ router.post('/update', function(req, res, next) {
 
         workout = result;
 
-        if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration != '') {
+        if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration != '' && req.body.notes!= '') {
+            sql = "UPDATE workouts " +
+                " SET sRPE = " + req.body.coachRPE + " , duration = " + req.body.workoutDuration + ", " +
+                "notes = CONCAT(notes,  ' \n" +req.body.notes+  "' )"+
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration != '' && req.body.notes == '') {
             sql = "UPDATE workouts " +
                 " SET sRPE = " + req.body.coachRPE + " , duration = " + req.body.workoutDuration + " " +
                 " WHERE workoutid = " + workout[0].workoutid + ";";
         }
-
-        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration != '')
+        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration != ''&& req.body.notes == '')
         {
             sql = "UPDATE workouts " +
                 " SET duration = " + req.body.workoutDuration + " " +
                 " WHERE workoutid = " + workout[0].workoutid + ";";
         }
-        else if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration == '')
+        else if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration == '' && req.body.notes == '')
         {
             sql = "UPDATE workouts " +
                 " SET sRPE = " + req.body.coachRPE + " " +
                 " WHERE workoutid = " + workout[0].workoutid + ";";
         }
-        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration == '')
+        else if(req.body.coachRPE != 'rpeDefault' && req.body.workoutDuration == '' && req.body.notes != '')
+        {
+            sql = "UPDATE workouts " +
+                " SET sRPE = " + req.body.coachRPE + " , " +
+                "notes = CONCAT(notes,  ' \n" +req.body.notes+  "' )"+
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration != '' && req.body.notes != '')
+        {
+            sql = "UPDATE workouts " +
+                " SET duration = " + req.body.workoutDuration + " ," +
+                "notes = CONCAT(notes,  ' \n" +req.body.notes+  "' ) "+
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration == '' && req.body.notes != '')
+        {
+            sql = "UPDATE workouts " +
+                "SET notes = CONCAT(notes,  ' \n" +req.body.notes+  "' ) "+
+                " WHERE workoutid = " + workout[0].workoutid + ";";
+        }
+        else if(req.body.coachRPE == 'rpeDefault' && req.body.workoutDuration == '' && req.body.notes == '')
         {
             res.render('updateWorkout', {
                 username: req.user,

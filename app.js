@@ -370,11 +370,14 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
 
 
-                                                            sql = "SELECT t1.* " +
-                                                                "FROM master.player_workouts t1 " +
-                                                                "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
-                                                                "FROM master.player_workouts t2 " +
-                                                                "WHERE t2.username = t1.username); " ;
+                                                            sql = "SELECT t1.*, t3.duration " +
+                                                            "FROM master.player_workouts t1, master.workouts t3 " +
+                                                            "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
+                                                            "FROM master.player_workouts t2 " +
+                                                            "WHERE t2.username = t1.username) " +
+                                                            "AND t3.workoutid = (SELECT MAX(t2.workoutID) " +
+                                                            "FROM master.player_workouts t2 " +
+                                                            "WHERE t2.username = t1.username); " ;
 
 
                                                             var recent_rpe = [];
@@ -385,7 +388,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
                                                                 recent_rpe = result;
 
-                                                                res.render('coachDashboard', {
+                                                                res.render('coachRecentData', {
                                                                     username: req.session.user,
                                                                     player_data: four_week_data,
                                                                     one_week_data: one_week_data,
@@ -940,11 +943,14 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
-                                                            sql = "SELECT t1.* " +
-                                                            "FROM master.player_workouts t1 " +
-                                                            "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
-                                                            "FROM master.player_workouts t2 " +
-                                                            "WHERE t2.username = t1.username); " ;
+                                                            sql = "SELECT t1.*, t3.duration " +
+                                                                "FROM master.player_workouts t1, master.workouts t3 " +
+                                                                "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
+                                                                "FROM master.player_workouts t2 " +
+                                                                "WHERE t2.username = t1.username) " +
+                                                                "AND t3.workoutid = (SELECT MAX(t2.workoutID) " +
+                                                                "FROM master.player_workouts t2 " +
+                                                                "WHERE t2.username = t1.username); " ;
 
 
                                                             var recent_rpe = [];
