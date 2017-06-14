@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/adminDailySummary.js" afterPath="$PROJECT_DIR$/routes/adminDailySummary.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminDailySummary.ejs" afterPath="$PROJECT_DIR$/views/adminDailySummary.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachDashboard.ejs" afterPath="$PROJECT_DIR$/views/coachDashboard.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachRecentData.ejs" afterPath="$PROJECT_DIR$/views/coachRecentData.ejs" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,26 +25,27 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="67" selection-end-line="141" selection-end-column="67" />
+            <state relative-caret-position="251">
+              <caret line="743" column="81" lean-forward="false" selection-start-line="743" selection-start-column="81" selection-end-line="743" selection-end-column="81" />
               <folding>
                 <element signature="e#3698#3767#0" expanded="false" />
                 <element signature="e#3870#4321#0" expanded="false" />
-                <element signature="e#4392#18247#0" expanded="false" />
-                <element signature="e#18312#18388#0" expanded="false" />
-                <element signature="e#18553#18650#0" expanded="false" />
-                <element signature="e#18739#19082#0" expanded="false" />
-                <element signature="e#19167#24098#0" expanded="false" />
-                <element signature="e#24190#24273#0" expanded="false" />
-                <element signature="e#24357#24433#0" expanded="false" />
-                <element signature="e#24506#24957#0" expanded="false" />
-                <element signature="e#25026#25130#0" expanded="false" />
-                <element signature="e#39483#39604#0" expanded="false" />
-                <element signature="e#39719#39763#0" expanded="false" />
-                <element signature="e#39907#40893#0" expanded="false" />
-                <element signature="e#40620#40800#0" expanded="false" />
+                <element signature="e#4392#18144#0" expanded="false" />
+                <element signature="e#18209#18285#0" expanded="false" />
+                <element signature="e#18450#18547#0" expanded="false" />
+                <element signature="e#18636#18979#0" expanded="false" />
+                <element signature="e#19064#23995#0" expanded="false" />
+                <element signature="e#24087#24170#0" expanded="false" />
+                <element signature="e#24254#24330#0" expanded="false" />
+                <element signature="e#24403#24854#0" expanded="false" />
+                <element signature="e#24923#25027#0" expanded="false" />
+                <element signature="e#37159#38572#0" expanded="false" />
+                <element signature="e#39373#39494#0" expanded="false" />
+                <element signature="e#39609#39653#0" expanded="false" />
+                <element signature="e#39797#40783#0" expanded="false" />
+                <element signature="e#40510#40690#0" expanded="false" />
                 <element signature="n#!!block;n#requireLogin#0" expanded="false" />
-                <element signature="e#41131#41182#0" expanded="false" />
+                <element signature="e#41021#41072#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -69,7 +64,7 @@
       <file leaf-file-name="coachDashboard.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/coachDashboard.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
+            <state relative-caret-position="239">
               <caret line="251" column="32" lean-forward="false" selection-start-line="251" selection-start-column="32" selection-end-line="251" selection-end-column="32" />
               <folding />
             </state>
@@ -469,10 +464,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157325000" />
+    <option name="totallyTimeSpent" value="158598000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="749" extended-state="1" />
+    <frame x="0" y="23" width="1280" height="749" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -535,12 +530,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1087</line>
+          <line>1081</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>715</line>
+          <line>712</line>
           <properties />
           <option name="timeStamp" value="65" />
         </line-breakpoint>
@@ -958,7 +953,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/coachDashboard.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
+        <state relative-caret-position="239">
           <caret line="251" column="32" lean-forward="false" selection-start-line="251" selection-start-column="32" selection-end-line="251" selection-end-column="32" />
           <folding />
         </state>
@@ -966,26 +961,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="67" selection-end-line="141" selection-end-column="67" />
+        <state relative-caret-position="251">
+          <caret line="743" column="81" lean-forward="false" selection-start-line="743" selection-start-column="81" selection-end-line="743" selection-end-column="81" />
           <folding>
             <element signature="e#3698#3767#0" expanded="false" />
             <element signature="e#3870#4321#0" expanded="false" />
-            <element signature="e#4392#18247#0" expanded="false" />
-            <element signature="e#18312#18388#0" expanded="false" />
-            <element signature="e#18553#18650#0" expanded="false" />
-            <element signature="e#18739#19082#0" expanded="false" />
-            <element signature="e#19167#24098#0" expanded="false" />
-            <element signature="e#24190#24273#0" expanded="false" />
-            <element signature="e#24357#24433#0" expanded="false" />
-            <element signature="e#24506#24957#0" expanded="false" />
-            <element signature="e#25026#25130#0" expanded="false" />
-            <element signature="e#39483#39604#0" expanded="false" />
-            <element signature="e#39719#39763#0" expanded="false" />
-            <element signature="e#39907#40893#0" expanded="false" />
-            <element signature="e#40620#40800#0" expanded="false" />
+            <element signature="e#4392#18144#0" expanded="false" />
+            <element signature="e#18209#18285#0" expanded="false" />
+            <element signature="e#18450#18547#0" expanded="false" />
+            <element signature="e#18636#18979#0" expanded="false" />
+            <element signature="e#19064#23995#0" expanded="false" />
+            <element signature="e#24087#24170#0" expanded="false" />
+            <element signature="e#24254#24330#0" expanded="false" />
+            <element signature="e#24403#24854#0" expanded="false" />
+            <element signature="e#24923#25027#0" expanded="false" />
+            <element signature="e#37159#38572#0" expanded="false" />
+            <element signature="e#39373#39494#0" expanded="false" />
+            <element signature="e#39609#39653#0" expanded="false" />
+            <element signature="e#39797#40783#0" expanded="false" />
+            <element signature="e#40510#40690#0" expanded="false" />
             <element signature="n#!!block;n#requireLogin#0" expanded="false" />
-            <element signature="e#41131#41182#0" expanded="false" />
+            <element signature="e#41021#41072#0" expanded="false" />
           </folding>
         </state>
       </provider>

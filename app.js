@@ -166,15 +166,13 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
             four_week_data = result;
 
-            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, m.date, " +
-                " (SUM(w.player_sRPE * m.duration)/dayofweek(CURRENT_DATE() - 1) ) as acuteMeanSum " +
-                "FROM master.user u, master.player_workouts w, master.workouts m " +
-                "WHERE u.username = w.username " +
-                "AND w.workoutID = m.workoutid " +
-                "AND m.date " +
-                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
-                " GROUP BY u.username;"
-            ;
+            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, dayofweek(curdate() - 1), " +
+            "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
+            "FROM master.user u, master.player_workouts w, master.workouts m " +
+            "WHERE u.username = w.username " +
+            "AND w.workoutID = m.workoutid " +
+            "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+            "GROUP BY u.username; ";
 
 
             var one_week_data = [];
@@ -192,8 +190,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
-                    "AND m.date " +
-                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);";
+                    "AND m.date >= ( (CURDATE() -1) - INTERVAL 3 DAY ); ";
 
 
 
@@ -743,15 +740,13 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
             //for acute load and weekly Acute mean sum
 
-            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, m.date, " +
-                " ( SUM(w.player_sRPE * m.duration)/ dayofweek(CURRENT_DATE() - 1) )  as acuteMeanSum " +
+            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
+                "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
-                "AND m.date " +
-                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
-                " GROUP BY u.username;"
-            ;
+                "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                "GROUP BY u.username; ";
 
 
 
@@ -768,12 +763,11 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 //Holds data for player's RPE scores of current week to calc variance for monotony score
 
                 sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
-                    "(w.player_sRPE * m.duration) as dayLoad " +
-                    "FROM master.user u, master.player_workouts w, master.workouts m " +
-                    "WHERE u.username = w.username " +
-                    "AND w.workoutID = m.workoutid " +
-                    "AND m.date " +
-                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);"
+                "(w.player_sRPE * m.duration) as dayLoad " +
+                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                "WHERE u.username = w.username " +
+                "AND w.workoutID = m.workoutid " +
+                "AND m.date >= ( (CURDATE() -1) - INTERVAL 3 DAY ); ";
 
 
 
@@ -787,7 +781,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                     daily_load = result;
 
 
-
+                    //Average RPE score of the most recent session
 
                     sql = "SELECT p.workoutID, AVG(p.player_sRPE) as sessionRPE, w.duration, " +
                         "(AVG(p.player_sRPE) * w.duration) as sessionLoad " +
@@ -806,7 +800,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                         session = result;
 
 
-
+                        //rolling three day load query
 
                         sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
                             "(w.player_sRPE * m.duration) as dayLoad " +
