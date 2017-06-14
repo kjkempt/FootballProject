@@ -71,3 +71,11 @@ router.post('/dailySum', function(req, res, next) {
 
 
 });
+
+
+router.post('/playerNote', function(req, res, next) {
+
+
+});
+
+

@@ -167,7 +167,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
             four_week_data = result;
 
             sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, m.date, " +
-                " (SUM(w.player_sRPE * m.duration)/7) as acuteMeanSum " +
+                " (SUM(w.player_sRPE * m.duration)/dayofweek(CURRENT_DATE() - 1) ) as acuteMeanSum " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
@@ -187,13 +187,14 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                 one_week_data = result;
 
 
-                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, (w.player_sRPE * m.duration) as dayLoad " +
+                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                    "(w.player_sRPE * m.duration) as dayLoad " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
                     "AND m.date " +
-                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE();"
-                ;
+                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);";
+
 
 
                 var daily_load = [];
@@ -677,7 +678,6 @@ app.get('/adminHome', requireLogin, function(req, res, next) {
     });
 });
 
-//Admin Home Page
 app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
     var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
@@ -713,13 +713,13 @@ app.get('/updateWorkout', requireLogin, function(req, res, next) {
 });
 
 
-
 app.get('/coachDashboard', requireLogin, function(req, res, next) {
     var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
+    //for Chronic load
 
         sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
             "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
@@ -741,8 +741,10 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
             four_week_data = result;
 
+            //for acute load and weekly Acute mean sum
+
             sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, m.date, " +
-                " (SUM(w.player_sRPE * m.duration)/7) as acuteMeanSum " +
+                " ( SUM(w.player_sRPE * m.duration)/ dayofweek(CURRENT_DATE() - 1) )  as acuteMeanSum " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
@@ -750,6 +752,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE() " +
                 " GROUP BY u.username;"
             ;
+
 
 
             var one_week_data = [];
@@ -762,13 +765,16 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 one_week_data = result;
 
 
-                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, (w.player_sRPE * m.duration) as dayLoad " +
+                //Holds data for player's RPE scores of current week to calc variance for monotony score
+
+                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                    "(w.player_sRPE * m.duration) as dayLoad " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
                     "AND m.date " +
-                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE();"
-                ;
+                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);"
+
 
 
                 var daily_load = [];
@@ -1043,10 +1049,10 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
-//END ADMIN PAGES*****
+//**************END ADMIN PAGES*****
 
 
-//START PLAYER PAGES*****
+//*****************START PLAYER PAGES*****
 
 
 /* Player Dashboard page - Handles player data input  */
@@ -1059,7 +1065,7 @@ app.get('/playerDashboard', requireLogin, function(req, res, next) {
         });
 });
 
-//END PLAYER PAGES*********
+//***************END PLAYER PAGES*********
 
 
 

@@ -248,8 +248,11 @@
                                     //For an individual player
                                 var acute = oneweek.acuteSum;
                                 var chronic = fourweek.chronicSum;
+                                chronic = chronic / 4;
+                                chronic = Math.round(chronic);
 
-                                //These two variables are need for standard deviation calcs
+
+                                    //These two variables are need for standard deviation calcs
                                 var acuteMean = oneweek.acuteMeanSum
                                 var variance = 0;
 
