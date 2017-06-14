@@ -186,6 +186,10 @@
         </div>        <!-- /.navbar-collapse -->
     </nav>
     <div id="page-wrapper">
+<%flags = [];
+flag_rpe = [];%>
+
+
 
         <div class="container-fluid">
             <div class="row">
@@ -217,6 +221,7 @@
                                     <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
+                                    <th>Load Percentage (A%C)</th>
                                     <th>Monotony Score</th>
                                     <th>Strain</th>
                                 </tr>
@@ -248,8 +253,12 @@
                                     //For an individual player
                                 var acute = oneweek.acuteSum;
                                 var chronic = fourweek.chronicSum;
+                                chronic = chronic + acute;
                                 chronic = chronic / 4;
                                 chronic = Math.round(chronic);
+
+                                var load_percentage = (acute / chronic) * 100;
+                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
 
 
                                     //These two variables are need for standard deviation calcs
@@ -362,6 +371,7 @@
                                     <td><%= three%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
+                                    <td><%= load_percentage%>%</td>
                                     <td> <%= monotony%> </td>
                                     <td><%= strain%></td>
 
@@ -523,7 +533,9 @@
                                 <tbody>
 
 
-                                <% flags.forEach(function(f, i) { %>
+                                <%
+                                if(flags.length > 0){
+                                flags.forEach(function(f, i) { %>
 
                                 <%player_data.forEach(function(player){%>
 
@@ -542,7 +554,8 @@
 
                                 <%})%>
 
-                                <%})%>
+                                <%})
+                                }%>
 
 
 

@@ -145,124 +145,139 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
-
-        sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
-            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
-            "FROM master.user u, master.player_workouts w, master.workouts m " +
-            "WHERE u.username = w.username " +
-            "AND w.workoutID = m.workoutid " +
-            "AND m.date " +
-            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE() " +
-            " GROUP BY u.username;"
-        ;
-
-
-        var four_week_data = [];
+        sql = "SELECT DATE(DATE_ADD(curdate(), INTERVAL(1-DAYOFWEEK(curdate())) DAY)) as sunday;" ;
+        var s = [];
         connection.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length == 0) {
-            }
 
 
-            four_week_data = result;
 
-            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, dayofweek(curdate() - 1), " +
-            "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
-            "FROM master.user u, master.player_workouts w, master.workouts m " +
-            "WHERE u.username = w.username " +
-            "AND w.workoutID = m.workoutid " +
-            "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
-            "GROUP BY u.username; ";
+            s = result;
+            var date = s[0].sunday;
+
+            date = date.toISOString().split('T')[0];
 
 
-            var one_week_data = [];
+            //for Chronic load
+
+            sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
+                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                "WHERE u.username = w.username " +
+                "AND w.workoutID = m.workoutid " +
+                "AND m.date " +
+                "BETWEEN '"+date+"'- INTERVAL 3 WEEK AND '"+date+"' " +
+                " GROUP BY u.username;"
+            ;
+
+
+
+            var four_week_data = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
-                if (result.length == 0) {
-                }
 
 
-                one_week_data = result;
 
+                four_week_data = result;
 
-                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
-                    "(w.player_sRPE * m.duration) as dayLoad " +
+                //for acute load and weekly Acute mean sum
+
+                sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
+                    "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
-                    "AND m.date >= ( (CURDATE() -1) - INTERVAL 3 DAY ); ";
+                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                    "GROUP BY u.username; ";
 
 
-
-                var daily_load = [];
+                var one_week_data = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     if (result.length == 0) {
                     }
 
 
-                    daily_load = result;
+                    one_week_data = result;
 
 
+                    //Holds data for player's RPE scores of current week to calc variance for monotony score
+
+                    sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                        "(w.player_sRPE * m.duration) as dayLoad " +
+                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                        "WHERE u.username = w.username " +
+                        "AND w.workoutID = m.workoutid " +
+                        "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);";
 
 
-                    sql = "SELECT p.workoutID, AVG(p.player_sRPE) as sessionRPE, w.duration, " +
-                        "(AVG(p.player_sRPE) * w.duration) as sessionLoad " +
-                        "FROM master.player_workouts p, master.workouts w " +
-                        "WHERE p.workoutID = w.workoutid " +
-                        "GROUP BY workoutID DESC LIMIT 1; ";
-
-
-                    var session = [];
+                    var daily_load = [];
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
                         if (result.length == 0) {
                         }
 
 
-                        session = result;
+                        daily_load = result;
 
 
+                        //Average RPE score of the most recent session
+
+                        sql = "SELECT p.workoutID, AVG(p.player_sRPE) as sessionRPE, w.duration, " +
+                            "(AVG(p.player_sRPE) * w.duration) as sessionLoad " +
+                            "FROM master.player_workouts p, master.workouts w " +
+                            "WHERE p.workoutID = w.workoutid " +
+                            "GROUP BY workoutID DESC LIMIT 1; ";
 
 
-                        sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
-                            "(w.player_sRPE * m.duration) as dayLoad " +
-                            "FROM master.user u, master.player_workouts w, master.workouts m " +
-                            "WHERE u.username = w.username " +
-                            "AND w.workoutID = m.workoutid " +
-                            "AND m.date " +
-                            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
-
-
-                        var three_days = [];
+                        var session = [];
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
                             if (result.length == 0) {
                             }
 
 
-                            three_days = result;
+                            session = result;
 
 
+                            //rolling three day load query
+
+                            sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                                "(w.player_sRPE * m.duration) as dayLoad " +
+                                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                "WHERE u.username = w.username " +
+                                "AND w.workoutID = m.workoutid " +
+                                "AND m.date " +
+                                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
 
 
-                            sql = "SELECT * FROM master.player_workouts " +
-                                "WHERE workoutID IN " +
-                                "(SELECT MAX(workoutID) FROM master.player_workouts);" ;
-
-
-                            var current_rpe = [];
+                            var three_days = [];
                             connection.query(sql, function (err, result) {
                                 if (err) throw err;
                                 if (result.length == 0) {
                                 }
 
 
-                                current_rpe = result;
+                                three_days = result;
 
 
+                                //Most recent RPE scores - used for FLAGS and
+
+                                sql = "SELECT * FROM master.player_workouts " +
+                                    "WHERE workoutID IN " +
+                                    "(SELECT MAX(workoutID) FROM master.player_workouts);";
+
+
+                                var current_rpe = [];
                                 connection.query(sql, function (err, result) {
                                     if (err) throw err;
+
+
+                                    current_rpe = result;
+
+
+                                    //next couple queries are for the team database
+
 
                                     sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -290,7 +305,6 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                         ;
 
 
-
                                         var rpe_one = [];
                                         connection.query(sql, function (err, result) {
                                             if (err) throw err;
@@ -314,12 +328,10 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                 four_week_duration = result;
 
 
-
                                                 sql = "SELECT m.duration,m.date " +
                                                     "FROM master.workouts m " +
                                                     "WHERE m.date " +
                                                     "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE(); ";
-
 
 
                                                 var one_week_duration = [];
@@ -329,8 +341,6 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                     }
 
                                                     one_week_duration = result;
-
-
 
 
                                                     sql = "SELECT u.position, AVG(w.player_sRPE) as rpeAVG, m.date " +
@@ -369,15 +379,14 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                             acutePosition = result;
 
 
-
                                                             sql = "SELECT t1.*, t3.duration " +
-                                                            "FROM master.player_workouts t1, master.workouts t3 " +
-                                                            "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
-                                                            "FROM master.player_workouts t2 " +
-                                                            "WHERE t2.username = t1.username) " +
-                                                            "AND t3.workoutid = (SELECT MAX(t2.workoutID) " +
-                                                            "FROM master.player_workouts t2 " +
-                                                            "WHERE t2.username = t1.username); " ;
+                                                                "FROM master.player_workouts t1, master.workouts t3 " +
+                                                                "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
+                                                                "FROM master.player_workouts t2 " +
+                                                                "WHERE t2.username = t1.username) " +
+                                                                "AND t3.workoutid = (SELECT MAX(t2.workoutID) " +
+                                                                "FROM master.player_workouts t2 " +
+                                                                "WHERE t2.username = t1.username); ";
 
 
                                                             var recent_rpe = [];
@@ -406,12 +415,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                                 });
 
 
-
                                                             });
-
-
-
-
 
 
                                                         });
@@ -426,44 +430,32 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                         });
 
 
-
-
-
-
-
-
-
-
-
                                     });
+
 
                                 });
 
 
-
                             });
 
-
                         });
+
 
                     });
 
 
-
                 });
 
-
-
-
-
-
-
             });
+
 
         });
 
 
     });
+
+
+
 });
 
 app.get('/coachHome', requireLogin, function(req, res, next) {
@@ -716,130 +708,139 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
     connection.query(sql, function (err, result) {
         if (err) throw err;
 
-    //for Chronic load
-
-        sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
-            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
-            "FROM master.user u, master.player_workouts w, master.workouts m " +
-            "WHERE u.username = w.username " +
-            "AND w.workoutID = m.workoutid " +
-            "AND m.date " +
-            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) AND CURRENT_DATE() " +
-            " GROUP BY u.username;"
-        ;
-
-
-        var four_week_data = [];
+        sql = "SELECT DATE(DATE_ADD(curdate(), INTERVAL(1-DAYOFWEEK(curdate())) DAY)) as sunday;" ;
+        var s = [];
         connection.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length == 0) {
-            }
 
 
-            four_week_data = result;
 
-            //for acute load and weekly Acute mean sum
+            s = result;
+            var date = s[0].sunday;
 
-            sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
-                "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
+            date = date.toISOString().split('T')[0];
+
+
+            //for Chronic load
+
+            sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                 "WHERE u.username = w.username " +
                 "AND w.workoutID = m.workoutid " +
-                "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
-                "GROUP BY u.username; ";
+                "AND m.date " +
+                "BETWEEN '"+date+"'- INTERVAL 3 WEEK AND '"+date+"' " +
+                " GROUP BY u.username;"
+            ;
 
 
 
-            var one_week_data = [];
+            var four_week_data = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
-                if (result.length == 0) {
-                }
-
-
-                one_week_data = result;
-
-
-                //Holds data for player's RPE scores of current week to calc variance for monotony score
-
-                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
-                "(w.player_sRPE * m.duration) as dayLoad " +
-                "FROM master.user u, master.player_workouts w, master.workouts m " +
-                "WHERE u.username = w.username " +
-                "AND w.workoutID = m.workoutid " +
-                "AND m.date >= ( (CURDATE() -1) - INTERVAL 3 DAY ); ";
 
 
 
-                var daily_load = [];
+                four_week_data = result;
+
+                //for acute load and weekly Acute mean sum
+
+                sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
+                    "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
+                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                    "WHERE u.username = w.username " +
+                    "AND w.workoutID = m.workoutid " +
+                    "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                    "GROUP BY u.username; ";
+
+
+                var one_week_data = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     if (result.length == 0) {
                     }
 
 
-                    daily_load = result;
+                    one_week_data = result;
 
 
-                    //Average RPE score of the most recent session
+                    //Holds data for player's RPE scores of current week to calc variance for monotony score
 
-                    sql = "SELECT p.workoutID, AVG(p.player_sRPE) as sessionRPE, w.duration, " +
-                        "(AVG(p.player_sRPE) * w.duration) as sessionLoad " +
-                        "FROM master.player_workouts p, master.workouts w " +
-                        "WHERE p.workoutID = w.workoutid " +
-                        "GROUP BY workoutID DESC LIMIT 1; ";
+                    sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                        "(w.player_sRPE * m.duration) as dayLoad " +
+                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                        "WHERE u.username = w.username " +
+                        "AND w.workoutID = m.workoutid " +
+                        "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6);";
 
 
-                    var session = [];
+                    var daily_load = [];
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
                         if (result.length == 0) {
                         }
 
 
-                        session = result;
+                        daily_load = result;
 
 
-                        //rolling three day load query
+                        //Average RPE score of the most recent session
 
-                        sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
-                            "(w.player_sRPE * m.duration) as dayLoad " +
-                            "FROM master.user u, master.player_workouts w, master.workouts m " +
-                            "WHERE u.username = w.username " +
-                            "AND w.workoutID = m.workoutid " +
-                            "AND m.date " +
-                            "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
+                        sql = "SELECT p.workoutID, AVG(p.player_sRPE) as sessionRPE, w.duration, " +
+                            "(AVG(p.player_sRPE) * w.duration) as sessionLoad " +
+                            "FROM master.player_workouts p, master.workouts w " +
+                            "WHERE p.workoutID = w.workoutid " +
+                            "GROUP BY workoutID DESC LIMIT 1; ";
 
 
-                        var three_days = [];
+                        var session = [];
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
                             if (result.length == 0) {
                             }
 
 
-                            three_days = result;
+                            session = result;
 
 
+                            //rolling three day load query
+
+                            sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                                "(w.player_sRPE * m.duration) as dayLoad " +
+                                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                "WHERE u.username = w.username " +
+                                "AND w.workoutID = m.workoutid " +
+                                "AND m.date " +
+                                "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
 
 
-                            sql = "SELECT * FROM master.player_workouts " +
-                                "WHERE workoutID IN " +
-                                "(SELECT MAX(workoutID) FROM master.player_workouts);" ;
-
-
-                            var current_rpe = [];
+                            var three_days = [];
                             connection.query(sql, function (err, result) {
                                 if (err) throw err;
                                 if (result.length == 0) {
                                 }
 
 
-                                current_rpe = result;
+                                three_days = result;
 
 
+                                //Most recent RPE scores - used for FLAGS and
+
+                                sql = "SELECT * FROM master.player_workouts " +
+                                    "WHERE workoutID IN " +
+                                    "(SELECT MAX(workoutID) FROM master.player_workouts);";
+
+
+                                var current_rpe = [];
                                 connection.query(sql, function (err, result) {
                                     if (err) throw err;
+
+
+                                    current_rpe = result;
+
+
+                                    //next couple queries are for the team database
+
 
                                     sql = "SELECT AVG(w.player_sRPE) as rpeAVG, m.date " +
                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -867,7 +868,6 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                         ;
 
 
-
                                         var rpe_one = [];
                                         connection.query(sql, function (err, result) {
                                             if (err) throw err;
@@ -891,12 +891,10 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                 four_week_duration = result;
 
 
-
                                                 sql = "SELECT m.duration,m.date " +
                                                     "FROM master.workouts m " +
                                                     "WHERE m.date " +
                                                     "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) AND CURRENT_DATE(); ";
-
 
 
                                                 var one_week_duration = [];
@@ -906,8 +904,6 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                     }
 
                                                     one_week_duration = result;
-
-
 
 
                                                     sql = "SELECT u.position, AVG(w.player_sRPE) as rpeAVG, m.date " +
@@ -946,7 +942,6 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                             acutePosition = result;
 
 
-
                                                             sql = "SELECT t1.*, t3.duration " +
                                                                 "FROM master.player_workouts t1, master.workouts t3 " +
                                                                 "WHERE t1.workoutID = (SELECT MAX(t2.workoutID) " +
@@ -954,7 +949,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                                 "WHERE t2.username = t1.username) " +
                                                                 "AND t3.workoutid = (SELECT MAX(t2.workoutID) " +
                                                                 "FROM master.player_workouts t2 " +
-                                                                "WHERE t2.username = t1.username); " ;
+                                                                "WHERE t2.username = t1.username); ";
 
 
                                                             var recent_rpe = [];
@@ -965,7 +960,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                                                 recent_rpe = result;
 
-                                                                res.render('coachDashboard', {
+                                                               res.render('coachDashboard', {
                                                                     username: req.session.user,
                                                                     player_data: four_week_data,
                                                                     one_week_data: one_week_data,
@@ -983,10 +978,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                                 });
 
 
-
                                                             });
-
-
 
 
                                                         });
@@ -1001,44 +993,32 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                         });
 
 
-
-
-
-
-
-
-
-
-
                                     });
+
 
                                 });
 
 
-
                             });
 
-
                         });
+
 
                     });
 
 
-
                 });
 
-
-
-
-
-
-
             });
+
 
         });
 
 
     });
+
+
+
 });
 
 

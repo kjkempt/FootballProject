@@ -199,9 +199,12 @@
                                     <th>First Name</th>
                                     <th>Postion</th>
                                     <th>Recent RPE</th>
+                                    <th>Recent Duration</th>
+                                    <th>Recent Load</th>
                                     <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Rolling Load (Chronic - 28 day)</th>
+                                    <th>Load Percentage (A%C)</th>
                                     <th>Monotony Score</th>
                                     <th>Strain</th>
                                 </tr>
@@ -233,8 +236,13 @@
                                     //For an individual player
                                     var acute = oneweek.acuteSum;
                                     var chronic = fourweek.chronicSum;
+                                    chronic = chronic + acute;
                                     chronic = chronic / 4;
                                     chronic = Math.round(chronic);
+
+                                    var load_percentage = (acute / chronic) * 100;
+                                    load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+
 
                                     //These two variables are need for standard deviation calcs
                                     var acuteMean = oneweek.acuteMeanSum
@@ -317,16 +325,21 @@
                                 %>
 
                                 <% var player_recent_rpe = 0;
+                                    var recent_duration = 0
+                                    var recent_load = 0;
                                     recent_rpe.forEach(function(recentRPE){
                                         if(recentRPE.username == fourweek.username)
                                         {
                                             player_recent_rpe = recentRPE.player_sRPE;
+                                            recent_duration = recentRPE.duration;
                                         }
 
 
 
-                                    });%>
+                                    });
 
+                                    recent_load =  player_recent_rpe * recent_duration;
+                                %>
                                 <tr>
                                     <!-- Multiply sum of player RPE and duration for chronic load -->
 
@@ -336,9 +349,12 @@
                                     <td><%= fourweek.first_name%></td>
                                     <td><%= fourweek.position%></td>
                                     <td><%= player_recent_rpe%></td>
+                                    <td><%= recent_duration%></td>
+                                    <td><%= recent_load%></td>
                                     <td><%= three%></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
+                                    <td><%= load_percentage%>%</td>
                                     <td> <%= monotony%> </td>
                                     <td><%= strain%></td>
 
