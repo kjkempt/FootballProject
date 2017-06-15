@@ -15,29 +15,13 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("Connected! WM");
+    console.log("Connected!");
 });
 
 
 
 
-router.post('/addWorkout', function(req, res, next) {
-
-    //insert query below inserts form data into workouts database with the submitted workout info
-    var sql = "INSERT INTO workouts(name, date, duration, sRPE, trainingtype, notes) " +
-        "VALUES('"+req.body.workoutName+"', '"+req.body.workoutDate+"', '"+req.body.workoutDuration+"'," +
-        " '"+req.body.coachRPE+"', '"+req.body.workoutType+"', '"+req.body.notes+ "')";
-
-
-    connection.query(sql, function (err, result) {
-        if (err) {
-            throw err;
-        } else
-            res.render('workoutManager', {
-                username: req.user,
-                message: 'Submission successful'
-            });
-    });
+router.post('/addPerson', function(req, res, next) {
 
 
 });
