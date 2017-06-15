@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Coach Performance Tracker</title>
+    <title>Daily Workout Summaries</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -216,6 +216,8 @@
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
 
+
+
 <br>
 
 
@@ -259,12 +261,17 @@
                                     <td><%= player_daily.first_name%></td>
                                     <td><%= player_daily.player_sRPE%></td>
 
+                                    <% if(!player_daily.pwnotes){%>
+                                    <td> </td>
+                                    <%}
+                                    else{%>
                                     <td>
-                                        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover"
+                                        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
                                                 title="Player Note"
-                                                data-content="<%= player_daily.pwnotes%>">Click to toggle popover</button>
+                                                data-content="<%= player_daily.pwnotes%>">
+                                            <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
                                     </td>
-
+                                    <%}%>
 
 
 
@@ -278,7 +285,11 @@
                                 var $ = jQuery;
                                 $(document).ready( function () {
 
-                                    $('#daily_sum').DataTable();
+                                    $('#daily_sum').DataTable({
+                                        "columnDefs": [
+                                            {"width": "15%", "targets": 3}
+                                        ]
+                                    });
                                 } );
 
 
@@ -287,15 +298,8 @@
                                 });
 
                             </script>
-                            <script>
-                                // When the user clicks on div, open the popup
-                                function popup() {
-                                    var popup = document.getElementById("myPopup");
-                                    popup.classList.toggle("show");
-                                }
-                            </script>
-                        </div>
 
+<br>
 
                         <% if(workout.length > 0){%>
                         <div class="panel panel-warning">
@@ -331,7 +335,7 @@
                          </div>
                         </div>
                         <%}%>
-
+                    </div>
                     </div>
                 </div>
             </div>

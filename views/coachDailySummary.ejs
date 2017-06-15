@@ -180,8 +180,15 @@
                         </div>
                         <div class = "panel-body">
 
+
                             <form name="dailySumForm"  class = "form-inline" action="/coachDailySummary/coachDailySum" method="post" role="form"
                                   style=" display: block;">
+
+
+                                <!-- Dropdown arrow selecting most recent workouts (10)
+                                 Shows the RPE scores of every player plus pre and post coach
+                                 scores and have a tab on the side that allows notes to be
+                                 put in on a player-->
                                 <label for="sel1">Select workout date:</label>
                                 <div class="form-group">
                                     <select class="form-control" id="mySelect" name="date_select">
@@ -198,33 +205,28 @@
 
 
 
-
-                            <!-- Dropdown arrow selecting most recent workouts (10)
-                             Shows the RPE scores of every player plus pre and post coach
-                             scores and have a tab on the side that allows notes to be
-                             put in on a player-->
-
-
                             <br>
 
+
+                            <%if(note.length > 0)
+                            {%>
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Notes</h3>
                                 </div>
                                 <div class = "panel-body">
-                                    <%if(note.length > 0)
-                                    {%>
+
                                     <p><%=note[0].notes%></p>
 
-                                    <%}%>
                                 </div>
                             </div>
+                            <%}%>
+
 
 
 
 
                             <br>
-
 
 
 
@@ -234,6 +236,7 @@
                                     <td>Last Name</td>
                                     <td>First Name</td>
                                     <td>sRPE</td>
+                                    <td>Notes</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -245,24 +248,49 @@
                                     <td><%= player_daily.first_name%></td>
                                     <td><%= player_daily.player_sRPE%></td>
 
+                                    <% if(!player_daily.pwnotes){%>
+                                    <td> </td>
+                                    <%}
+                                    else{%>
+                                    <td>
+                                        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
+                                                title="Player Note"
+                                                data-content="<%= player_daily.pwnotes%>">
+                                            <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
+                                    </td>
+                                    <%}%>
+
+
+
                                 </tr>
                                 <%})%>
 
                                 </tbody>
                             </table>
+
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
 
-                                    $('#daily_sum').DataTable();
+                                    $('#daily_sum').DataTable({
+                                        "columnDefs": [
+                                            {"width": "15%", "targets": 3}
+                                        ]
+                                    });
                                 } );
 
 
+                                $(function () {
+                                    $('[data-toggle="popover"]').popover()
+                                });
+
                             </script>
+
+
+
+
                         </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
+
                     </div>
                 </div>
             </div>
