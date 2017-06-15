@@ -47,7 +47,7 @@ router.post('/dailySum', function(req, res, next) {
                 recent_dates = result;
 
 
-                var sql = "SELECT notes FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
+                var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
 
                 var note = [];
                 connection.query(sql, function(err, result) {
@@ -103,7 +103,7 @@ router.post('/playerNote', function(req, res, next) {
                 recent_dates = result;
 
 
-                var sql = "SELECT notes FROM workouts WHERE workoutid = '" + req.body.workout_id + "';"
+                var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.workout_id + "';"
 
                 var note = [];
                 connection.query(sql, function (err, result) {

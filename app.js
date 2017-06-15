@@ -13,7 +13,6 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
 var playerData = require('./routes/playerData');
-var playerDashboard = require('./routes/playerDashboard');
 var teamData = require('./routes/teamData');
 var weeklySummary = require('./routes/weeklySummary');
 var updateWorkout = require('./routes/updateWorkout');
@@ -465,12 +464,12 @@ app.get('/coachHome', requireLogin, function(req, res, next) {
 
 //***START ADMIN PAGES**********
 
+//Admin Add Athlete
 app.get('/adminAddAthlete', requireLogin, function(req, res, next) {
     res.render('adminAddAthlete', {
         username: req.session.user,
         message: ''});
 });
-
 
 /* Workout Manager page */
 app.get('/workoutManager', requireLogin, function(req, res, next) {
@@ -1016,13 +1015,17 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 });
 
-
-
 //**************END ADMIN PAGES*****
 
 
-//*****************START PLAYER PAGES*****
 
+
+
+
+
+
+
+//*****************START PLAYER PAGES*****
 
 /* Player Dashboard page - Handles player data input  */
 app.get('/playerDashboard', requireLogin, function(req, res, next) {

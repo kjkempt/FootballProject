@@ -49,7 +49,7 @@ router.post('/coachDailySum', function(req, res, next) {
 
             recent_dates = result;
 
-            var sql = "SELECT notes FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
+            var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
 
             var note = [];
             connection.query(sql, function(err, result) {
