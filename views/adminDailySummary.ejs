@@ -189,7 +189,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Daily Workout Scores/Player Notes</h3>
                         </div>
                         <div class = "panel-body">
 
@@ -247,6 +247,7 @@
                                     <td>Last Name</td>
                                     <td>First Name</td>
                                     <td>sRPE</td>
+                                    <td>Notes</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -258,11 +259,21 @@
                                     <td><%= player_daily.first_name%></td>
                                     <td><%= player_daily.player_sRPE%></td>
 
+                                    <td>
+                                        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover"
+                                                title="Player Note"
+                                                data-content="<%= player_daily.pwnotes%>">Click to toggle popover</button>
+                                    </td>
+
+
+
+
                                 </tr>
                                 <%})%>
 
                                 </tbody>
                             </table>
+
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
@@ -271,9 +282,22 @@
                                 } );
 
 
+                                $(function () {
+                                    $('[data-toggle="popover"]').popover()
+                                });
+
+                            </script>
+                            <script>
+                                // When the user clicks on div, open the popup
+                                function popup() {
+                                    var popup = document.getElementById("myPopup");
+                                    popup.classList.toggle("show");
+                                }
                             </script>
                         </div>
 
+
+                        <% if(workout.length > 0){%>
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Notes to Player</h3>
@@ -282,22 +306,19 @@
 
 
 
-
+                                <!-- Dropdown arrow selects player and then a note is added
+                                 in for that player-->
                                 <form name="playerNoteForm"  class = "form-group-sm" action="/adminDailySummary/playerNote"
                                       method="post" role="form" style=" display: block;">
-
-
-                                    <!-- Dropdown arrow selecting most recent workouts (10)
-                                     Shows the RPE scores of every player plus pre and post coach
-                                     scores and have a tab on the side that allows notes to be
-                                     put in on a player-->
-                                    <label for="sel1">Select workout date:</label>
                                     <div class="form-group">
+                                        <input  name="workout_id" value="<%= workout[0].workoutID%>">
+                                        <br><label for="sel1">Select a player:</label>
                                         <select class="form-control" id="playerSelect" name="player_note">
                                             <option disabled selected value> -- Select a player -- </option>
                                             <% workout.forEach(function (pselect) { %>
                                             <tr>
-                                                <option value = "<%= pselect.username %>" ><%= pselect.last_name %></option>
+                                                <option value = "<%= pselect.username %>" >
+                                                    <%= pselect.last_name %>, <%= pselect.first_name%></option>
                                             </tr>
                                             <% }) %>
                                         </select>
@@ -307,11 +328,9 @@
                                     </div>
                                     <button type="submit" class="btn btn-default">Submit</button>
                                 </form>
-
-
-                            </div>
+                         </div>
                         </div>
-
+                        <%}%>
 
                     </div>
                 </div>

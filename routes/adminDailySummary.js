@@ -75,6 +75,61 @@ router.post('/dailySum', function(req, res, next) {
 
 router.post('/playerNote', function(req, res, next) {
 
+    var sql = "UPDATE master.player_workouts " +
+    "SET pwnotes = '"+req.body.notes+"' " +
+    "WHERE username = '"+req.body.player_note+"' AND workoutID = '"+ req.body.workout_id+"';";
+
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        sql = "SELECT * FROM master.player_workouts p " +
+            "INNER JOIN master.user u ON u.username = p.username " +
+            "WHERE workoutID = '" + req.body.workout_id + "'; ";
+
+                //query changes ****
+
+        var workout = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            workout = result;
+
+
+            var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
+            var recent_dates = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                recent_dates = result;
+
+
+                var sql = "SELECT notes FROM workouts WHERE workoutid = '" + req.body.workout_id + "';"
+
+                var note = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    note = result;
+
+                    res.render('adminDailySummary', {
+                        username: req.user,
+                        workout: workout,
+                        recent: recent_dates,
+                        note: note
+                    });
+
+                });
+
+
+            });
+
+        });
+
+    });
+
+
+
+
 
 });
 

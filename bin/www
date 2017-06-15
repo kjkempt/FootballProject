@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var deployMode = true;
+var deployMode = false;
 
 /**
  * Module dependencies.

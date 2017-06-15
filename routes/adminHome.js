@@ -3,6 +3,8 @@
  */
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
+
 
 module.exports = router;
 
@@ -19,5 +21,9 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log("Connected! CD");
 });
+
+
+
+
 
 
