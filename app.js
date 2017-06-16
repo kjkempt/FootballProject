@@ -649,17 +649,15 @@ app.get('/teamData', requireLogin, function(req, res, next) {
     });
 });
 
-
 //Weekly Summary Page
 app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
-
-
+    var week_data = [];
     res.render('weeklySummary', {
-        username: req.session.user
+        username: req.session.user,
+        week_data: week_data
     });
 });
-
 
 //Admin Home Page
 app.get('/adminHome', requireLogin, function(req, res, next) {
@@ -668,6 +666,7 @@ app.get('/adminHome', requireLogin, function(req, res, next) {
     });
 });
 
+//Admin Daily Summary
 app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
     var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
@@ -692,6 +691,7 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
 });
 
+//Update Workout
 app.get('/updateWorkout', requireLogin, function(req, res, next) {
 
 
