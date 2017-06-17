@@ -206,6 +206,12 @@
                                 <div class="form-group">
                                     <select class="form-control" id="mySelect" name="week_select">
                                         <option selected value> -- Select a week -- </option>
+                                        <% for(var k=0; k < week_set.length - 1; k++) {%>
+                                        <option value="<%=week_set[k].saturday%>">
+                                            Week <%= week_set[k].sunday%> - <%= week_set[k].saturday%>
+                                        </option>
+
+                                        <% } %>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>

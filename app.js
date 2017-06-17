@@ -682,7 +682,7 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
         }
 
-        
+
 
 
 
