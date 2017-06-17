@@ -225,6 +225,7 @@
                                     <th colspan="3">Thursday</th>
                                     <th colspan="3">Friday</th>
                                     <th colspan="3">Saturday</th>
+                                    <th colspan="5">Total</th>
                                 </tr>
                                 <tr>
                                     <th>sRPE</th>
@@ -248,15 +249,26 @@
                                     <th>sRPE</th>
                                     <th>Dur.</th>
                                     <th>Load</th>
+                                    <th>sRPE AVG</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 <% if(week_data.length > 0) {
-                                var temp_username = "";
                                 var i = 0;
 
                                 while(i < week_data.length){
+                                    var acuteLoad= 0;
+                                    var load_percentage = 0;
+                                    var acuteDuration = 0;
+                                    var rpeAVG = 0;
+                                    var avg = 0;
+                                    var chronic_load = 0;
+
                                         %>
 
                                         <tr>
@@ -264,8 +276,28 @@
                                             <td><%= week_data[i].first_name %></td>
 
 
+                                            <%
+                                            for(var j = 0; j < chronic_week.length; j++)
+                                            {
+                                                if(chronic_week[j].username == week_data[i].username)
+                                                {
+                                                    chronic_load = chronic_week[j].chronicSum;
+                                                    chronic_load = chronic_load / chronic_week[j].weekcount;
+                                                    chronic_load = Math.round(chronic_load);
+                                                    break;
+                                                }
+                                            }
 
-                                            <% if(week_data[i].indexday == 1){ %>
+
+                                            %>
+
+
+                                            <% if(week_data[i].indexday == 1){
+                                            rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                            avg++;
+                                            acuteDuration = acuteDuration + week_data[i].duration;
+                                            acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
 
                                             <td><%= week_data[i].player_sRPE %></td>
                                             <td> <%= week_data[i].duration %> </td>
@@ -294,7 +326,20 @@
                                             <td>0</td>
                                             <td>0</td>
 
-                                           <% break;}
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
+                                           <% break; }
 
 
                                             }
@@ -303,7 +348,12 @@
                                             <td>0</td>
                                             <td>0</td>
                                             <% } %>
-                                            <% if(week_data[i].indexday == 2){ %>
+                                            <% if(week_data[i].indexday == 2){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
 
                                             <td><%= week_data[i].player_sRPE %></td>
                                             <td> <%= week_data[i].duration %> </td>
@@ -329,94 +379,20 @@
                                             <td>0</td>
                                             <td>0</td>
 
-                                            <% break;}
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
 
 
-                                            }
-                                            else{ %>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <% } %>
-                                            <% if(week_data[i].indexday == 3){ %>
-
-                                            <td><%= week_data[i].player_sRPE %></td>
-                                            <td> <%= week_data[i].duration %> </td>
-                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
-                                            <%
-                                                i = i+1;
-                                            if(i == week_data.length)
-                                            { %>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-
-                                            <% break;}
-
-
-                                            }
-                                            else{ %>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <% } %>
-                                            <% if(week_data[i].indexday == 4){ %>
-
-                                            <td><%= week_data[i].player_sRPE %></td>
-                                            <td> <%= week_data[i].duration %> </td>
-                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
-                                            <%
-                                                i = i+1;
-                                            if(i == week_data.length)
-                                            { %>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <% break;}
-
-
-                                            }
-                                            else{ %>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <% } %>
-                                            <% if(week_data[i].indexday == 5){ %>
-
-                                            <td><%= week_data[i].player_sRPE %></td>
-                                            <td> <%= week_data[i].duration %> </td>
-                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
-                                            <%
-                                                i = i+1;
-                                            if(i == week_data.length)
-                                            { %>
-
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
 
 
                                             <% break;}
@@ -428,7 +404,12 @@
                                             <td>0</td>
                                             <td>0</td>
                                             <% } %>
-                                            <% if(week_data[i].indexday == 6){ %>
+                                            <% if(week_data[i].indexday == 3){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
 
                                             <td><%= week_data[i].player_sRPE %></td>
                                             <td> <%= week_data[i].duration %> </td>
@@ -442,6 +423,78 @@
                                             <td>0</td>
                                             <td>0</td>
 
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
+
+                                            <% break;}
+
+
+                                            }
+
+                                            else{ %>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <% } %>
+                                            <% if(week_data[i].indexday == 4){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
+
+                                            <td><%= week_data[i].player_sRPE %></td>
+                                            <td> <%= week_data[i].duration %> </td>
+                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                            <%
+                                                i = i+1;
+                                            if(i == week_data.length)
+                                            { %>
+
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
                                             <% break;}
 
 
@@ -451,7 +504,12 @@
                                             <td>0</td>
                                             <td>0</td>
                                             <% } %>
-                                            <% if(week_data[i].indexday == 7){ %>
+                                            <% if(week_data[i].indexday == 5){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
 
                                             <td><%= week_data[i].player_sRPE %></td>
                                             <td> <%= week_data[i].duration %> </td>
@@ -459,7 +517,30 @@
                                             <%
                                                 i = i+1;
                                             if(i == week_data.length)
-                                            { break; }
+                                            { %>
+
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
+
+                                            <% break;}
 
 
                                             }
@@ -468,6 +549,101 @@
                                             <td>0</td>
                                             <td>0</td>
                                             <% } %>
+                                            <% if(week_data[i].indexday == 6){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
+
+                                            <td><%= week_data[i].player_sRPE %></td>
+                                            <td> <%= week_data[i].duration %> </td>
+                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                            <%
+                                                i = i+1;
+                                            if(i == week_data.length)
+                                            { %>
+
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                            <% rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
+
+                                            <% break;}
+
+
+                                            }
+                                            else{ %>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <% } %>
+                                            <% if(week_data[i].indexday == 7){
+                                                rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                                avg++;
+                                                acuteDuration = acuteDuration + week_data[i].duration;
+                                                acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                            %>
+
+                                            <td><%= week_data[i].player_sRPE %></td>
+                                            <td> <%= week_data[i].duration %> </td>
+                                            <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                            <%
+                                                i = i+1;
+                                            if(i == week_data.length)
+                                            {
+                                             rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
+
+                                            <% break; }
+
+
+                                            }
+                                            else{
+                                            %>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <% } %>
+
+
+
+                                            <%
+                                                rpeAVG = rpeAVG / avg;
+                                                rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+
+                                                load_percentage = (acuteLoad / chronic_load) * 100;
+                                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                            %>
+
+                                            <td><%= rpeAVG%></td>
+                                            <td><%= acuteDuration%></td>
+                                            <td><%= acuteLoad%></td>
+                                            <td><%= chronic_load%></td>
+                                            <td><%= load_percentage%>%</td>
+
 
 
 

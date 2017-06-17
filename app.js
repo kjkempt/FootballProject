@@ -653,10 +653,51 @@ app.get('/teamData', requireLogin, function(req, res, next) {
 app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
     var week_data = [];
-    res.render('weeklySummary', {
-        username: req.session.user,
-        week_data: week_data
+    var chronic = [];
+    var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+    "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+    "FROM master.workouts m;";
+
+
+    var week_set = [];
+    connection.query(sql, function(err, result){
+        if(err) throw err;
+
+        week_set = result;
+
+
+
+        for(var i = 0; i < week_set.length; i++)
+        {
+            var sun = week_set[i].sunday;
+
+            sun = sun.toISOString().split('T')[0];
+
+            var sat = week_set[i].saturday;
+
+            sat = sat.toISOString().split('T')[0];
+
+            week_set[i].sunday = sun;
+            week_set[i].saturday = sat;
+
+        }
+
+        
+
+
+
+        res.render('weeklySummary', {
+            username: req.session.user,
+            week_data: week_data,
+            chronic_week: chronic,
+            week_set: week_set
+        });
+
+
+
     });
+
+
 });
 
 //Admin Home Page

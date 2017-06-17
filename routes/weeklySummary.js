@@ -39,15 +39,31 @@ router.post('/selectWeek', function(req, res, next) {
 
         week_data = result;
 
-        //res.send(week_data);
+
+        sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
+            "(weekofyear('2017-06-10') - weekofyear(m.date)) as weekcount  " +
+        "FROM master.user u, master.player_workouts w, master.workouts m " +
+        "WHERE u.username = w.username " +
+        "AND w.workoutID = m.workoutid " +
+        "AND m.date " +
+        "BETWEEN '2017-06-10'- INTERVAL 4 WEEK AND '2017-06-10' " +
+        "GROUP BY u.username;";
+
+        var chronic = [];
+        connection.query(sql, function(err, result) {
+            if (err) throw err;
 
 
+            chronic = result;
 
-        res.render('weeklySummary', {
-           username: req.user,
-            week_data: week_data
+
+            res.render('weeklySummary', {
+                username: req.user,
+                week_data: week_data,
+                chronic_week: chronic
+            });
         });
-
 
 
     })
