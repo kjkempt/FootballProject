@@ -164,454 +164,465 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li class="active">
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
+                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Current Week Workout Data</a>
                 </li>
                 <li>
                     <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
                 </li>
+                <li>
+                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-list-alt"></i> Weekly Workout Summaries</a>
+                </li>
             </ul>
         </div>
+    </nav>
         <!-- /.navbar-collapse -->
-    </nav>    <div id="page-wrapper">
+        <div id="page-wrapper">
+            <%flags = [];
+            flag_rpe = [];%>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
                     <span class = "text-nowrap">
                                     <h1 class="page-header" >
-                                        Recent Workout Data <small> Players/Positions/Team </small>
+                                        Current Week Workout Data <small> Players/Positions/Team </small>
                                     </h1>
                                     </span>
 
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
-                        </div>
-                        <div class = "panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
+                            </div>
+                            <div class = "panel-body">
 
-                            <table id="player_table" class="display">
-                                <thead>
-                                <tr>
+                                <table id="player_table" class="display">
+                                    <thead>
+                                    <tr>
 
-                                    <!-- Table Headers -->
-                                    <th>Last Name</th>
-                                    <th>First Name</th>
-                                    <th>Postion</th>
-                                    <th>Recent RPE</th>
-                                    <th>Recent Duration</th>
-                                    <th>Recent Load</th>
-                                    <th>Rolling 3 Day Load</th>
-                                    <th>Acute Load</th>
-                                    <th>Rolling Load (Chronic - 28 day)</th>
-                                    <th>Load Percentage (A%C)</th>
-                                    <th>Monotony Score</th>
-                                    <th>Strain</th>
-                                </tr>
-                                </thead>
+                                        <!-- Table Headers -->
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                        <th>Postion</th>
+                                        <th>Recent RPE</th>
+                                        <th>Recent Duration</th>
+                                        <th>Recent Load</th>
+                                        <th>Rolling 3 Day Load</th>
+                                        <th>Acute Load</th>
+                                        <th>Chronic Load</th>
+                                        <th>Load Percentage (A%C)</th>
+                                        <th>Monotony Score</th>
+                                        <th>Strain</th>
+                                    </tr>
+                                    </thead>
 
-                                <tbody>
-
-
-
-                                <% player_data.forEach(function (fourweek) {
-                                    //fourweek holds query for 4 week chronic load
-                                    //and is also used to display position, first and last name
-                                %>
-
-                                <% one_week_data.forEach(function (oneweek) {
-                                    //one week is used for acute load and acute mean for a single player
-                                    //the set of oneweek contains all players though
-
-                                %>
-
-                                <% if (oneweek.username == fourweek.username){
-                                    //this if statement makes sure that the right
-                                    //element in oneweek is chosen based on the matching usernames
-                                    //between fourweek and one week and so a bunch of data
-                                    //is not repeated multiple times within the row
-                                    //since this runs as a double nested loop
-
-
-                                    //For an individual player
-                                    var acute = oneweek.acuteSum;
-                                    var chronic = fourweek.chronicSum;
-                                    chronic = chronic + acute;
-                                    chronic = chronic / 4;
-                                    chronic = Math.round(chronic);
-
-                                    var load_percentage = (acute / chronic) * 100;
-                                    load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
-
-
-                                    //These two variables are need for standard deviation calcs
-                                    var acuteMean = oneweek.acuteMeanSum
-                                    var variance = 0;
-
-
-                                    //daily_load is used to calc the 7 day variance from the acuteMean load
-                                    daily_load.forEach(function (dload) {
+                                    <tbody>
 
 
 
-                                        //dload is a set of all players daily loads from the week so we need the if
-                                        // statement to choose the right player's daily loads that we need
-                                        if(dload.username == oneweek.username)
-                                        {
-                                            variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
-                                        }
+                                    <% player_data.forEach(function (fourweek) {
+                                        //fourweek holds query for 4 week chronic load
+                                        //and is also used to display position, first and last name
+                                    %>
 
-                                    })
+                                    <% one_week_data.forEach(function (oneweek) {
+                                        //one week is used for acute load and acute mean for a single player
+                                        //the set of oneweek contains all players though
 
-                                    //Standard deviation calculation below
+                                    %>
 
-                                    var standard_dev = Math.sqrt(variance);
-                                    var day_load = 0;
-
-                                    //Empty array that will hold the usernames of the people who are
-                                    //   -/+2 over the session RPE average
-                                    flags = [];
-                                    flag_rpe = [];
-
+                                    <% if (oneweek.username == fourweek.username){
+                                        //this if statement makes sure that the right
+                                        //element in oneweek is chosen based on the matching usernames
+                                        //between fourweek and one week and so a bunch of data
+                                        //is not repeated multiple times within the row
+                                        //since this runs as a double nested loop
 
 
-                                    //sessions has the most current single session load, which is put into day_load
-                                    session.forEach(function(single)
-                                    {
-                                        day_load = single.sessionLoad;
+                                        //For an individual player
+                                        var acute = oneweek.acuteSum;
+                                        var chronic = fourweek.chronicSum;
+                                        chronic = chronic + acute;
+                                        chronic = chronic / 4;
+                                        chronic = Math.round(chronic);
 
-                                        current_rpe.forEach(function(current)
-                                        {
-                                            var flag_check = single.sessionRPE;
-                                            flag_check = flag_check - current.player_sRPE; //player is flagged if +/-2
+                                        var load_percentage = (acute / chronic) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
 
-                                            if(flag_check >= 2 || flag_check <= -2)
+
+                                        //These two variables are need for standard deviation calcs
+                                        var acuteMean = oneweek.acuteMeanSum
+                                        var variance = 0;
+
+
+                                        //daily_load is used to calc the 7 day variance from the acuteMean load
+                                        daily_load.forEach(function (dload) {
+
+
+
+                                            //dload is a set of all players daily loads from the week so we need the if
+                                            // statement to choose the right player's daily loads that we need
+                                            if(dload.username == oneweek.username)
                                             {
-                                                flags.push(current.username); //push the username of the flagged player into
-                                                //the array variable
-                                                flag_rpe.push(current.player_sRPE);
+                                                variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
                                             }
+
                                         })
+
+                                        //Standard deviation calculation below
+
+                                        var standard_dev = Math.sqrt(variance);
+                                        var day_load = 0;
+
+                                        //Empty array that will hold the usernames of the people who are
+                                        //   -/+2 over the session RPE average
+                                        flags = [];
+                                        flag_rpe = [];
+
+
+
+                                        //sessions has the most current single session load, which is put into day_load
+                                        session.forEach(function(single)
+                                        {
+                                            day_load = single.sessionLoad;
+
+                                            current_rpe.forEach(function(current)
+                                            {
+                                                var flag_check = single.sessionRPE;
+                                                flag_check = flag_check - current.player_sRPE; //player is flagged if +/-2
+
+                                                if(flag_check >= 2 || flag_check <= -2)
+                                                {
+                                                    flags.push(current.username); //push the username of the flagged player into
+                                                    //the array variable
+                                                    flag_rpe.push(current.player_sRPE);
+                                                }
+                                            })
+                                        })
+
+
+                                        //monotony score is calculated and rounded to the nearest tenth - subject to change
+                                        var monotony = day_load / standard_dev;
+
+
+                                        //strain calc is monotony * individual's acute load
+                                        var strain = monotony * acute;
+                                        strain = Math.round(strain); //round to nearest whole number
+
+                                        monotony = Math.round(monotony * 10)/10; //nearest tenth
+
+
+
+
+                                        var three = 0;
+                                        var check = 0;
+
+                                        three_day_load.forEach(function(t){
+                                            if(t.username == oneweek.username)
+                                            {
+                                                three = three + t.dayLoad;
+                                                check++;
+                                            }
+
+                                            if(check == 0)
+                                            {three = 0;}
+                                        })
+
+                                    %>
+
+                                    <% var player_recent_rpe = 0;
+                                        var recent_duration = 0
+                                        var recent_load = 0;
+                                        recent_rpe.forEach(function(recentRPE){
+                                            if(recentRPE.username == fourweek.username)
+                                            {
+                                                player_recent_rpe = recentRPE.player_sRPE;
+                                                recent_duration = recentRPE.duration;
+                                            }
+
+
+
+                                        });
+
+                                        recent_load =  player_recent_rpe * recent_duration;
+                                    %>
+                                    <tr>
+                                        <!-- Multiply sum of player RPE and duration for chronic load -->
+
+
+
+                                        <td> <%= fourweek.last_name %></td>
+                                        <td><%= fourweek.first_name%></td>
+                                        <td><%= fourweek.position%></td>
+                                        <td><%= player_recent_rpe%></td>
+                                        <td><%= recent_duration%></td>
+                                        <td><%= recent_load%></td>
+                                        <td><%= three%></td>
+                                        <td><%= acute %></td>
+                                        <td><%=  chronic %> </td>
+                                        <td><%= load_percentage%>%</td>
+                                        <td> <%= monotony%> </td>
+                                        <td><%= strain%></td>
+
+
+
+
+
+
+                                    </tr>
+                                    <% } %>
+
+                                    <% }) %>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Groups</h3>
+                            </div>
+                            <div class = "panel-body">
+
+
+                                <table id="team_table" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Group</th>
+                                        <th>Acute Duration (min)</th>
+                                        <th>Acute Load</th>
+                                        <th>Chronic Duration (min)</th>
+                                        <th>Chronic Load </th>
+                                        <th>Acute/Chronic Load %</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <!-- TEAM AVERAGE FUNCTIONS -->
+
+
+
+
+
+                                    <%
+                                    var teamChronicLoad = 0;
+                                    var teamChronicDuration = 0;
+                                    //Sumnation of Team's chronic duration/Load
+                                    teamChronicRPE.forEach(function (cRPE) {
+                                        teamChronicDuration = teamChronicDuration + cRPE.duration;
+                                        teamChronicLoad = teamChronicLoad + (cRPE.duration * cRPE.pavg);
                                     })
+                                    %>
 
 
-                                    //monotony score is calculated and rounded to the nearest tenth - subject to change
-                                    var monotony = day_load / standard_dev;
-
-
-                                    //strain calc is monotony * individual's acute load
-                                    var strain = monotony * acute;
-                                    strain = Math.round(strain); //round to nearest whole number
-
-                                    monotony = Math.round(monotony * 10)/10; //nearest tenth
-
-
-
-
-                                    var three = 0;
-                                    var check = 0;
-
-                                    three_day_load.forEach(function(t){
-                                        if(t.username == oneweek.username)
-                                        {
-                                            three = three + t.dayLoad;
-                                            check++;
-                                        }
-
-                                        if(check == 0)
-                                        {three = 0;}
+                                    <%
+                                    var teamAcuteLoad = 0;
+                                    var teamAcuteDuration = 0;
+                                    teamAcuteRPE.forEach(function (aRPE) {
+                                        teamAcuteDuration = teamAcuteDuration + aRPE.duration;
+                                        teamAcuteLoad = teamAcuteLoad + (aRPE.duration * aRPE.pavg);
                                     })
+                                    teamChronicDuration = teamChronicDuration + teamAcuteDuration;
+                                    teamChronicLoad = teamChronicLoad + teamAcuteLoad;
+                                    teamChronicLoad = teamChronicLoad / 4;
 
-                                %>
-
-                                <% var player_recent_rpe = 0;
-                                    var recent_duration = 0
-                                    var recent_load = 0;
-                                    recent_rpe.forEach(function(recentRPE){
-                                        if(recentRPE.username == fourweek.username)
-                                        {
-                                            player_recent_rpe = recentRPE.player_sRPE;
-                                            recent_duration = recentRPE.duration;
-                                        }
+                                    var team_load_percentage = (teamAcuteLoad / teamChronicLoad) * 100;
+                                    team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
 
 
+                                    teamChronicLoad = Math.round(teamChronicLoad);
+                                    teamAcuteLoad = Math.round(teamAcuteLoad);
 
-                                    });
 
-                                    recent_load =  player_recent_rpe * recent_duration;
-                                %>
-                                <tr>
-                                    <!-- Multiply sum of player RPE and duration for chronic load -->
+                                    %>
 
 
 
-                                    <td> <%= fourweek.last_name %></td>
-                                    <td><%= fourweek.first_name%></td>
-                                    <td><%= fourweek.position%></td>
-                                    <td><%= player_recent_rpe%></td>
-                                    <td><%= recent_duration%></td>
-                                    <td><%= recent_load%></td>
-                                    <td><%= three%></td>
-                                    <td><%= acute %></td>
-                                    <td><%=  chronic %> </td>
-                                    <td><%= load_percentage%>%</td>
-                                    <td> <%= monotony%> </td>
-                                    <td><%= strain%></td>
+                                    <tr>
 
 
 
 
+                                        <td>Team </td>
+                                        <td><%= teamAcuteDuration %></td>
+                                        <td><%= teamAcuteLoad%></td>
+                                        <td><%= teamChronicDuration%></td>
+                                        <td><%= teamChronicLoad%></td>
+                                        <td><%= team_load_percentage%>%</td>
 
 
-                                </tr>
-                                <% } %>
+                                    </tr>
 
-                                <% }) %>
-                                <% }) %>
-                                </tbody>
-                            </table>
 
+
+
+                                    <!--****END TEAM AVERAGE FUNCTIONS  ****-->
+
+
+
+
+                                    <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
+
+
+
+
+                                    <%
+                                    groupPos.forEach(function(pos){
+
+
+                                        var chronicPosDuration = 0;
+                                        var chronicPosLoad = 0;
+                                        var acutePosDuration = 0;
+                                        var acutePosLoad = 0;
+
+                                        chronicPosition.forEach( function(chronic) {
+                                            if(chronic.position == pos.position)
+                                            {
+                                                chronicPosDuration = chronicPosDuration + chronic.duration;
+                                                chronicPosLoad = chronicPosLoad + (chronic.duration * chronic.pavg);
+                                            }
+                                        });
+
+
+                                        acutePosition.forEach( function(acute) {
+                                            if(acute.position == pos.position)
+                                            {
+                                                acutePosDuration = acutePosDuration + acute.duration;
+                                                acutePosLoad = acutePosLoad + (acute.duration * acute.pavg);
+                                            }
+                                        });
+
+                                        chronicPosDuration = chronicPosDuration + acutePosDuration;
+                                        chronicPosLoad = chronicPosLoad + acutePosLoad;
+                                        chronicPosLoad = chronicPosLoad / 4;
+
+                                        var pos_load_percentage = (acutePosLoad / chronicPosLoad) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+
+
+                                        chronicPosLoad = Math.round(chronicPosLoad);
+                                        acutePosLoad = Math.round(acutePosLoad);
+
+                                    %>
+
+
+
+
+
+
+
+
+                                    <tr>
+                                        <td> <%= pos.position %> </td>
+                                        <td><%= acutePosDuration%> </td>
+                                        <td><%= acutePosLoad%></td>
+                                        <td><%= chronicPosDuration%> </td>
+                                        <td><%= chronicPosLoad%> </td>
+                                        <td><%= pos_load_percentage%>%</td>
+
+
+                                    </tr>
+                                    <% }); %>
+
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
                         </div>
 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Flagged Players</h3>
+                            </div>
+                            <div class = "panel-body">
+
+
+                                <table id="flags_table" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                        <th>RPE</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+
+                                    <%
+                                    if(flags.length > 0){
+                                    flags.forEach(function(f, i) { %>
+
+                                    <%player_data.forEach(function(player){%>
+
+                                    <%if(player.username == f) {%>
+
+                                    <tr>
+
+
+                                        <td> <%= player.last_name %> </td>
+                                        <td><%= player.first_name %></td>
+                                        <td><%= flag_rpe[i] %></td>
+
+                                    </tr>
+
+                                    <%}%>
+
+                                    <%})%>
+
+                                    <%})
+                                    }%>
+
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                        <!-- **Script for datatables Plug-In **-->
+                        <script>
+                            var $ = jQuery;
+                            $(document).ready( function () {
+                                $('#player_table').DataTable({
+                                        //"scrollX": true
+                                            /*"createdRow": function( row, data, dataIndex){
+                                             if( data[2] ==  "someVal"){
+                                             $(row).addClass('redClass');
+                                             }
+                                             }*/
+
+
+                                    }
+                                );
+                                $('#flags_table').DataTable({
+
+                                    }
+                                );
+                                $('#team_table').DataTable({
+
+                                    }
+                                );
+                            } );
+                        </script>
                     </div>
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Groups</h3>
-                        </div>
-                        <div class = "panel-body">
-
-
-                            <table id="team_table" class="display">
-                                <thead>
-                                <tr>
-                                    <th>Group</th>
-                                    <th>Acute Duration (min)</th>
-                                    <th>Acute Load</th>
-                                    <th>Chronic Duration (min)</th>
-                                    <th>Chronic Load </th>
-                                    <th>Acute/Chronic Load %</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <!-- TEAM AVERAGE FUNCTIONS -->
-
-
-
-
-
-                                <%
-                                var teamChronicLoad = 0;
-                                var teamChronicDuration = 0;
-                                //Sumnation of Team's chronic duration/Load
-                                teamChronicRPE.forEach(function (cRPE) {
-                                    teamChronicDuration = teamChronicDuration + cRPE.duration;
-                                    teamChronicLoad = teamChronicLoad + (cRPE.duration * cRPE.pavg);
-                                })
-                                %>
-
-
-                                <%
-                                var teamAcuteLoad = 0;
-                                var teamAcuteDuration = 0;
-                                teamAcuteRPE.forEach(function (aRPE) {
-                                    teamAcuteDuration = teamAcuteDuration + aRPE.duration;
-                                    teamAcuteLoad = teamAcuteLoad + (aRPE.duration * aRPE.pavg);
-                                })
-                                teamChronicDuration = teamChronicDuration + teamAcuteDuration;
-                                teamChronicLoad = teamChronicLoad + teamAcuteLoad;
-                                teamChronicLoad = teamChronicLoad / 4;
-
-                                var team_load_percentage = (teamAcuteLoad / teamChronicLoad) * 100;
-                                team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
-
-
-                                teamChronicLoad = Math.round(teamChronicLoad);
-                                teamAcuteLoad = Math.round(teamAcuteLoad);
-
-
-                                %>
-
-
-
-                                <tr>
-
-
-
-
-                                    <td>Team </td>
-                                    <td><%= teamAcuteDuration %></td>
-                                    <td><%= teamAcuteLoad%></td>
-                                    <td><%= teamChronicDuration%></td>
-                                    <td><%= teamChronicLoad%></td>
-                                    <td><%= team_load_percentage%>%</td>
-
-
-                                </tr>
-
-
-
-
-                                <!--****END TEAM AVERAGE FUNCTIONS  ****-->
-
-
-
-
-                                <!--****START POSITION GROUP AVERAGE FUNCTIONS  ****-->
-
-
-
-
-                                <%
-                                groupPos.forEach(function(pos){
-
-
-                                    var chronicPosDuration = 0;
-                                    var chronicPosLoad = 0;
-                                    var acutePosDuration = 0;
-                                    var acutePosLoad = 0;
-
-                                    chronicPosition.forEach( function(chronic) {
-                                        if(chronic.position == pos.position)
-                                        {
-                                            chronicPosDuration = chronicPosDuration + chronic.duration;
-                                            chronicPosLoad = chronicPosLoad + (chronic.duration * chronic.pavg);
-                                        }
-                                    });
-
-
-                                    acutePosition.forEach( function(acute) {
-                                        if(acute.position == pos.position)
-                                        {
-                                            acutePosDuration = acutePosDuration + acute.duration;
-                                            acutePosLoad = acutePosLoad + (acute.duration * acute.pavg);
-                                        }
-                                    });
-
-                                    chronicPosDuration = chronicPosDuration + acutePosDuration;
-                                    chronicPosLoad = chronicPosLoad + acutePosLoad;
-                                    chronicPosLoad = chronicPosLoad / 4;
-
-                                    var pos_load_percentage = (acutePosLoad / chronicPosLoad) * 100;
-                                    pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
-
-
-                                    chronicPosLoad = Math.round(chronicPosLoad);
-                                    acutePosLoad = Math.round(acutePosLoad);
-
-                                %>
-
-
-
-
-
-
-
-
-                                <tr>
-                                    <td> <%= pos.position %> </td>
-                                    <td><%= acutePosDuration%> </td>
-                                    <td><%= acutePosLoad%></td>
-                                    <td><%= chronicPosDuration%> </td>
-                                    <td><%= chronicPosLoad%> </td>
-                                    <td><%= pos_load_percentage%>%</td>
-
-
-                                </tr>
-                                <% }); %>
-
-
-
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Flagged Players</h3>
-                        </div>
-                        <div class = "panel-body">
-
-
-                            <table id="flags_table" class="display">
-                                <thead>
-                                <tr>
-                                    <th>Last Name</th>
-                                    <th>First Name</th>
-                                    <th>RPE</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-
-                                <% flags.forEach(function(f, i) { %>
-
-                                <%player_data.forEach(function(player){%>
-
-                                <%if(player.username == f) {%>
-
-                                <tr>
-
-
-                                    <td> <%= player.last_name %> </td>
-                                    <td><%= player.first_name %></td>
-                                    <td><%= flag_rpe[i] %></td>
-
-                                </tr>
-
-                                <%}%>
-
-                                <%})%>
-
-                                <%})%>
-
-
-
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                    </div>
-                    <!-- **Script for datatables Plug-In **-->
-                    <script>
-                        var $ = jQuery;
-                        $(document).ready( function () {
-                            $('#player_table').DataTable({
-                                    //"scrollX": true
-                                        /*"createdRow": function( row, data, dataIndex){
-                                         if( data[2] ==  "someVal"){
-                                         $(row).addClass('redClass');
-                                         }
-                                         }*/
-
-
-                                }
-                            );
-                            $('#flags_table').DataTable({
-
-                                }
-                            );
-                            $('#team_table').DataTable({
-
-                                }
-                            );
-                        } );
-                    </script>
                 </div>
+                <!-- /.row -->
+
             </div>
-            <!-- /.row -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- /.container-fluid -->
-
-    </div>
     <!-- /#page-wrapper -->
 
 </div>

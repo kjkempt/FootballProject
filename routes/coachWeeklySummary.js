@@ -1,5 +1,5 @@
 /**
- * Created by kemptk on 6/6/17.
+ * Created by kemptk on 6/18/17.
  */
 var express = require('express');
 var router = express.Router();
@@ -24,12 +24,12 @@ router.post('/selectWeek', function(req, res, next) {
 
     var sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
         "w.player_sRPE, m.duration " +
-    "FROM  master.player_workouts w " +
-    "INNER JOIN master.user u ON u.username = w.username " +
-    "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
-    "WHERE m.date " +
-    "BETWEEN  DATE(DATE_ADD('"+req.body.week_select+"', INTERVAL(1-DAYOFWEEK('"+req.body.week_select+"')) DAY))  AND " +
-    " '"+req.body.week_select+"' " +
+        "FROM  master.player_workouts w " +
+        "INNER JOIN master.user u ON u.username = w.username " +
+        "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
+        "WHERE m.date " +
+        "BETWEEN  DATE(DATE_ADD('"+req.body.week_select+"', INTERVAL(1-DAYOFWEEK('"+req.body.week_select+"')) DAY))  AND " +
+        " '"+req.body.week_select+"' " +
         "   ORDER BY u.username, indexday;"
 
     var week_data = [];
@@ -42,14 +42,14 @@ router.post('/selectWeek', function(req, res, next) {
 
 
         sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
-        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
+            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
             "(weekofyear('"+req.body.week_select+"') - weekofyear(m.date) + 1) as weekcount  " +
-        "FROM master.user u, master.player_workouts w, master.workouts m " +
-        "WHERE u.username = w.username " +
-        "AND w.workoutID = m.workoutid " +
-        "AND m.date " +
-        "BETWEEN '"+req.body.week_select+"'- INTERVAL 4 WEEK AND '"+req.body.week_select+"' " +
-        "GROUP BY u.username;";
+            "FROM master.user u, master.player_workouts w, master.workouts m " +
+            "WHERE u.username = w.username " +
+            "AND w.workoutID = m.workoutid " +
+            "AND m.date " +
+            "BETWEEN '"+req.body.week_select+"'- INTERVAL 4 WEEK AND '"+req.body.week_select+"' " +
+            "GROUP BY u.username;";
 
         var chronic = [];
         connection.query(sql, function(err, result) {
@@ -60,7 +60,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
 
-             sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
                 "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
                 "FROM master.workouts m;";
 
@@ -89,7 +89,7 @@ router.post('/selectWeek', function(req, res, next) {
                 }
 
 
-                res.render('weeklySummary', {
+                res.render('coachWeeklySummary', {
                     username: req.user,
                     week_data: week_data,
                     chronic_week: chronic,

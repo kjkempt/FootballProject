@@ -1,0 +1,704 @@
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Weekly Summary</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/coachHome">Coach Portal</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu message-dropdown">
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong><%=username%></strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-footer">
+                        <a href="#">Read All New Messages</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu alert-dropdown">
+                    <li>
+                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">View All</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse" >
+            <ul class="nav navbar-nav side-nav" >
+                <li>
+                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
+                </li>
+                <li>
+                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
+                </li>
+                <li class="active">
+                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-list-alt"></i> Weekly Workout Summaries</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Weekly Summary</h3>
+                        </div>
+                        <div class = "panel-body">
+
+                            <form name="weekSelectForm"  class = "form-inline" action="/coachWeeklySummary/selectWeek" method="post" role="form"
+                                  style=" display: block;">
+
+
+                                <!-- Dropdown arrow selecting most recent workouts (10)
+                                 Shows the RPE scores of every player plus pre and post coach
+                                 scores and have a tab on the side that allows notes to be
+                                 put in on a player-->
+                                <label for="sel1">Select workout date:</label>
+                                <div class="form-group">
+                                    <select class="form-control" id="mySelect" name="week_select">
+                                        <option selected value> -- Select a week -- </option>
+                                        <% for(var k=0; k < week_set.length ; k++) {%>
+                                        <option value="<%=week_set[k].saturday%>">
+                                            Week <%= week_set[k].sunday%> - <%= week_set[k].saturday%>
+                                        </option>
+
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+
+
+
+                            <table id="week_summary_table" class="display nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2">Last Name</th>
+                                    <th rowspan="2">First Name</th>
+                                    <th colspan="3">Sunday</th>
+                                    <th colspan="3">Monday</th>
+                                    <th colspan="3">Tuesday</th>
+                                    <th colspan="3">Wednesday</th>
+                                    <th colspan="3">Thursday</th>
+                                    <th colspan="3">Friday</th>
+                                    <th colspan="3">Saturday</th>
+                                    <th colspan="5">Total</th>
+                                </tr>
+                                <tr>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>sRPE AVG</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <% if(week_data.length > 0) {
+                                    var i = 0;
+
+                                        while(i < week_data.length){
+                                    var acuteLoad= 0;
+                                    var load_percentage = 0;
+                                    var acuteDuration = 0;
+                                    var rpeAVG = 0;
+                                    var avg = 0;
+                                    var chronic_load = 0;
+
+                                %>
+
+                                <tr>
+                                    <td><%= week_data[i].last_name %></td>
+                                    <td><%= week_data[i].first_name %></td>
+
+
+                                    <%
+                                        for(var j = 0; j < chronic_week.length; j++)
+                                        {
+                                            if(chronic_week[j].username == week_data[i].username)
+                                            {
+                                                chronic_load = chronic_week[j].chronicSum;
+                                                chronic_load = chronic_load / chronic_week[j].weekcount;
+                                                chronic_load = Math.round(chronic_load);
+                                                break;
+                                            }
+                                        }
+
+
+                                    %>
+
+
+                                    <% if(week_data[i].indexday == 1){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+                                    <% break; }
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 2){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 3){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 4){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 5){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 6){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+                                    <% if(week_data[i].indexday == 7){
+                                        rpeAVG = rpeAVG + week_data[i].player_sRPE;
+                                        avg++;
+                                        acuteDuration = acuteDuration + week_data[i].duration;
+                                        acuteLoad = acuteLoad + (week_data[i].player_sRPE * week_data[i].duration );
+                                    %>
+
+                                    <td><%= week_data[i].player_sRPE %></td>
+                                    <td> <%= week_data[i].duration %> </td>
+                                    <td><%= (week_data[i].player_sRPE * week_data[i].duration ) %></td>
+                                    <%
+                                        i = i+1;
+                                    if(i == week_data.length)
+                                    {
+                                        rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+                                    <% break; }
+
+
+                                    }
+                                    else{
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <%
+                                        rpeAVG = rpeAVG / avg;
+                                        rpeAVG = Math.round(rpeAVG * 10)/10; //nearest tenth
+
+                                        load_percentage = (acuteLoad / chronic_load) * 100;
+                                        load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= rpeAVG%></td>
+                                    <td><%= acuteDuration%></td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= load_percentage%>%</td>
+
+
+
+
+                                </tr>
+
+
+
+
+
+
+
+
+                                <% } %>
+                                <% } %>
+                                </tbody>
+                            </table>
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready( function () {
+                                    $('#week_summary_table').DataTable({
+                                        responsive: true,
+                                        "scrollX": true
+
+                                    });
+                                } );
+
+
+                            </script>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../js/plugins/morris/raphael.min.js"></script>
+<script src="../js/plugins/morris/morris.min.js"></script>
+<script src="../js/plugins/morris/morris-data.js"></script>
+
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
+</body>
+
+</html>
