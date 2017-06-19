@@ -23,6 +23,9 @@ connection.connect(function(err) {
 
 router.post('/addPerson', function(req, res, next) {
 
+    res.render('adminAddAthlete', {
+        username: req.session.user,
+        message: 'Post went through'});
 
 });
 

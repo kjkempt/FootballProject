@@ -30,33 +30,29 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script>
-        function isValidDate(dateString) {
-            var regEx = /^\d{4}-\d{2}-\d{2}$/;
-            return dateString.match(regEx) != null;
-        };
-    </script>
+
 
 
     <script>
         function validateForm() {
-            var x1 = document.forms["WMform"]["workoutName"].value;
-            var x2 = document.forms["WMform"]["workoutDate"].value;
-            var x3 = document.forms["WMform"]["workoutType"].value;
-            var x4 = document.forms["WMform"]["workoutDuration"].value;
-            var x5 = document.forms["WMform"]["coachRPE"].value;
+            var x1 = document.forms["addPersonForm"]["first_name"].value;
+            var x2 = document.forms["addPersonForm"]["last_name"].value;
+            var x3 = document.forms["addPersonForm"]["user_name"].value;
+            var x4 = document.forms["addPersonForm"]["password"].value;
+            var x5 = document.forms["addPersonForm"]["priv"].value;
+            var x6 = document.forms["addPersonForm"]["position"].value;
 
-            if (x1 == "" || x2 == "" || x3 == "" || x4 == "" || x5 == "rpeDefault")
+            if (x1 == "" || x2 == "" || x3 == "" || x4 == "" || x5 == "priv_def")
             {
                 alert("One or more field(s) is empty");
                 return false;
             }
 
-            if(!isValidDate(x2))
+            if(x5 == "Player" && x6 == "")
             {
-                alert("Incorrect date syntax");
-                return false;
+
             }
+
 
         }
     </script>
@@ -216,31 +212,63 @@
                                 <div class="row">
                                     <span class = "text-nowrap">
                                     <h1 class="page-header" >
-                                        Add Person
+                                        Add Member
                                     </h1>
                                     </span>
 
-                                    <form name="addPersonForm" action="/adminAddAthlete/addPerson" method="post" role="form"
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Fill in the data below</h3>
+                                        </div>
+                                        <div class = "panel-body">
+
+
+                                        <form name="addPersonForm" action="/adminAddAthlete/addPerson" method="post" role="form"
                                           onsubmit="return validateForm()" style=" display: block;">
                                         <div class="form-group">
-                                            <h5>First Name</h5>
-                                            <input type="text" name="first_name" class="form-control">
-                                            <h5>Last Name</h5>
-                                            <input type="text" name="last_name" class="form-control">
-                                            <h5>User Name</h5>
-                                            <input type="text" name="user_name" class="form-control">
-                                            <h5>Password</h5>
-                                            <input type="password" name="password" class="form-control">
+                                            <h5>Personal Info</h5>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <input id="first_name" type="text" class="form-control" name="first_name" placeholder="First Name">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Last Name">
+                                            </div>
+                                            <h5>Member Info</h5>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                <input id="user_name" type="text" class="form-control" name="user_name" placeholder="Username">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                                            </div>
                                             <h5>Privileges</h5>
-                                            <select name = "coachRPE" class="form-control">
-                                                <option disable selected value = "rpeDefault">--sRPE--</option>
+                                            <select name = "priv" class="form-control">
+                                                <option disabled selected value = "priv_def">Privelege Type</option>
                                                 <option value = "Player">Player</option>
                                                 <option value = "Coach">Coach</option>
                                                 <option value = "Admin">Admin</option>
                                             </select>
+                                            <h5>Position - Leave blank if Admin/Coach</h5>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="QB">QB</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="RB">RB</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="TE">TE</label>
+                                            <br>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="OL">OL</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="WR">WR</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="DL">DL</label>
+                                            <br>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="LB">LB</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="DB">DB</label>
+                                            <label class="radio-inline"><input type="radio"  name="position" value="KPS">KPS</label>
+                                            <br>
                                             <input type = "submit" name = "Submit" class="btn btn-default">
                                         </div>
                                     </form>
+                                        </div>
+                                    </div>
 
                         </div>
                     </div>
