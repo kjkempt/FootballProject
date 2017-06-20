@@ -41,12 +41,20 @@ router.post('/addPerson', function(req, res, next) {
 
     if(!req.body.position)
     {
-        req.body.positon == "CO";
+
+        sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position) " +
+            "VALUES('"+req.body.user_name+"', '"+req.body.password+"', '"+req.body.priv+"', '"+req.body.first_name+"'," +
+            " '"+req.body.last_name+"', 'CO');";
+    }
+    else
+    {
+        sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position) " +
+            "VALUES('"+req.body.user_name+"', '"+req.body.password+"', '"+req.body.priv+"', '"+req.body.first_name+"'," +
+            " '"+req.body.last_name+"', '"+req.body.position+"');";
     }
 
-    sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position) " +
-        "VALUES('"+req.body.user_name+"', '"+req.body.password+"', '"+req.body.privileges+"', '"+req.body.first_name+"'," +
-        " '"+req.body.last_name+"', '"+req.body.position+"');";
+
+
 
     connection.query(sql, function(err, result)
     {
