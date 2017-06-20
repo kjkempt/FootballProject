@@ -50,7 +50,8 @@
 
             if(x5 == "Player" && x6 == "")
             {
-
+                alert("Player selected but position left empty");
+                return false;
             }
 
 
@@ -215,12 +216,19 @@
                                         Add Member
                                     </h1>
                                     </span>
+                                    <% if(message != "Error. Username already taken"){ %>
+                                    <p class = "text-success"><%= message %></p>
+                                    <%}%>
+                                    <% if(message == "Error. Username already taken"){ %>
+                                    <p class = "text-danger"><%= message %></p>
+                                    <%}%>
 
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Fill in the data below</h3>
                                         </div>
                                         <div class = "panel-body">
+
 
 
                                         <form name="addPersonForm" action="/adminAddAthlete/addPerson" method="post" role="form"
@@ -244,7 +252,6 @@
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                                             </div>
-                                            <h5>Privileges</h5>
                                             <select name = "priv" class="form-control">
                                                 <option disabled selected value = "priv_def">Privelege Type</option>
                                                 <option value = "Player">Player</option>
@@ -264,6 +271,7 @@
                                             <label class="radio-inline"><input type="radio"  name="position" value="DB">DB</label>
                                             <label class="radio-inline"><input type="radio"  name="position" value="KPS">KPS</label>
                                             <br>
+                                            <br>
                                             <input type = "submit" name = "Submit" class="btn btn-default">
                                         </div>
                                     </form>
@@ -274,7 +282,7 @@
                     </div>
 
                         </div>
-                        <p class = "text-success"><%= message %></p>
+
                     </div>
                 </div>
             </div>
