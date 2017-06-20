@@ -23,6 +23,7 @@ var coachHome = require('./routes/coachHome');
 var coachRecentData = require('./routes/coachRecentData');
 var adminAddAthlete = require('./routes/adminAddAthlete');
 var coachWeeklySummary = require('./routes/coachWeeklySummary');
+var universeHome = require('./routes/universeHome');
 
 
 
@@ -110,10 +111,21 @@ app.use('/coachHome', coachHome);
 app.use('/coachRecentData', coachRecentData);
 app.use('/adminAddAthlete', adminAddAthlete);
 app.use('/coachWeeklySummary', coachWeeklySummary);
+app.use('/universeHome', universeHome);
+
+//***Universe Pages
+
+app.get('/universeHome', function(req, res, next) {
+    res.render('universeHome', { });
+});
+
+
+
+//END Universe Pages
 
 /* GET home page. */
-app.get('/', requireLogin, function(req, res, next) {
-    res.render('coachDashboard', { username: req.session.user });
+app.get('/', function(req, res, next) {
+    res.render('universeHome', { });
 });
 
 //****START COACH PAGES*****
@@ -1193,7 +1205,7 @@ function requireLogin (req, res, next) {
 // logs a user out.
 app.get('/logout', function(req, res) {
     req.session.reset();
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 // catch 404 and forward to error handler
