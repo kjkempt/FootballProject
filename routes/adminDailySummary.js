@@ -23,70 +23,21 @@ connection.connect(function(err) {
 
 router.post('/dailySum', function(req, res, next) {
 
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+
+        teamid = result;
+
 //insert query below inserts form data into workouts database with the submitted workout info
-    sql = "SELECT * FROM master.player_workouts p " +
-    "INNER JOIN master.user u ON u.username = p.username " +
-    "WHERE workoutID = '"+req.body.date_select+"'; ";
-
-//query changes ****
-
-    var workout = [];
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-
-        workout = result;
-
-
-
-
-            var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
-            var recent_dates = [];
-            connection.query(sql, function(err, result) {
-                if (err) throw err;
-
-                recent_dates = result;
-
-
-                var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
-
-                var note = [];
-                connection.query(sql, function(err, result) {
-                    if (err) throw err;
-
-                    note = result;
-
-                    res.render('adminDailySummary', {
-                        username: req.user,
-                        workout: workout,
-                        recent: recent_dates,
-                        note: note
-                    });
-
-                });
-
-
-            });
-
-    });
-
-
-});
-
-
-router.post('/playerNote', function(req, res, next) {
-
-    var sql = "UPDATE master.player_workouts " +
-    "SET pwnotes = '"+req.body.notes+"' " +
-    "WHERE username = '"+req.body.player_note+"' AND workoutID = '"+ req.body.workout_id+"';";
-
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-
         sql = "SELECT * FROM master.player_workouts p " +
             "INNER JOIN master.user u ON u.username = p.username " +
-            "WHERE workoutID = '" + req.body.workout_id + "'; ";
+            "WHERE workoutID = '" + req.body.date_select + "'" +
+            "AND p.teamID = '" + teamid[0].teamID + "' " +
+            "AND p.teamID = '" + teamid[0].teamID + "'; ";
 
-                //query changes ****
+//query changes ****
 
         var workout = [];
         connection.query(sql, function (err, result) {
@@ -95,7 +46,9 @@ router.post('/playerNote', function(req, res, next) {
             workout = result;
 
 
-            var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
+            sql = "SELECT * FROM workouts " +
+                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "ORDER BY date DESC LIMIT 10;";
             var recent_dates = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
@@ -103,7 +56,8 @@ router.post('/playerNote', function(req, res, next) {
                 recent_dates = result;
 
 
-                var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.workout_id + "';"
+                 sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
+                    "AND teamID = '" + teamid[0].teamID + "';";
 
                 var note = [];
                 connection.query(sql, function (err, result) {
@@ -124,6 +78,82 @@ router.post('/playerNote', function(req, res, next) {
             });
 
         });
+
+
+    });
+
+
+});
+
+
+router.post('/playerNote', function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+
+        teamid = result;
+
+
+        sql = "UPDATE master.player_workouts " +
+            "SET pwnotes = '" + req.body.notes + "' " +
+            "WHERE username = '" + req.body.player_note + "' AND workoutID = '" + req.body.workout_id + "' " +
+            "AND teamID = '" + teamid[0].teamID + "';";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            sql = "SELECT * FROM master.player_workouts p " +
+                "INNER JOIN master.user u ON u.username = p.username " +
+                "WHERE workoutID = '" + req.body.workout_id + "' " +
+                "AND p.teamID = '" + teamid[0].teamID + "' " +
+                "AND u.teamID = '" + teamid[0].teamID + "';";
+
+            //query changes ****
+
+            var workout = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                workout = result;
+
+
+                sql = "SELECT * FROM workouts " +
+                    "WHERE teamID = '" + teamid[0].teamID + "' " +
+                    "ORDER BY date DESC LIMIT 10;";
+                var recent_dates = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    recent_dates = result;
+
+
+                    var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.workout_id + "' " +
+                    "AND teamID = '" + teamid[0].teamID + "';";
+
+                    var note = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+                        note = result;
+
+                        res.render('adminDailySummary', {
+                            username: req.user,
+                            workout: workout,
+                            recent: recent_dates,
+                            note: note
+                        });
+
+                    });
+
+
+                });
+
+            });
+
+        });
+
 
     });
 

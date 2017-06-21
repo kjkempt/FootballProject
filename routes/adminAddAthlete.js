@@ -23,48 +23,52 @@ connection.connect(function(err) {
 
 router.post('/addPerson', function(req, res, next) {
 
-    var sql = "SELECT * FROM master.user where username = '"+req.body.user_name+"';";
-    var message = "";
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+
+        teamid = result;
+
+        sql = "SELECT * FROM master.user where username = '" + req.body.user_name + "';";
+        var message = "";
 
 
-    connection.query(sql, function(err, result)
-    {
-        if(result.length > 0)
-        {
-            message = "Error. Username already taken";
+        connection.query(sql, function (err, result) {
+            if (result.length > 0) {
+                message = "Error. Username already taken";
+                res.render('adminAddAthlete', {
+                    username: req.session.user,
+                    message: message
+                });
+            }
+        });
+
+
+        if (!req.body.position) {
+
+            sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position, teamID) " +
+                "VALUES('" + req.body.user_name + "', '" + req.body.password + "', '" + req.body.priv + "', '" + req.body.first_name + "'," +
+                " '" + req.body.last_name + "', 'CO', '"+teamid[0].teamID+"');";
+        }
+        else {
+            sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position, teamID) " +
+                "VALUES('" + req.body.user_name + "', '" + req.body.password + "', '" + req.body.priv + "', '" + req.body.first_name + "'," +
+                " '" + req.body.last_name + "', '" + req.body.position + "', '"+teamid[0].teamID+"');";
+        }
+
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
             res.render('adminAddAthlete', {
                 username: req.session.user,
-                message:  message});
-        }
+                message: "Addition Successful"
+            });
+        });
+
+
     });
-
-
-    if(!req.body.position)
-    {
-
-        sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position) " +
-            "VALUES('"+req.body.user_name+"', '"+req.body.password+"', '"+req.body.priv+"', '"+req.body.first_name+"'," +
-            " '"+req.body.last_name+"', 'CO');";
-    }
-    else
-    {
-        sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position) " +
-            "VALUES('"+req.body.user_name+"', '"+req.body.password+"', '"+req.body.priv+"', '"+req.body.first_name+"'," +
-            " '"+req.body.last_name+"', '"+req.body.position+"');";
-    }
-
-
-
-
-    connection.query(sql, function(err, result)
-    {
-       if(err) throw err;
-
-        res.render('adminAddAthlete', {
-            username: req.session.user,
-            message:  "Addition Successful"});
-    });
-
 
 
 

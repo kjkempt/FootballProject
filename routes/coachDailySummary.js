@@ -24,51 +24,62 @@ connection.connect(function(err) {
 
 router.post('/coachDailySum', function(req, res, next) {
 
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+
+        teamid = result;
+
 //insert query below inserts form data into workouts database with the submitted workout info
-    sql = "SELECT * FROM master.player_workouts p " +
-        "INNER JOIN master.user u ON u.username = p.username " +
-        "WHERE workoutID = '"+req.body.date_select+"'; ";
+        sql = "SELECT * FROM master.player_workouts p " +
+            "INNER JOIN master.user u ON u.username = p.username " +
+            "WHERE workoutID = '" + req.body.date_select + "'" +
+            "AND p.teamID = '" + teamid[0].teamID + "' " +
+            "AND p.teamID = '" + teamid[0].teamID + "'; ";
 
 //query changes ****
 
-    var workout = [];
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-
-        workout = result;
-
-
-
-
-
-
-        var sql = "SELECT * FROM workouts ORDER BY date DESC LIMIT 10;";
-        var recent_dates = [];
-        connection.query(sql, function(err, result) {
+        var workout = [];
+        connection.query(sql, function (err, result) {
             if (err) throw err;
 
-            recent_dates = result;
+            workout = result;
 
-            var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '"+req.body.date_select+"';"
 
-            var note = [];
-            connection.query(sql, function(err, result) {
+            sql = "SELECT * FROM workouts " +
+                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "ORDER BY date DESC LIMIT 10;";
+            var recent_dates = [];
+            connection.query(sql, function (err, result) {
                 if (err) throw err;
 
-                note = result;
+                recent_dates = result;
 
-                res.render('coachDailySummary', {
-                    username: req.user,
-                    workout: workout,
-                    recent: recent_dates,
-                    note: note
+
+                 sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
+                    "AND teamID = '" + teamid[0].teamID + "';";
+
+                var note = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    note = result;
+
+                    res.render('coachDailySummary', {
+                        username: req.user,
+                        workout: workout,
+                        recent: recent_dates,
+                        note: note
+                    });
+
                 });
+
 
             });
 
-
-
         });
+
 
     });
 
