@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 
 var coachDashboard = require('./routes/coachDashboard');
 var playerDashboard = require('./routes/playerDashboard');
-var users = require('./routes/users');
 var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
 var playerData = require('./routes/playerData');
@@ -24,6 +23,8 @@ var coachRecentData = require('./routes/coachRecentData');
 var adminAddAthlete = require('./routes/adminAddAthlete');
 var coachWeeklySummary = require('./routes/coachWeeklySummary');
 var universeHome = require('./routes/universeHome');
+var universeRegister = require('./routes/universeRegister');
+var universeThanks = require('./routes/universeThanks');
 
 
 
@@ -112,6 +113,8 @@ app.use('/coachRecentData', coachRecentData);
 app.use('/adminAddAthlete', adminAddAthlete);
 app.use('/coachWeeklySummary', coachWeeklySummary);
 app.use('/universeHome', universeHome);
+app.use('/universeRegister', universeRegister);
+app.use('/universeThanks', universeThanks);
 
 //***Universe Pages
 
@@ -119,6 +122,13 @@ app.get('/universeHome', function(req, res, next) {
     res.render('universeHome', { });
 });
 
+app.get('/universeRegister', function(req, res, next) {
+    res.render('universeRegister', { message: ""});
+});
+
+app.get('/universeThanks', function(req, res, next) {
+    res.render('universeThanks', { });
+});
 
 
 //END Universe Pages
