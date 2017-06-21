@@ -20,20 +20,31 @@ connection.connect(function(err) {
 
 router.post('/addWorkout', function(req, res, next) {
 
-    //insert query below inserts form data into workouts database with the submitted workout info
-    var sql = "INSERT INTO workouts(name, date, duration, sRPE, trainingtype, notes) " +
-        "VALUES('"+req.body.workoutName+"', '"+req.body.workoutDate+"', '"+req.body.workoutDuration+"'," +
-        " '"+req.body.coachRPE+"', '"+req.body.workoutType+"', '"+req.body.notes+ "')";
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+
+    teamid = result;
+
+        //insert query below inserts form data into workouts database with the submitted workout info
+        sql = "INSERT INTO workouts(name, date, duration, sRPE, trainingtype, notes, teamID) " +
+            "VALUES('" + req.body.workoutName + "', '" + req.body.workoutDate + "', '" + req.body.workoutDuration + "'," +
+            " '" + req.body.coachRPE + "', '" + req.body.workoutType + "', '" + req.body.notes + "', '" + teamid[0].teamID + "')";
 
 
-    connection.query(sql, function (err, result) {
-        if (err) {
-            throw err;
-        } else
-            res.render('workoutManager', {
-                username: req.user,
-                message: 'Submission successful'
-            });
+        connection.query(sql, function (err, result) {
+            if (err) {
+                throw err;
+            } else
+                res.render('workoutManager', {
+                    username: req.user,
+                    message: 'Submission successful'
+                });
+        });
+
+
     });
 
 

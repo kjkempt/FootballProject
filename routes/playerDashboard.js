@@ -26,23 +26,34 @@ connection.connect(function(err) {
 
 router.post('/playerInput', function(req, res, next) {
 
-    var sql = "SELECT date, workoutid FROM workouts ORDER BY date DESC LIMIT 1;";
-    var workout = [];
-    connection.query(sql, function (err, result) {
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-        workout = result;
+    var teamid = [];
+    connection.query(sql, function(err, result) {
 
-        sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE) " +
-            "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "')";
+        teamid = result;
 
+        var sql = "SELECT date, workoutid FROM workouts " +
+            "WHERE teamID = '" + teamid[0].teamID + "' " +
+            "ORDER BY date DESC LIMIT 1;";
+        var workout = [];
         connection.query(sql, function (err, result) {
-            if (err) {
-                throw err;
-            } else
-                res.render('playerDashboard', {
-                    username: req.user,
-                    message: 'Submission successful'
-                });
+
+            workout = result;
+
+            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
+                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '"+teamid[0].teamID+"')";
+
+            connection.query(sql, function (err, result) {
+                if (err) {
+                    throw err;
+                } else
+                    res.render('playerDashboard', {
+                        username: req.user,
+                        message: 'Submission successful'
+                    });
+            });
+
         });
 
     });

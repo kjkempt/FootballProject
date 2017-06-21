@@ -125,7 +125,7 @@ app.get('/universeHome', function(req, res, next) {
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
-    res.render('universeHome', { });
+    res.render('login', { message: ''});
 });
 
 //****START COACH PAGES*****
