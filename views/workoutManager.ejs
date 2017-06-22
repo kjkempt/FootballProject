@@ -232,7 +232,7 @@
                                         <div class="form-group">
                                             <h5>Expected workout sRPE</h5>
                                             <select name = "coachRPE" class="form-control">
-                                                <option disable selected value = "rpeDefault">--sRPE--</option>
+                                                <option disabled selected value = "rpeDefault">--sRPE--</option>
                                                 <option value = "1">1 - Rest</option>
                                                 <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
                                                 <option value = "3">3 - Easy (Dynamic warm-up)</option>
@@ -256,6 +256,13 @@
                                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                    class="form-control">
                                             </input>
+
+                                            <h5>Time</h5>
+                                            <select name="time" class="form-control">
+                                                <option disabled selected value="timeDefault">Time Slot</option>
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                            </select>
                                             <h5>Notes</h5>
                                             <textarea class="form-control" rows="5" id="comment"
                                             name = "notes"></textarea>

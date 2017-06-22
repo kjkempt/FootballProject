@@ -33,9 +33,13 @@ router.post('/playerInput', function(req, res, next) {
 
         teamid = result;
 
-        var sql = "SELECT date, workoutid FROM workouts " +
-            "WHERE teamID = '" + teamid[0].teamID + "' " +
-            "ORDER BY date DESC LIMIT 1;";
+        var sql = "SELECT * FROM master.workouts " +
+        "WHERE teamID = '" + teamid[0].teamID + "' " +
+        "AND workoutid = " +
+        "(select max(workoutid) from master.workouts " +
+        "WHERE teamID = '" + teamid[0].teamID + "')  ;";
+
+
         var workout = [];
         connection.query(sql, function (err, result) {
 

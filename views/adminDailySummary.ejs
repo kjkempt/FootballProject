@@ -283,6 +283,29 @@
                                 </tr>
                                 <%})%>
 
+                                <%if(note.length > 0)
+                                {%>
+
+                                <tr>
+                                    <td>Coach</td>
+                                    <td>Pre</td>
+                                    <td><%= note[0].pre_sRPE%></td>
+                                    <td><%= note[0].duration%></td>
+                                    <td><%= (note[0].duration * note[0].pre_sRPE)%></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Coach</td>
+                                    <td>Post</td>
+                                    <td><%= note[0].sRPE%></td>
+                                    <td><%= note[0].duration%></td>
+                                    <td><%= (note[0].duration * note[0].pre_sRPE)%></td>
+                                    <td></td>
+                                </tr>
+
+
+                                <%}%>
+
                                 </tbody>
                             </table>
 
@@ -305,7 +328,7 @@
 
                             </script>
 
-<br>
+                        <br>
 
                         <% if(workout.length > 0){%>
                         <div class="panel panel-warning">

@@ -57,7 +57,7 @@ router.post('/coachDailySum', function(req, res, next) {
                 recent_dates = result;
 
 
-                 sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
+                 sql = "SELECT notes, duration, sRPE, pre_sRPE FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
                     "AND teamID = '" + teamid[0].teamID + "';";
 
                 var note = [];

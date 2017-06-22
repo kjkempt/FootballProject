@@ -29,9 +29,10 @@ router.post('/addWorkout', function(req, res, next) {
     teamid = result;
 
         //insert query below inserts form data into workouts database with the submitted workout info
-        sql = "INSERT INTO workouts(name, date, duration, sRPE, trainingtype, notes, teamID) " +
+        sql = "INSERT INTO workouts(name, date, duration, sRPE, pre_sRPE, trainingtype, notes, teamID, time) " +
             "VALUES('" + req.body.workoutName + "', '" + req.body.workoutDate + "', '" + req.body.workoutDuration + "'," +
-            " '" + req.body.coachRPE + "', '" + req.body.workoutType + "', '" + req.body.notes + "', '" + teamid[0].teamID + "')";
+            " '" + req.body.coachRPE + "','" + req.body.coachRPE + "' , '" + req.body.workoutType + "', '" + req.body.notes + "'," +
+            " '" + teamid[0].teamID + "', '"+req.body.time+"')";
 
 
         connection.query(sql, function (err, result) {
