@@ -46,14 +46,29 @@ router.post('/dailySum', function(req, res, next) {
             workout = result;
 
 
+
             sql = "SELECT * FROM workouts " +
-                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "WHERE teamID = '"+teamid[0].teamID+"' " +
                 "ORDER BY date DESC LIMIT 10;";
+
             var recent_dates = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
 
                 recent_dates = result;
+
+                for(var i = 0; i < recent_dates.length; i++) {
+
+                    var day = recent_dates[i].date;
+
+                    day = day.toISOString().split('T')[0];
+
+                    recent_dates[i].date = day;
+
+                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+
+
+                }
 
 
                  sql = "SELECT notes, duration, sRPE, pre_sRPE FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
@@ -120,16 +135,30 @@ router.post('/playerNote', function(req, res, next) {
 
 
                 sql = "SELECT * FROM workouts " +
-                    "WHERE teamID = '" + teamid[0].teamID + "' " +
+                    "WHERE teamID = '"+teamid[0].teamID+"' " +
                     "ORDER BY date DESC LIMIT 10;";
+
                 var recent_dates = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
 
                     recent_dates = result;
 
+                    for(var i = 0; i < recent_dates.length; i++) {
 
-                    var sql = "SELECT notes, duration FROM workouts WHERE workoutid = '" + req.body.workout_id + "' " +
+                        var day = recent_dates[i].date;
+
+                        day = day.toISOString().split('T')[0];
+
+                        recent_dates[i].date = day;
+
+                        recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+
+
+                    }
+
+
+                    var sql = "SELECT notes, duration, sRPE, pre_sRPE FROM workouts WHERE workoutid = '" + req.body.workout_id + "' " +
                     "AND teamID = '" + teamid[0].teamID + "';";
 
                     var note = [];

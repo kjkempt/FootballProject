@@ -867,8 +867,29 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
             recent_dates = result;
 
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+
+
+            }
+
+
+
+
+
+
+
+
             var workout = [];
             var note = [];
+
 
             res.render('adminDailySummary', {
                 username: req.session.user,
@@ -876,6 +897,8 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
                 workout: workout,
                 note: note
             });
+
+
 
 
         });
