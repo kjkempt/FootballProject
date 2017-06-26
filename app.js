@@ -25,6 +25,7 @@ var coachWeeklySummary = require('./routes/coachWeeklySummary');
 var universeHome = require('./routes/universeHome');
 var universeRegister = require('./routes/universeRegister');
 var universeThanks = require('./routes/universeThanks');
+var changePassword = require('./routes/changePassword');
 
 
 
@@ -115,6 +116,7 @@ app.use('/coachWeeklySummary', coachWeeklySummary);
 app.use('/universeHome', universeHome);
 app.use('/universeRegister', universeRegister);
 app.use('/universeThanks', universeThanks);
+app.use('/changePassword', changePassword);
 
 //***Universe Pages
 
@@ -128,6 +130,10 @@ app.get('/universeRegister', function(req, res, next) {
 
 app.get('/universeThanks', function(req, res, next) {
     res.render('universeThanks', { });
+});
+
+app.get('/changePassword', requireLogin, function(req, res, next) {
+    res.render('changePassword', { username: req.session.user});
 });
 
 
