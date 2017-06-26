@@ -163,8 +163,29 @@ app.get('/coachDailySummary', requireLogin, function(req, res, next) {
 
             recent_dates = result;
 
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+
+
+            }
+
+
+
+
+
+
+
+
             var workout = [];
             var note = [];
+
 
             res.render('coachDailySummary', {
                 username: req.session.user,
@@ -174,10 +195,14 @@ app.get('/coachDailySummary', requireLogin, function(req, res, next) {
             });
 
 
+
+
         });
 
 
     });
+
+
 
 });
 
@@ -210,7 +235,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
                 //for Chronic load
 
-                sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                sql = "SELECT u.username, " +
                     "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
@@ -231,9 +256,11 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
                     four_week_data = result;
 
+
                     //for acute load and weekly Acute mean sum
 
-                    sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
+                    sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                        "SUM(w.player_sRPE * m.duration) as acuteSum, " +
                         "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                         "FROM master.user u, master.player_workouts w, master.workouts m " +
                         "WHERE u.username = w.username " +
@@ -310,7 +337,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.date " +
-                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
+                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE(); ";
 
 
                                 var three_days = [];
@@ -465,7 +492,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
                                                                 res.render('coachRecentData', {
                                                                     username: req.session.user,
-                                                                    player_data: four_week_data,
+                                                                    chronicPlayerLoad: four_week_data,
                                                                     one_week_data: one_week_data,
                                                                     daily_load: daily_load,
                                                                     session: session,
@@ -519,7 +546,6 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
         });
 
     });
-
 });
 
 app.get('/coachHome', requireLogin, function(req, res, next) {
@@ -950,7 +976,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                 //for Chronic load
 
-                sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                sql = "SELECT u.username, " +
                     "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
@@ -971,9 +997,11 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                     four_week_data = result;
 
+
                     //for acute load and weekly Acute mean sum
 
-                    sql = "SELECT u.username, SUM(w.player_sRPE * m.duration) as acuteSum, " +
+                    sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                        "SUM(w.player_sRPE * m.duration) as acuteSum, " +
                         "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                         "FROM master.user u, master.player_workouts w, master.workouts m " +
                         "WHERE u.username = w.username " +
@@ -1050,7 +1078,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.date " +
-                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY) AND CURRENT_DATE(); ";
+                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE(); ";
 
 
                                 var three_days = [];
@@ -1205,7 +1233,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                                                 res.render('coachDashboard', {
                                                                     username: req.session.user,
-                                                                    player_data: four_week_data,
+                                                                    chronicPlayerLoad: four_week_data,
                                                                     one_week_data: one_week_data,
                                                                     daily_load: daily_load,
                                                                     session: session,

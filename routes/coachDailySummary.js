@@ -47,17 +47,32 @@ router.post('/coachDailySum', function(req, res, next) {
             workout = result;
 
 
+
             sql = "SELECT * FROM workouts " +
-                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "WHERE teamID = '"+teamid[0].teamID+"' " +
                 "ORDER BY date DESC LIMIT 10;";
+
             var recent_dates = [];
             connection.query(sql, function (err, result) {
                 if (err) throw err;
 
                 recent_dates = result;
 
+                for(var i = 0; i < recent_dates.length; i++) {
 
-                 sql = "SELECT notes, duration, sRPE, pre_sRPE FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
+                    var day = recent_dates[i].date;
+
+                    day = day.toISOString().split('T')[0];
+
+                    recent_dates[i].date = day;
+
+                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+
+
+                }
+
+
+                sql = "SELECT notes, duration, sRPE, pre_sRPE FROM workouts WHERE workoutid = '" + req.body.date_select + "'" +
                     "AND teamID = '" + teamid[0].teamID + "';";
 
                 var note = [];
@@ -66,7 +81,7 @@ router.post('/coachDailySum', function(req, res, next) {
 
                     note = result;
 
-                    res.render('coachDailySummary', {
+                    res.render('coachDaiySummary', {
                         username: req.user,
                         workout: workout,
                         recent: recent_dates,
