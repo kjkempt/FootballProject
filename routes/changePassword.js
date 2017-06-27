@@ -27,13 +27,17 @@ router.post('/changepw', function(req, res, next) {
 
 
 
-
-    var sql = "SELECT password from master.user where password = '" + req.body.old_pass + "';";
+    var sql = "SELECT password from master.user where password = '" + req.body.old_pass + "' and " +
+    "username = '"+ req.user +"';";
 
     connection.query(sql, function(err, result) {
 
 
-        if(!result)
+
+
+
+
+        if(result.length == 0)
         {
             res.render('login', { message: 'Unsuccessful password change, please log in and try again.'});
         }
@@ -48,7 +52,7 @@ router.post('/changepw', function(req, res, next) {
                     throw err;
                 } else
                     res.render('login', {
-                        message: 'Submission successful'
+                        message: 'Successful password change'
                     });
             });
 
