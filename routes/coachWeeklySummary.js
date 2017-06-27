@@ -30,7 +30,7 @@ router.post('/selectWeek', function(req, res, next) {
         teamid = result;
 
         sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
-            "w.player_sRPE, m.duration " +
+            "w.player_sRPE, m.duration, m.time " +
             "FROM  master.player_workouts w " +
             "INNER JOIN master.user u ON u.username = w.username " +
             "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
