@@ -224,15 +224,16 @@
 
 
 
-                                <% one_week_data.forEach(function (oneweek) {
-                                    //one week is used for acute load and acute mean for a single player
-                                    //the set of oneweek contains all players though
+                                <%
 
-                                    var acute = oneweek.acuteSum;
+                                for(var b = 0; b < one_week_data.length; b++)
+                                {
+
+                                    var acute = one_week_data[b].acuteSum;
                                     var chronic = 0;
                                     for(var j = 0; j < chronicPlayerLoad.length; j++)
                                     {
-                                        if(chronicPlayerLoad[j].username == oneweek.username)
+                                        if(chronicPlayerLoad[j].username == one_week_data[b].username)
                                         {
                                             chronic = chronicPlayerLoad[j].chronicSum;
                                         }
@@ -249,23 +250,24 @@
 
 
                                     //These two variables are need for standard deviation calcs
-                                    var acuteMean = oneweek.acuteMeanSum
+                                    var acuteMean = one_week_data[b].acuteMeanSum
                                     var variance = 0;
 
 
                                     //daily_load is used to calc the 7 day variance from the acuteMean load
-                                    daily_load.forEach(function (dload) {
+                                    for(var c = 0; c < daily_load.length; c++)
+                                    {
 
 
 
                                         //dload is a set of all players daily loads from the week so we need the if
                                         // statement to choose the right player's daily loads that we need
-                                        if(dload.username == oneweek.username)
+                                        if(daily_load[c].username == one_week_data[b].username)
                                         {
-                                            variance = variance + Math.pow((acuteMean - dload.dayLoad), 2);
+                                            variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
                                         }
 
-                                    })
+                                    }
 
                                     //Standard deviation calculation below
 
@@ -316,7 +318,7 @@
                                     var check = 0;
 
                                     three_day_load.forEach(function(t){
-                                        if(t.username == oneweek.username)
+                                        if(t.username == one_week_data[b].username)
                                         {
                                             three = three + t.dayLoad;
                                             check++;
@@ -332,7 +334,7 @@
                                     var recent_duration = 0
                                     var recent_load = 0;
                                     recent_rpe.forEach(function(recentRPE){
-                                        if(recentRPE.username == oneweek.username)
+                                        if(recentRPE.username == one_week_data[b].username)
                                         {
                                             player_recent_rpe = recentRPE.player_sRPE;
                                             recent_duration = recentRPE.duration;
@@ -352,9 +354,9 @@
 
 
 
-                                    <td> <%= oneweek.last_name %></td>
-                                    <td><%= oneweek.first_name%></td>
-                                    <td><%= oneweek.position%></td>
+                                    <td> <%= one_week_data[b].last_name %></td>
+                                    <td><%= one_week_data[b].first_name%></td>
+                                    <td><%= one_week_data[b].position%></td>
                                     <td><%= player_recent_rpe%></td>
                                     <td><%= recent_duration%></td>
                                     <td><%= recent_load%></td>
@@ -373,7 +375,7 @@
                                 </tr>
 
 
-                                <% }) %>
+                                <% } %>
 
                                 </tbody>
                             </table>
@@ -394,6 +396,8 @@
                                 <thead>
                                 <tr>
                                     <th>Group</th>
+                                    <th>Three Day Duration</th>
+                                    <th>Three Day Load</th>
                                     <th>Acute Duration (min)</th>
                                     <th>Acute Load</th>
                                     <th>Chronic Duration (min)</th>
@@ -427,6 +431,9 @@
                                     teamAcuteDuration = teamAcuteDuration + aRPE.duration;
                                     teamAcuteLoad = teamAcuteLoad + (aRPE.duration * aRPE.pavg);
                                 })
+
+
+
                                 teamChronicDuration = teamChronicDuration + teamAcuteDuration;
                                 teamChronicLoad = teamChronicLoad + teamAcuteLoad;
                                 teamChronicLoad = teamChronicLoad / 4;
@@ -439,6 +446,17 @@
                                 teamAcuteLoad = Math.round(teamAcuteLoad);
 
 
+                                var teamThreeLoad = 0;
+                                var teamThreeDuration = 0;
+                                for(var i = 0; i < threeDayTeam.length; i++)
+                                {
+                                    teamThreeLoad = teamThreeLoad + (threeDayTeam[i].duration * threeDayTeam[i].pavg);
+                                    teamThreeDuration = teamThreeDuration + threeDayTeam[i].duration;
+                                }
+
+                                teamThreeLoad = Math.round(teamThreeLoad);
+
+
                                 %>
 
 
@@ -449,6 +467,8 @@
 
 
                                     <td>Team </td>
+                                    <td><%= teamThreeDuration%></td>
+                                    <td><%= teamThreeLoad%></td>
                                     <td><%= teamAcuteDuration %></td>
                                     <td><%= teamAcuteLoad%></td>
                                     <td><%= teamChronicDuration%></td>
@@ -472,16 +492,19 @@
 
 
                                 <%
-                                groupPos.forEach(function(pos){
+                                for(var k = 0; k < groupPos.length; k++)
+                                {
 
 
                                     var chronicPosDuration = 0;
                                     var chronicPosLoad = 0;
                                     var acutePosDuration = 0;
                                     var acutePosLoad = 0;
+                                    var threeDayLoad = 0;
+                                    var threeDayDuration = 0;
 
                                     chronicPosition.forEach( function(chronic) {
-                                        if(chronic.position == pos.position)
+                                        if(chronic.position == groupPos[k].position)
                                         {
                                             chronicPosDuration = chronicPosDuration + chronic.duration;
                                             chronicPosLoad = chronicPosLoad + (chronic.duration * chronic.pavg);
@@ -490,12 +513,24 @@
 
 
                                     acutePosition.forEach( function(acute) {
-                                        if(acute.position == pos.position)
+                                        if(acute.position == groupPos[k].position)
                                         {
                                             acutePosDuration = acutePosDuration + acute.duration;
                                             acutePosLoad = acutePosLoad + (acute.duration * acute.pavg);
                                         }
                                     });
+
+
+
+                                    for(var a = 0; a < threeDayPosition.length; a++)
+                                    {
+                                        if(threeDayPosition[a].position == groupPos[k].position)
+                                        {
+                                            threeDayLoad = threeDayLoad + (threeDayPosition[a].duration * threeDayPosition[a].pavg);
+                                            threeDayDuration = threeDayDuration + threeDayPosition[a].duration;
+                                        }
+                                    }
+
 
                                     chronicPosDuration = chronicPosDuration + acutePosDuration;
                                     chronicPosLoad = chronicPosLoad + acutePosLoad;
@@ -518,16 +553,18 @@
 
 
                                 <tr>
-                                    <td> <%= pos.position %> </td>
+                                    <td> <%= groupPos[k].position %> </td>
+                                    <td><%= threeDayDuration%></td>
+                                    <td><%= Math.round(threeDayLoad)%></td>
                                     <td><%= acutePosDuration%> </td>
                                     <td><%= acutePosLoad%></td>
                                     <td><%= chronicPosDuration%> </td>
                                     <td><%= chronicPosLoad%> </td>
-                                    <td><%= pos_load_percentage%>%</td>
+                                    <td><%= pos_load_percentage %>%</td>
 
 
                                 </tr>
-                                <% }); %>
+                                <% } %>
 
 
 
