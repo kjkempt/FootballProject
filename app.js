@@ -28,6 +28,9 @@ var universeHome = require('./routes/universeHome');
 var universeRegister = require('./routes/universeRegister');
 var universeThanks = require('./routes/universeThanks');
 var changePassword = require('./routes/changePassword');
+var nutritionHome = require('./routes/nutritionHome');
+var nutritionCreateSession = require('./routes/nutritionCreateSession');
+var nutritionSession = require('./routes/nutritionSession');
 
 
 
@@ -119,6 +122,9 @@ app.use('/universeHome', universeHome);
 app.use('/universeRegister', universeRegister);
 app.use('/universeThanks', universeThanks);
 app.use('/changePassword', changePassword);
+app.use('/nutritionHome', nutritionHome);
+app.use('/nutritionCreateSession', nutritionCreateSession);
+app.use('/nutritionSession', nutritionSession);
 
 //***Universe Pages
 
@@ -145,6 +151,28 @@ app.get('/changePassword', requireLogin, function(req, res, next) {
 app.get('/', function(req, res, next) {
     res.render('login', { message: ''});
 });
+
+
+//******START NUTRITION PAGES*******
+
+app.get('/nutritionHome', requireLogin, function(req, res, next) {
+    res.render('nutritionHome', { username: req.session.user});
+});
+
+app.get('/nutritionCreateSession', requireLogin, function(req, res, next) {
+    res.render('nutritionCreateSession', { username: req.session.user});
+});
+
+
+app.get('/nutritionSession', requireLogin, function(req, res, next) {
+    res.render('nutritionSession', { username: req.session.user});
+});
+
+//*******END NUTRITION PAGES*********
+
+
+
+
 
 //****START COACH PAGES*****
 
@@ -1459,6 +1487,12 @@ app.post('/attemptLogin', function(req, res) {
                 });
             }
 
+            else if(result[0].privileges == "Nutrition")
+            {
+                res.render('nutritionHome', {
+                    username: req.session.user
+                });
+            }
 
             else {
 

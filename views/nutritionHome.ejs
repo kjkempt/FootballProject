@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Workout Manager</title>
+    <title>Nutrition Home</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -30,36 +32,11 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script>
-        function isValidDate(dateString) {
-            var regEx = /^\d{4}-\d{2}-\d{2}$/;
-            return dateString.match(regEx) != null;
-        }
-    </script>
 
+    <!-- Datatables CSS and JS links  -->
 
-    <script>
-        function validateForm() {
-            var x1 = document.forms["WMform"]["workoutName"].value;
-            var x2 = document.forms["WMform"]["workoutDate"].value;
-            var x3 = document.forms["WMform"]["workoutType"].value;
-            var x4 = document.forms["WMform"]["workoutDuration"].value;
-            var x5 = document.forms["WMform"]["coachRPE"].value;
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
-            if (x1 == "" || x2 == "" || x3 == "" || x4 == "" || x5 == "rpeDefault")
-            {
-                alert("One or more field(s) is empty");
-                return false;
-            }
-
-            if(!isValidDate(x2))
-            {
-                alert("Incorrect date syntax");
-                return false;
-            }
-
-        }
-    </script>
 
 </head>
 
@@ -77,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
+            <a class="navbar-brand" href="/nutritionHome">Nutrition Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -178,103 +155,40 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Current Week Data</a>
+                    <a href="/nutritionCreateSession"><i class="glyphicon glyphicon-list-alt"></i> Create Session</a>
                 </li>
-                <li>
-                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
-                </li>
-                <li class="active">
-                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
-                </li>
-                <li>
-                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Workout Manager - Update RPE</a>
-                </li>
-                <li>
-                    <a href="/weeklySummary"><i class="glyphicon glyphicon-calendar"></i> Weekly Summary</a>
-                </li>
-                <li>
-                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Person</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
     <div id="page-wrapper">
 
         <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-1">
-                        <div class="panel panel-login">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <span class = "text-nowrap">
-                                    <h1 class="page-header" >
-                                        Workout Manager <small> Create new workout below </small>
-                                    </h1>
-                                    </span>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
-                                        </div>
-                                        <div class = "panel-body">
+                        <div class = "panel-body">
 
-
-                                        <form name="WMform" action="/workoutManager/addWorkout" method="post" role="form"
-                                          onsubmit="return validateForm()" style=" display: block;">
-                                        <div class="form-group">
-                                            <h5>Expected workout sRPE</h5>
-                                            <select name = "coachRPE" class="form-control">
-                                                <option disabled selected value = "rpeDefault">--sRPE--</option>
-                                                <option value = "1">1 - Rest</option>
-                                                <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
-                                                <option value = "3">3 - Easy (Dynamic warm-up)</option>
-                                                <option value = "4">4 - Moderate</option>
-                                                <option value = "5">5 - Challenging (Can repeat, recover between reps & sets)</option>
-                                                <option value = "6">6 - Hard</option>
-                                                <option value = "7">7 - Very Hard - (You need to push hard, incomplete recovery between sets & reps)</option>
-                                                <option value = "8">8 - Really Hard</option>
-                                                <option value = "9">9 - Really, Really Hard</option>
-                                                <option value = "10">10 - Maximal (Hardest session experienced to date)</option>
-                                            </select>
-
-                                            <h5>Workout Name</h5>
-                                            <input type = "text" name = "workoutName" class="form-control">
-                                            <h5>Type - (i.e. Weight Room, Conditioning, ect.)</h5>
-                                            <input type = "text" name = "workoutType" class="form-control">
-                                            <h5>Date - (yyyy-mm-dd) ex: 2015-08-10</h5>
-                                            <input type = "date" name = "workoutDate" class="form-control">
-                                            <h5>Duration (minutes)</h5>
-                                            <input type="text" name = "workoutDuration"
-                                                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                   class="form-control">
-                                            </input>
-
-                                            <h5>Time</h5>
-                                            <select name="time" class="form-control">
-                                                <option disabled selected value="timeDefault">Time Slot</option>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                            <h5>Notes</h5>
-                                            <textarea class="form-control" rows="5" id="comment"
-                                            name = "notes"></textarea>
-                                            <input type = "submit" name = "Submit" class="btn btn-default">
-                                        </div>
-                                    </form>
-
-                                        </div>
-
-
-                                </div>
-                                </div>
+                            <div class="jumbotron" style=" color: #a71930; ">
+                                <h1> Welcome to TeamExert</h1>
+                                <p>Nutrition Home</p>
                             </div>
+
+                            <a href="/nutritionCreateSession" class="btn btn-lg active" role="button" aria-pressed="true"
+                               style="background-color: #a71930; color: #fdc82f;">Create Session</a>
+
+
+
+
                         </div>
-                        <p class = "text-success"><%= message %></p>
                     </div>
                 </div>
             </div>
+            <!-- /.row -->
+
         </div>
         <!-- /.container-fluid -->
 
@@ -295,7 +209,10 @@
 <script src="../js/plugins/morris/morris.min.js"></script>
 <script src="../js/plugins/morris/morris-data.js"></script>
 
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
 </body>
 
 </html>
-

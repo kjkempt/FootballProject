@@ -632,9 +632,6 @@
                         $(document).ready( function () {
                             $('#player_table').DataTable({
                                     "scrollX": true
-
-
-
                                 }
                             );
                             $('#flags_table').DataTable({
@@ -642,7 +639,15 @@
                                 }
                             );
                             $('#team_table').DataTable({
-
+                                "ordering": false,
+                                "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                                    // Bold the grade for all 'A' grade browsers
+                                    if ( aData[0] == "Team" )
+                                    {
+                                        $('td', nRow).css('background-color', 'lightcoral');
+                                    }
+                                }
+                            }
                                 }
                             );
                         } );
