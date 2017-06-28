@@ -23,6 +23,47 @@ connection.connect(function(err) {
 
 router.post('/session', function(req, res, next) {
 
-    res.send("Session created");
+
+    var sql = "SELECT teamID from master.user where username = '" + req.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+    if(err) throw err;
+
+        teamid = result;
+
+        sql = "INSERT INTO meals(name, date, teamID) " +
+            "VALUES('" + req.body.mealName + "', '" + req.body.mealDate + "',  " +
+            " '" + teamid[0].teamID + "')";
+
+
+        connection.query(sql, function(err, result) {
+        if(err) throw err;
+
+
+        sql = "select MAX(mealID) as max from master.meals;";
+
+            var meal_id = [];
+            connection.query(sql, function(err, result) {
+                if (err) throw err;
+
+                meal_id = result;
+
+
+
+                res.render('nutritionSession',
+                    {
+                        username: req.user,
+                        team_id: teamid[0].teamID,
+                        meal_id: meal_id[0].max
+                    });
+
+
+            });
+
+        });
+
+
+    });
 
 });
