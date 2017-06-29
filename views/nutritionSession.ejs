@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>Nutrition Home</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -36,6 +37,10 @@
     <!-- Datatables CSS and JS links  -->
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+
+
+
 
 
 </head>
@@ -172,9 +177,31 @@
 
                         <div class = "panel-body">
 
-                            <p> <%= team_id %> </p>
-                            <p> <%= meal_id %></p>
 
+                            <form action="" method="" name="vform">
+                                <input id=mvar type="text" value="" name="player_id" /><br />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="1" value="1" id="1" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="2" value="2" id="2" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="3" value="3" id="3" onClick=addNumber(this); />
+                                <br>
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="4" value="4" id="4" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="5" value="5" id="5" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="6" value="6" id="6" onClick=addNumber(this); />
+                                <br>
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="7" value="7" id="7" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="8" value="8" id="8" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="9" value="9" id="9" onClick=addNumber(this); />
+                                <br>
+                                <input style="font-size: xx-large" type="button" class="fbutton" name="0" value="0" id="0" onClick=addNumber(this); />
+                                <input style="font-size: xx-large" type = "submit" name = "Submit" class="fbutton">
+                            </form>
+
+
+                            <script>
+                                function addNumber(element) {
+                                    document.getElementById('mvar').value = document.getElementById('mvar').value + element.value;
+                                }
+                            </script>
 
                         </div>
                     </div>
@@ -191,6 +218,11 @@
 </div>
 <!-- /#wrapper -->
 
+
+
+
+
+
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>
 
@@ -204,6 +236,8 @@
 
 
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
 
 
 </body>

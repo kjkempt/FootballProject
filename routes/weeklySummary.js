@@ -40,7 +40,7 @@ router.post('/selectWeek', function(req, res, next) {
             "AND m.date " +
             "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
             " '" + req.body.week_select + "' " +
-            "   ORDER BY u.username, indexday;";
+            "   ORDER BY u.username, indexday, m.time;";
 
 
 

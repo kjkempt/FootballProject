@@ -40,7 +40,7 @@ router.post('/selectWeek', function(req, res, next) {
             "AND m.date " +
             "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
             " '" + req.body.week_select + "' " +
-            "   ORDER BY u.username, indexday;";
+            "   ORDER BY u.username, indexday,  m.time;";
 
 
 
@@ -73,44 +73,139 @@ router.post('/selectWeek', function(req, res, next) {
                 chronic = result;
 
 
-                sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
-                    "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
-                    "FROM master.workouts m " +
-                    "WHERE m.teamID = '"+teamid[0].teamID+"' ;";
+                sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
+                    "AVG(w.player_sRPE) as pavg, m.duration, m.time " +
+                    "FROM  master.player_workouts w " +
+                    "INNER JOIN master.user u ON u.username = w.username " +
+                    "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
+                    "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                    "AND u.teamID = '" + teamid[0].teamID + "' " +
+                    "AND m.teamID = '" + teamid[0].teamID + "' " +
+                    "AND m.date " +
+                    "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                    " '" + req.body.week_select + "' " +
+                    "group by u.position, indexday " +
+                    "ORDER BY u.position, indexday; ";
 
 
-                var week_set = [];
+                var pos_week_data = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
 
-                    week_set = result;
+                    pos_week_data = result;
 
 
-                    //this splits the string to just have the date be in YYYY-MM-DD format for the queries
-
-                    for (var i = 0; i < week_set.length; i++) {
-                        var sun = week_set[i].sunday;
-
-                        sun = sun.toISOString().split('T')[0];
-
-                        var sat = week_set[i].saturday;
-
-                        sat = sat.toISOString().split('T')[0];
-
-                        week_set[i].sunday = sun;
-                        week_set[i].saturday = sat;
-
-                    }
+                    sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
+                        "AVG(w.player_sRPE) as pavg, m.duration, m.time " +
+                        "FROM  master.player_workouts w " +
+                        "INNER JOIN master.user u ON u.username = w.username " +
+                        "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
+                        "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                        "AND u.teamID = '" + teamid[0].teamID + "' " +
+                        "AND m.teamID = '" + teamid[0].teamID + "' " +
+                        "AND m.date " +
+                        "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                        " '" + req.body.week_select + "' " +
+                        "group by m.date, indexday " +
+                        "ORDER BY m.date, indexday; ";
 
 
-                    res.render('coachWeeklySummary', {
-                        username: req.user,
-                        week_data: week_data,
-                        chronic_week: chronic,
-                        week_set: week_set
+                    var team_week_data = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+                        team_week_data = result;
+
+
+
+
+                        sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
+                            "(weekofyear('" + req.body.week_select + "') - weekofyear(m.date) + 1) as weekcount  " +
+                            "FROM master.user u, master.player_workouts w, master.workouts m " +
+                            "WHERE u.username = w.username " +
+                            "AND w.teamID = '"+teamid[0].teamID+"' " +
+                            "AND u.teamID = '"+teamid[0].teamID+"' " +
+                            "AND m.teamID = '"+teamid[0].teamID+"' " +
+                            "AND w.workoutID = m.workoutid " +
+                            "AND m.date " +
+                            "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                            ";";
+
+                        var chronic_position = [];
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+
+                            chronic_position = result;
+
+
+                            sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                                "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
+                                "(weekofyear('" + req.body.week_select + "') - weekofyear(m.date) + 1) as weekcount  " +
+                                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                "WHERE u.username = w.username " +
+                                "AND w.teamID = '" + teamid[0].teamID + "' " +
+                                "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                "AND m.teamID = '" + teamid[0].teamID + "' " +
+                                "AND w.workoutID = m.workoutid " +
+                                "AND m.date " +
+                                "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                                ";";
+
+                            var chronic_team = [];
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+
+                                chronic_team = result;
+
+
+                                sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+                                    "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+                                    "FROM master.workouts m " +
+                                    "WHERE m.teamID = '" + teamid[0].teamID + "' ;";
+
+
+                                var week_set = [];
+                                connection.query(sql, function (err, result) {
+                                    if (err) throw err;
+
+                                    week_set = result;
+
+
+                                    //this splits the string to just have the date be in YYYY-MM-DD format for the queries
+
+                                    for (var i = 0; i < week_set.length; i++) {
+                                        var sun = week_set[i].sunday;
+
+                                        sun = sun.toISOString().split('T')[0];
+
+                                        var sat = week_set[i].saturday;
+
+                                        sat = sat.toISOString().split('T')[0];
+
+                                        week_set[i].sunday = sun;
+                                        week_set[i].saturday = sat;
+
+                                    }
+
+
+                                    res.render('coachWeeklySummary', {
+                                        username: req.user,
+                                        week_data: week_data,
+                                        chronic_week: chronic,
+                                        week_set: week_set,
+                                        pos_week_data: pos_week_data,
+                                        team_week_data: team_week_data,
+                                        chronic_position: chronic_position,
+                                        chronic_team: chronic_team
+                                    });
+
+                                });
+                            });
+                        });
                     });
-
                 });
+
             });
 
 

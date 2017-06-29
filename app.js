@@ -680,12 +680,19 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
 
             }
 
-
+            var team_week_data = [];
+            var chronic_position = [];
+            var pos_week_data = [];
+            var chronic_team = [];
             res.render('coachWeeklySummary', {
-                username: req.session.user,
+                username: req.user,
                 week_data: week_data,
                 chronic_week: chronic,
-                week_set: week_set
+                week_set: week_set,
+                pos_week_data: pos_week_data,
+                team_week_data: team_week_data,
+                chronic_position: chronic_position,
+                chronic_team: chronic_team
             });
 
 
