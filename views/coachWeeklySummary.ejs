@@ -290,7 +290,7 @@
                                             if(chronic_week[j].username == week_data[i].username)
                                             {
                                                 chronic_load = chronic_week[j].chronicSum;
-                                                chronic_load = chronic_load / chronic_week[j].weekcount;
+                                                chronic_load = chronic_load / 4;
                                                 chronic_load = Math.round(chronic_load);
                                                 break;
                                             }
@@ -1360,17 +1360,33 @@
 
 
                                     <%
-                                        for(var c = 0; c < chronic_position.length; c++)
+                                        var pos_count = 0;
+                                        for(var c = 0; c < chronic_position.length; c++) {
+                                            if (chronic_position[c].position == pos_week_data[m].position) {
+                                                pos_chronic_load = pos_chronic_load + chronic_position[c].chronicSum;
+                                                pos_count++;
+                                            }
+                                        }
+                                        pos_chronic_load = pos_chronic_load / pos_count;
+                                        pos_chronic_load = Math.round(pos_chronic_load);
+
+
+
+
+
+
+                                        var pos_count_acute = 0;
+                                        for(var f = 0; f < acute_position.length; f++)
                                         {
-                                            if(chronic_position[c].position == pos_week_data[m].position)
+                                            if(acute_position[f].position == pos_week_data[m].position)
                                             {
-                                                pos_chronic_load = pos_chronic_load +
-                                                        (chronic_position[c].pavg * chronic_position[c].duration);
+                                                posAcuteLoad = posAcuteLoad + acute_position[f].chronicSum;
+                                                pos_count_acute++;
                                             }
                                         }
 
-                                        pos_chronic_load = pos_chronic_load / 4;
-                                        pos_chronic_load = Math.round(pos_chronic_load);
+                                        posAcuteLoad = posAcuteLoad / pos_count_acute;
+                                        posAcuteLoad = Math.round(posAcuteLoad);
 
                                     %>
 
@@ -1382,7 +1398,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1475,7 +1490,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1566,7 +1580,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1658,7 +1671,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1744,7 +1756,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1825,7 +1836,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1902,7 +1912,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -1974,7 +1983,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2040,7 +2048,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2104,7 +2111,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2163,7 +2169,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2218,7 +2223,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2270,7 +2274,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2318,7 +2321,6 @@
                                         pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
                                         pos_avg++;
                                         pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
-                                        posAcuteLoad = posAcuteLoad + (pos_week_data[m].pavg * pos_week_data[m].duration );
                                     %>
 
                                     <td><%= pos_week_data[m].pavg %></td>
@@ -2387,7 +2389,6 @@
 
                                 <% if(team_week_data.length > 0) {
 
-                                console.log("Start");
                                     var mm = 0;
 
                                     console.log(mm);
@@ -2415,12 +2416,23 @@
                                         for(var d = 0; d < chronic_team.length; d++)
                                         {
 
-                                            team_chronic_load = team_chronic_load + chronic_team[d].chronicSum / 4;
+                                            team_chronic_load = team_chronic_load + chronic_team[d].chronicSum;
 
                                         }
 
                                         team_chronic_load = team_chronic_load / chronic_team.length;
                                         team_chronic_load = Math.round(team_chronic_load);
+
+
+
+
+                                        for(var g = 0; g < acute_team.length; g++)
+                                        {
+                                            teamAcuteLoad = teamAcuteLoad + acute_team[g].chronicSum;
+                                        }
+
+                                        teamAcuteLoad = teamAcuteLoad / acute_team.length;
+                                        teamAcuteLoad = Math.round(teamAcuteLoad);
 
 
                                     %>
@@ -2430,7 +2442,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2520,7 +2531,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2610,7 +2620,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2700,7 +2709,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2784,7 +2792,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2864,7 +2871,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -2939,7 +2945,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3010,7 +3015,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3075,7 +3079,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3137,7 +3140,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3195,7 +3197,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3248,7 +3249,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3299,7 +3299,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>
@@ -3344,7 +3343,6 @@
                                         team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
                                         team_avg++;
                                         team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
-                                        teamAcuteLoad = teamAcuteLoad + (team_week_data[mm].pavg * team_week_data[mm].duration );
                                     %>
 
                                     <td><%= team_week_data[mm].pavg %></td>

@@ -684,6 +684,8 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
             var chronic_position = [];
             var pos_week_data = [];
             var chronic_team = [];
+            var acute_position = [];
+            var acute_team = [];
             res.render('coachWeeklySummary', {
                 username: req.user,
                 week_data: week_data,
@@ -692,7 +694,9 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
                 pos_week_data: pos_week_data,
                 team_week_data: team_week_data,
                 chronic_position: chronic_position,
-                chronic_team: chronic_team
+                chronic_team: chronic_team,
+                acute_position: acute_position,
+                acute_team: acute_team
             });
 
 
@@ -707,6 +711,9 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
 
 
 //END COACH PAGES*************
+
+
+
 
 
 //***START ADMIN PAGES**********
@@ -937,12 +944,23 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
             }
 
-
+            var team_week_data = [];
+            var chronic_position = [];
+            var pos_week_data = [];
+            var chronic_team = [];
+            var acute_position = [];
+            var acute_team = [];
             res.render('weeklySummary', {
-                username: req.session.user,
+                username: req.user,
                 week_data: week_data,
                 chronic_week: chronic,
-                week_set: week_set
+                week_set: week_set,
+                pos_week_data: pos_week_data,
+                team_week_data: team_week_data,
+                chronic_position: chronic_position,
+                chronic_team: chronic_team,
+                acute_position: acute_position,
+                acute_team: acute_team
             });
 
 

@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/coachWeeklySummary.js" afterPath="$PROJECT_DIR$/routes/coachWeeklySummary.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminHome.ejs" afterPath="$PROJECT_DIR$/views/adminHome.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/weeklySummary.js" afterPath="$PROJECT_DIR$/routes/weeklySummary.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachWeeklySummary.ejs" afterPath="$PROJECT_DIR$/views/coachWeeklySummary.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/weeklySummary.ejs" afterPath="$PROJECT_DIR$/views/weeklySummary.ejs" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,51 +30,82 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="269" column="0" lean-forward="false" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
+            <state relative-caret-position="130">
+              <caret line="716" column="0" lean-forward="true" selection-start-line="716" selection-start-column="0" selection-end-line="716" selection-end-column="0" />
               <folding>
                 <element signature="e#5192#5259#0" expanded="false" />
                 <element signature="e#5337#5413#0" expanded="false" />
                 <element signature="e#5486#5556#0" expanded="false" />
                 <element signature="e#5702#6844#0" expanded="false" />
+                <element signature="e#6915#28133#0" expanded="false" />
+                <element signature="e#7081#28130#0" expanded="false" />
                 <element signature="e#28198#28274#0" expanded="false" />
-                <element signature="e#28348#30009#0" expanded="false" />
-                <element signature="e#30169#30267#0" expanded="false" />
-                <element signature="e#30364#30461#0" expanded="false" />
-                <element signature="e#30550#30893#0" expanded="false" />
-                <element signature="e#30978#35909#0" expanded="false" />
-                <element signature="e#36000#37329#0" expanded="false" />
-                <element signature="e#37412#37488#0" expanded="false" />
-                <element signature="e#37583#38724#0" expanded="false" />
-                <element signature="e#38810#38914#0" expanded="false" />
-                <element signature="e#39009#60230#0" expanded="false" />
-                <element signature="e#39175#60223#0" expanded="false" />
-                <element signature="e#60448#60569#0" expanded="false" />
-                <element signature="e#60872#62056#0" expanded="false" />
-                <element signature="e#62294#62350#0" expanded="false" />
+                <element signature="e#28348#30167#0" expanded="false" />
+                <element signature="e#28515#30161#0" expanded="false" />
+                <element signature="e#30330#30428#0" expanded="false" />
+                <element signature="e#30525#30622#0" expanded="false" />
+                <element signature="e#30711#31054#0" expanded="false" />
+                <element signature="e#31139#36070#0" expanded="false" />
+                <element signature="e#38059#38135#0" expanded="false" />
+                <element signature="e#38230#39371#0" expanded="false" />
+                <element signature="e#39457#39561#0" expanded="false" />
+                <element signature="e#39656#60877#0" expanded="false" />
+                <element signature="e#39822#60870#0" expanded="false" />
+                <element signature="e#61095#61216#0" expanded="false" />
+                <element signature="e#61519#62703#0" expanded="false" />
+                <element signature="e#62941#62997#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coachWeeklySummary.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="coachWeeklySummary.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/coachWeeklySummary.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2409" column="49" lean-forward="false" selection-start-line="2409" selection-start-column="49" selection-end-line="2409" selection-end-column="49" />
+            <state relative-caret-position="318">
+              <caret line="292" column="79" lean-forward="false" selection-start-line="292" selection-start-column="79" selection-end-line="292" selection-end-column="79" />
               <folding>
-                <element signature="n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#60893#106676#0#JavaScript" expanded="false" />
+                <element signature="n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#60869#105659#0#JavaScript" expanded="false" />
+                <element signature="e#63373#66828#0#JavaScript" expanded="false" />
+                <element signature="e#67248#70557#0#JavaScript" expanded="false" />
+                <element signature="e#70981#74207#0#JavaScript" expanded="false" />
+                <element signature="e#74632#77660#0#JavaScript" expanded="false" />
+                <element signature="e#78084#80970#0#JavaScript" expanded="false" />
+                <element signature="e#81393#84136#0#JavaScript" expanded="false" />
+                <element signature="e#84560#87160#0#JavaScript" expanded="false" />
+                <element signature="e#87584#90042#0#JavaScript" expanded="false" />
+                <element signature="e#90464#92780#0#JavaScript" expanded="false" />
+                <element signature="e#93204#95379#0#JavaScript" expanded="false" />
+                <element signature="e#95801#97833#0#JavaScript" expanded="false" />
+                <element signature="e#98255#100146#0#JavaScript" expanded="false" />
+                <element signature="e#100568#102391#0#JavaScript" expanded="false" />
+                <element signature="e#102849#104451#0#JavaScript" expanded="false" />
+                <element signature="e#105732#149246#0#JavaScript" expanded="false" />
+                <element signature="e#107645#111131#0#JavaScript" expanded="false" />
+                <element signature="e#111473#114818#0#JavaScript" expanded="false" />
+                <element signature="e#115164#118370#0#JavaScript" expanded="false" />
+                <element signature="e#118716#121779#0#JavaScript" expanded="false" />
+                <element signature="e#122124#125046#0#JavaScript" expanded="false" />
+                <element signature="e#125390#128168#0#JavaScript" expanded="false" />
+                <element signature="e#128513#131149#0#JavaScript" expanded="false" />
+                <element signature="e#131494#133988#0#JavaScript" expanded="false" />
+                <element signature="e#134331#136682#0#JavaScript" expanded="false" />
+                <element signature="e#137027#139238#0#JavaScript" expanded="false" />
+                <element signature="e#139581#141649#0#JavaScript" expanded="false" />
+                <element signature="e#141992#143919#0#JavaScript" expanded="false" />
+                <element signature="e#144263#146046#0#JavaScript" expanded="false" />
+                <element signature="e#146426#148065#0#JavaScript" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coachRecentData.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/coachRecentData.ejs">
+      <file leaf-file-name="www" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2673">
-              <caret line="663" column="10" lean-forward="false" selection-start-line="663" selection-start-column="10" selection-end-line="663" selection-end-column="10" />
+            <state relative-caret-position="105">
+              <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -82,8 +114,60 @@
       <file leaf-file-name="coachWeeklySummary.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+            <state relative-caret-position="1163">
+              <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weeklySummary.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="296" column="88" lean-forward="true" selection-start-line="296" selection-start-column="88" selection-end-line="296" selection-end-column="88" />
+              <folding>
+                <element signature="n#table#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#61103#105897#0#JavaScript" expanded="false" />
+                <element signature="e#63611#67066#0#JavaScript" expanded="false" />
+                <element signature="e#67486#70795#0#JavaScript" expanded="false" />
+                <element signature="e#71219#74445#0#JavaScript" expanded="false" />
+                <element signature="e#74870#77898#0#JavaScript" expanded="false" />
+                <element signature="e#78322#81208#0#JavaScript" expanded="false" />
+                <element signature="e#81631#84374#0#JavaScript" expanded="false" />
+                <element signature="e#84798#87398#0#JavaScript" expanded="false" />
+                <element signature="e#87822#90280#0#JavaScript" expanded="false" />
+                <element signature="e#90702#93018#0#JavaScript" expanded="false" />
+                <element signature="e#93442#95617#0#JavaScript" expanded="false" />
+                <element signature="e#96039#98071#0#JavaScript" expanded="false" />
+                <element signature="e#98493#100384#0#JavaScript" expanded="false" />
+                <element signature="e#100806#102629#0#JavaScript" expanded="false" />
+                <element signature="e#103087#104689#0#JavaScript" expanded="false" />
+                <element signature="e#105970#149484#0#JavaScript" expanded="false" />
+                <element signature="e#107883#111369#0#JavaScript" expanded="false" />
+                <element signature="e#111711#115056#0#JavaScript" expanded="false" />
+                <element signature="e#115402#118608#0#JavaScript" expanded="false" />
+                <element signature="e#118954#122017#0#JavaScript" expanded="false" />
+                <element signature="e#122362#125284#0#JavaScript" expanded="false" />
+                <element signature="e#125628#128406#0#JavaScript" expanded="false" />
+                <element signature="e#128751#131387#0#JavaScript" expanded="false" />
+                <element signature="e#131732#134226#0#JavaScript" expanded="false" />
+                <element signature="e#134569#136920#0#JavaScript" expanded="false" />
+                <element signature="e#137265#139476#0#JavaScript" expanded="false" />
+                <element signature="e#139819#141887#0#JavaScript" expanded="false" />
+                <element signature="e#142230#144157#0#JavaScript" expanded="false" />
+                <element signature="e#144501#146284#0#JavaScript" expanded="false" />
+                <element signature="e#146664#148303#0#JavaScript" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weeklySummary.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/weeklySummary.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="253" column="69" lean-forward="false" selection-start-line="253" selection-start-column="69" selection-end-line="253" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -139,7 +223,6 @@
         <option value="$PROJECT_DIR$/views/updateWorkout.ejs" />
         <option value="$PROJECT_DIR$/views/adminDailySummary.ejs" />
         <option value="$PROJECT_DIR$/views/coachDailySummary.ejs" />
-        <option value="$PROJECT_DIR$/views/weeklySummary.ejs" />
         <option value="$PROJECT_DIR$/views/coachDashboard.ejs" />
         <option value="$PROJECT_DIR$/routes/nutritionHome.js" />
         <option value="$PROJECT_DIR$/routes/nutritionSession.js" />
@@ -150,12 +233,13 @@
         <option value="$PROJECT_DIR$/views/nutritionSession.ejs" />
         <option value="$PROJECT_DIR$/views/coachRecentData.ejs" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/routes/weeklySummary.js" />
-        <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/views/adminHome.ejs" />
         <option value="$PROJECT_DIR$/routes/coachWeeklySummary.js" />
+        <option value="$PROJECT_DIR$/routes/weeklySummary.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/weeklySummary.ejs" />
         <option value="$PROJECT_DIR$/views/coachWeeklySummary.ejs" />
+        <option value="$PROJECT_DIR$/bin/www" />
       </list>
     </option>
   </component>
@@ -250,46 +334,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ISU_Database_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ISU_Database_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="startbootstrap-stylish-portfolio-gh-pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ISU_Database_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ISU_Database_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="startbootstrap-stylish-portfolio-gh-pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -497,12 +541,12 @@
       <workItem from="1498519879774" duration="150000" />
       <workItem from="1498657811064" duration="17714000" />
       <workItem from="1499444801277" duration="7811000" />
-      <workItem from="1499700196676" duration="2462000" />
+      <workItem from="1499700196676" duration="5975000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="288291000" />
+    <option name="totallyTimeSpent" value="291804000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -520,7 +564,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17489539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26300147" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26300147" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -572,21 +616,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1480</line>
+          <line>1498</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1042</line>
+          <line>1060</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1489</line>
+          <line>1507</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="87" />
+      <option name="time" value="88" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -774,17 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="1296" column="71" lean-forward="true" selection-start-line="1294" selection-start-column="44" selection-end-line="1296" selection-end-column="71" />
-          <folding>
-            <element signature="e#57836#59919#0#JavaScript" expanded="false" />
-            <element signature="e#60426#62252#0#JavaScript" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/nutritionSession.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -871,20 +904,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/weeklySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="42" column="53" lean-forward="false" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/startbootstrap-stylish-portfolio-gh-pages/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -907,42 +926,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="269" column="0" lean-forward="false" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
-          <folding>
-            <element signature="e#5192#5259#0" expanded="false" />
-            <element signature="e#5337#5413#0" expanded="false" />
-            <element signature="e#5486#5556#0" expanded="false" />
-            <element signature="e#5702#6844#0" expanded="false" />
-            <element signature="e#28198#28274#0" expanded="false" />
-            <element signature="e#28348#30009#0" expanded="false" />
-            <element signature="e#30169#30267#0" expanded="false" />
-            <element signature="e#30364#30461#0" expanded="false" />
-            <element signature="e#30550#30893#0" expanded="false" />
-            <element signature="e#30978#35909#0" expanded="false" />
-            <element signature="e#36000#37329#0" expanded="false" />
-            <element signature="e#37412#37488#0" expanded="false" />
-            <element signature="e#37583#38724#0" expanded="false" />
-            <element signature="e#38810#38914#0" expanded="false" />
-            <element signature="e#39009#60230#0" expanded="false" />
-            <element signature="e#39175#60223#0" expanded="false" />
-            <element signature="e#60448#60569#0" expanded="false" />
-            <element signature="e#60872#62056#0" expanded="false" />
-            <element signature="e#62294#62350#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/coachRecentData.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2673">
@@ -951,14 +934,137 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/weeklySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="253" column="69" lean-forward="false" selection-start-line="253" selection-start-column="69" selection-end-line="253" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="716" column="0" lean-forward="true" selection-start-line="716" selection-start-column="0" selection-end-line="716" selection-end-column="0" />
+          <folding>
+            <element signature="e#5192#5259#0" expanded="false" />
+            <element signature="e#5337#5413#0" expanded="false" />
+            <element signature="e#5486#5556#0" expanded="false" />
+            <element signature="e#5702#6844#0" expanded="false" />
+            <element signature="e#6915#28133#0" expanded="false" />
+            <element signature="e#7081#28130#0" expanded="false" />
+            <element signature="e#28198#28274#0" expanded="false" />
+            <element signature="e#28348#30167#0" expanded="false" />
+            <element signature="e#28515#30161#0" expanded="false" />
+            <element signature="e#30330#30428#0" expanded="false" />
+            <element signature="e#30525#30622#0" expanded="false" />
+            <element signature="e#30711#31054#0" expanded="false" />
+            <element signature="e#31139#36070#0" expanded="false" />
+            <element signature="e#38059#38135#0" expanded="false" />
+            <element signature="e#38230#39371#0" expanded="false" />
+            <element signature="e#39457#39561#0" expanded="false" />
+            <element signature="e#39656#60877#0" expanded="false" />
+            <element signature="e#39822#60870#0" expanded="false" />
+            <element signature="e#61095#61216#0" expanded="false" />
+            <element signature="e#61519#62703#0" expanded="false" />
+            <element signature="e#62941#62997#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1163">
+          <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="296" column="88" lean-forward="true" selection-start-line="296" selection-start-column="88" selection-end-line="296" selection-end-column="88" />
+          <folding>
+            <element signature="n#table#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#61103#105897#0#JavaScript" expanded="false" />
+            <element signature="e#63611#67066#0#JavaScript" expanded="false" />
+            <element signature="e#67486#70795#0#JavaScript" expanded="false" />
+            <element signature="e#71219#74445#0#JavaScript" expanded="false" />
+            <element signature="e#74870#77898#0#JavaScript" expanded="false" />
+            <element signature="e#78322#81208#0#JavaScript" expanded="false" />
+            <element signature="e#81631#84374#0#JavaScript" expanded="false" />
+            <element signature="e#84798#87398#0#JavaScript" expanded="false" />
+            <element signature="e#87822#90280#0#JavaScript" expanded="false" />
+            <element signature="e#90702#93018#0#JavaScript" expanded="false" />
+            <element signature="e#93442#95617#0#JavaScript" expanded="false" />
+            <element signature="e#96039#98071#0#JavaScript" expanded="false" />
+            <element signature="e#98493#100384#0#JavaScript" expanded="false" />
+            <element signature="e#100806#102629#0#JavaScript" expanded="false" />
+            <element signature="e#103087#104689#0#JavaScript" expanded="false" />
+            <element signature="e#105970#149484#0#JavaScript" expanded="false" />
+            <element signature="e#107883#111369#0#JavaScript" expanded="false" />
+            <element signature="e#111711#115056#0#JavaScript" expanded="false" />
+            <element signature="e#115402#118608#0#JavaScript" expanded="false" />
+            <element signature="e#118954#122017#0#JavaScript" expanded="false" />
+            <element signature="e#122362#125284#0#JavaScript" expanded="false" />
+            <element signature="e#125628#128406#0#JavaScript" expanded="false" />
+            <element signature="e#128751#131387#0#JavaScript" expanded="false" />
+            <element signature="e#131732#134226#0#JavaScript" expanded="false" />
+            <element signature="e#134569#136920#0#JavaScript" expanded="false" />
+            <element signature="e#137265#139476#0#JavaScript" expanded="false" />
+            <element signature="e#139819#141887#0#JavaScript" expanded="false" />
+            <element signature="e#142230#144157#0#JavaScript" expanded="false" />
+            <element signature="e#144501#146284#0#JavaScript" expanded="false" />
+            <element signature="e#146664#148303#0#JavaScript" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/coachWeeklySummary.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2409" column="49" lean-forward="false" selection-start-line="2409" selection-start-column="49" selection-end-line="2409" selection-end-column="49" />
+        <state relative-caret-position="318">
+          <caret line="292" column="79" lean-forward="false" selection-start-line="292" selection-start-column="79" selection-end-line="292" selection-end-column="79" />
           <folding>
-            <element signature="n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#60893#106676#0#JavaScript" expanded="false" />
+            <element signature="n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#60869#105659#0#JavaScript" expanded="false" />
+            <element signature="e#63373#66828#0#JavaScript" expanded="false" />
+            <element signature="e#67248#70557#0#JavaScript" expanded="false" />
+            <element signature="e#70981#74207#0#JavaScript" expanded="false" />
+            <element signature="e#74632#77660#0#JavaScript" expanded="false" />
+            <element signature="e#78084#80970#0#JavaScript" expanded="false" />
+            <element signature="e#81393#84136#0#JavaScript" expanded="false" />
+            <element signature="e#84560#87160#0#JavaScript" expanded="false" />
+            <element signature="e#87584#90042#0#JavaScript" expanded="false" />
+            <element signature="e#90464#92780#0#JavaScript" expanded="false" />
+            <element signature="e#93204#95379#0#JavaScript" expanded="false" />
+            <element signature="e#95801#97833#0#JavaScript" expanded="false" />
+            <element signature="e#98255#100146#0#JavaScript" expanded="false" />
+            <element signature="e#100568#102391#0#JavaScript" expanded="false" />
+            <element signature="e#102849#104451#0#JavaScript" expanded="false" />
+            <element signature="e#105732#149246#0#JavaScript" expanded="false" />
+            <element signature="e#107645#111131#0#JavaScript" expanded="false" />
+            <element signature="e#111473#114818#0#JavaScript" expanded="false" />
+            <element signature="e#115164#118370#0#JavaScript" expanded="false" />
+            <element signature="e#118716#121779#0#JavaScript" expanded="false" />
+            <element signature="e#122124#125046#0#JavaScript" expanded="false" />
+            <element signature="e#125390#128168#0#JavaScript" expanded="false" />
+            <element signature="e#128513#131149#0#JavaScript" expanded="false" />
+            <element signature="e#131494#133988#0#JavaScript" expanded="false" />
+            <element signature="e#134331#136682#0#JavaScript" expanded="false" />
+            <element signature="e#137027#139238#0#JavaScript" expanded="false" />
+            <element signature="e#139581#141649#0#JavaScript" expanded="false" />
+            <element signature="e#141992#143919#0#JavaScript" expanded="false" />
+            <element signature="e#144263#146046#0#JavaScript" expanded="false" />
+            <element signature="e#146426#148065#0#JavaScript" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
