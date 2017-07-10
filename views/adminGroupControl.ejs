@@ -172,9 +172,6 @@
                 <li>
                     <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Person</a>
                 </li>
-                <li>
-                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-plus-sign"></i> Group Control</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -185,38 +182,67 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-
-                        <div class = "panel-body">
-
-                                <div class="jumbotron" style=" color: #a71930; ">
-                                    <h1> Welcome to TeamExert U</h1>
-                                    <p>Admin Home</p>
-                                </div>
-
-                            <a href="/coachDashboard" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Current Week Data</a>
-
-                            <a href="/adminDailySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Daily Workout Summary</a>
-
-                            <br><br>
-
-                            <a href="/workoutManager" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Create New Workout</a>
-
-                            <a href="/updateWorkout" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Update Current Workout</a>
-
-                            <br><br>
-
-                            <a href="/weeklySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Weekly Summary</a>
-
-                            <a href="/adminAddAthlete" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Add Member</a>
+                    <div class="panel panel-default" >
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Player Groups</h3>
+                        </div>
+                        <div class="panel-body">
 
 
+                        <table id="group_table" class="display">
+                            <thead>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>First Name</td>
+                                <td>Position</td>
+                                <td>Group</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            <% for(var i = 0; i < players.length; i++){  %>
+                            <tr>
+                                <td><%= players[i].last_name%></td>
+                                <td><%= players[i].first_name%></td>
+                                <td><%= players[i].position%></td>
+                                <% if(players[i].group_chronic == 't') {%>
+                                <td>Team</td>
+                                <%}%>
+                                <% if(players[i].group_chronic == 'f') {%>
+                                <td>Frosh/Injured</td>
+                                <%}%>
+                            </tr>
+                                <% } %>
+
+                            </tbody>
+                        </table>
+
+                        </div>
+
+
+                        <div class="panel-heading" style="background-color: gold">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Change Player's Group</h3>
+                        </div>
+                        <div class="panel-body">
+
+                        <form name="playerGroupChange"  class = "form-inline" action="/adminGroupControl/changeGroup" method="post" role="form"
+                              style=" display: block;">
+                            <label for="sel1">Select player:</label>
+                            <div class="form-group">
+                                <select class="form-control" id="mySelect" name="player">
+                                    <option disabled selected value> -- Select a player -- </option>
+                                    <% for(var j = 0; j < players.length; j++){  %>
+                                    <tr>
+                                        <option value = "<%= players[j].username %>" ><%= players[j].last_name %>, <%= players[j].first_name%></option>
+                                    </tr>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
+                        </div>
 
                         </div>
                     </div>
@@ -232,6 +258,21 @@
 
 </div>
 <!-- /#wrapper -->
+
+<script>
+    var $ = jQuery;
+    $(document).ready( function () {
+
+        $('#group_table').DataTable({
+
+        });
+    } );
+
+
+
+
+</script>
+
 
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>

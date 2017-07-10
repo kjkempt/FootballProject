@@ -31,6 +31,7 @@ var changePassword = require('./routes/changePassword');
 var nutritionHome = require('./routes/nutritionHome');
 var nutritionCreateSession = require('./routes/nutritionCreateSession');
 var nutritionSession = require('./routes/nutritionSession');
+var adminGroupControl = require('./routes/adminGroupControl');
 
 
 
@@ -125,6 +126,7 @@ app.use('/changePassword', changePassword);
 app.use('/nutritionHome', nutritionHome);
 app.use('/nutritionCreateSession', nutritionCreateSession);
 app.use('/nutritionSession', nutritionSession);
+app.use('/adminGroupControl', adminGroupControl);
 
 //***Universe Pages
 
@@ -1452,6 +1454,42 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
+});
+
+//Admin Group Control
+app.get('/adminGroupControl', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "SELECT * from master.user " +
+            "where teamID = '"+teamid[0].teamID+"' " +
+            "and privileges = 'Player'" +
+            "ORDER BY last_name;";
+
+        var players = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            players = result;
+
+
+
+
+            res.render('adminGroupControl', {
+                username: req.session.user,
+                players: players
+            });
+
+        });
+
+    });
 });
 
 //**************END ADMIN PAGES*****
