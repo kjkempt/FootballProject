@@ -16,7 +16,6 @@ var connection = mysql.createConnection({
 
 
 connection.connect(function(err) {
-    if (err) throw err;
     console.log("Connected! CD");
 });
 
@@ -81,6 +80,7 @@ router.post('/selectWeek', function(req, res, next) {
                     "WHERE w.teamID = '" + teamid[0].teamID + "' " +
                     "AND u.teamID = '" + teamid[0].teamID + "' " +
                     "AND m.teamID = '" + teamid[0].teamID + "' " +
+                    "AND NOT (u.group_chronic = 'f') " +
                     "AND m.date " +
                     "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
                     " '" + req.body.week_select + "' " +

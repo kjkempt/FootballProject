@@ -187,7 +187,7 @@
                         </div>
                         <div class = "panel-body">
 
-                            <form name="weekSelectForm"  class = "form-inline" action="/coachWeeklySummary/selectWeek" method="post" role="form"
+                            <form name="weekSelectForm"  class = "form-inline" action="/weeklySummary/selectWeek" method="post" role="form"
                                   style=" display: block;">
 
 
@@ -2390,6 +2390,8 @@
 
 
 
+
+
                                 <% if(team_week_data.length > 0) {
 
                                     var mm = 0;
@@ -2411,7 +2413,7 @@
                                 %>
 
                                 <tr>
-                                    <td>Team</td>
+                                    <td>+ Team</td>
 
 
 
@@ -3410,6 +3412,26 @@
 
                                 </tbody>
                             </table>
+
+
+                            <br><br>
+
+                            <%
+                                var cl = 0;
+                            for(var n = 0; n < chronic_team.length; n++)
+                            {
+
+                                cl = cl + chronic_team[n].chronicSum;
+
+                            }
+
+                            cl = cl / chronic_team.length;
+                            cl = Math.round(cl);
+
+                             %>
+
+                            <h3>Team Chronic Load of the Week <span class="label label-default"><%= cl %></span></h3>
+
 
 
                             <script>

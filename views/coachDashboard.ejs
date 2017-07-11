@@ -420,26 +420,30 @@ flag_rpe = [];%>
                                 var teamChronicLoad = 0;
                                 var teamChronicDuration = 0;
                                 //Sumnation of Team's chronic duration/Load
-                                teamChronicRPE.forEach(function (cRPE) {
-                                    teamChronicDuration = teamChronicDuration + cRPE.duration;
-                                    teamChronicLoad = teamChronicLoad + (cRPE.duration * cRPE.pavg);
-                                    })
-                                %>
+                                for(var f = 0; f < teamChronicRPE.length; f++)
+                                {
+                                    teamChronicLoad = teamChronicLoad + teamChronicRPE[f].chronicSum;
+                                }
 
 
-                                <%
                                 var teamAcuteLoad = 0;
                                 var teamAcuteDuration = 0;
-                                teamAcuteRPE.forEach(function (aRPE) {
-                                    teamAcuteDuration = teamAcuteDuration + aRPE.duration;
-                                    teamAcuteLoad = teamAcuteLoad + (aRPE.duration * aRPE.pavg);
-                                })
+
+                                for(var g = 0; g < teamAcuteRPE.length; g++)
+                                {
+                                    teamAcuteLoad = teamAcuteLoad + teamAcuteRPE[g].chronicSum;
+                                }
 
 
 
                                 teamChronicDuration = teamChronicDuration + teamAcuteDuration;
                                 teamChronicLoad = teamChronicLoad + teamAcuteLoad;
+
+                                teamChronicLoad = teamChronicLoad / teamChronicRPE.length;
                                 teamChronicLoad = teamChronicLoad / 4;
+
+                                teamAcuteLoad = teamAcuteLoad / teamAcuteRPE.length;
+
 
                                 var team_load_percentage = (teamAcuteLoad / teamChronicLoad) * 100;
                                 team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
@@ -469,7 +473,7 @@ flag_rpe = [];%>
 
 
 
-                                    <td>Team </td>
+                                    <td>+ Team </td>
                                     <td><%= teamThreeDuration%></td>
                                     <td><%= teamThreeLoad%></td>
                                     <td><%= teamAcuteDuration %></td>
@@ -601,22 +605,23 @@ flag_rpe = [];%>
                                 if(flags.length > 0){
                                 flags.forEach(function(f, i) { %>
 
-                                <% one_week_data.forEach(function(player){%>
+                                <% for(var a = 0; a < one_week_data.length; a++)
+                                {%>
 
-                                <%if(player.username == f) {%>
+                                <%if(one_week_data[a].username == f) {%>
 
                                 <tr>
 
 
-                                <td> <%= player.last_name %> </td>
-                                    <td><%= player.first_name %></td>
+                                <td> <%= one_week_data[a].last_name %> </td>
+                                    <td><%= one_week_data[a].first_name %></td>
                                     <td><%= flag_rpe[i] %></td>
 
                                 </tr>
 
                                 <%}%>
 
-                                <%})%>
+                                <%}%>
 
                                 <%})
                                 }%>
@@ -645,7 +650,6 @@ flag_rpe = [];%>
                                 }
                             );
                             $('#team_table').DataTable({
-                                    "ordering": false,
                                 "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                                     // Bold the grade for all 'A' grade browsers
                                     if ( aData[0] == "Team" )
