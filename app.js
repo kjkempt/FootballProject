@@ -687,6 +687,8 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
             var chronic_team = [];
             var acute_position = [];
             var acute_team = [];
+            var adg = [];
+            var cdg = [];
             res.render('coachWeeklySummary', {
                 username: req.user,
                 week_data: week_data,
@@ -697,7 +699,9 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
                 chronic_position: chronic_position,
                 chronic_team: chronic_team,
                 acute_position: acute_position,
-                acute_team: acute_team
+                acute_team: acute_team,
+                adg: adg,
+                cdg: cdg
             });
 
 
@@ -951,6 +955,8 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
             var chronic_team = [];
             var acute_position = [];
             var acute_team = [];
+            var adg = [];
+            var cdg = [];
             res.render('weeklySummary', {
                 username: req.user,
                 week_data: week_data,
@@ -961,7 +967,9 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
                 chronic_position: chronic_position,
                 chronic_team: chronic_team,
                 acute_position: acute_position,
-                acute_team: acute_team
+                acute_team: acute_team,
+                adg: adg,
+                cdg: cdg
             });
 
 

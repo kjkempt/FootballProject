@@ -3409,6 +3409,97 @@
                                 <% } %>
 
 
+                                <%if(cdg.length > 0){
+
+                                for(var t = 0; t < cdg.length; t++)
+                                {
+                                %>
+                                <tr>
+                                    <td>- <%= cdg[t].group_chronic%></td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                        var groupCL = cdg[t].chronicSum;
+                                        groupCL = groupCL / cdg[t].playerCount;
+                                        var groupAL = 0;
+                                        if(adg.length > 0) {
+                                            groupAL = adg[t].chronicSum;
+                                            groupAL = groupAL / adg[t].playerCount;
+                                        }
+                                        groupLP = (groupAL / groupCL) * 100;
+                                        groupLP = Math.round(groupLP * 10)/10; //nearest tenth
+                                        groupCL = Math.round(groupCL);
+                                        groupAL = Math.round(groupAL);
+                                    %>
+                                    <td><%= groupAL%></td>
+                                    <td><%= groupCL%></td>
+                                    <td><%= groupLP%>%</td>
+
+                                </tr>
+
+
+                                <%
+                                }
+
+                                }%>
+
+
 
                                 </tbody>
                             </table>
