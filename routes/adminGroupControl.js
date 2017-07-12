@@ -23,30 +23,16 @@ connection.connect(function(err) {
 
 router.post('/changeGroup', function(req, res, next) {
 
-    var sql = "select group_chronic from master.user " +
-        "where username = '"+req.body.player+"';";
 
-    var gc = [];
-    connection.query(sql, function(err, result) {
-        if (err) throw err;
 
-        gc = result;
-
-        if(gc[0].group_chronic == "t")
-        {
-            sql = "update master.user set group_chronic = 'f' where username = '"+req.body.player+"';";
-        }
-        if(gc[0].group_chronic == 'f')
-        {
-            sql = "update master.user set group_chronic = 't' where username = '"+req.body.player+"';";
-        }
+        var sql = "update master.user set group_chronic = '"+req.body.group_option+"' where username = '"+req.body.player+"';";
 
 
         connection.query(sql, function(err , result)
         {
             if(err) throw err;
 
-            var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+             sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
             var teamid = [];
             connection.query(sql, function (err, result) {
@@ -80,7 +66,6 @@ router.post('/changeGroup', function(req, res, next) {
 
         });
 
-    });
 
 
 });

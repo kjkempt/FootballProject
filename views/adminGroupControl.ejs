@@ -209,8 +209,8 @@
                                 <% if(players[i].group_chronic == 't') {%>
                                 <td>Team</td>
                                 <%}%>
-                                <% if(players[i].group_chronic == 'f') {%>
-                                <td>Frosh/Injured</td>
+                                <% if(players[i].group_chronic != 't') { %>
+                                <td><%= players[i].group_chronic %></td>
                                 <%}%>
                             </tr>
                                 <% } %>
@@ -236,7 +236,15 @@
                                     <tr>
                                         <option value = "<%= players[j].username %>" ><%= players[j].last_name %>, <%= players[j].first_name%></option>
                                     </tr>
-                                    <%}%>
+                                    <%} %>
+                                </select>
+                                <select class="form-control" id="mySelect" name="group_option">
+                                    <option disabled selected value> -- Select a group -- </option>
+                                    <tr>
+                                        <option value = "t" >Team</option>
+                                        <option value = "Injured">Injured</option>
+                                        <option value = "Frosh">Frosh</option>
+                                    </tr>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
