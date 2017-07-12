@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Workout Manager</title>
+    <title>Add Athlete</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -41,6 +41,7 @@
             var x4 = document.forms["addPersonForm"]["password"].value;
             var x5 = document.forms["addPersonForm"]["priv"].value;
             var x6 = document.forms["addPersonForm"]["position"].value;
+            var x7 = document.forms["addPersonForm"]["meal"].value;
 
             if (x1 == "" || x2 == "" || x3 == "" || x4 == "" || x5 == "priv_def")
             {
@@ -54,6 +55,11 @@
                 return false;
             }
 
+            if(x5 == "Player" && x7 == "")
+            {
+                alert("Player selected but meal check-in ID left empty");
+                return false;
+            }
 
         }
     </script>
@@ -245,6 +251,10 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <input id="meal" type="text" class="form-control" name="meal" placeholder="Meal Check-In ID">
                                             </div>
                                             <select name = "priv" class="form-control">
                                                 <option disabled selected value = "priv_def">Privelege Type</option>

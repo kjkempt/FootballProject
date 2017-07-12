@@ -51,9 +51,9 @@ router.post('/addPerson', function(req, res, next) {
                 " '" + req.body.last_name + "', 'CO', '"+teamid[0].teamID+"');";
         }
         else {
-            sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position, teamID) " +
+            sql = "INSERT INTO master.user (username, password, privileges, first_name, last_name, position, teamID, meal) " +
                 "VALUES('" + req.body.user_name + "', '" + req.body.password + "', '" + req.body.priv + "', '" + req.body.first_name + "'," +
-                " '" + req.body.last_name + "', '" + req.body.position + "', '"+teamid[0].teamID+"');";
+                " '" + req.body.last_name + "', '" + req.body.position + "', '"+teamid[0].teamID+"', '"+ req.body.meal +"');";
         }
 
 

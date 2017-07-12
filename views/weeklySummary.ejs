@@ -3479,8 +3479,13 @@
                                         groupCL = groupCL / cdg[t].playerCount;
                                         var groupAL = 0;
                                         if(adg.length > 0) {
-                                            groupAL = adg[t].chronicSum;
-                                            groupAL = groupAL / adg[t].playerCount;
+                                            for(var w = 0; w < adg.length; w++) {
+                                                if(adg[w].group_chronic == cdg[t].group_chronic) {
+                                                    groupAL = adg[t].chronicSum;
+                                                    groupAL = groupAL / adg[t].playerCount;
+                                                }
+                                            }
+
                                         }
                                         groupLP = (groupAL / groupCL) * 100;
                                         groupLP = Math.round(groupLP * 10)/10; //nearest tenth
