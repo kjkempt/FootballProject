@@ -173,12 +173,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-
-                        <div class = "panel-body">
 
 
-                            <form action="" method="" name="vform">
+
+                            <div class="row">
+
+                                <div class="col-md-4"><div class="panel panel-default">
+                                    <div class = "panel-body">
+                            <form action="/nutritionSession/signin" method="post" role="form" name="vform">
                                 <input id=mvar type="text" value="" name="player_id" /><br />
                                 <input style="font-size: xx-large" type="button" class="fbutton" name="1" value="1" id="1" onClick=addNumber(this); />
                                 <input style="font-size: xx-large" type="button" class="fbutton" name="2" value="2" id="2" onClick=addNumber(this); />
@@ -195,7 +197,10 @@
                                 <input style="font-size: xx-large" type="button" class="fbutton" name="0" value="0" id="0" onClick=addNumber(this); />
                                 <input style="font-size: xx-large" type = "submit" name = "Submit" class="fbutton">
                             </form>
+                                        <p class = "text-success"><%= message %></p>
 
+                                </div>
+                            </div>
 
                             <script>
                                 function addNumber(element) {

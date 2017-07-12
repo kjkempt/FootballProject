@@ -166,7 +166,7 @@ app.get('/nutritionCreateSession', requireLogin, function(req, res, next) {
 });
 
 app.get('/nutritionSession', requireLogin, function(req, res, next) {
-    res.render('nutritionSession', { username: req.session.user});
+    res.render('nutritionSession', { username: req.session.user, message: ""});
 });
 
 //*******END NUTRITION PAGES*********

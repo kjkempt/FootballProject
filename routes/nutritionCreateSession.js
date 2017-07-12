@@ -32,9 +32,9 @@ router.post('/session', function(req, res, next) {
 
         teamid = result;
 
-        sql = "INSERT INTO meals(name, date, teamID) " +
+        sql = "INSERT INTO meals(name, date, teamID, status) " +
             "VALUES('" + req.body.mealName + "', '" + req.body.mealDate + "',  " +
-            " '" + teamid[0].teamID + "')";
+            " '" + teamid[0].teamID + "', 'open')";
 
 
         connection.query(sql, function(err, result) {
@@ -55,7 +55,8 @@ router.post('/session', function(req, res, next) {
                     {
                         username: req.user,
                         team_id: teamid[0].teamID,
-                        meal_id: meal_id[0].max
+                        meal_id: meal_id[0].max,
+                        message: ""
                     });
 
 
