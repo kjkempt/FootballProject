@@ -414,29 +414,20 @@
 
 
                                 <%
-                                var teamChronicLoad = 0;
-                                var teamChronicDuration = 0;
-                                //Sumnation of Team's chronic duration/Load
-                                teamChronicRPE.forEach(function (cRPE) {
-                                    teamChronicDuration = teamChronicDuration + cRPE.duration;
-                                    teamChronicLoad = teamChronicLoad + (cRPE.duration * cRPE.pavg);
-                                })
-                                %>
+                                var teamChronicLoad = teamChronicRPE[0].chronicSum / teamChronicRPE[0].player_count;
+                                var teamChronicDuration = teamChronicRPE[0].duration_sum / teamChronicRPE[0].player_count;
 
+                                var teamAcuteLoad = teamAcuteRPE[0].chronicSum / teamAcuteRPE[0].player_count;
+                                var teamAcuteDuration = teamAcuteRPE[0].duration_sum / teamAcuteRPE[0].player_count;
 
-                                <%
-                                var teamAcuteLoad = 0;
-                                var teamAcuteDuration = 0;
-                                teamAcuteRPE.forEach(function (aRPE) {
-                                    teamAcuteDuration = teamAcuteDuration + aRPE.duration;
-                                    teamAcuteLoad = teamAcuteLoad + (aRPE.duration * aRPE.pavg);
-                                })
-
-
-
+                                //Math below
                                 teamChronicDuration = teamChronicDuration + teamAcuteDuration;
                                 teamChronicLoad = teamChronicLoad + teamAcuteLoad;
+
                                 teamChronicLoad = teamChronicLoad / 4;
+
+
+
 
                                 var team_load_percentage = (teamAcuteLoad / teamChronicLoad) * 100;
                                 team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
@@ -444,15 +435,13 @@
 
                                 teamChronicLoad = Math.round(teamChronicLoad);
                                 teamAcuteLoad = Math.round(teamAcuteLoad);
+                                teamAcuteDuration = Math.round(teamAcuteDuration);
+                                teamChronicDuration = Math.round(teamChronicDuration);
 
 
-                                var teamThreeLoad = 0;
-                                var teamThreeDuration = 0;
-                                for(var i = 0; i < threeDayTeam.length; i++)
-                                {
-                                    teamThreeLoad = teamThreeLoad + (threeDayTeam[i].duration * threeDayTeam[i].pavg);
-                                    teamThreeDuration = teamThreeDuration + threeDayTeam[i].duration;
-                                }
+                                var teamThreeLoad = threeDayTeam[0].chronicSum / threeDayTeam[0].player_count;
+                                var teamThreeDuration = threeDayTeam[0].duration_sum / threeDayTeam[0].player_count;
+
 
                                 teamThreeLoad = Math.round(teamThreeLoad);
 
@@ -466,7 +455,7 @@
 
 
 
-                                    <td>Team </td>
+                                    <td>+ Team </td>
                                     <td><%= teamThreeDuration%></td>
                                     <td><%= teamThreeLoad%></td>
                                     <td><%= teamAcuteDuration %></td>
@@ -503,22 +492,26 @@
                                     var threeDayLoad = 0;
                                     var threeDayDuration = 0;
 
-                                    chronicPosition.forEach( function(chronic) {
-                                        if(chronic.position == groupPos[k].position)
+                                    for(var m = 0; m < chronicPosition.length; m++)
+                                    {
+                                        if(chronicPosition[m].position == groupPos[k].position)
                                         {
-                                            chronicPosDuration = chronicPosDuration + chronic.duration;
-                                            chronicPosLoad = chronicPosLoad + (chronic.duration * chronic.pavg);
+                                            chronicPosDuration = chronicPosition[m].duration_sum / chronicPosition[m].player_count;
+                                            chronicPosLoad = chronicPosition[m].chronicSum /chronicPosition[m].player_count;
                                         }
-                                    });
+                                    }
 
 
-                                    acutePosition.forEach( function(acute) {
-                                        if(acute.position == groupPos[k].position)
+
+                                    for(var p = 0; p < acutePosition.length; p++)
+                                    {
+                                        if(acutePosition[p].position == groupPos[k].position)
                                         {
-                                            acutePosDuration = acutePosDuration + acute.duration;
-                                            acutePosLoad = acutePosLoad + (acute.duration * acute.pavg);
+                                            acutePosDuration = acutePosition[p].duration_sum / acutePosition[p].player_count;
+                                            acutePosLoad = acutePosition[p].chronicSum / acutePosition[p].player_count;
+
                                         }
-                                    });
+                                    }
 
 
 
@@ -526,11 +519,12 @@
                                     {
                                         if(threeDayPosition[a].position == groupPos[k].position)
                                         {
-                                            threeDayLoad = threeDayLoad + (threeDayPosition[a].duration * threeDayPosition[a].pavg);
-                                            threeDayDuration = threeDayDuration + threeDayPosition[a].duration;
+                                            threeDayLoad = threeDayPosition[a].chronicSum / threeDayPosition[a].player_count;
+                                            threeDayDuration = threeDayPosition[a].duration_sum / threeDayPosition[a].player_count;
                                         }
                                     }
 
+                                    console.log(chronicPosDuration);
 
                                     chronicPosDuration = chronicPosDuration + acutePosDuration;
                                     chronicPosLoad = chronicPosLoad + acutePosLoad;
@@ -542,6 +536,8 @@
 
                                     chronicPosLoad = Math.round(chronicPosLoad);
                                     acutePosLoad = Math.round(acutePosLoad);
+
+                                    console.log(chronicPosDuration);
 
                                 %>
 

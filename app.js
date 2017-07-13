@@ -282,8 +282,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                     "AND m.date " +
                     "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
-                    " GROUP BY u.username;"
-                ;
+                    " GROUP BY u.username;";
 
 
                 var four_week_data = [];
@@ -312,8 +311,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                     var one_week_data = [];
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
-                        if (result.length == 0) {
-                        }
+
 
 
                         one_week_data = result;
@@ -335,8 +333,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                         var daily_load = [];
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
-                            if (result.length == 0) {
-                            }
+
 
 
                             daily_load = result;
@@ -356,8 +353,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                             var session = [];
                             connection.query(sql, function (err, result) {
                                 if (err) throw err;
-                                if (result.length == 0) {
-                                }
+
 
 
                                 session = result;
@@ -380,8 +376,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                 var three_days = [];
                                 connection.query(sql, function (err, result) {
                                     if (err) throw err;
-                                    if (result.length == 0) {
-                                    }
+
 
 
                                     three_days = result;
@@ -405,92 +400,102 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
                                         //next couple queries are for the team database
 
-
-                                        //Team Chronic RPE Average
-                                        sql = "SELECT p.workoutID, w.workoutid, w.duration, w.date, " +
-                                            "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                            "INNER JOIN master.user u ON u.username = p.username " +
-                                            "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                            "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                            "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                        //Team Chronic Load Sum - t group designation
+                                        sql = " SELECT u.username, " +
+                                            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                            " COUNT(distinct u.username) as player_count " +
+                                            "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                            "WHERE u.username = w.username " +
+                                            "AND w.workoutID = m.workoutid " +
+                                            "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                            "AND m.teamID = '"+teamid[0].teamID+"'  " +
                                             "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                            "AND w.date " +
-                                            "BETWEEN '" + date + "'-INTERVAL 3 WEEK AND '" + date + "'  " +
-                                            "GROUP BY  p.workoutID; ";
+                                            "AND u.group_chronic = 't' " +
+                                            "AND m.date " +
+                                            "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                            "; ";
+
 
 
                                         var teamChronicRPE = [];
                                         connection.query(sql, function (err, result) {
                                             if (err) throw err;
-                                            if (result.length == 0) {
-                                            }
+
 
 
                                             teamChronicRPE = result;
 
 
-                                            //Team Acute RPE Average
-                                            sql = "SELECT p.workoutID, w.workoutid, w.duration, w.date, " +
-                                                "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                "INNER JOIN master.user u ON u.username = p.username " +
-                                                "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                "AND p.teamID = '"+teamid[0].teamID+"' " +
+
+
+                                            //Team Acute Load with t designation
+                                            sql = "SELECT u.username, "+
+                                                "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                                " COUNT(distinct u.username) as player_count " +
+                                                "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                "WHERE u.username = w.username " +
+                                                "AND w.workoutID = m.workoutid " +
+                                                "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                 "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                "AND yearweek(DATE(w.date), 6) = yearweek(curdate(), 6) " +
-                                                "GROUP BY  p.workoutID; ";
+                                                "AND u.group_chronic = 't' " +
+                                                "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                                                ";";
 
 
 
                                             var teamAcuteRPE = [];
                                             connection.query(sql, function (err, result) {
                                                 if (err) throw err;
-                                                if (result.length == 0) {
-                                                }
-
 
                                                 teamAcuteRPE = result;
 
 
-                                                sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                    "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                    "INNER JOIN master.user u ON u.username = p.username " +
-                                                    "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                    "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                    "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                sql = "SELECT u.position, "+
+                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                    "COUNT(distinct u.username) as player_count, SUM(m.duration) as duration_sum " +
+                                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                    "WHERE u.username = w.username " +
+                                                    "AND w.workoutID = m.workoutid " +
+                                                    "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                    "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                    "AND w.date " +
-                                                    "BETWEEN '" + date + "'-INTERVAL 3 WEEK AND '" + date + "'  " +
-                                                    "GROUP BY u.position, p.workoutID; ";
+                                                    "AND u.group_chronic = 't' " +
+                                                    "AND m.date " +
+                                                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                                    "GROUP BY  u.position;";
 
 
                                                 var chronicPosition = [];
                                                 connection.query(sql, function (err, result) {
                                                     if (err) throw err;
-                                                    if (result.length == 0) {
-                                                    }
+
 
                                                     chronicPosition = result;
 
 
-                                                    sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                        "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                        "INNER JOIN master.user u ON u.username = p.username " +
-                                                        "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                        "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                        "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                    sql = "SELECT u.position, "+
+                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                        "COUNT(distinct u.username) as player_count, SUM(m.duration) as duration_sum " +
+                                                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                        "WHERE u.username = w.username " +
+                                                        "AND w.workoutID = m.workoutid " +
+                                                        "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                        "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                        "AND yearweek(DATE(w.date), 6) = yearweek(curdate(), 6) " +
-                                                        "GROUP BY u.position, p.workoutID; ";
+                                                        "AND u.group_chronic = 't' " +
+                                                        "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                                                        "GROUP BY  u.position;";
 
 
                                                     var acutePosition = [];
                                                     connection.query(sql, function (err, result) {
                                                         if (err) throw err;
-                                                        if (result.length == 0) {
-                                                        }
+
 
                                                         acutePosition = result;
+
+
 
 
                                                         sql = "SELECT t1.*, t3.duration " +
@@ -507,8 +512,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                         var recent_rpe = [];
                                                         connection.query(sql, function (err, result) {
                                                             if (err) throw err;
-                                                            if (result.length == 0) {
-                                                            }
+
 
                                                             recent_rpe = result;
 
@@ -522,51 +526,56 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                             var position = [];
                                                             connection.query(sql, function (err, result) {
                                                                 if (err) throw err;
-                                                                if (result.length == 0) {
-                                                                }
+
 
                                                                 position = result;
 
 
 
-                                                                sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                                    "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                                    "INNER JOIN master.user u ON u.username = p.username " +
-                                                                    "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                                    "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                                    "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                                sql = "SELECT u.username, u.position, "+
+                                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                    "COUNT(distinct u.username) as player_count, " +
+                                                                    "SUM(m.duration) as duration_sum " +
+                                                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                                    "WHERE u.username = w.username " +
+                                                                    "AND w.workoutID = m.workoutid " +
+                                                                    "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                                    "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                                    "AND w.date " +
+                                                                    "AND u.group_chronic = 't' " +
+                                                                    "AND m.date " +
                                                                     "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                    "GROUP BY u.position, p.workoutID; ";
+                                                                    "GROUP by u.position; ";
 
 
                                                                 var threeDayPosition = [];
                                                                 connection.query(sql, function (err, result) {
                                                                     if (err) throw err;
-                                                                    if (result.length == 0) {
-                                                                    }
+
 
                                                                     threeDayPosition = result;
 
 
-                                                                    sql = "SELECT p.workoutID, w.workoutid, w.duration, w.date, " +
-                                                                        "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                                        "INNER JOIN master.user u ON u.username = p.username " +
-                                                                        "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                                        "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                                        "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                                    sql = "SELECT u.username, "+
+                                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                        "COUNT(distinct u.username) as player_count, " +
+                                                                        "SUM(m.duration) as duration_sum " +
+                                                                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                                        "WHERE u.username = w.username " +
+                                                                        "AND w.workoutID = m.workoutid " +
+                                                                        "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                                        "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                                        "AND w.date " +
+                                                                        "AND u.group_chronic = 't' " +
+                                                                        "AND m.date " +
                                                                         "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                        "GROUP BY p.workoutID; ";
+                                                                        "; ";
 
 
                                                                     var threeDayTeam = [];
                                                                     connection.query(sql, function (err, result) {
                                                                         if (err) throw err;
-                                                                        if (result.length == 0) {
-                                                                        }
+
 
                                                                         threeDayTeam = result;
 
@@ -633,7 +642,9 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
         });
 
-    });});
+    });
+
+});
 
 app.get('/coachHome', requireLogin, function(req, res, next) {
     res.render('coachHome', {
@@ -1226,7 +1237,8 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                         //Team Chronic Load Sum - t group designation
                                         sql = " SELECT u.username, " +
-                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
+                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                            " COUNT(distinct u.username) as player_count " +
                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
                                         "WHERE u.username = w.username " +
                                         "AND w.workoutID = m.workoutid " +
@@ -1236,7 +1248,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                         "AND u.group_chronic = 't' " +
                                         "AND m.date " +
                                         "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
-                                        "GROUP BY u.username; ";
+                                        "; ";
 
 
 
@@ -1249,9 +1261,12 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                             teamChronicRPE = result;
 
 
+
+
                                             //Team Acute Load with t designation
                                             sql = "SELECT u.username, "+
-                                            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
+                                            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                            " COUNT(distinct u.username) as player_count " +
                                             "FROM master.user u, master.player_workouts w, master.workouts m " +
                                             "WHERE u.username = w.username " +
                                             "AND w.workoutID = m.workoutid " +
@@ -1260,7 +1275,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                             "AND u.teamID = '"+teamid[0].teamID+"' " +
                                             "AND u.group_chronic = 't' " +
                                             "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
-                                            "GROUP BY  u.username;";
+                                            ";";
 
 
 
@@ -1268,20 +1283,22 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                             connection.query(sql, function (err, result) {
                                                 if (err) throw err;
 
-
                                                 teamAcuteRPE = result;
 
 
-                                                sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                    "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                    "INNER JOIN master.user u ON u.username = p.username " +
-                                                    "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                    "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                    "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                sql = "SELECT u.position, "+
+                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                    "COUNT(distinct u.username) as player_count, SUM(m.duration) as duration_sum " +
+                                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                    "WHERE u.username = w.username " +
+                                                    "AND w.workoutID = m.workoutid " +
+                                                    "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                    "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                    "AND w.date " +
-                                                    "BETWEEN '" + date + "'-INTERVAL 3 WEEK AND '" + date + "'  " +
-                                                    "GROUP BY u.position, p.workoutID; ";
+                                                    "AND u.group_chronic = 't' " +
+                                                    "AND m.date " +
+                                                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                                    "GROUP BY  u.position;";
 
 
                                                 var chronicPosition = [];
@@ -1292,15 +1309,18 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                     chronicPosition = result;
 
 
-                                                    sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                        "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                        "INNER JOIN master.user u ON u.username = p.username " +
-                                                        "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                        "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                        "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                    sql = "SELECT u.position, "+
+                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                        "COUNT(distinct u.username) as player_count, SUM(m.duration) as duration_sum " +
+                                                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                        "WHERE u.username = w.username " +
+                                                        "AND w.workoutID = m.workoutid " +
+                                                        "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                        "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                        "AND yearweek(DATE(w.date), 6) = yearweek(curdate(), 6) " +
-                                                        "GROUP BY u.position, p.workoutID; ";
+                                                        "AND u.group_chronic = 't' " +
+                                                        "AND yearweek(DATE(m.date), 6) = yearweek(curdate(), 6) " +
+                                                        "GROUP BY  u.position;";
 
 
                                                     var acutePosition = [];
@@ -1309,6 +1329,8 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
                                                         acutePosition = result;
+
+
 
 
                                                         sql = "SELECT t1.*, t3.duration " +
@@ -1325,8 +1347,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                         var recent_rpe = [];
                                                         connection.query(sql, function (err, result) {
                                                             if (err) throw err;
-                                                            if (result.length == 0) {
-                                                            }
+
 
                                                             recent_rpe = result;
 
@@ -1340,56 +1361,61 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                             var position = [];
                                                             connection.query(sql, function (err, result) {
                                                                 if (err) throw err;
-                                                                if (result.length == 0) {
-                                                                }
+
 
                                                                 position = result;
 
 
 
-                                                                sql = "SELECT p.workoutID, w.workoutid, u.position, w.duration, w.date, " +
-                                                                    "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                                    "INNER JOIN master.user u ON u.username = p.username " +
-                                                                    "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                                    "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                                    "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                                sql = "SELECT u.username, u.position, "+
+                                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                    "COUNT(distinct u.username) as player_count, " +
+                                                                    "SUM(m.duration) as duration_sum " +
+                                                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                                    "WHERE u.username = w.username " +
+                                                                    "AND w.workoutID = m.workoutid " +
+                                                                    "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                                    "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                                    "AND w.date " +
+                                                                    "AND u.group_chronic = 't' " +
+                                                                    "AND m.date " +
                                                                     "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                    "GROUP BY u.position, p.workoutID; ";
+                                                                    "GROUP by u.position; ";
 
 
                                                                 var threeDayPosition = [];
                                                                 connection.query(sql, function (err, result) {
                                                                     if (err) throw err;
-                                                                    if (result.length == 0) {
-                                                                    }
+
 
                                                                     threeDayPosition = result;
 
 
-                                                                    sql = "SELECT p.workoutID, w.workoutid, w.duration, w.date, " +
-                                                                        "AVG(p.player_sRPE) as pavg FROM master.player_workouts p " +
-                                                                        "INNER JOIN master.user u ON u.username = p.username " +
-                                                                        "INNER JOIN master.workouts w ON w.workoutid = p.workoutID " +
-                                                                        "WHERE w.teamID = '"+teamid[0].teamID+"' " +
-                                                                        "AND p.teamID = '"+teamid[0].teamID+"' " +
+                                                                    sql = "SELECT u.username, "+
+                                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                        "COUNT(distinct u.username) as player_count, " +
+                                                                        "SUM(m.duration) as duration_sum " +
+                                                                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                                        "WHERE u.username = w.username " +
+                                                                        "AND w.workoutID = m.workoutid " +
+                                                                        "AND w.teamID = '"+teamid[0].teamID+"' " +
+                                                                        "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
-                                                                        "AND w.date " +
+                                                                        "AND u.group_chronic = 't' " +
+                                                                        "AND m.date " +
                                                                         "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                        "GROUP BY p.workoutID; ";
+                                                                        "; ";
 
 
                                                                     var threeDayTeam = [];
                                                                     connection.query(sql, function (err, result) {
                                                                         if (err) throw err;
-                                                                        if (result.length == 0) {
-                                                                        }
+
 
                                                                         threeDayTeam = result;
 
 
-                                                                        res.render('coachDashboard', {
+                                                                       res.render('coachDashboard', {
                                                                             username: req.session.user,
                                                                             chronicPlayerLoad: four_week_data,
                                                                             one_week_data: one_week_data,
@@ -1479,6 +1505,8 @@ app.get('/adminGroupControl', requireLogin, function(req, res, next) {
             if (err) throw err;
 
             players = result;
+
+            sql = "select * from master.group_designation;";
 
 
 
