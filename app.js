@@ -32,6 +32,7 @@ var nutritionHome = require('./routes/nutritionHome');
 var nutritionCreateSession = require('./routes/nutritionCreateSession');
 var nutritionSession = require('./routes/nutritionSession');
 var adminGroupControl = require('./routes/adminGroupControl');
+var adminSettings = require('./routes/adminSettings');
 
 
 
@@ -127,6 +128,7 @@ app.use('/nutritionHome', nutritionHome);
 app.use('/nutritionCreateSession', nutritionCreateSession);
 app.use('/nutritionSession', nutritionSession);
 app.use('/adminGroupControl', adminGroupControl);
+app.use('/adminSettings', adminSettings);
 
 //***Universe Pages
 
@@ -1506,16 +1508,40 @@ app.get('/adminGroupControl', requireLogin, function(req, res, next) {
 
             players = result;
 
+
             sql = "select * from master.group_designation;";
 
+            var groups = [];
+            connection.query(sql, function(err, result) {
+                groups = result;
 
 
+                res.render('adminGroupControl', {
+                    username: req.session.user,
+                    players: players,
+                    groups: groups
+                });
 
-            res.render('adminGroupControl', {
-                username: req.session.user,
-                players: players
             });
+        });
 
+    });
+});
+
+//Admin Settings
+app.get('/adminSettings', requireLogin, function(req, res, next) {
+
+    var sql = "select * from master.group_designation;";
+
+    var groups = [];
+    connection.query(sql, function(err, result) {
+        groups = result;
+
+        res.render('adminSettings', {
+            username: req.session.user,
+            message_add: "",
+            groups: groups,
+            message_delete: ""
         });
 
     });

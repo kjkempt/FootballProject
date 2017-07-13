@@ -53,13 +53,20 @@ router.post('/changeGroup', function(req, res, next) {
                     players = result;
 
 
+                    sql = "select * from master.group_designation;";
+
+                    var groups = [];
+                    connection.query(sql, function(err, result) {
+                        groups = result;
 
 
-                    res.render('adminGroupControl', {
-                        username: req.session.user,
-                        players: players
+                        res.render('adminGroupControl', {
+                            username: req.session.user,
+                            players: players,
+                            groups: groups
+                        });
+
                     });
-
                 });
 
             });

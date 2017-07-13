@@ -142,7 +142,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/changePassword"><i class="fa fa-fw fa-gear"></i> Change Password</a>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -171,6 +174,9 @@
                 </li>
                 <li>
                     <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Person</a>
+                </li>
+                <li class="active">
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-th-list"></i> Group Control</a>
                 </li>
             </ul>
         </div>
@@ -240,11 +246,16 @@
                                 </select>
                                 <select class="form-control" id="mySelect" name="group_option">
                                     <option disabled selected value> -- Select a group -- </option>
+                                        <% for(var k = 0; k < groups.length; k++){  %>
                                     <tr>
-                                        <option value = "t" >Team</option>
-                                        <option value = "Injured">Injured</option>
-                                        <option value = "Frosh">Frosh</option>
+                                        <% if(groups[k].dgroup == 'Team') {%>
+                                        <option value = "t" ><%= groups[k].dgroup %></option>
+                                        <%}%>
+                                        <% if(groups[k].dgroup != 'Team') {%>
+                                        <option value = "<%= groups[k].dgroup %>" ><%= groups[k].dgroup %></option>
+                                        <%}%>
                                     </tr>
+                                    <%} %>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
