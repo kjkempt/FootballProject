@@ -249,9 +249,7 @@ flag_rpe = [];%>
                               }
 
 
-                                    //For an individual player
-                                chronic = chronic + acute;
-                                chronic = chronic / 4; //divide by number of weeks
+                              //For an individual player
                                 chronic = Math.round(chronic);
 
                                 var load_percentage = (acute / chronic) * 100;
@@ -266,16 +264,12 @@ flag_rpe = [];%>
                                 //daily_load is used to calc the 7 day variance from the acuteMean load
                                 for(var c = 0; c < daily_load.length; c++)
                                 {
-
-
-
-                                //dload is a set of all players daily loads from the week so we need the if
-                                // statement to choose the right player's daily loads that we need
-                                if(daily_load[c].username == one_week_data[b].username)
-                                {
-                                    variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
-                                }
-
+                                    //dload is a set of all players daily loads from the week so we need the if
+                                    // statement to choose the right player's daily loads that we need
+                                    if(daily_load[c].username == one_week_data[b].username)
+                                    {
+                                        variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
+                                    }
                                 }
 
                                 //Standard deviation calculation below
@@ -326,34 +320,35 @@ flag_rpe = [];%>
                                 var three = 0;
                                 var check = 0;
 
-                                three_day_load.forEach(function(t){
-                                    if(t.username == one_week_data[b].username)
+                               for(var r = 0; r < three_day_load.length; r++){
+                                    if(three_day_load[r].username == one_week_data[b].username)
                                     {
-                                        three = three + t.dayLoad;
+                                        three = three + three_day_load[r].dayLoad;
                                         check++;
                                     }
 
                                     if(check == 0)
                                     {three = 0;}
-                                })
+                                }
 
 
 
                                  var player_recent_rpe = 0;
                                     var recent_duration = 0
                                 var recent_load = 0;
-                                    recent_rpe.forEach(function(recentRPE){
-                                    if(recentRPE.username == one_week_data[b].username)
+
+                                    for(var t = 0; t < recent_rpe.length; t++){
+                                    if(recent_rpe[t].username == one_week_data[b].username)
                                     {
-                                        player_recent_rpe = recentRPE.player_sRPE;
-                                        recent_duration = recentRPE.duration;
+                                        player_recent_rpe = recent_rpe[t].player_sRPE;
+                                        recent_duration = recent_rpe[t].duration;
                                     }
 
 
 
-                                });
+                                }
 
-                                   recent_load =  player_recent_rpe * recent_duration;
+                                    recent_load =  player_recent_rpe * recent_duration;
                                 %>
 
 
@@ -430,8 +425,6 @@ flag_rpe = [];%>
                                 var teamAcuteDuration = teamAcuteRPE[0].duration_sum / teamAcuteRPE[0].player_count;
 
                                 //Math below
-                                teamChronicDuration = teamChronicDuration + teamAcuteDuration;
-                                teamChronicLoad = teamChronicLoad + teamAcuteLoad;
 
                                 teamChronicLoad = teamChronicLoad / 4;
 
@@ -450,6 +443,7 @@ flag_rpe = [];%>
 
                                 var teamThreeLoad = threeDayTeam[0].chronicSum / threeDayTeam[0].player_count;
                                 var teamThreeDuration = threeDayTeam[0].duration_sum / threeDayTeam[0].player_count;
+                                teamThreeDuration = Math.round(teamThreeDuration);
 
 
                                 teamThreeLoad = Math.round(teamThreeLoad);
@@ -533,10 +527,7 @@ flag_rpe = [];%>
                                     }
                                 }
 
-                                console.log(chronicPosDuration);
 
-                                    chronicPosDuration = chronicPosDuration + acutePosDuration;
-                                    chronicPosLoad = chronicPosLoad + acutePosLoad;
                                     chronicPosLoad = chronicPosLoad / 4;
 
                                     var pos_load_percentage = (acutePosLoad / chronicPosLoad) * 100;
@@ -546,7 +537,6 @@ flag_rpe = [];%>
                                     chronicPosLoad = Math.round(chronicPosLoad);
                                     acutePosLoad = Math.round(acutePosLoad);
 
-                                    console.log(chronicPosDuration);
 
                                 %>
 

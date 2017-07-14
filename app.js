@@ -275,7 +275,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                 //for Chronic load
 
                 sql = "SELECT u.username, " +
-                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
+                    "SUM(w.player_sRPE * m.duration) / 4 as chronicSum, m.date " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
@@ -283,7 +283,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                     "AND m.date " +
-                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                    "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                     " GROUP BY u.username;";
 
 
@@ -371,8 +371,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                     "AND w.teamID = '"+teamid[0].teamID+"' " +
                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
-                                    "AND m.date " +
-                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE(); ";
+                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY; ";
 
 
                                 var three_days = [];
@@ -414,7 +413,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                             "AND u.teamID = '"+teamid[0].teamID+"' " +
                                             "AND u.group_chronic = 't' " +
                                             "AND m.date " +
-                                            "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                            "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                                             "; ";
 
 
@@ -464,7 +463,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                     "AND u.group_chronic = 't' " +
                                                     "AND m.date " +
-                                                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                                    "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                                                     "GROUP BY  u.position;";
 
 
@@ -545,8 +544,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.group_chronic = 't' " +
-                                                                    "AND m.date " +
-                                                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
+                                                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
                                                                     "GROUP by u.position; ";
 
 
@@ -569,10 +567,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
                                                                         "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.group_chronic = 't' " +
-                                                                        "AND m.date " +
-                                                                        "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                        "; ";
-
+                                                                        "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY; ";
 
                                                                     var threeDayTeam = [];
                                                                     connection.query(sql, function (err, result) {
@@ -580,6 +575,7 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
 
 
                                                                         threeDayTeam = result;
+
 
 
                                                                         res.render('coachRecentData', {
@@ -645,7 +641,6 @@ app.get('/coachRecentData', requireLogin, function(req, res, next) {
         });
 
     });
-
 });
 
 app.get('/coachHome', requireLogin, function(req, res, next) {
@@ -1110,7 +1105,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 //for Chronic load
 
                 sql = "SELECT u.username, " +
-                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
+                    "SUM(w.player_sRPE * m.duration) / 4 as chronicSum, m.date " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
@@ -1118,7 +1113,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                     "AND m.date " +
-                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                    "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                     " GROUP BY u.username;";
 
 
@@ -1206,8 +1201,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                     "AND w.teamID = '"+teamid[0].teamID+"' " +
                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
-                                    "AND m.date " +
-                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE(); ";
+                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY; ";
 
 
                                 var three_days = [];
@@ -1249,7 +1243,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
                                         "AND u.group_chronic = 't' " +
                                         "AND m.date " +
-                                        "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                        "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                                         "; ";
 
 
@@ -1299,7 +1293,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                     "AND u.group_chronic = 't' " +
                                                     "AND m.date " +
-                                                    "BETWEEN '" + date + "'- INTERVAL 3 WEEK AND '" + date + "' " +
+                                                    "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
                                                     "GROUP BY  u.position;";
 
 
@@ -1380,8 +1374,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                                     "AND u.group_chronic = 't' " +
-                                                                    "AND m.date " +
-                                                                    "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
+                                                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
                                                                     "GROUP by u.position; ";
 
 
@@ -1404,10 +1397,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                                         "AND m.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
                                                                         "AND u.group_chronic = 't' " +
-                                                                        "AND m.date " +
-                                                                        "BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) AND CURRENT_DATE() " +
-                                                                        "; ";
-
+                                                                        "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY; ";
 
                                                                     var threeDayTeam = [];
                                                                     connection.query(sql, function (err, result) {
@@ -1415,6 +1405,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
                                                                         threeDayTeam = result;
+
 
 
                                                                        res.render('coachDashboard', {
