@@ -52,10 +52,12 @@ router.post('/signin', function(req, res, next) {
                 sql = "select username, first_name from master.user where meal = '"+req.body.player_id+"'  " +
                     "AND teamID  = '" + teamid[0].teamID + "' ;";
 
+                var player = [];
                 connection.query(sql, function(err, result) {
                     if (err) throw err;
+                    player = result;
 
-                    if(result.length == 0)
+                    if(player.length === 0)
                     {
 
                         res.render('nutritionSession',
@@ -68,13 +70,21 @@ router.post('/signin', function(req, res, next) {
                     }
                     else
                     {
-                        res.render('nutritionSession',
-                            {
-                                username: req.user,
-                                team_id: teamid[0].teamID,
-                                meal_id: meal_id[0].max,
-                                message: "Thank you "+result[0].first_name+" "
-                            });
+                        sql = "INSERT INTO master.player_meals (teamID, username, meal_id) " +
+                            "VALUES (  '" + teamid[0].teamID + "', '"+ player[0].username +"', '" +meal_id[0].max+ "');";
+
+                        connection.query(sql, function(err, result) {
+                            if (err) throw err;
+
+                            res.render('nutritionSession',
+                                {
+                                    username: req.user,
+                                    team_id: teamid[0].teamID,
+                                    meal_id: meal_id[0].max,
+                                    message: "Thank you " + player[0].first_name + " "
+                                });
+
+                        });
                     }
 
 
@@ -89,5 +99,43 @@ router.post('/signin', function(req, res, next) {
 
 
 
+
+});
+
+
+router.post('/endsession', function(req, res, next) {
+    var sql = "SELECT teamID from master.user where username = '" + req.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function(err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "select MAX(mealID) as max from master.meals where teamID = '" + teamid[0].teamID + "' ;";
+
+        var meal_id = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            meal_id = result;
+
+            sql = "UPDATE master.meals " +
+                "SET status = 'closed' " +
+                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "AND mealID = '"+meal_id[0].max+"' ;";
+
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                res.render('nutritionHome', { username: req.session.user});
+
+            });
+
+
+
+        });
+    });
 
 });

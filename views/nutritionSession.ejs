@@ -269,13 +269,14 @@
 
 
                     <div class="row">
-                        <div class="col-md-5 col-md-offset-1 phone">
+                        <div class="col-md-5  phone">
                             <br><br><br>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>  Enter ID</h3>
                                         </div>
                                     <div class = "panel-body">
+
                             <form action="/nutritionSession/signin" method="post" role="form" name="vform">
                                 <div class="row1">
                                     <div class="col-md-12">
@@ -401,7 +402,6 @@
 
 
 
-                                        <p class = "text-success"><%= message %></p>
 
                                 </div>
                             </div>
@@ -423,6 +423,19 @@
                             </script>
 
                         </div>
+                        <div class="cold-md-5">
+                            <br><br><br>
+                            <h1 class = "text-success"><%= message %></h1>
+                        </div>
+
+                            <form action="/nutritionSession/endsession" method="post" role="form" name="vform">
+                               <div style="position: absolute; bottom: 6%; right: 40%">
+                                <input type = "submit" name = "Submit" style="font-size: large; " class="btn btn-danger btn-block flatbtn"
+                                value="End Session" onclick="return confirm('This will end the meal session. Do you wish to continue?')" >
+                               </div>
+                            </form>
+
+
                     </div>
                 </div>
             </div>

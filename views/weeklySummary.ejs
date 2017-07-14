@@ -1360,6 +1360,8 @@
                                     var pos_rpeAVG = 0;
                                     var pos_avg = 0;
                                     var pos_chronic_load = 0;
+                                    var pcl = 0;
+                                    var pcount = 0;
 
                                 %>
 
@@ -1376,7 +1378,15 @@
                                                 pos_count++;
                                             }
                                         }
+                                        for(var e = 0; e < chronic_position_previous.length; e++)
+                                    {
+                                        if (chronic_position_previous[e].position == pos_week_data[m].position) {
+                                            pcl = pcl + chronic_position_previous[e].chronicSum;
+                                            pcount++;
+                                        }
+                                    }
                                         pos_chronic_load = pos_chronic_load / pos_count;
+                                        pcl = pcl / pcount;
                                         pos_chronic_load = Math.round(pos_chronic_load);
 
 
@@ -1474,7 +1484,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1560,7 +1570,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1648,7 +1658,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1734,7 +1744,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1817,7 +1827,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1892,7 +1902,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -1964,7 +1974,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2031,7 +2041,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2091,7 +2101,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2151,7 +2161,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2204,7 +2214,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2255,7 +2265,7 @@
 
                                     <% pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2301,7 +2311,7 @@
                                     <%
                                         pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2341,7 +2351,7 @@
                                     {
                                         pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2368,7 +2378,7 @@
                                         pos_rpeAVG = pos_rpeAVG / pos_avg;
                                         pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
 
-                                        pos_load_percentage = (posAcuteLoad / pos_chronic_load) * 100;
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
                                         pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2415,6 +2425,7 @@
                                     var team_rpeAVG = 0;
                                     var team_avg = 0;
                                     var team_chronic_load = 0;
+                                    var tcl = 0;
 
                                 %>
 
@@ -2430,7 +2441,14 @@
                                             team_chronic_load = team_chronic_load + chronic_team[d].chronicSum;
 
                                         }
+                                        for(var q = 0; q < chronic_team_previous.length; q++)
+                                        {
 
+                                            tcl = tcl + chronic_team_previous[q].chronicSum;
+
+                                        }
+
+                                        tcl = tcl / chronic_team_previous.length;
                                         team_chronic_load = team_chronic_load / chronic_team.length;
                                         team_chronic_load = Math.round(team_chronic_load);
 
@@ -2518,7 +2536,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2603,7 +2621,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2689,7 +2707,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2773,7 +2791,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2855,7 +2873,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2928,7 +2946,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -2999,7 +3017,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3065,7 +3083,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3124,7 +3142,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3182,7 +3200,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3234,7 +3252,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3283,7 +3301,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3326,7 +3344,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3365,7 +3383,7 @@
                                     {
                                         team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 
@@ -3390,7 +3408,7 @@
 
                                     <% team_rpeAVG = team_rpeAVG / team_avg;
                                         team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
-                                        team_load_percentage = (teamAcuteLoad / team_chronic_load) * 100;
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
                                         team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
                                     %>
 

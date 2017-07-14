@@ -33,6 +33,8 @@ var nutritionCreateSession = require('./routes/nutritionCreateSession');
 var nutritionSession = require('./routes/nutritionSession');
 var adminGroupControl = require('./routes/adminGroupControl');
 var adminSettings = require('./routes/adminSettings');
+var nutritionMealTracker = require('./routes/nutritionMealTracker');
+var nutritionCounter = require('./routes/nutritionCounter');
 
 
 
@@ -129,6 +131,8 @@ app.use('/nutritionCreateSession', nutritionCreateSession);
 app.use('/nutritionSession', nutritionSession);
 app.use('/adminGroupControl', adminGroupControl);
 app.use('/adminSettings', adminSettings);
+app.use('/nutritionMealTracker', nutritionMealTracker);
+app.use('/nutritionCounter', nutritionCounter);
 
 //***Universe Pages
 
@@ -170,6 +174,17 @@ app.get('/nutritionCreateSession', requireLogin, function(req, res, next) {
 app.get('/nutritionSession', requireLogin, function(req, res, next) {
     res.render('nutritionSession', { username: req.session.user, message: ""});
 });
+
+app.get('/nutritionMealTracker', requireLogin, function(req, res, next) {
+
+
+    res.render('nutritionMealTracker', { username: req.session.user, message: ""});
+});
+
+app.get('/nutritionCounter', requireLogin, function(req, res, next) {
+    res.render('nutritionCounter', { username: req.session.user});
+});
+
 
 //*******END NUTRITION PAGES*********
 
@@ -697,7 +712,9 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
             var acute_team = [];
             var adg = [];
             var cdg = [];
-            res.render('coachWeeklySummary', {
+            var chronic_team_previous = [];
+            var chronic_position_previous = [];
+            res.render('weeklySummary', {
                 username: req.user,
                 week_data: week_data,
                 chronic_week: chronic,
@@ -709,7 +726,9 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
                 acute_position: acute_position,
                 acute_team: acute_team,
                 adg: adg,
-                cdg: cdg
+                cdg: cdg,
+                chronic_team_previous: chronic_team_previous,
+                chronic_position_previous: chronic_position_previous
             });
 
 
@@ -965,6 +984,8 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
             var acute_team = [];
             var adg = [];
             var cdg = [];
+            var chronic_team_previous = [];
+            var chronic_position_previous = [];
             res.render('weeklySummary', {
                 username: req.user,
                 week_data: week_data,
@@ -977,7 +998,9 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
                 acute_position: acute_position,
                 acute_team: acute_team,
                 adg: adg,
-                cdg: cdg
+                cdg: cdg,
+                chronic_team_previous: chronic_team_previous,
+                chronic_position_previous: chronic_position_previous
             });
 
 
