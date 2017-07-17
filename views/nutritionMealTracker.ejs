@@ -191,11 +191,11 @@
                                     <div class="form-group">
                                         <select class="form-control" id="mySelect" name="date_select">
                                             <option disabled selected value> -- select a workout -- </option>
-                                            <% recent.forEach(function (rec) { %>
+                                            <% for(var i = 0; i < recent_dates.length; i++) { %>
                                             <tr>
-                                                <option value = "<%= rec.workoutid %>" ><%= rec.date %></option>
+                                                <option value = "<%= recent_dates[i].mealID %>" ><%= recent_dates[i].date %></option>
                                             </tr>
-                                            <% }) %>
+                                            <% } %>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-default">Submit</button>
@@ -206,19 +206,7 @@
                                 <br>
 
 
-                                <%if(note.length > 0)
-                                {%>
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Notes</h3>
-                                    </div>
-                                    <div class = "panel-body">
 
-                                        <p><%=note[0].notes%></p>
-
-                                    </div>
-                                </div>
-                                <%}%>
 
 
 
@@ -237,19 +225,13 @@
                                     </thead>
                                     <tbody>
 
-                                    <% workout.forEach(function(player_daily){
-                                            %>
-
-                                    <tr>
-                                        <td><%= player_daily.last_name%></td>
-                                        <td><%= player_daily.first_name%></td>
 
 
 
 
 
-                                    </tr>
-                                    <%})%>
+
+
 
 
 

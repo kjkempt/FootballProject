@@ -177,8 +177,46 @@ app.get('/nutritionSession', requireLogin, function(req, res, next) {
 
 app.get('/nutritionMealTracker', requireLogin, function(req, res, next) {
 
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-    res.render('nutritionMealTracker', { username: req.session.user, message: ""});
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "SELECT * FROM master.meals " +
+            "WHERE teamID = '"+teamid[0].teamID+"' " +
+            "ORDER BY date DESC LIMIT 10;";
+
+        var recent_dates = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            recent_dates = result;
+
+            for (var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + ", " + recent_dates[i].name;
+
+
+            }
+
+
+            res.render('nutritionMealTracker', {username: req.session.user,
+                                                recent_dates: recent_dates});
+
+
+        });
+
+    });
 });
 
 app.get('/nutritionCounter', requireLogin, function(req, res, next) {
@@ -714,7 +752,7 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
             var cdg = [];
             var chronic_team_previous = [];
             var chronic_position_previous = [];
-            res.render('weeklySummary', {
+            res.render('coachWeeklySummary', {
                 username: req.user,
                 week_data: week_data,
                 chronic_week: chronic,
