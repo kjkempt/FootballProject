@@ -44,17 +44,47 @@ router.post('/playerInput', function(req, res, next) {
 
             workout = result;
 
-            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
-                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '"+teamid[0].teamID+"')";
 
+            sql = "select * from master.player_workouts where username = '"+req.user+"'" +
+                "and workoutID = '" + workout[0].workoutid + "'; ";
             connection.query(sql, function (err, result) {
-                if (err) {
-                    throw err;
-                } else
-                    res.render('playerDashboard', {
-                        username: req.user,
-                        message: 'Submission successful'
+                if (err) throw err;
+
+                if(result.length === 0) {
+
+                    sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
+                        "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "')";
+
+                    connection.query(sql, function (err, result) {
+                        if (err) {
+                            throw err;
+                        } else
+                            res.render('playerDashboard', {
+                                username: req.user,
+                                message: 'Submission successful'
+                            });
                     });
+
+                }
+                else
+                {
+                    sql = "UPDATE master.player_workouts " +
+                        "SET player_sRPE = '" + req.body.playerRPE + "' " +
+                        "WHERE username = '" + req.user + "' " +
+                        "AND id = '"+result[0].id+"' ";
+
+                    connection.query(sql, function (err, result) {
+                        if (err) {
+                            throw err;
+                        } else
+                            res.render('playerDashboard', {
+                                username: req.user,
+                                message: 'Update successful'
+                            });
+                    });
+                }
+
+
             });
 
         });

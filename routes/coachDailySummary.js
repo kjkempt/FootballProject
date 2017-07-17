@@ -80,7 +80,7 @@ router.post('/coachDailySum', function(req, res, next) {
 
                     note = result;
 
-                    res.render('coachDaiySummary', {
+                    res.render('coachDailySummary', {
                         username: req.user,
                         workout: workout,
                         recent: recent_dates,
