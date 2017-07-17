@@ -1072,7 +1072,8 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
                 username: req.session.user,
                 recent: recent_dates,
                 workout: workout,
-                note: note
+                note: note,
+                message: ""
             });
 
 
