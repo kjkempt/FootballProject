@@ -32,7 +32,7 @@ router.post('/selectMeal', function(req, res, next){
         teamid = result;
 
 
-        sql = "SELECT * FROM workouts " +
+        sql = "SELECT * FROM master.meals " +
             "WHERE teamID = '"+teamid[0].teamID+"' " +
             "ORDER BY date DESC LIMIT 10;";
 
@@ -50,13 +50,13 @@ router.post('/selectMeal', function(req, res, next){
 
                 recent_dates[i].date = day;
 
-                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                recent_dates[i].date = recent_dates[i].date + ", " + recent_dates[i].name;
 
 
             }
 
 
-            sql = "select u.last_name, u.first_name " +
+            sql = "select * " +
                 "from master.user u " +
                 "where u.teamID = '" + teamid[0].teamID + "' " +
                 "and u.privileges = 'Player' " +
@@ -66,8 +66,27 @@ router.post('/selectMeal', function(req, res, next){
                 "INNER JOIN master.player_meals p ON p.username = u.username " +
                 "where u.teamID = '" + teamid[0].teamID + "' " +
                 "and u.privileges = 'Player' " +
-                "and p.meal_id = '18') " +
+                "and p.meal_id = '"+req.body.meal_select+"') " +
                 "order by u.last_name; ";
+
+            var players = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                players = result;
+
+                res.render('nutritionMealTracker', {
+                    username: req.session.user,
+                    recent_dates: recent_dates,
+                    players: players
+                });
+
+
+
+
+            });
+
+
 
 
         });

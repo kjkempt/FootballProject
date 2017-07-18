@@ -54,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/nutritionHome">Nutrition Portal</a>
+            <a class="navbar-brand" href="/nutritionHome">Nutrition Home</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -174,7 +174,7 @@
                     <div class="panel panel-default">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Missed Meals</h3>
                             </div>
                             <div class = "panel-body">
 
@@ -189,7 +189,7 @@
                                      put in on a player-->
                                     <label for="sel1">Select a meal date:</label>
                                     <div class="form-group">
-                                        <select class="form-control" id="mySelect" name="date_select">
+                                        <select class="form-control" id="mySelect" name="meal_select">
                                             <option disabled selected value> -- select a workout -- </option>
                                             <% for(var i = 0; i < recent_dates.length; i++) { %>
                                             <tr>
@@ -219,21 +219,21 @@
                                 <table id="meal_sum" class="display">
                                     <thead>
                                     <tr>
-                                        <td>Last Name</td>
-                                        <td>First Name</td>
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                        <th>Position</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
+                                    <%for(var j = 0; j < players.length; j++){%>
 
-
-
-
-
-
-
-
-
+                                    <tr>
+                                        <td><%= players[j].last_name%></td>
+                                        <td><%= players[j].first_name%></td>
+                                        <td><%= players[j].position%></td>
+                                    </tr>
+                                    <%}%>
 
                                     </tbody>
                                 </table>

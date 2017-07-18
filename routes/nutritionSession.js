@@ -128,7 +128,8 @@ router.post('/endsession', function(req, res, next) {
             connection.query(sql, function (err, result) {
                 if (err) throw err;
 
-                res.render('nutritionHome', { username: req.session.user});
+                res.render('nutritionHome', { username: req.session.user,
+                active: "0"});
 
             });
 

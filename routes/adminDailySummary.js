@@ -66,7 +66,7 @@ router.post('/dailySum', function(req, res, next) {
 
                     recent_dates[i].date = day;
 
-                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                 }
@@ -154,7 +154,7 @@ router.post('/playerNote', function(req, res, next) {
 
                         recent_dates[i].date = day;
 
-                        recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                        recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                     }
@@ -246,7 +246,7 @@ router.post('/deleteScore', function(req, res, next) {
 
                     recent_dates[i].date = day;
 
-                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                 }
@@ -333,7 +333,7 @@ router.post('/addScore', function(req, res, next) {
 
                             recent_dates[i].date = day;
 
-                            recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                            recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                         }
@@ -405,7 +405,7 @@ router.post('/addScore', function(req, res, next) {
 
                                 recent_dates[i].date = day;
 
-                                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                             }

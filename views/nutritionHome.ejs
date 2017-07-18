@@ -54,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/nutritionHome">Nutrition Portal</a>
+            <a class="navbar-brand" href="/nutritionHome">Nutrition Home</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -158,9 +158,6 @@
                     <a href="/nutritionCreateSession"><i class="glyphicon glyphicon-list-alt"></i> Create Session</a>
                 </li>
                 <li>
-                    <a href="/nutritionSession"><i class="glyphicon glyphicon-list-alt"></i> Session</a>
-                </li>
-                <li class="active">
                     <a href="/nutritionMealTracker"><i class="glyphicon glyphicon-list-alt"></i> Daily Meal Summary</a>
                 </li>
 
@@ -185,6 +182,13 @@
 
                             <a href="/nutritionCreateSession" class="btn btn-lg active" role="button" aria-pressed="true"
                                style="background-color: #a71930; color: #fdc82f;">Create Session</a>
+                            <a href="/nutritionMealTracker" class="btn btn-lg active" role="button" aria-pressed="true"
+                               style="background-color: #a71930; color: #fdc82f;">Daily Meal Summary</a>
+
+                            <% if(active == "1"){ %>
+                            <a href="/nutritionCounter" class="btn btn-lg active" role="button" aria-pressed="true"
+                               style="background-color: #a71930; color: #fdc82f;"> Player Counter - Active</a>
+                            <%}%>
 
 
 

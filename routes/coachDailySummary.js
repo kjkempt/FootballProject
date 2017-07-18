@@ -65,7 +65,7 @@ router.post('/coachDailySum', function(req, res, next) {
 
                     recent_dates[i].date = day;
 
-                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                    recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
                 }

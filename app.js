@@ -164,7 +164,41 @@ app.get('/', function(req, res, next) {
 //******START NUTRITION PAGES*******
 
 app.get('/nutritionHome', requireLogin, function(req, res, next) {
-    res.render('nutritionHome', { username: req.session.user});
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+        sql = "select MAX(mealID) as max from master.meals " +
+        "where teamID = '"+teamid[0].teamID+"' and status = 'open';";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+
+            if(!result[0].max)
+            {
+                res.render('nutritionHome', {
+                    username: req.session.user,
+                    active: "0"
+                });
+            }
+            else
+            {
+                res.render('nutritionHome', {
+                    username: req.session.user,
+                    active: "1"
+                });
+            }
+
+
+
+        });
+
+    });
 });
 
 app.get('/nutritionCreateSession', requireLogin, function(req, res, next) {
@@ -209,9 +243,12 @@ app.get('/nutritionMealTracker', requireLogin, function(req, res, next) {
 
             }
 
-
-            res.render('nutritionMealTracker', {username: req.session.user,
-                                                recent_dates: recent_dates});
+            var players = [];
+            res.render('nutritionMealTracker', {
+                    username: req.session.user,
+                    recent_dates: recent_dates,
+                    players: players
+            });
 
 
         });
@@ -220,8 +257,70 @@ app.get('/nutritionMealTracker', requireLogin, function(req, res, next) {
 });
 
 app.get('/nutritionCounter', requireLogin, function(req, res, next) {
-    res.render('nutritionCounter', { username: req.session.user});
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+        sql = "select MAX(mealID) as max from master.meals " +
+            "where teamID = '"+teamid[0].teamID+"' and status = 'open';";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            if(!result[0].max)
+            {
+
+                res.render('nutritionHome', {
+                    username: req.session.user,
+                    active: "0"
+                });
+            }
+            else
+            {
+                sql = "select COUNT(*) as c " +
+                "from master.user u " +
+                "where u.teamID = '"+teamid[0].teamID+"' " +
+                "and u.privileges = 'Player' " +
+                "and u.username NOT IN( " +
+                "select u.username " +
+                "from master.user u " +
+                "INNER JOIN master.player_meals p ON p.username = u.username " +
+                "where u.teamID = '"+teamid[0].teamID+"' " +
+                "and u.privileges = 'Player' " +
+                "and p.meal_id = (select MAX(mealID) from master.meals " +
+                "where teamID = '"+teamid[0].teamID+"')) " +
+                "order by u.last_name;";
+
+
+                var pcount = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    pcount = result;
+
+                    res.render('nutritionCounter', {
+                        username: req.session.user,
+                        pcount: pcount
+                    });
+
+                });
+            }
+
+
+
+        });
+
+    });
 });
+
+
+
+
+
 
 
 //*******END NUTRITION PAGES*********
@@ -263,7 +362,9 @@ app.get('/coachDailySummary', requireLogin, function(req, res, next) {
 
                 recent_dates[i].date = day;
 
-                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
+
+
 
 
             }
@@ -1090,7 +1191,7 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
                 recent_dates[i].date = day;
 
-                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time;
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
 
 
             }
@@ -1642,7 +1743,7 @@ app.post('/attemptLogin', function(req, res) {
 
         if (result.length !== 0 && result[0].password === req.body.password) {
             req.session.user = req.body.username;
-            if (result[0].privileges == "Admin") {
+            if (result[0].privileges === "Admin") {
 
 
                 res.render('adminHome', {
@@ -1651,17 +1752,48 @@ app.post('/attemptLogin', function(req, res) {
 
             }
 
-            else if(result[0].privileges == "Coach")
+            else if(result[0].privileges === "Coach")
             {
                 res.render('coachHome', {
                     username: req.session.user
                 });
             }
 
-            else if(result[0].privileges == "Nutrition")
+            else if(result[0].privileges === "Nutrition")
             {
-                res.render('nutritionHome', {
-                    username: req.session.user
+                sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+                var teamid = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    teamid = result;
+
+                    sql = "select MAX(mealID) as max from master.meals " +
+                        "where teamID = '"+teamid[0].teamID+"' and status = 'open';";
+
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+                        if(!result[0].max)
+                        {
+                            res.render('nutritionHome', {
+                                username: req.session.user,
+                                active: "0"
+                            });
+                        }
+                        else
+                        {
+                            res.render('nutritionHome', {
+                                username: req.session.user,
+                                active: "1"
+                            });
+                        }
+
+
+
+                    });
+
                 });
             }
 
