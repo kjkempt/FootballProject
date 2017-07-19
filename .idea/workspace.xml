@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/coachCataDailySum.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/coachCataWeekSum.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/coachCataDailySum.ejs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/coachCataWeekSum.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/nutritionSession.ejs" afterPath="$PROJECT_DIR$/views/nutritionSession.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/adminSettings.js" afterPath="$PROJECT_DIR$/routes/adminSettings.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminSettings.ejs" afterPath="$PROJECT_DIR$/views/adminSettings.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachDailySummary.ejs" afterPath="$PROJECT_DIR$/views/coachDailySummary.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachHome.ejs" afterPath="$PROJECT_DIR$/views/coachHome.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachWeeklySummary.ejs" afterPath="$PROJECT_DIR$/views/coachWeeklySummary.ejs" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,78 +33,90 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="1194" column="0" lean-forward="true" selection-start-line="1194" selection-start-column="0" selection-end-line="1194" selection-end-column="0" />
+            <state relative-caret-position="200">
+              <caret line="945" column="26" lean-forward="false" selection-start-line="945" selection-start-column="26" selection-end-line="945" selection-end-column="26" />
               <folding>
-                <element signature="e#3098#3633#0" expanded="false" />
-                <element signature="e#5009#5049#0" expanded="false" />
-                <element signature="e#5107#5162#0" expanded="false" />
-                <element signature="e#5218#5260#0" expanded="false" />
-                <element signature="e#5330#5398#0" expanded="false" />
-                <element signature="e#5636#6503#0" expanded="false" />
-                <element signature="e#6581#6657#0" expanded="false" />
-                <element signature="e#6729#6812#0" expanded="false" />
-                <element signature="e#6888#7985#0" expanded="false" />
-                <element signature="e#7055#7981#0" expanded="false" />
-                <element signature="e#8057#9837#0" expanded="false" />
-                <element signature="e#9989#11163#0" expanded="false" />
-                <element signature="e#11234#32311#0" expanded="false" />
-                <element signature="e#32376#32452#0" expanded="false" />
-                <element signature="e#32526#34673#0" expanded="false" />
-                <element signature="e#34836#34934#0" expanded="false" />
-                <element signature="e#35031#35128#0" expanded="false" />
-                <element signature="e#35217#35560#0" expanded="false" />
-                <element signature="e#35645#40576#0" expanded="false" />
-                <element signature="e#40667#42810#0" expanded="false" />
-                <element signature="e#42893#42969#0" expanded="false" />
-                <element signature="e#44350#44454#0" expanded="false" />
-                <element signature="e#44549#65539#0" expanded="false" />
-                <element signature="e#44715#65532#0" expanded="false" />
-                <element signature="e#65634#66597#0" expanded="false" />
-                <element signature="e#66683#67029#0" expanded="false" />
-                <element signature="e#67483#67527#0" expanded="false" />
+                <element signature="e#3222#3757#0" expanded="false" />
+                <element signature="e#5231#5271#0" expanded="false" />
+                <element signature="e#5329#5384#0" expanded="false" />
+                <element signature="e#5440#5482#0" expanded="false" />
+                <element signature="e#5552#5620#0" expanded="false" />
+                <element signature="e#5858#6725#0" expanded="false" />
+                <element signature="e#6803#6879#0" expanded="false" />
+                <element signature="e#6951#7034#0" expanded="false" />
+                <element signature="e#7110#8207#0" expanded="false" />
+                <element signature="e#7277#8203#0" expanded="false" />
+                <element signature="e#8279#10059#0" expanded="false" />
+                <element signature="e#10211#11385#0" expanded="false" />
+                <element signature="e#11456#32533#0" expanded="false" />
+                <element signature="e#32598#32674#0" expanded="false" />
+                <element signature="e#32748#34895#0" expanded="false" />
+                <element signature="e#34969#36049#0" expanded="false" />
+                <element signature="e#35136#36042#0" expanded="false" />
+                <element signature="e#37475#37573#0" expanded="false" />
+                <element signature="e#37670#37767#0" expanded="false" />
+                <element signature="e#37856#38199#0" expanded="false" />
+                <element signature="e#38284#43215#0" expanded="false" />
+                <element signature="e#43306#45449#0" expanded="false" />
+                <element signature="e#45532#45608#0" expanded="false" />
+                <element signature="e#45703#46903#0" expanded="false" />
+                <element signature="e#46989#47093#0" expanded="false" />
+                <element signature="e#47188#68178#0" expanded="false" />
+                <element signature="e#47354#68171#0" expanded="false" />
+                <element signature="e#68273#69236#0" expanded="false" />
+                <element signature="e#69322#69668#0" expanded="false" />
+                <element signature="e#70122#70166#0" expanded="false" />
                 <element signature="n#!!block;n#requireLogin#0" expanded="false" />
-                <element signature="e#70146#70202#0" expanded="false" />
+                <element signature="e#72785#72841#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nutritionSession.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/nutritionSession.ejs">
+      <file leaf-file-name="coachCataWeekSum.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/coachCataWeekSum.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="430" column="105" lean-forward="false" selection-start-line="430" selection-start-column="105" selection-end-line="430" selection-end-column="105" />
+            <state relative-caret-position="566">
+              <caret line="187" column="104" lean-forward="false" selection-start-line="187" selection-start-column="104" selection-end-line="187" selection-end-column="104" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="www" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bin/www">
+      <file leaf-file-name="coachHome.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/coachHome.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            <state relative-caret-position="229">
+              <caret line="192" column="58" lean-forward="false" selection-start-line="192" selection-start-column="58" selection-end-line="192" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nutritionSession.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/nutritionSession.js">
+      <file leaf-file-name="coachWeeklySummary.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="45">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
-                <element signature="e#518#2684#0" expanded="false" />
+                <element signature="e#524#20327#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="coachCataWeekSum.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/coachCataWeekSum.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#40#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -116,12 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/universeHome.ejs" />
-        <option value="$PROJECT_DIR$/public/startbootstrap-stylish-portfolio-gh-pages/css/stylish-portfolio.css" />
-        <option value="$PROJECT_DIR$/views/changePassword.ejs" />
-        <option value="$PROJECT_DIR$/views/universeThanks.ejs" />
-        <option value="$PROJECT_DIR$/views/coachDailySummary.ejs" />
-        <option value="$PROJECT_DIR$/views/nutritionCreateSession.ejs" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/routes/login.js" />
         <option value="$PROJECT_DIR$/routes/workoutManager.js" />
@@ -135,9 +151,7 @@
         <option value="$PROJECT_DIR$/views/login.ejs" />
         <option value="$PROJECT_DIR$/routes/adminAddAthlete.js" />
         <option value="$PROJECT_DIR$/views/adminHome.ejs" />
-        <option value="$PROJECT_DIR$/routes/adminSettings.js" />
         <option value="$PROJECT_DIR$/routes/adminGroupControl.js" />
-        <option value="$PROJECT_DIR$/views/adminSettings.ejs" />
         <option value="$PROJECT_DIR$/views/adminGroupControl.ejs" />
         <option value="$PROJECT_DIR$/views/updateWorkout.ejs" />
         <option value="$PROJECT_DIR$/views/adminAddAthlete.ejs" />
@@ -155,18 +169,26 @@
         <option value="$PROJECT_DIR$/routes/nutritionCreateSession.js" />
         <option value="$PROJECT_DIR$/views/adminDailySummary.ejs" />
         <option value="$PROJECT_DIR$/views/weeklySummary.ejs" />
-        <option value="$PROJECT_DIR$/views/coachWeeklySummary.ejs" />
         <option value="$PROJECT_DIR$/routes/playerDashboard.js" />
         <option value="$PROJECT_DIR$/views/nutritionMealTracker.ejs" />
         <option value="$PROJECT_DIR$/views/nutritionCounter.ejs" />
         <option value="$PROJECT_DIR$/views/nutritionHome.ejs" />
         <option value="$PROJECT_DIR$/routes/nutritionSession.js" />
         <option value="$PROJECT_DIR$/routes/nutritionMealTracker.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/adminDailySummary.js" />
         <option value="$PROJECT_DIR$/routes/coachDailySummary.js" />
         <option value="$PROJECT_DIR$/views/nutritionSession.ejs" />
         <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/routes/adminSettings.js" />
+        <option value="$PROJECT_DIR$/views/adminSettings.ejs" />
+        <option value="$PROJECT_DIR$/routes/coachCataDailySum.js" />
+        <option value="$PROJECT_DIR$/views/coachDailySummary.ejs" />
+        <option value="$PROJECT_DIR$/views/coachCataDailySum.ejs" />
+        <option value="$PROJECT_DIR$/views/coachWeeklySummary.ejs" />
+        <option value="$PROJECT_DIR$/routes/coachCataWeekSum.js" />
+        <option value="$PROJECT_DIR$/views/coachCataWeekSum.ejs" />
+        <option value="$PROJECT_DIR$/views/coachHome.ejs" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -471,12 +493,12 @@
       <workItem from="1499700196676" duration="12308000" />
       <workItem from="1499736942698" duration="25000" />
       <workItem from="1499737068368" duration="258000" />
-      <workItem from="1499742198252" duration="55140000" />
+      <workItem from="1499742198252" duration="59637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353560000" />
+    <option name="totallyTimeSpent" value="358057000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -546,29 +568,29 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1745</line>
+          <line>1861</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1754</line>
+          <line>1870</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1397</line>
+          <line>1513</line>
           <properties />
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1425</line>
+          <line>1541</line>
           <properties />
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1551</line>
+          <line>1667</line>
           <properties />
           <option name="timeStamp" value="97" />
         </line-breakpoint>
@@ -586,55 +608,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>258</line>
+          <line>262</line>
           <properties />
           <option name="timeStamp" value="106" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="107" />
+      <option name="time" value="108" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/teamData.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/Protocol.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="51" column="40" lean-forward="false" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/Connection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="129" column="17" lean-forward="false" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/workoutManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/teamData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/updateWorkout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -731,19 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminSettings.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="186" column="0" lean-forward="false" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding>
-            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#p#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#p#0;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/adminGroupControl.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
@@ -792,29 +762,6 @@
             <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#13005#13881#0#JavaScript" expanded="false" />
             <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/adminSettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="50" lean-forward="false" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-            <element signature="e#523#1801#0" expanded="false" />
-            <element signature="e#1860#2530#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/coachDailySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="182" column="30" lean-forward="true" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -887,54 +834,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminDailySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="404" column="106" lean-forward="false" selection-start-line="404" selection-start-column="106" selection-end-line="404" selection-end-column="106" />
-          <folding>
-            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#form#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#select#0;n#div#0;n#form#0;n#div#1;n#div#3;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/nutritionHome.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="1296" column="28" lean-forward="false" selection-start-line="1296" selection-start-column="28" selection-end-line="3534" selection-end-column="36" />
-          <folding>
-            <element signature="n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#table#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2375">
-          <caret line="334" column="90" lean-forward="false" selection-start-line="334" selection-start-column="90" selection-end-line="334" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/coachWeeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="3526" column="28" lean-forward="false" selection-start-line="3526" selection-start-column="28" selection-end-line="3526" selection-end-column="28" />
-          <folding>
-            <element signature="n#table#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,57 +918,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/coachDailySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="1194" column="0" lean-forward="true" selection-start-line="1194" selection-start-column="0" selection-end-line="1194" selection-end-column="0" />
-          <folding>
-            <element signature="e#3098#3633#0" expanded="false" />
-            <element signature="e#5009#5049#0" expanded="false" />
-            <element signature="e#5107#5162#0" expanded="false" />
-            <element signature="e#5218#5260#0" expanded="false" />
-            <element signature="e#5330#5398#0" expanded="false" />
-            <element signature="e#5636#6503#0" expanded="false" />
-            <element signature="e#6581#6657#0" expanded="false" />
-            <element signature="e#6729#6812#0" expanded="false" />
-            <element signature="e#6888#7985#0" expanded="false" />
-            <element signature="e#7055#7981#0" expanded="false" />
-            <element signature="e#8057#9837#0" expanded="false" />
-            <element signature="e#9989#11163#0" expanded="false" />
-            <element signature="e#11234#32311#0" expanded="false" />
-            <element signature="e#32376#32452#0" expanded="false" />
-            <element signature="e#32526#34673#0" expanded="false" />
-            <element signature="e#34836#34934#0" expanded="false" />
-            <element signature="e#35031#35128#0" expanded="false" />
-            <element signature="e#35217#35560#0" expanded="false" />
-            <element signature="e#35645#40576#0" expanded="false" />
-            <element signature="e#40667#42810#0" expanded="false" />
-            <element signature="e#42893#42969#0" expanded="false" />
-            <element signature="e#44350#44454#0" expanded="false" />
-            <element signature="e#44549#65539#0" expanded="false" />
-            <element signature="e#44715#65532#0" expanded="false" />
-            <element signature="e#65634#66597#0" expanded="false" />
-            <element signature="e#66683#67029#0" expanded="false" />
-            <element signature="e#67483#67527#0" expanded="false" />
-            <element signature="n#!!block;n#requireLogin#0" expanded="false" />
-            <element signature="e#70146#70202#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/playerDashboard.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="190" column="52" lean-forward="false" selection-start-line="190" selection-start-column="37" selection-end-line="190" selection-end-column="52" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/adminSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#523#1801#0" expanded="false" />
+            <element signature="e#1860#2530#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1084,8 +954,166 @@
     <entry file="file://$PROJECT_DIR$/bin/www">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/adminSettings.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/coachDailySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/adminDailySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2263">
+          <caret line="404" column="106" lean-forward="false" selection-start-line="404" selection-start-column="106" selection-end-line="404" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachCataDailySum.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="176" column="36" lean-forward="false" selection-start-line="176" selection-start-column="36" selection-end-line="176" selection-end-column="36" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachDailySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4485">
+          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="15" />
+          <folding>
+            <element signature="n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachWeeklySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3607" selection-end-column="7" />
+          <folding>
+            <element signature="n#html#0;n#!!top" expanded="false" />
+            <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/coachWeeklySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#524#20327#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/coachCataWeekSum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachHome.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="192" column="58" lean-forward="false" selection-start-line="192" selection-start-column="58" selection-end-line="192" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/coachCataWeekSum.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="187" column="104" lean-forward="false" selection-start-line="187" selection-start-column="104" selection-end-line="187" selection-end-column="104" />
+          <folding>
+            <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/coachCataDailySum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="23" column="47" lean-forward="false" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#521#2093#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="945" column="26" lean-forward="false" selection-start-line="945" selection-start-column="26" selection-end-line="945" selection-end-column="26" />
+          <folding>
+            <element signature="e#3222#3757#0" expanded="false" />
+            <element signature="e#5231#5271#0" expanded="false" />
+            <element signature="e#5329#5384#0" expanded="false" />
+            <element signature="e#5440#5482#0" expanded="false" />
+            <element signature="e#5552#5620#0" expanded="false" />
+            <element signature="e#5858#6725#0" expanded="false" />
+            <element signature="e#6803#6879#0" expanded="false" />
+            <element signature="e#6951#7034#0" expanded="false" />
+            <element signature="e#7110#8207#0" expanded="false" />
+            <element signature="e#7277#8203#0" expanded="false" />
+            <element signature="e#8279#10059#0" expanded="false" />
+            <element signature="e#10211#11385#0" expanded="false" />
+            <element signature="e#11456#32533#0" expanded="false" />
+            <element signature="e#32598#32674#0" expanded="false" />
+            <element signature="e#32748#34895#0" expanded="false" />
+            <element signature="e#34969#36049#0" expanded="false" />
+            <element signature="e#35136#36042#0" expanded="false" />
+            <element signature="e#37475#37573#0" expanded="false" />
+            <element signature="e#37670#37767#0" expanded="false" />
+            <element signature="e#37856#38199#0" expanded="false" />
+            <element signature="e#38284#43215#0" expanded="false" />
+            <element signature="e#43306#45449#0" expanded="false" />
+            <element signature="e#45532#45608#0" expanded="false" />
+            <element signature="e#45703#46903#0" expanded="false" />
+            <element signature="e#46989#47093#0" expanded="false" />
+            <element signature="e#47188#68178#0" expanded="false" />
+            <element signature="e#47354#68171#0" expanded="false" />
+            <element signature="e#68273#69236#0" expanded="false" />
+            <element signature="e#69322#69668#0" expanded="false" />
+            <element signature="e#70122#70166#0" expanded="false" />
+            <element signature="n#!!block;n#requireLogin#0" expanded="false" />
+            <element signature="e#72785#72841#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

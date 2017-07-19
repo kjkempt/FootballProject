@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Coach Performance Tracker</title>
+    <title>Weekly Summary</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -35,7 +35,7 @@
 
     <!-- Datatables CSS and JS links  -->
 
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.css"/>
 
 
 </head>
@@ -44,6 +44,7 @@
 
 <div id="wrapper">
 
+    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -162,16 +163,17 @@
                 <li>
                     <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-list-alt"></i> Weekly Workout Summaries</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
     <div id="page-wrapper">
 
         <div class="container-fluid">
@@ -179,12 +181,11 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Weekly Summary</h3>
                         </div>
                         <div class = "panel-body">
 
-
-                            <form name="dailySumForm"  class = "form-inline" action="/coachDailySummary/coachDailySum" method="post" role="form"
+                            <form name="weekSelectForm"  class = "form-inline" action="/coachCataWeekSum/selectWeek" method="post" role="form"
                                   style=" display: block;">
 
 
@@ -194,13 +195,14 @@
                                  put in on a player-->
                                 <label for="sel1">Select workout date:</label>
                                 <div class="form-group">
-                                    <select class="form-control" id="mySelect" name="date_select">
-                                        <option disabled selected value> -- select a workout -- </option>
-                                        <% recent.forEach(function (rec) { %>
-                                        <tr>
-                                            <option value = "<%= rec.workoutid %>" ><%= rec.date %></option>
-                                        </tr>
-                                        <% }) %>
+                                    <select class="form-control" id="mySelect" name="week_select">
+                                        <option selected value> -- Select a week -- </option>
+                                        <% for(var k=0; k < week_set.length ; k++) {%>
+                                        <option value="<%=week_set[k].saturday%>">
+                                            Week <%= week_set[k].sunday%> - <%= week_set[k].saturday%>
+                                        </option>
+
+                                        <% } %>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>
@@ -208,114 +210,97 @@
 
 
 
-                            <br>
-
-
-                            <%if(note.length > 0)
-                            {%>
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Notes</h3>
-                                </div>
-                                <div class = "panel-body">
-
-                                    <p><%=note[0].notes%></p>
-
-                                </div>
-                            </div>
-                            <%}%>
-
-
-
-
-
-                            <br>
-
-
-
-                            <table id="daily_sum" class="display">
+                            <table id="iw" class="display nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <td>Last Name</td>
-                                    <td>First Name</td>
-                                    <td>sRPE</td>
-                                    <td>Duration (min.)</td>
-                                    <td>Load</td>
-                                    <td>Notes</td>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+
+                                    <th><p class="-bold">SUNDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+
+                                    <th><p class="-bold">MONDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+
+                                    <th><p class="-bold">TUESDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+
+                                    <th><p class="-bold">WEDNESDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+
+                                    <th><p class="-bold">THURSDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">FRIDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+
+                                    <th><p class="-bold">SATURDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">TOTAL:</p> sRPE AVG</th>
+                                    <th>Acute Duration (min.)</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <% workout.forEach(function(player_daily){
-                                    var load = note[0].duration * player_daily.player_sRPE;    %>
+                                <%
+                                /*if(week_data.length > 0) {
+                                    var i = 0;
 
-                                <tr>
-                                    <td><%= player_daily.last_name%></td>
-                                    <td><%= player_daily.first_name%></td>
-                                    <td><%= player_daily.player_sRPE%></td>
-                                    <td><%= note[0].duration%></td>
-                                    <td><%= load%></td>
+                                    while(i < week_data.length){
+                                    var acuteLoad= 0;
+                                    var load_percentage = 0;
+                                    var acuteDuration = 0;
+                                    var rpeAVG = 0;
+                                    var avg = 0;
+                                    var chronic_load = 0;*/
 
-                                    <% if(!player_daily.pwnotes){%>
-                                    <td> </td>
-                                    <%}
-                                    else{%>
-                                    <td>
-                                        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
-                                                title="Player Note"
-                                                data-content="<%= player_daily.pwnotes%>">
-                                            <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
-                                    </td>
-                                    <%}%>
+                                %>
 
 
 
-                                </tr>
-                                <%})%>
-
-                                <%if(note.length > 0)
-                                {%>
 
 
-                                <tr>
-                                    <td>Coach</td>
-                                    <td> </td>
-                                    <td><%= note[0].sRPE%></td>
-                                    <td><%= note[0].duration%></td>
-                                    <td><%= (note[0].duration * note[0].sRPE)%></td>
-                                    <td></td>
-                                </tr>
 
 
-                                <%}%>
 
+
+
+                                <%  %>
+                                <%  %>
                                 </tbody>
                             </table>
+
+
+
+
+
 
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
 
-                                     $('#daily_sum').DataTable({
 
-
-                                         "columnDefs": [
-                                             {"width": "15%", "targets": 3}
-                                         ],
-                                        drawCallback: function() {
-                                            $('[data-toggle="popover"]').popover();
-                                        }
-                                    });
-
+                                    $('#iw').DataTable({
+                                        responsive: true,
+                                        "scrollX": true//,
+                                        //colReorder: {
+                                          //  order: [ ]
+                                        //}
 
                                     });
+                                } );
 
 
                             </script>
-
-
-
-
                         </div>
 
                     </div>
@@ -344,7 +329,7 @@
 <script src="../js/plugins/morris/morris-data.js"></script>
 
 
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.js"></script>
 
 
 </body>

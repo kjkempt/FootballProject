@@ -114,3 +114,10 @@ router.post('/deletegroup', function(req, res, next) {
 
 });
 
+
+router.post('/doubleSelect', function(req, res, next){
+
+
+
+});
+
