@@ -282,10 +282,32 @@
                                     <td><%= player_day[i].last_name %></td>
                                     <td><%= player_day[i].first_name %></td>
                                     <td><%= player_day[i].position %></td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+
+                                    <% for(var j = 0; j < player_acute.length; j++) {
+                                            if(player_acute[j].username === temp)
+                                            {
+                                                acuteLoad = player_acute[j].psum;
+                                                acuteDuration = player_acute[j].dsum;
+                                                break;
+                                            }
+                                        }
+                                        for( j = 0; j < player_chronic.length; j++) {
+                                            if(player_chronic[j].username === temp)
+                                            {
+                                                chronicLoad = player_chronic[j].chronicSum;
+                                                break;
+                                            }
+                                        }
+
+                                        adcpercent = (acuteLoad / chronicLoad) * 100;
+                                        adcpercent = Math.round(adcpercent * 10)/10; //nearest tenth
+                                    %>
+                                    %>
+
+                                    <td><%= acuteDuration %></td>
+                                    <td><%= acuteLoad %></td>
+                                    <td><%= chronicLoad%></td>
+                                    <td><%= adcpercent%>%</td>
 
 
                                     <%

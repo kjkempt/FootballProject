@@ -80,11 +80,63 @@ router.post('/selectWeek', function(req, res, next) {
                 player_day = result;
 
 
-                res.render('coachCataWeekSum', {
-                    username: req.user,
-                    week_set: week_set,
-                    player_day: player_day
+                sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, " +
+                    "SUM(w.pload) as psum, SUM(w.duration) as dsum " +
+                    "FROM  master.cata_player_workouts w " +
+                    "INNER JOIN master.user u ON u.username = w.username " +
+                    "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                    "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                    "AND u.teamID = '" + teamid[0].teamID + "' " +
+                    "AND m.date " +
+                    "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                    "'" + req.body.week_select + "' " +
+                    "GROUP BY u.username;";
+
+
+                var player_acute = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    player_acute = result;
+
+
+                    sql  = "SELECT u.username, u.position, m.date,  " +
+                        "SUM(w.pload) / 4 as chronicSum " +
+                        "FROM  master.cata_player_workouts w " +
+                        "INNER JOIN master.user u ON u.username = w.username " +
+                        "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                        "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                        "AND u.teamID = '" + teamid[0].teamID + "' " +
+                        "AND m.date " +
+                        "BETWEEN '" + req.body.week_select + "'- INTERVAL 5 WEEK AND" +
+                        " '" + req.body.week_select + "' - INTERVAL 1 WEEK " +
+                        "GROUP BY u.username " +
+                        "ORDER BY u.username; " ;
+
+
+                    var player_chronic = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+                        player_chronic = result;
+
+
+
+
+                        res.render('coachCataWeekSum', {
+                            username: req.user,
+                            week_set: week_set,
+                            player_day: player_day,
+                            player_acute: player_acute,
+                            player_chronic: player_chronic
+                        });
+
+
+                    });
+
+
                 });
+
 
             });
 

@@ -984,10 +984,14 @@ app.get('/coachCataWeekSum', requireLogin, function(req, res, next) {
 
 
             var player_day = [];
+            var player_acute = [];
+            var player_chronic = [];
             res.render('coachCataWeekSum', {
                 username: req.user,
                 week_set: week_set,
-                player_day: player_day
+                player_day: player_day,
+                player_acute: player_acute,
+                player_chronic: player_chronic
             });
 
 
