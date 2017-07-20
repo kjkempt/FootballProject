@@ -956,8 +956,8 @@ app.get('/coachCataWeekSum', requireLogin, function(req, res, next) {
 
         var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
             "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
-            "FROM master.workouts m " +
-            "WHERE m.teamID = '"+teamid[0].teamID+"';";
+            "FROM master.cata_workouts m " +
+            "WHERE m.teamid = '"+teamid[0].teamID+"';";
 
 
         var week_set = [];
@@ -982,10 +982,15 @@ app.get('/coachCataWeekSum', requireLogin, function(req, res, next) {
             }
 
 
+
+            var player_day = [];
             res.render('coachCataWeekSum', {
                 username: req.user,
-                week_set: week_set
+                week_set: week_set,
+                player_day: player_day
             });
+
+
 
 
         });

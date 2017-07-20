@@ -210,72 +210,346 @@
 
 
 
-                            <table id="iw" class="display nowrap" cellspacing="0" width="100%">
+                            <table id="indy" class="display" style="width:100%" >
                                 <thead>
                                 <tr>
-                                    <th>Last Name</th>
-                                    <th>First Name</th>
+                                    <th rowspan="2">Last Name</th>
+                                    <th rowspan="2">First Name</th>
+                                    <th rowspan="2">Position</th>
+                                    <th colspan="4">Week Total</th>
+                                    <th colspan="3">Sunday</th>
+                                    <th colspan="3">Monday</th>
+                                    <th colspan="3">Tuesday</th>
+                                    <th colspan="3">Wednesday</th>
+                                    <th colspan="3">Thursday</th>
+                                    <th colspan="3">Friday</th>
+                                    <th colspan="3">Saturday</th>
+                                </tr>
+                                <tr>
 
-                                    <th><p class="-bold">SUNDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-
-                                    <th><p class="-bold">MONDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-
-                                    <th><p class="-bold">TUESDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-
-                                    <th><p class="-bold">WEDNESDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-
-                                    <th><p class="-bold">THURSDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-                                    <th><p class="-bold">FRIDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-
-                                    <th><p class="-bold">SATURDAY AM:</p> sRPE</th>
-                                    <th>Dur.</th>
-                                    <th>Load</th>
-                                    <th><p class="-bold">TOTAL:</p> sRPE AVG</th>
                                     <th>Acute Duration (min.)</th>
                                     <th>Acute Load</th>
                                     <th>Chronic Load</th>
                                     <th>Relative A/C% Load</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th>Load/Min.</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
 
+
                                 <%
-                                /*if(week_data.length > 0) {
+                                if(player_day.length > 0) {
                                     var i = 0;
 
-                                    while(i < week_data.length){
-                                    var acuteLoad= 0;
-                                    var load_percentage = 0;
+                                    while(i < player_day.length){
+                                    var acuteLoad = 0;
+                                    var chronicLoad = 0;
                                     var acuteDuration = 0;
-                                    var rpeAVG = 0;
-                                    var avg = 0;
-                                    var chronic_load = 0;*/
+                                    var adcpercent = 0;
+
+                                var temp = player_day[i].username;
 
                                 %>
+                                <tr>
+                                    <td><%= player_day[i].last_name %></td>
+                                    <td><%= player_day[i].first_name %></td>
+                                    <td><%= player_day[i].position %></td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <%
+                                if(player_day[i].indexday == 1 && player_day[i].username == temp){
+                                %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                <%
+                                    i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                else
+                                {
+                                %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                }
+
+                                if(player_day[i].indexday == 2 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    if(player_day[i].indexday == 3 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    if(player_day[i].indexday == 4 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    if(player_day[i].indexday == 5 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    if(player_day[i].indexday == 6 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%   break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    if(player_day[i].indexday == 7 && player_day[i].username == temp){
+                                    %>
+                                    <td><%= player_day[i].duration %></td>
+                                    <td><%= player_day[i].pload %></td>
+                                    <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
+
+                                    <%
+                                        i = i+1;
+                                    if(i == player_day.length)
+                                        {  break; }
+                                    }
+                                    else
+                                    {
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                    }
+
+                                    %>
 
 
 
 
 
-
-
-
-
-
-                                <%  %>
-                                <%  %>
+                                </tr>
+                                <% } %>
+                                <% } %>
                                 </tbody>
                             </table>
 
@@ -289,13 +563,8 @@
                                 $(document).ready( function () {
 
 
-                                    $('#iw').DataTable({
-                                        responsive: true,
-                                        "scrollX": true//,
-                                        //colReorder: {
-                                          //  order: [ ]
-                                        //}
-
+                                    $('#indy').DataTable({
+                                        "scrollX": true
                                     });
                                 } );
 

@@ -18,3 +18,84 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     console.log("Connected! CD");
 });
+
+
+router.post('/selectWeek', function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.cata_workouts m " +
+            "WHERE m.teamid = '"+teamid[0].teamID+"';";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+
+
+            sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
+                "w.pload, w.duration " +
+            "FROM  master.cata_player_workouts w " +
+            "INNER JOIN master.user u ON u.username = w.username " +
+            "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+            "WHERE w.teamID = '"+teamid[0].teamID+"' " +
+            "AND u.teamID = '"+teamid[0].teamID+"' " +
+            "AND m.date " +
+            "BETWEEN  DATE(DATE_ADD('"+req.body.week_select+"', INTERVAL(1-DAYOFWEEK('"+req.body.week_select+"')) DAY))  AND " +
+            "'"+req.body.week_select+"' " +
+            "ORDER BY u.username, indexday;";
+
+
+            var player_day = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                player_day = result;
+
+
+                res.render('coachCataWeekSum', {
+                    username: req.user,
+                    week_set: week_set,
+                    player_day: player_day
+                });
+
+            });
+
+
+
+
+        });
+
+
+    });
+
+
+
+});
