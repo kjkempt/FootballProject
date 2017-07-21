@@ -37,6 +37,9 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.css"/>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+
 
 </head>
 
@@ -575,11 +578,6 @@
                                 </tbody>
                             </table>
 
-
-
-
-
-
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
@@ -589,10 +587,220 @@
                                         "scrollX": true
                                     });
                                 } );
-
-
                             </script>
+
+
+
+
                         </div>
+
+                        <% if(player_day.length > 0){ %>
+
+
+                        <div class="panel-body">
+                            <form name="playerSelectForm"  class = "form-inline" action="/coachCataWeekSum/selectPlayer" method="post" role="form"
+                                  style=" display: block;">
+                            <div class="form-inline">
+                                <select class="form-control" id="playerSelect" name="player_select" >
+                                    <option selected value> -- Select a player -- </option>
+                                    <% for( k = 0; k < player_acute.length ; k++) {%>
+                                    <option value="<%= player_acute[k].username%>">
+                                        <%= player_acute[k].last_name%>, <%= player_acute[k].first_name%>
+                                    </option>
+
+                                    <% } %>
+                                </select>
+                                <input  name="week_select" value="<%= player_day[0].date%>">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                            </form>
+                            <% if(player_chart.length > 0){ %>
+                            <canvas id="playerLPM"></canvas>
+                            <% } %>
+                        </div>
+
+
+                        <% if(player_chart.length > 0){ %>
+                        <script>
+                            <%
+                                chart_data = [];
+
+                                for(j = 0; j < player_chart.length; j++)
+                                {
+                                        temp = player_chart[j].username;
+                                        if(player_chart[j].indexday === 1 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 2 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 3 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 4 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 5 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 6 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                chart_data.push(0);
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                        if(player_chart[j].indexday === 7 && player_chart[j].username === temp)
+                                        {
+                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                            j = j+ 1;
+                                            if(j === player_chart.length)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            chart_data.push(0);
+                                        }
+
+                                }
+
+
+                                console.log(chart_data.length);
+                            %>
+
+
+
+
+
+
+                                var ctx = document.getElementById('playerLPM').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // The type of chart we want to create
+                                    type: 'line',
+
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                                        datasets: [{
+                                            label: "Load/Minute",
+                                            backgroundColor: 'rgb(255, 99, 132)',
+                                            borderColor: 'rgb(255, 99, 132)',
+                                            lineTension: 0,
+                                            data: [ <%= chart_data[0]%>, <%= chart_data[1]%>, <%= chart_data[2]%>, <%= chart_data[3]%>,
+                                                <%= chart_data[4]%>, <%= chart_data[5]%>, <%= chart_data[6]%>],
+                                            fill: false
+                                        }]
+                                    },
+
+                                    // Configuration options go here
+                                    options: {
+                                        title: {
+                                            display: true,
+                                            text: "<%= player_chart[0].first_name%> <%= player_chart[0].last_name%>",
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Player Load/Min.'
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+
+
+
+                        </script>
+
+                        <%
+                        }
+                        } %>
 
                     </div>
                 </div>
