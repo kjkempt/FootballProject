@@ -37,6 +37,8 @@ var nutritionMealTracker = require('./routes/nutritionMealTracker');
 var nutritionCounter = require('./routes/nutritionCounter');
 var coachCataDailySum = require('./routes/coachCataDailySum');
 var coachCataWeekSum = require('./routes/coachCataWeekSum');
+var coachCataRecentData = require('./routes/coachCataRecentData');
+var coachCataTeamWeekSum = require('./routes/coachCataTeamWeekSum');
 
 
 
@@ -137,6 +139,8 @@ app.use('/nutritionMealTracker', nutritionMealTracker);
 app.use('/nutritionCounter', nutritionCounter);
 app.use('/coachCataDailySum', coachCataDailySum);
 app.use('/coachCataWeekSum', coachCataWeekSum);
+app.use('/coachCataRecentData', coachCataRecentData);
+app.use('/coachCataTeamWeekSum', coachCataTeamWeekSum);
 
 //***Universe Pages
 
@@ -883,7 +887,6 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
 
 });
 
-
 app.get('/coachCataDailySum', requireLogin, function(req, res, next) {
 
     var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
@@ -992,6 +995,82 @@ app.get('/coachCataWeekSum', requireLogin, function(req, res, next) {
                 player_day: player_day,
                 player_acute: player_acute,
                 player_chronic: player_chronic
+            });
+
+
+
+
+        });
+
+
+    });
+
+
+});
+
+app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
+    res.render('coachCataRecentData', {
+        username: req.session.user
+    });
+});
+
+app.get('/coachCataTeamWeekSum', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.cata_workouts m " +
+            "WHERE m.teamid = '"+teamid[0].teamID+"';";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+
+
+            var team_day = [];
+            var team_acute = [];
+            var team_chronic = [];
+            var team_chart = [];
+            var position_day = [];
+            var position_acute = [];
+            var position_chronic = [];
+            res.render('coachCataTeamWeekSum', {
+                username: req.user,
+                week_set: week_set,
+                team_day: team_day,
+                team_acute: team_acute,
+                team_chronic: team_chronic,
+                team_chart: team_chart,
+                position_day: position_day,
+                position_acute: position_acute,
+                position_chronic: position_chronic
             });
 
 
