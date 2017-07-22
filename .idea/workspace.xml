@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/coachCataRecentData.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/coachCataTeamWeekSum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/coachCataRecentData.ejs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/coachCataTeamWeekSum.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/adminGroupControl.js" afterPath="$PROJECT_DIR$/routes/adminGroupControl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/nutritionMealTracker.js" afterPath="$PROJECT_DIR$/routes/nutritionMealTracker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachCataWeekSum.ejs" afterPath="$PROJECT_DIR$/views/coachCataWeekSum.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/coachHome.ejs" afterPath="$PROJECT_DIR$/views/coachHome.ejs" />
-    </list>
+    <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="" />
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -524,12 +512,12 @@
       <workItem from="1499700196676" duration="12308000" />
       <workItem from="1499736942698" duration="25000" />
       <workItem from="1499737068368" duration="258000" />
-      <workItem from="1499742198252" duration="90883000" />
+      <workItem from="1499742198252" duration="90984000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="389303000" />
+    <option name="totallyTimeSpent" value="389404000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
