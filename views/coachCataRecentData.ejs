@@ -187,32 +187,297 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
 
+                     <span class = "text-nowrap">
+                                    <h1 class="page-header" >
+                                        Current Week Catapult Data <small> Players/Positions/Team </small>
+                                    </h1>
+                                    </span>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Individual Players</h3>
+                        </div>
                         <div class = "panel-body">
 
-                            <div class="jumbotron" style=" color: #a71930; ">
-                                <h1> Welcome to TeamExertU</h1>
-                                <p>Admin Home</p>
-                            </div>
+                            <table id="player_table" class="display">
+                                <thead>
+                                <tr>
 
-                            <a href="/coachRecentData" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Current Week Data</a>
+                                    <!-- Table Headers -->
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Postion</th>
+                                    <th>Recent Load</th>
+                                    <th>Recent Duration</th>
+                                    <th>Rolling 3 Day Load</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Load Percentage (A%C)</th>
+                                    <th>Monotony Score</th>
+                                    <th>Strain</th>
+                                </tr>
+                                </thead>
 
-                            <a href="/coachDailySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Daily Workout Summary</a>
+                                <tbody>
 
-                            <br><br>
 
-                            <a href="/coachWeeklySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Weekly Summary</a>
 
-                            <a href="/coachCataDailySum" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Catapult Daily Summary</a>
 
-                            <a href="/coachCataWeekSum" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Catapult Weekly Summary</a>
 
+                                <%
+
+                                for(var b = 0; b < player_chronic.length; b++)
+                                {
+
+                                    var acute = 0;
+                                    var chronic = player_chronic[b].chronicSum;
+                                    var recent_duration = 0;
+                                    var recent_load = 0;
+                                    var strain = 0;
+                                    var three = 0;
+                                    var monotony = 0;
+
+                                    for(var j = 0; j < player_acute.length; j++)
+                                    {
+                                        if(player_acute[j].username == player_chronic[b].username)
+                                        {
+                                            acute = player_acute[j].psum;
+                                        }
+                                    }
+
+
+                                    //For an individual player
+
+
+                                    var load_percentage = (acute / chronic) * 100;
+                                    chronic = Math.round(chronic);
+                                    load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+
+                                //Recent player load/duration
+                                    for(var t = 0; t < player_recent.length; t++){
+                                        if(player_recent[t].username == player_chronic[b].username)
+                                        {
+                                            recent_load = player_recent[t].pload;
+                                            recent_duration = player_recent[t].duration;
+                                        }
+                                    }
+
+                                //Three Day rolling load
+                                    for(var r = 0; r < player_three.length; r++){
+                                        if(player_three[r].username == player_chronic[b].username)
+                                        {
+                                            three = player_three[r].psum;
+                                        }
+                                    }
+
+
+
+                                    /*
+                                                                        //These two variables are need for standard deviation calcs
+
+                                                                        var acuteMean = one_week_data[b].acuteMeanSum
+                                                                        var variance = 0;
+
+
+                                                                        //daily_load is used to calc the 7 day variance from the acuteMean load
+                                                                        for(var c = 0; c < daily_load.length; c++)
+                                                                        {
+                                                                            //dload is a set of all players daily loads from the week so we need the if
+                                                                            // statement to choose the right player's daily loads that we need
+                                                                            if(daily_load[c].username == one_week_data[b].username)
+                                                                            {
+                                                                                variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
+                                                                            }
+                                                                        }
+
+                                                                        //Standard deviation calculation below
+
+                                                                        var standard_dev = Math.sqrt(variance);
+                                                                        var day_load = 0;
+
+
+
+
+
+
+
+                                                                        //monotony score is calculated and rounded to the nearest tenth - subject to change
+                                                                         monotony = day_load / standard_dev;
+
+
+                                                                        //strain calc is monotony * individual's acute load
+                                                                         strain = monotony * acute;
+                                                                        strain = Math.round(strain); //round to nearest whole number
+
+                                                                        monotony = Math.round(monotony * 10)/10; //nearest tenth
+
+
+                                  */
+
+
+
+
+                                %>
+
+
+
+                                <tr>
+                                    <td> <%= player_chronic[b].last_name %></td>
+                                    <td><%= player_chronic[b].first_name%></td>
+                                    <td><%= player_chronic[b].position%></td>
+                                    <td><%= recent_load%></td>
+                                    <td><%= recent_duration%></td>
+                                    <td><%= three%></td>
+                                    <td><%= acute %></td>
+                                    <td><%=  chronic %> </td>
+                                    <td><%= load_percentage%>%</td>
+                                    <td> <%= monotony%> </td>
+                                    <td><%= strain%></td>
+                                </tr>
+
+
+                                <% } %>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Positions</h3>
+                        </div>
+                        <div class = "panel-body">
+
+                            <table id="group_table" class="display" style="width: 100%">
+                                <thead>
+                                <tr>
+
+                                    <!-- Table Headers -->
+                                    <th>Group</th>
+                                    <th>Rolling Three Day Load</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Load Percentage (A%C)</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+
+
+
+
+                                <%
+
+                                acute = 0;
+                                chronic = 0;
+                                three = 0;
+
+                                for( b = 0; b < team_chronic.length; b++) {
+                                    chronic = chronic + team_chronic[b].chronicSum;
+                                }
+
+                                chronic = chronic / 4;
+
+                                    for( j = 0; j < team_acute.length; j++)
+                                    {
+                                            acute = team_acute[j].psum + acute;
+                                    }
+
+
+                                    //For an individual player
+
+
+                                    load_percentage = (acute / chronic) * 100;
+                                    chronic = Math.round(chronic);
+                                    acute = Math.round(acute);
+                                    load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+
+
+
+                                    //Three Day rolling load
+                                    for( r = 0; r < team_three.length; r++){
+                                            three = team_three[r].psum + three;
+                                    }
+                                three = Math.round(three * 10)/10; //nearest tenth
+                                %>
+
+
+
+                                <tr>
+                                    <td>+ Team</td>
+                                    <td><%= three%></td>
+                                    <td><%= acute %></td>
+                                    <td><%=  chronic %> </td>
+                                    <td><%= load_percentage%>%</td>
+                                </tr>
+
+
+
+
+                                <% //POSITION
+
+                                var group = ["QB", "RB", "WR", "OL", "TE", "DL", "LB", "DB"];
+
+                                for(var i = 0; i < group.length; i++)
+                                {
+
+
+                                acute = 0;
+                                chronic = 0;
+                                three = 0;
+
+                                for( b = 0; b < team_chronic.length; b++) {
+                                    if(team_chronic[b].position === group[i]) {
+                                        chronic = chronic + team_chronic[b].chronicSum;
+                                    }
+                                }
+
+                                chronic = chronic / 4;
+
+                                for( j = 0; j < team_acute.length; j++)
+                                {
+                                    if(team_acute[j].position === group[i]) {
+                                        acute = team_acute[j].psum + acute;
+                                    }
+                                }
+
+
+                                //For an individual player
+
+
+                                load_percentage = (acute / chronic) * 100;
+                                chronic = Math.round(chronic);
+                                acute = Math.round(acute);
+                                load_percentage = Math.round(load_percentage * 10)/10; //nearest tenth
+
+
+
+                                //Three Day rolling load
+                                for( r = 0; r < team_three.length; r++){
+                                    if(team_three[r].position === group[i]) {
+                                        three = team_three[r].psum + three;
+                                    }
+                                }
+                                three = Math.round(three * 10)/10; //nearest tenth
+                                %>
+
+
+
+                                <tr>
+                                    <td>-<%= group[i] %></td>
+                                    <td><%= three%></td>
+                                    <td><%= acute %></td>
+                                    <td><%=  chronic %> </td>
+                                    <td><%= load_percentage%>%</td>
+                                </tr>
+
+                                <% } %>
+
+
+
+                                </tbody>
+                            </table>
                         </div>
 
 
@@ -220,6 +485,25 @@
                 </div>
             </div>
             <!-- /.row -->
+
+            <script>
+                var $ = jQuery;
+                $(document).ready( function () {
+                    $('#player_table').DataTable({
+                            "scrollX": true
+
+
+
+                        }
+                    );
+                    $('#group_table').DataTable({
+                            "scrollX": true
+                        }
+                    );
+
+
+                } );
+            </script>
 
         </div>
         <!-- /.container-fluid -->
