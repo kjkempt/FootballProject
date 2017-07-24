@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Coach Home Page</title>
+    <title>Current Catapult Data</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -144,12 +144,6 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li>
-                    <li>
                         <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
@@ -163,25 +157,30 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
+                    <a href="/coachRecentData"><i class="glyphicon glyphicon-tasks"></i> Current RPE Data</a>
                 </li>
                 <li>
-                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
+                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summaries</a>
                 </li>
                 <li>
-                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-list-alt"></i> Weekly Workout Summaries</a>
+                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summaries</a>
                 </li>
                 <li>
-                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-list-alt"></i> Catapult Daily Summary</a>
+                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
                 </li>
                 <li>
-                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-list-alt"></i> Catapult Weekly Summary</a>
+                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
+                </li>
+                <li>
+                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-
     <div id="page-wrapper">
 
         <div class="container-fluid">
@@ -236,12 +235,18 @@
                                     var strain = 0;
                                     var three = 0;
                                     var monotony = 0;
+                                    var acuteMean = 0;
+                                    var variance = 0;
+                                    var standard_dev = 0;
+                                    var session_load = 0;
 
                                     for(var j = 0; j < player_acute.length; j++)
                                     {
                                         if(player_acute[j].username == player_chronic[b].username)
                                         {
                                             acute = player_acute[j].psum;
+                                            acuteMean = player_acute[j].acuteMeanSum;
+
                                         }
                                     }
 
@@ -260,7 +265,9 @@
                                             recent_load = player_recent[t].pload;
                                             recent_duration = player_recent[t].duration;
                                         }
+                                        session_load = player_recent[t].pload + session_load;
                                     }
+                                    session_load = session_load / player_recent.length;
 
                                 //Three Day rolling load
                                     for(var r = 0; r < player_three.length; r++){
@@ -270,30 +277,32 @@
                                         }
                                     }
 
+                                    //daily_load is used to calc the 7 day variance from the acuteMean load
+                                    for(var c = 0; c < player_day.length; c++)
+                                    {
+                                        //dload is a set of all players daily loads from the week so we need the if
+                                        // statement to choose the right player's daily loads that we need
+                                        if(player_day[c].username == player_chronic[b].username)
+                                        {
+                                            variance = variance + Math.pow((acuteMean - player_day[c].pload), 2);
+                                        }
+                                    }
 
+                                    //Standard deviation calculation below
 
+                                     standard_dev = Math.sqrt(variance);
+
+                                    monotony = session_load / standard_dev;
+
+                                    strain = monotony * acute;
+                                    strain = Math.round(strain); //round to nearest whole number
+
+                                    monotony = Math.round(monotony * 10)/10; //nearest tenth
                                     /*
-                                                                        //These two variables are need for standard deviation calcs
-
-                                                                        var acuteMean = one_week_data[b].acuteMeanSum
-                                                                        var variance = 0;
 
 
-                                                                        //daily_load is used to calc the 7 day variance from the acuteMean load
-                                                                        for(var c = 0; c < daily_load.length; c++)
-                                                                        {
-                                                                            //dload is a set of all players daily loads from the week so we need the if
-                                                                            // statement to choose the right player's daily loads that we need
-                                                                            if(daily_load[c].username == one_week_data[b].username)
-                                                                            {
-                                                                                variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
-                                                                            }
-                                                                        }
 
-                                                                        //Standard deviation calculation below
 
-                                                                        var standard_dev = Math.sqrt(variance);
-                                                                        var day_load = 0;
 
 
 
@@ -427,18 +436,18 @@
                                 chronic = 0;
                                 three = 0;
 
-                                for( b = 0; b < team_chronic.length; b++) {
-                                    if(team_chronic[b].position === group[i]) {
-                                        chronic = chronic + team_chronic[b].chronicSum;
+                                for( b = 0; b < position_chronic.length; b++) {
+                                    if(position_chronic[b].position === group[i]) {
+                                        chronic = chronic + position_chronic[b].chronicSum;
                                     }
                                 }
 
                                 chronic = chronic / 4;
 
-                                for( j = 0; j < team_acute.length; j++)
+                                for( j = 0; j < position_acute.length; j++)
                                 {
-                                    if(team_acute[j].position === group[i]) {
-                                        acute = team_acute[j].psum + acute;
+                                    if(position_acute[j].position === group[i]) {
+                                        acute = position_acute[j].psum + acute;
                                     }
                                 }
 
@@ -454,9 +463,9 @@
 
 
                                 //Three Day rolling load
-                                for( r = 0; r < team_three.length; r++){
-                                    if(team_three[r].position === group[i]) {
-                                        three = team_three[r].psum + three;
+                                for( r = 0; r < position_three.length; r++){
+                                    if(position_three[r].position === group[i]) {
+                                        three = position_three[r].psum + three;
                                     }
                                 }
                                 three = Math.round(three * 10)/10; //nearest tenth

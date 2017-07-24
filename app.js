@@ -1095,7 +1095,8 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
             date = date.toISOString().split('T')[0];
 
             sql = "SELECT u.username, u.position, m.date, " +
-                "SUM(w.pload) as psum, SUM(w.duration) as dsum " +
+                "SUM(w.pload) as psum, SUM(w.duration) as dsum, " +
+                "(SUM(w.pload)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -1165,6 +1166,27 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
                             player_three = result;
+
+
+                            sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
+                                "w.pload, w.duration " +
+                                "FROM  master.cata_player_workouts w " +
+                                "INNER JOIN master.user u ON u.username = w.username " +
+                                "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                "WHERE w.teamID = '"+teamid[0].teamID+"' " +
+                                "AND u.teamID = '"+teamid[0].teamID+"' " +
+                                "AND m.date " +
+                                "BETWEEN  DATE(DATE_ADD('" + date + "', INTERVAL(1-DAYOFWEEK('" + date + "')) DAY))  AND " +
+                                "'" + date + "' " +
+                                "ORDER BY u.username, indexday;";
+
+
+                            var player_day = [];
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+
+                                player_day = result;
+
 
 
 
@@ -1277,8 +1299,6 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
                                                 position_chronic = result;
 
 
-
-
                                                 sql = "SELECT u.position, AVG(w.pload) as psum, m.date " +
                                                     "FROM master.user u, master.cata_player_workouts w, master.cata_workouts m " +
                                                     "WHERE u.username = w.username " +
@@ -1286,7 +1306,7 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
                                                     "AND w.teamid = '" + teamid[0].teamID + "' " +
                                                     "AND u.teamID = '" + teamid[0].teamID + "' " +
                                                     "AND m.teamid = '" + teamid[0].teamID + "' " +
-                                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 5 DAY AND CURDATE()  - INTERVAL 1 DAY " +
+                                                    "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
                                                     "GROUP BY u.position, m.date; ";
 
 
@@ -1296,13 +1316,13 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
                                                     position_three = result;
 
 
-
-                                                    res.render('coachCataRecentData', {
+                                                   res.render('coachCataRecentData', {
                                                         username: req.session.user,
                                                         player_acute: player_acute,
                                                         player_chronic: player_chronic,
                                                         player_recent: player_recent,
                                                         player_three: player_three,
+                                                        player_day: player_day,
                                                         team_acute: team_acute,
                                                         team_chronic: team_chronic,
                                                         team_three: team_three,
@@ -1311,6 +1331,7 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
                                                         position_three: position_three
                                                     });
                                                 });
+                                            });
                                             });
                                         });
                                     });

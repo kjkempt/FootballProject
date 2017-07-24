@@ -144,12 +144,6 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li>
-                    <li>
                         <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
@@ -163,25 +157,25 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Workout Data</a>
+                    <a href="/coachRecentData"><i class="glyphicon glyphicon-tasks"></i> Current RPE Data</a>
                 </li>
                 <li>
-                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
+                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summaries</a>
                 </li>
                 <li>
-                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-list-alt"></i> Weekly Workout Summaries</a>
+                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summaries</a>
                 </li>
                 <li>
-                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-list-alt"></i> Catapult Daily Summary</a>
+                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
                 </li>
                 <li>
-                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-list-alt"></i> Catapult Weekly Summary - Individual</a>
+                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
                 </li>
                 <li>
-                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-list-alt"></i> Catapult Weekly Summary - Position/Team</a>
+                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
                 </li>
                 <li>
-                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-list-alt"></i> Recent Catapult Data</a>
+                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
                 </li>
             </ul>
         </div>
@@ -199,24 +193,26 @@
 
                             <div class="jumbotron" style=" color: #a71930; ">
                                 <h1> Welcome to TeamExertU</h1>
-                                <p>Admin Home</p>
+                                <p>Coach Home</p>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group-vertical" role="group" aria-label="...">
+
                             <a href="/coachRecentData" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Current Week Data</a>
+                               style="background-color: #a71930; color: #fdc82f;">Current RPE Data</a>
 
                             <a href="/coachDailySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Daily Workout Summary</a>
+                               style="background-color: #a71930; color: #fdc82f;">Daily RPE Summary</a>
 
-                            <br><br>
 
                             <a href="/coachWeeklySummary" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Weekly Summary</a>
+                               style="background-color: #a71930; color: #fdc82f;">Weekly RPE Summary</a>
 
                             <a href="/coachCataDailySum" class="btn btn-lg active" role="button" aria-pressed="true"
                                style="background-color: #a71930; color: #fdc82f;">Catapult Daily Summary</a>
 
-                            <br><br>
 
                             <a href="/coachCataWeekSum" class="btn btn-lg active" role="button" aria-pressed="true"
                                style="background-color: #a71930; color: #fdc82f;">Catapult Weekly Summary -  Individual</a>
@@ -224,10 +220,13 @@
                             <a href="/coachCataTeamWeekSum" class="btn btn-lg active" role="button" aria-pressed="true"
                                style="background-color: #a71930; color: #fdc82f;">Catapult Weekly Summary - Position/Team</a>
 
-                            <br><br>
 
                             <a href="/coachCataRecentData" class="btn btn-lg active" role="button" aria-pressed="true"
-                               style="background-color: #a71930; color: #fdc82f;">Recent Catapult Data</a>
+                               style="background-color: #a71930; color: #fdc82f;">Current Catapult Data</a>
+
+                                    </div>
+                                </div>
+                            </div>
 
 
 
