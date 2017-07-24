@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Daily RPE Summary</title>
+    <title>Daily Catapult Summary</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -38,12 +38,15 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
 
+
+
 </head>
 
 <body>
 
 <div id="wrapper">
 
+    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -53,7 +56,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/coachHome">Coach Home</a>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -141,7 +144,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/coachSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -154,36 +160,43 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-tasks"></i> Current RPE Data</a>
+                    <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Current Week Data</a>
                 </li>
                 <li>
-                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summaries</a>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
                 </li>
                 <li>
-                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summaries</a>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
                 </li>
                 <li>
-                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Workout Manager - Update RPE</a>
                 </li>
                 <li>
-                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-calendar"></i> Weekly Summary</a>
                 </li>
                 <li>
-                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
+                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Person</a>
                 </li>
                 <li>
-                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-th-list"></i> Group Control</a>
                 </li>
                 <li>
-                    <a href="/coachCataCreateWorkout"><i class="glyphicon glyphicon-globe"></i> Create Catapult Workout</a>
+                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
                 </li>
                 <li>
-                    <a href="/coachCataInput"><i class="glyphicon glyphicon-globe"></i> Input Catapult Data</a>
+                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                </li>
+                <li>
+                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
     <div id="page-wrapper">
 
         <div class="container-fluid">
@@ -191,12 +204,12 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Team/Position Group Data</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Daily Catapult Data</h3>
                         </div>
                         <div class = "panel-body">
 
 
-                            <form name="dailySumForm"  class = "form-inline" action="/coachDailySummary/coachDailySum" method="post" role="form"
+                            <form name="dailySumForm"  class = "form-inline" action="/adminCataDailySum/select" method="post" role="form"
                                   style=" display: block;">
 
 
@@ -207,12 +220,12 @@
                                 <label for="sel1">Select workout date:</label>
                                 <div class="form-group">
                                     <select class="form-control" id="mySelect" name="date_select">
-                                        <option disabled selected value> -- select a workout -- </option>
-                                        <% recent.forEach(function (rec) { %>
+                                        <option disabled selected value> -- select a date -- </option>
+                                        <% for(var i = 0; i < recent.length; i++){ %>
                                         <tr>
-                                            <option value = "<%= rec.workoutid %>" ><%= rec.date %></option>
+                                            <option value = "<%= recent[i].id %>" ><%= recent[i].date %></option>
                                         </tr>
-                                        <% }) %>
+                                        <% } %>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>
@@ -223,19 +236,7 @@
                             <br>
 
 
-                            <%if(note.length > 0)
-                            {%>
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Notes</h3>
-                                </div>
-                                <div class = "panel-body">
 
-                                    <p><%=note[0].notes%></p>
-
-                                </div>
-                            </div>
-                            <%}%>
 
 
 
@@ -245,61 +246,31 @@
 
 
 
-                            <table id="daily_sum" class="display">
+                            <table id="dcs" class="display">
                                 <thead>
                                 <tr>
                                     <td>Last Name</td>
                                     <td>First Name</td>
-                                    <td>sRPE</td>
-                                    <td>Duration (min.)</td>
+                                    <td>Position</td>
                                     <td>Load</td>
-                                    <td>Notes</td>
+                                    <td>Duration</td>
+                                    <td>Load/Min.</td>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <% workout.forEach(function(player_daily){
-                                    var load = note[0].duration * player_daily.player_sRPE;    %>
 
+                                <% for(var j = 0; j < pd.length; j++){ %>
                                 <tr>
-                                    <td><%= player_daily.last_name%></td>
-                                    <td><%= player_daily.first_name%></td>
-                                    <td><%= player_daily.player_sRPE%></td>
-                                    <td><%= note[0].duration%></td>
-                                    <td><%= load%></td>
-
-                                    <% if(!player_daily.pwnotes){%>
-                                    <td> </td>
-                                    <%}
-                                    else{%>
-                                    <td>
-                                        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
-                                                title="Player Note"
-                                                data-content="<%= player_daily.pwnotes%>">
-                                            <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
-                                    </td>
-                                    <%}%>
-
-
-
+                                    <td><%= pd[j].last_name %></td>
+                                    <td><%= pd[j].first_name %></td>
+                                    <td><%= pd[j].position %></td>
+                                    <td><%= pd[j].pload %></td>
+                                    <td><%= pd[j].duration %></td>
+                                    <td><%= (pd[j].pload / pd[j].duration) %></td>
                                 </tr>
-                                <%})%>
+                                <% } %>
 
-                                <%if(note.length > 0)
-                                {%>
-
-
-                                <tr>
-                                    <td>Coach</td>
-                                    <td> </td>
-                                    <td><%= note[0].sRPE%></td>
-                                    <td><%= note[0].duration%></td>
-                                    <td><%= (note[0].duration * note[0].sRPE)%></td>
-                                    <td></td>
-                                </tr>
-
-
-                                <%}%>
 
                                 </tbody>
                             </table>
@@ -308,19 +279,11 @@
                                 var $ = jQuery;
                                 $(document).ready( function () {
 
-                                     $('#daily_sum').DataTable({
-
-
-                                         "columnDefs": [
-                                             {"width": "15%", "targets": 3}
-                                         ],
-                                        drawCallback: function() {
-                                            $('[data-toggle="popover"]').popover();
-                                        }
-                                    });
+                                    $('#dcs').DataTable({
 
 
                                     });
+                                });
 
 
                             </script>

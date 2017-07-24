@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Catapult Weekly Summary - Players</title>
+    <title>Weekly Catapult Summary - Individual</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -35,7 +35,7 @@
 
     <!-- Datatables CSS and JS links  -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
@@ -57,95 +57,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/coachHome">Coach Home</a>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/coachSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -158,31 +81,37 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-tasks"></i> Current RPE Data</a>
+                    <a href="/coachDashboard"><i class="glyphicon  glyphicon-tasks"></i> Current RPE Data</a>
                 </li>
                 <li>
-                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summaries</a>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summaries</a>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-tasks"></i> RPE Group Control</a>
                 </li>
                 <li>
-                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Create RPE Workout</a>
                 </li>
                 <li>
-                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Update RPE Workout</a>
                 </li>
                 <li>
-                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Member</a>
                 </li>
                 <li>
-                    <a href="/coachCataCreateWorkout"><i class="glyphicon glyphicon-globe"></i> Create Catapult Workout</a>
+                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
                 </li>
                 <li>
-                    <a href="/coachCataInput"><i class="glyphicon glyphicon-globe"></i> Input Catapult Data</a>
+                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                </li>
+                <li>
+                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/adminCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
                 </li>
             </ul>
         </div>
@@ -199,7 +128,7 @@
                         </div>
                         <div class = "panel-body">
 
-                            <form name="weekSelectForm"  class = "form-inline" action="/coachCataWeekSum/selectWeek" method="post" role="form"
+                            <form name="weekSelectForm"  class = "form-inline" action="/adminCataWeekSum/selectWeek" method="post" role="form"
                                   style=" display: block;">
 
 
@@ -280,13 +209,13 @@
                                 if(player_day.length > 0) {
                                     var i = 0;
 
-                                    while(i < player_day.length){
+                                        while(i < player_day.length){
                                     var acuteLoad = 0;
                                     var chronicLoad = 0;
                                     var acuteDuration = 0;
                                     var adcpercent = 0;
 
-                                var temp = player_day[i].username;
+                                    var temp = player_day[i].username;
 
                                 %>
                                 <tr>
@@ -295,13 +224,13 @@
                                     <td><%= player_day[i].position %></td>
 
                                     <% for(var j = 0; j < player_acute.length; j++) {
-                                            if(player_acute[j].username === temp)
-                                            {
-                                                acuteLoad = player_acute[j].psum;
-                                                acuteDuration = player_acute[j].dsum;
-                                                break;
-                                            }
+                                        if(player_acute[j].username === temp)
+                                        {
+                                            acuteLoad = player_acute[j].psum;
+                                            acuteDuration = player_acute[j].dsum;
+                                            break;
                                         }
+                                    }
                                         for( j = 0; j < player_chronic.length; j++) {
                                             if(player_chronic[j].username === temp)
                                             {
@@ -322,14 +251,14 @@
 
 
                                     <%
-                                if(player_day[i].indexday == 1 && player_day[i].username == temp){
-                                %>
+                                    if(player_day[i].indexday == 1 && player_day[i].username == temp){
+                                    %>
                                     <td><%= player_day[i].duration %></td>
                                     <td><%= player_day[i].pload %></td>
                                     <td><%= ( Math.round((player_day[i].pload / player_day[i].duration) * 100 ) / 100) %></td>
 
-                                <%
-                                    i = i+1;
+                                    <%
+                                        i = i+1;
                                     if(i == player_day.length)
                                     { %>
                                     <td>0</td>
@@ -363,16 +292,16 @@
 
                                     <%   break; }
                                     }
-                                else
-                                {
-                                %>
+                                    else
+                                    {
+                                    %>
                                     <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
-                                }
+                                    }
 
-                                if(player_day[i].indexday == 2 && player_day[i].username == temp){
+                                    if(player_day[i].indexday == 2 && player_day[i].username == temp){
                                     %>
                                     <td><%= player_day[i].duration %></td>
                                     <td><%= player_day[i].pload %></td>
@@ -562,7 +491,7 @@
 
                                     <%
                                         i = i+1;
-                                    if(i == player_day.length)
+                                        if(i == player_day.length)
                                         {  break; }
                                     }
                                     else
@@ -606,21 +535,21 @@
 
 
                         <div class="panel-body">
-                            <form name="playerSelectForm"  class = "form-inline" action="/coachCataWeekSum/selectPlayer" method="post" role="form"
+                            <form name="playerSelectForm"  class = "form-inline" action="/adminCataWeekSum/selectPlayer" method="post" role="form"
                                   style=" display: block;">
-                            <div class="form-inline">
-                                <select class="form-control" id="playerSelect" name="player_select" >
-                                    <option selected value> -- Select a player -- </option>
-                                    <% for( k = 0; k < player_acute.length ; k++) {%>
-                                    <option value="<%= player_acute[k].username%>">
-                                        <%= player_acute[k].last_name%>, <%= player_acute[k].first_name%>
-                                    </option>
+                                <div class="form-inline">
+                                    <select class="form-control" id="playerSelect" name="player_select" >
+                                        <option selected value> -- Select a player -- </option>
+                                        <% for( k = 0; k < player_acute.length ; k++) {%>
+                                        <option value="<%= player_acute[k].username%>">
+                                            <%= player_acute[k].last_name%>, <%= player_acute[k].first_name%>
+                                        </option>
 
-                                    <% } %>
-                                </select>
-                                <input  name="week_select" value="<%= player_day[0].date%>">
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </div>
+                                        <% } %>
+                                    </select>
+                                    <input  name="week_select" value="<%= player_day[0].date%>">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
                             </form>
                             <% if(player_chart.length > 0){ %>
                             <canvas id="playerLPM"></canvas>
@@ -635,125 +564,125 @@
 
                                 for(j = 0; j < player_chart.length; j++)
                                 {
-                                        temp = player_chart[j].username;
-                                        if(player_chart[j].indexday === 1 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    temp = player_chart[j].username;
+                                    if(player_chart[j].indexday === 1 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 2 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    if(player_chart[j].indexday === 2 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 3 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    if(player_chart[j].indexday === 3 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 4 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    if(player_chart[j].indexday === 4 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            chart_data.push(0);
+                                            chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 5 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    if(player_chart[j].indexday === 5 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 6 && player_chart[j].username === temp)
-                                        {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                chart_data.push(0);
-                                                break;
-                                            }
-                                        }
-                                        else
+                                    if(player_chart[j].indexday === 6 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
                                             chart_data.push(0);
+                                            break;
                                         }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
-                                        if(player_chart[j].indexday === 7 && player_chart[j].username === temp)
+                                    if(player_chart[j].indexday === 7 && player_chart[j].username === temp)
+                                    {
+                                        chart_data.push((player_chart[j].pload / player_chart[j].duration));
+                                        j = j+ 1;
+                                        if(j === player_chart.length)
                                         {
-                                            chart_data.push((player_chart[j].pload / player_chart[j].duration));
-                                            j = j+ 1;
-                                            if(j === player_chart.length)
-                                            {
-                                                break;
-                                            }
+                                            break;
                                         }
-                                        else
-                                        {
-                                            chart_data.push(0);
-                                        }
+                                    }
+                                    else
+                                    {
+                                        chart_data.push(0);
+                                    }
 
                                 }
 
@@ -765,41 +694,41 @@
 
 
 
-                                var ctx = document.getElementById('playerLPM').getContext('2d');
-                                var chart = new Chart(ctx, {
-                                    // The type of chart we want to create
-                                    type: 'line',
+                            var ctx = document.getElementById('playerLPM').getContext('2d');
+                            var chart = new Chart(ctx, {
+                                // The type of chart we want to create
+                                type: 'line',
 
-                                    // The data for our dataset
-                                    data: {
-                                        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                                        datasets: [{
-                                            label: "Load/Minute",
-                                            backgroundColor: 'rgb(255, 0, 0)',
-                                            borderColor: 'rgb(255, 0, 0)',
-                                            lineTension: 0,
-                                            data: [ <%= chart_data[0]%>, <%= chart_data[1]%>, <%= chart_data[2]%>, <%= chart_data[3]%>,
-                                                <%= chart_data[4]%>, <%= chart_data[5]%>, <%= chart_data[6]%>],
-                                            fill: false
-                                        }]
+                                // The data for our dataset
+                                data: {
+                                    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                                    datasets: [{
+                                        label: "Load/Minute",
+                                        backgroundColor: 'rgb(255, 0, 0)',
+                                        borderColor: 'rgb(255, 0, 0)',
+                                        lineTension: 0,
+                                        data: [ <%= chart_data[0]%>, <%= chart_data[1]%>, <%= chart_data[2]%>, <%= chart_data[3]%>,
+                                            <%= chart_data[4]%>, <%= chart_data[5]%>, <%= chart_data[6]%>],
+                                        fill: false
+                                    }]
+                                },
+
+                                // Configuration options go here
+                                options: {
+                                    title: {
+                                        display: true,
+                                        text: "<%= player_chart[0].first_name%> <%= player_chart[0].last_name%>",
                                     },
-
-                                    // Configuration options go here
-                                    options: {
-                                        title: {
-                                            display: true,
-                                            text: "<%= player_chart[0].first_name%> <%= player_chart[0].last_name%>",
-                                        },
-                                        scales: {
-                                            yAxes: [{
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Player Load/Min.'
-                                                }
-                                            }]
-                                        }
+                                    scales: {
+                                        yAxes: [{
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Player Load/Min.'
+                                            }
+                                        }]
                                     }
-                                });
+                                }
+                            });
 
 
 
@@ -835,7 +764,7 @@
 <script src="../js/plugins/morris/morris-data.js"></script>
 
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 
 
 </body>

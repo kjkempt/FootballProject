@@ -42,6 +42,12 @@ var coachCataTeamWeekSum = require('./routes/coachCataTeamWeekSum');
 var coachCataCreateWorkout = require('./routes/coachCataCreateWorkout');
 var coachCataInput = require('./routes/coachCataInput');
 var coachSettings = require('./routes/coachSettings');
+var adminCataDailySum = require('./routes/adminCataDailySum');
+var adminCataWeekSum = require('./routes/adminCataWeekSum');
+var adminCataRecentData = require('./routes/adminCataRecentData');
+var adminCataTeamWeekSum = require('./routes/adminCataTeamWeekSum');
+
+
 
 
 
@@ -147,6 +153,10 @@ app.use('/coachCataTeamWeekSum', coachCataTeamWeekSum);
 app.use('/coachSettings', coachSettings);
 app.use('/coachCataCreateWorkout', coachCataCreateWorkout);
 app.use('/coachCataInput', coachCataInput);
+app.use('/adminCataDailySum', adminCataDailySum);
+app.use('/adminCataWeekSum', adminCataWeekSum);
+app.use('/adminCataRecentData', adminCataRecentData);
+app.use('/adminCataTeamWeekSum', adminCataTeamWeekSum);
 
 //***Universe Pages
 
@@ -2255,6 +2265,472 @@ app.get('/adminSettings', requireLogin, function(req, res, next) {
 
     });
 });
+
+//Catapult pages
+app.get('/adminCataDailySum', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+
+
+        sql = "SELECT * FROM master.cata_workouts " +
+            "WHERE teamid = '"+teamid[0].teamID+"' " +
+            "ORDER BY date DESC LIMIT 10;";
+
+        var recent_dates = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            recent_dates = result;
+
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + ", " + recent_dates[i].name;
+
+
+
+
+            }
+
+            var pd = [];
+            res.render('adminCataDailySum', {
+                username: req.session.user,
+                recent: recent_dates,
+                pd: pd
+            });
+
+
+
+
+
+
+        });
+
+
+    });
+
+
+
+});
+
+app.get('/adminCataWeekSum', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.cata_workouts m " +
+            "WHERE m.teamid = '"+teamid[0].teamID+"';";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+
+
+            var player_day = [];
+            var player_acute = [];
+            var player_chronic = [];
+            res.render('adminCataWeekSum', {
+                username: req.user,
+                week_set: week_set,
+                player_day: player_day,
+                player_acute: player_acute,
+                player_chronic: player_chronic
+            });
+
+
+
+
+        });
+
+
+    });
+
+
+});
+
+app.get('/adminCataTeamWeekSum', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.cata_workouts m " +
+            "WHERE m.teamid = '"+teamid[0].teamID+"';";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+
+
+            var team_day = [];
+            var team_acute = [];
+            var team_chronic = [];
+            var team_chart = [];
+            var position_day = [];
+            var position_acute = [];
+            var position_chronic = [];
+            res.render('adminCataTeamWeekSum', {
+                username: req.user,
+                week_set: week_set,
+                team_day: team_day,
+                team_acute: team_acute,
+                team_chronic: team_chronic,
+                team_chart: team_chart,
+                position_day: position_day,
+                position_acute: position_acute,
+                position_chronic: position_chronic
+            });
+
+
+
+
+        });
+
+
+    });
+
+
+});
+
+app.get('/adminCataRecentData', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "SELECT DATE(DATE_ADD(curdate(), INTERVAL(7-DAYOFWEEK(curdate())) DAY)) as saturday;";
+        var s = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+
+            s = result;
+            var date = s[0].saturday;
+
+            date = date.toISOString().split('T')[0];
+
+            sql = "SELECT u.username, u.position, m.date, " +
+                "SUM(w.pload) as psum, SUM(w.duration) as dsum, " +
+                "(SUM(w.pload)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
+                "FROM  master.cata_player_workouts w " +
+                "INNER JOIN master.user u ON u.username = w.username " +
+                "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                "AND u.teamID = '" + teamid[0].teamID + "' " +
+                "AND m.date " +
+                "BETWEEN  DATE(DATE_ADD('" + date + "', INTERVAL(1-DAYOFWEEK('" + date + "')) DAY))  AND " +
+                "'" + date + "' " +
+                "GROUP BY u.username " +
+                "ORDER BY u.last_name;";
+
+            var player_acute = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                player_acute = result;
+
+
+                sql  = "SELECT u.username, u.first_name, u.last_name, u.position, m.date,  " +
+                    "SUM(w.pload) / 4 as chronicSum " +
+                    "FROM  master.cata_player_workouts w " +
+                    "INNER JOIN master.user u ON u.username = w.username " +
+                    "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                    "WHERE w.teamid = '" + teamid[0].teamID + "' " +
+                    "AND u.teamID = '" + teamid[0].teamID + "' " +
+                    "AND m.date " +
+                    "BETWEEN '" + date + "'- INTERVAL 5 WEEK AND" +
+                    " '" + date + "' - INTERVAL 1 WEEK " +
+                    "GROUP BY u.username " +
+                    "ORDER BY u.username; " ;
+
+
+                var player_chronic = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    player_chronic = result;
+
+                    sql = "SELECT username, pload, duration FROM master.cata_player_workouts " +
+                        "WHERE teamid = '"+teamid[0].teamID+"' " +
+                        "AND workout_id IN " +
+                        "(SELECT MAX(workout_id) FROM master.cata_player_workouts " +
+                        " WHERE teamid = '"+teamid[0].teamID+"');";
+
+
+                    var player_recent = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+
+                        player_recent = result;
+
+
+
+
+                        sql = "SELECT u.username, SUM(w.pload) as psum, m.date " +
+                            "FROM master.user u, master.cata_player_workouts w, master.cata_workouts m " +
+                            "WHERE u.username = w.username " +
+                            "AND w.workout_id = m.id " +
+                            "AND w.teamid = '"+teamid[0].teamID+"' " +
+                            "AND u.teamID = '"+teamid[0].teamID+"' " +
+                            "AND m.teamid = '"+teamid[0].teamID+"' " +
+                            "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
+                            "GROUP BY u.username; ";
+
+
+                        var player_three = [];
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            player_three = result;
+
+
+                            sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
+                                "w.pload, w.duration " +
+                                "FROM  master.cata_player_workouts w " +
+                                "INNER JOIN master.user u ON u.username = w.username " +
+                                "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                "WHERE w.teamID = '"+teamid[0].teamID+"' " +
+                                "AND u.teamID = '"+teamid[0].teamID+"' " +
+                                "AND m.date " +
+                                "BETWEEN  DATE(DATE_ADD('" + date + "', INTERVAL(1-DAYOFWEEK('" + date + "')) DAY))  AND " +
+                                "'" + date + "' " +
+                                "ORDER BY u.username, indexday;";
+
+
+                            var player_day = [];
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+
+                                player_day = result;
+
+
+
+
+                                //TEAM QUERIES//
+
+
+                                sql = "SELECT u.username, m.date, " +
+                                    "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                                    "FROM  master.cata_player_workouts w " +
+                                    "INNER JOIN master.user u ON u.username = w.username " +
+                                    "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                    "WHERE w.teamid = '"+teamid[0].teamID+"' " +
+                                    "AND u.teamID = '"+teamid[0].teamID+"' " +
+                                    "AND m.date " +
+                                    "BETWEEN  DATE(DATE_ADD('" + date + "', INTERVAL(1-DAYOFWEEK('" + date + "')) DAY))  AND " +
+                                    "'" + date + "' " +
+                                    "GROUP BY m.date;";
+
+
+                                var team_acute = [];
+                                connection.query(sql, function (err, result) {
+                                    if (err) throw err;
+
+                                    team_acute = result;
+
+
+
+
+                                    sql  = "SELECT u.username, u.position, m.date,  " +
+                                        "AVG(w.pload) as chronicSum, count(distinct u.username) as pcount " +
+                                        "FROM  master.cata_player_workouts w " +
+                                        "INNER JOIN master.user u ON u.username = w.username " +
+                                        "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                        "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                                        "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                        "AND m.date " +
+                                        "BETWEEN '" + date + "'- INTERVAL 5 WEEK AND" +
+                                        " '" + date + "' - INTERVAL 1 WEEK " +
+                                        " GROUP BY m.date; " ;
+
+
+                                    var team_chronic = [];
+                                    connection.query(sql, function (err, result) {
+                                        if (err) throw err;
+
+                                        team_chronic = result;
+
+
+
+
+                                        sql = "SELECT u.username, AVG(w.pload) as psum, m.date " +
+                                            "FROM master.user u, master.cata_player_workouts w, master.cata_workouts m " +
+                                            "WHERE u.username = w.username " +
+                                            "AND w.workout_id = m.id " +
+                                            "AND w.teamid = '" + teamid[0].teamID + "' " +
+                                            "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                            "AND m.teamid = '" + teamid[0].teamID + "' " +
+                                            "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
+                                            "GROUP BY m.date; ";
+
+
+                                        var team_three = [];
+                                        connection.query(sql, function (err, result) {
+                                            if (err) throw err;
+                                            team_three = result;
+
+
+                                            //POSITION QUERIES//
+
+
+                                            sql = "SELECT u.position, m.date, " +
+                                                "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                                                "FROM  master.cata_player_workouts w " +
+                                                "INNER JOIN master.user u ON u.username = w.username " +
+                                                "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                                "WHERE w.teamid = '"+teamid[0].teamID+"' " +
+                                                "AND u.teamID = '"+teamid[0].teamID+"' " +
+                                                "AND m.date " +
+                                                "BETWEEN  DATE(DATE_ADD('" + date + "', INTERVAL(1-DAYOFWEEK('" + date + "')) DAY))  AND " +
+                                                "'" + date + "' " +
+                                                "GROUP BY u.position, m.date;";
+
+
+                                            var position_acute = [];
+                                            connection.query(sql, function (err, result) {
+                                                if (err) throw err;
+
+                                                position_acute = result;
+
+
+
+
+                                                sql = "SELECT  u.position, m.date,  " +
+                                                    "AVG(w.pload) as chronicSum, count(distinct u.username) as pcount " +
+                                                    "FROM  master.cata_player_workouts w " +
+                                                    "INNER JOIN master.user u ON u.username = w.username " +
+                                                    "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
+                                                    "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                                                    "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                                    "AND m.date " +
+                                                    "BETWEEN '" + date + "'- INTERVAL 5 WEEK AND" +
+                                                    " '" + date + "' - INTERVAL 1 WEEK " +
+                                                    " GROUP BY u.position, m.date; ";
+
+
+                                                var position_chronic = [];
+                                                connection.query(sql, function (err, result) {
+                                                    if (err) throw err;
+
+                                                    position_chronic = result;
+
+
+                                                    sql = "SELECT u.position, AVG(w.pload) as psum, m.date " +
+                                                        "FROM master.user u, master.cata_player_workouts w, master.cata_workouts m " +
+                                                        "WHERE u.username = w.username " +
+                                                        "AND w.workout_id = m.id " +
+                                                        "AND w.teamid = '" + teamid[0].teamID + "' " +
+                                                        "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                                        "AND m.teamid = '" + teamid[0].teamID + "' " +
+                                                        "AND m.date BETWEEN CURDATE()  - INTERVAL 3 DAY AND CURDATE()  - INTERVAL 1 DAY " +
+                                                        "GROUP BY u.position, m.date; ";
+
+
+                                                    var position_three = [];
+                                                    connection.query(sql, function (err, result) {
+                                                        if (err) throw err;
+                                                        position_three = result;
+
+
+                                                        res.render('adminCataRecentData', {
+                                                            username: req.session.user,
+                                                            player_acute: player_acute,
+                                                            player_chronic: player_chronic,
+                                                            player_recent: player_recent,
+                                                            player_three: player_three,
+                                                            player_day: player_day,
+                                                            team_acute: team_acute,
+                                                            team_chronic: team_chronic,
+                                                            team_three: team_three,
+                                                            position_acute: position_acute,
+                                                            position_chronic: position_chronic,
+                                                            position_three: position_three
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
 
 //**************END ADMIN PAGES*****
 

@@ -59,86 +59,6 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
@@ -158,31 +78,42 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachDashboard"><i class="glyphicon glyphicon-list-alt"></i> Current Week Data</a>
+                    <a href="/coachDashboard"><i class="glyphicon  glyphicon-tasks"></i> Current RPE Data</a>
                 </li>
                 <li>
-                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-list-alt"></i> Daily Workout Summaries</a>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Workout Manager - Create New</a>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Workout Manager - Update RPE</a>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-tasks"></i> RPE Group Control</a>
                 </li>
                 <li>
-                    <a href="/weeklySummary"><i class="glyphicon glyphicon-calendar"></i> Weekly Summary</a>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Create RPE Workout</a>
                 </li>
                 <li>
-                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Person</a>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Update RPE Workout</a>
                 </li>
-                <li class="active">
-                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-th-list"></i> Group Control</a>
+                <li>
+                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Member</a>
+                </li>
+                <li>
+                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                </li>
+                <li>
+                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                </li>
+                <li>
+                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/adminCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-
     <div id="page-wrapper">
 
         <div class="container-fluid">

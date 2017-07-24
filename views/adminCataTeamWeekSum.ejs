@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Catapult Weekly Summary - Team</title>
+    <title>Weekly Catapult Summary - Team</title>
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -41,8 +41,6 @@
 
 
 
-
-
 </head>
 
 <body>
@@ -59,95 +57,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/coachHome">Coach Home</a>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong><%=username%></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/coachSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -160,31 +81,37 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" >
             <ul class="nav navbar-nav side-nav" >
                 <li>
-                    <a href="/coachRecentData"><i class="glyphicon glyphicon-tasks"></i> Current RPE Data</a>
+                    <a href="/coachDashboard"><i class="glyphicon  glyphicon-tasks"></i> Current RPE Data</a>
                 </li>
                 <li>
-                    <a href="/coachDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summaries</a>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/coachWeeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summaries</a>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summary</a>
                 </li>
                 <li>
-                    <a href="/coachCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-tasks"></i> RPE Group Control</a>
                 </li>
                 <li>
-                    <a href="/coachCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Create RPE Workout</a>
                 </li>
                 <li>
-                    <a href="/coachCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Update RPE Workout</a>
                 </li>
                 <li>
-                    <a href="/coachCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Member</a>
                 </li>
                 <li>
-                    <a href="/coachCataCreateWorkout"><i class="glyphicon glyphicon-globe"></i> Create Catapult Workout</a>
+                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
                 </li>
                 <li>
-                    <a href="/coachCataInput"><i class="glyphicon glyphicon-globe"></i> Input Catapult Data</a>
+                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                </li>
+                <li>
+                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/adminCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
                 </li>
             </ul>
         </div>
@@ -201,7 +128,7 @@
                         </div>
                         <div class = "panel-body">
 
-                            <form name="weekSelectForm"  class = "form-inline" action="/coachCataTeamWeekSum/selectWeek" method="post" role="form"
+                            <form name="weekSelectForm"  class = "form-inline" action="/adminCataTeamWeekSum/selectWeek" method="post" role="form"
                                   style=" display: block;">
                                 <div class="form-group">
                                     <select class="form-control" id="mySelect" name="week_select">
@@ -290,12 +217,12 @@
 
                                     <% for(var j = 0; j < team_acute.length; j++) {
 
-                                            acuteLoad = team_acute[j].psum + acuteLoad;
-                                            acuteDuration = team_acute[j].dsum + acuteDuration;
+                                        acuteLoad = team_acute[j].psum + acuteLoad;
+                                        acuteDuration = team_acute[j].dsum + acuteDuration;
                                     }
                                         for( j = 0; j < team_chronic.length; j++) {
 
-                                                chronicLoad = team_chronic[j].chronicSum + chronicLoad;
+                                            chronicLoad = team_chronic[j].chronicSum + chronicLoad;
 
 
                                         }
@@ -581,13 +508,13 @@
 
                                 <%
                                 if(position_day.length > 0) {
-                                     i = 0;
+                                    i = 0;
 
                                         while(i < position_day.length){
-                                     acuteLoad = 0;
-                                     chronicLoad = 0;
-                                     acuteDuration = 0;
-                                     adcpercent = 0;
+                                    acuteLoad = 0;
+                                    chronicLoad = 0;
+                                    acuteDuration = 0;
+                                    adcpercent = 0;
 
                                     var temp = position_day[i].position;
 
@@ -888,7 +815,7 @@
                                 </tr>
                                 <% } %>
                                 <% } %>
-                                
+
                                 </tbody>
                             </table>
 
@@ -916,7 +843,7 @@
                             <h3>Load/Minute Chart <small>Team/Position</small></h3>
                             <hr>
 
-                            <form name="playerSelectForm"  class = "form-inline" action="/coachCataTeamWeekSum/selectPlayer" method="post" role="form"
+                            <form name="playerSelectForm"  class = "form-inline" action="/adminCataTeamWeekSum/selectPlayer" method="post" role="form"
                                   style=" display: block;">
                                 <div class="form-inline">
                                     <select class="form-control" id="playerSelect" name="player_select" >
@@ -1149,7 +1076,6 @@
 
 
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
-
 
 
 </body>
