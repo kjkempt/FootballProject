@@ -39,6 +39,9 @@ var coachCataDailySum = require('./routes/coachCataDailySum');
 var coachCataWeekSum = require('./routes/coachCataWeekSum');
 var coachCataRecentData = require('./routes/coachCataRecentData');
 var coachCataTeamWeekSum = require('./routes/coachCataTeamWeekSum');
+var coachCataCreateWorkout = require('./routes/coachCataCreateWorkout');
+var coachCataInput = require('./routes/coachCataInput');
+var coachSettings = require('./routes/coachSettings');
 
 
 
@@ -141,6 +144,9 @@ app.use('/coachCataDailySum', coachCataDailySum);
 app.use('/coachCataWeekSum', coachCataWeekSum);
 app.use('/coachCataRecentData', coachCataRecentData);
 app.use('/coachCataTeamWeekSum', coachCataTeamWeekSum);
+app.use('/coachSettings', coachSettings);
+app.use('/coachCataCreateWorkout', coachCataCreateWorkout);
+app.use('/coachCataInput', coachCataInput);
 
 //***Universe Pages
 
@@ -325,13 +331,9 @@ app.get('/nutritionCounter', requireLogin, function(req, res, next) {
     });
 });
 
-
-
-
-
-
-
 //*******END NUTRITION PAGES*********
+
+
 
 
 
@@ -1345,7 +1347,93 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
     });
 });
 
+app.get('/coachCataCreateWorkout', requireLogin, function(req, res, next) {
+    res.render('coachCataCreateWorkout', {
+        username: req.session.user,
+        message: ""
+    });
+});
 
+app.get('/coachCataInput', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+        sql = "SELECT username, first_name, last_name FROM master.user " +
+            "where privileges = 'Player' " +
+            "and teamID = '" + teamid[0].teamID + "' " +
+            "and group_cata = 'yes' " +
+            "order by last_name;";
+
+        var player = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            player = result;
+
+            res.render('coachCataInput', {
+                username: req.session.user,
+                player: player,
+                message: ""
+            });
+        });
+    });
+});
+
+app.get('/coachSettings', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+        sql = "SELECT username, first_name, last_name FROM master.user " +
+            "where privileges = 'Player' " +
+            "and teamID = '" + teamid[0].teamID + "' " +
+            "and username NOT IN( " +
+            "SELECT username FROM master.user " +
+            "where privileges = 'Player' " +
+            "and teamID = '" + teamid[0].teamID + "' " +
+            "and group_cata = 'yes') " +
+            "order by last_name;";
+
+        var add_player = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            add_player = result;
+
+            sql = "SELECT username, first_name, last_name FROM master.user " +
+                "where privileges = 'Player' " +
+                "and teamID = '" + teamid[0].teamID + "' " +
+                "and group_cata = 'yes' " +
+                "order by last_name;";
+
+            var delete_player = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                delete_player = result;
+
+                res.render('coachSettings', {
+                    username: req.session.user,
+                    add_player: add_player,
+                    message_add: "",
+                    delete_player: delete_player,
+                    message_delete: ""
+                });
+            });
+        });
+    });
+});
 
 
 //END COACH PAGES*************
