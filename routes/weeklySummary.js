@@ -15,9 +15,6 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected! CD");
-});
 
 router.post('/selectWeek', function(req, res, next) {
 

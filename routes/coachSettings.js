@@ -15,9 +15,7 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected! CD");
-});
+
 
 router.post('/addPlayer', function(req, res, next) {
 

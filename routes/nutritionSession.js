@@ -15,9 +15,6 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected!");
-});
 
 
 router.post('/signin', function(req, res, next) {

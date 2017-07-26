@@ -15,9 +15,6 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected!");
-});
 
 
 router.post('/changeGroup', function(req, res, next) {

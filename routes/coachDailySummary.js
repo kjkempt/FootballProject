@@ -16,9 +16,7 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected! CD");
-});
+
 
 
 router.post('/coachDailySum', function(req, res, next) {

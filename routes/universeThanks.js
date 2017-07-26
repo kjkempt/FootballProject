@@ -24,7 +24,4 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function(err) {
-    console.log("Connected!");
-});
 
