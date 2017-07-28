@@ -161,7 +161,7 @@ app.use('/adminCataTeamWeekSum', adminCataTeamWeekSum);
 //***Universe Pages
 
 app.get('/universeHome', function(req, res, next) {
-    res.render('universeHome', { });
+    res.render('universeHome', { message: '' });
 });
 
 app.get('/universeRegister', function(req, res, next) {
@@ -2747,11 +2747,52 @@ app.get('/adminCataRecentData', requireLogin, function(req, res, next) {
 /* Player Dashboard page - Handles player data input  */
 app.get('/playerDashboard', requireLogin, function(req, res, next) {
 
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-        res.render('playerDashboard', {
-            username: req.session.user,
-            message: ''
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        teamid = result;
+
+        sql = "select username from master.user where teamID = '"+teamid[0].teamID+"' " +
+            "and privileges = 'Admin' and group_chronic = 'on';";
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+
+
+            var double = [];
+
+            if(result.length === 0)
+            {
+                res.render('playerDashboard', {
+                    username: req.session.user,
+                    message: "",
+                    double: double
+                });
+            }
+            else {
+
+
+                sql = "SELECT * FROM master.workouts " +
+                    "WHERE teamID = '" + teamid[0].teamID + "' " +
+                    "ORDER BY workoutid desc limit 2 ;";
+
+
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    double = result;
+
+                     res.render('playerDashboard', {
+                     username: req.session.user,
+                     message: "",
+                     double: double
+                     });
+                });
+            }
         });
+    });
 });
 
 //***************END PLAYER PAGES*********
@@ -2792,48 +2833,98 @@ app.post('/attemptLogin', function(req, res) {
 
             else if(result[0].privileges === "Nutrition")
             {
-                sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+                var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
                 var teamid = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
-
                     teamid = result;
 
-                    sql = "select MAX(mealID) as max from master.meals " +
-                        "where teamID = '"+teamid[0].teamID+"' and status = 'open';";
-
+                    sql = "select username from master.user where teamID = '"+teamid[0].teamID+"' " +
+                        "and privileges = 'Admin' and group_chronic = 'on';";
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
 
-                        if(!result[0].max)
+                        var double = [];
+
+                        if(result.length === 0)
                         {
-                            res.render('nutritionHome', {
+                            res.render('playerDashboard', {
                                 username: req.session.user,
-                                active: "0"
+                                message: "",
+                                double: double
                             });
                         }
-                        else
-                        {
-                            res.render('nutritionHome', {
-                                username: req.session.user,
-                                active: "1"
+                        else {
+
+                            sql = "SELECT * FROM master.workouts " +
+                                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                                "ORDER BY workoutid desc limit 2 ;";
+
+
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+
+                                double = result;
+
+                                res.render('playerDashboard', {
+                                    username: req.session.user,
+                                    message: "",
+                                    double: double
+                                });
                             });
                         }
-
-
-
                     });
-
                 });
             }
 
             else {
+                var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-                    res.render('playerDashboard', {
-                        username: req.session.user,
-                        message: ''
+                var teamid = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                    teamid = result;
+
+                    sql = "select username from master.user where teamID = '"+teamid[0].teamID+"' " +
+                        "and privileges = 'Admin' and group_chronic = 'on';";
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+
+
+
+                        var double = [];
+
+                        if(result.length === 0)
+                        {
+                            res.render('playerDashboard', {
+                                username: req.session.user,
+                                message: "",
+                                double: double
+                            });
+                        }
+                        else {
+
+
+                            sql = "SELECT * FROM master.workouts " +
+                                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                                "ORDER BY workoutid desc limit 2 ;";
+
+
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+
+                                double = result;
+
+                                res.render('playerDashboard', {
+                                    username: req.session.user,
+                                    message: "",
+                                    double: double
+                                });
+                            });
+                        }
                     });
+                });
             }
         } else {
             res.render('login', { message: 'Failed' });

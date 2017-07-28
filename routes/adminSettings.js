@@ -114,7 +114,24 @@ router.post('/deletegroup', function(req, res, next) {
 
 router.post('/doubleSelect', function(req, res, next){
 
+    var sql = "select * from master.group_designation;";
 
+    var groups = [];
+    connection.query(sql, function(err, result) {
+        groups = result;
 
+        sql = "update master.user set group_chronic = '"+req.body.switch+"' " +
+            "where username = '"+req.session.user+"';";
+        connection.query(sql, function(err, result) {
+            if(err) throw err;
+
+            res.render('adminSettings', {
+                username: req.session.user,
+                message_add: "",
+                groups: groups,
+                message_delete: ""
+            });
+        });
+    });
 });
 

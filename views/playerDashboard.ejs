@@ -33,10 +33,11 @@
     <script>
         function validateForm() {
             var x = document.forms["playerForm"]["playerRPE"].value;
+            var y = document.forms["playerForm"]["double_select"].value;
 
-            if (x == "rpeDefault")
+            if (x === "rpeDefault" || y === "dateDefault")
             {
-                alert("Please select a valid RPE");
+                alert("One or more columns not filled out.");
                 return false;
             }
 
@@ -63,7 +64,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/playerDashboard">Player Portal</a>
+            <a class="navbar-brand" href="/playerDashboard">Player Home</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -170,7 +171,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="/"><i class="fa fa-fw fa-table"></i> Workout Input</a>
+                    <a href="/playerDashboard"><i class="fa fa-fw fa-table"></i> RPE Input</a>
                 </li>
                 <!--
                 <li>
@@ -199,6 +200,19 @@
                                 <form name = "playerForm" action="/playerInput/playerInput" method="post" role="form"
                                  onsubmit="return validateForm()" style=" display: block;">
 
+                                    <% if(double.length > 0) { %>
+                                    <label for="sel1">Select workout:</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="mySelect" name="double_select">
+                                            <option disabled selected value="dateDefault"> -- select a workout -- </option>
+                                            <% for(var i = 0; i < double.length; i++){ %>
+                                            <tr>
+                                                <option value = "<%= double[i].workoutid %>" ><%= double[i].name %></option>
+                                            </tr>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <% } %>
 
 
 
