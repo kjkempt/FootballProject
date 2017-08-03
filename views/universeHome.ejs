@@ -31,7 +31,9 @@
     <style>
         .header
         {
-            padding-top: 90px;
+            padding-top: 130px;
+            padding-right: 90px;
+
         }
         .panel-login {
             border-color: #ccc;
@@ -42,11 +44,12 @@
         }
         .panel-login>.panel-heading {
             color: #00415d;
-            background-color: #fff;
-            border-color: #fff;
+            background-color: whitesmoke;
+            border-color: whitesmoke;
             text-align:center;
         }
         .panel-login>.panel-heading a{
+            text-align: center;
             text-decoration: none;
             color: #666;
             font-weight: bold;
@@ -56,7 +59,7 @@
             transition: all 0.1s linear;
         }
         .panel-login>.panel-heading a.active{
-            color: #029f5b;
+            color: darkred;
             font-size: 18px;
         }
         .panel-login>.panel-heading hr{
@@ -141,71 +144,70 @@
 
 <!-- Header -->
 <header id="top" class="header">
-    <div class="col-lg-6 text-center">
-    <div class="text-vertical-center" style="">
-
-    <h1>Welcome To TeamExert</h1>
-    <h3>Track your team's exertion, nutrition and more</h3>
-    <br>
-
-    <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-login">
-
-
-                    <div class="panel-heading text-vertical-center">
-                        <div class="row">
-                            <div class="col-xs-12 text-vertical-center">
-                                <a href="" class="active text-vertical-center" id="login-form-link">Login</a>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <form id="login-form" action="/attemptLogin" method="post" role="form" style="display: block;">
-                                    <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                                        <label for="remember"> Remember Me</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="text-center">
-                                                    <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-                                                </div>
-                                                <div class="text-center">
-                                                    <h4><a href="/universeHome">HOME</a></h4>
-                                                </div>
-                                                <div class="text-center">
-                                                    <h2><%=message%></h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-lg-7" style="padding-left: 90px; padding-right: 90px;" >
+        <div class="panel panel-default">
+            <div class="panel-heading"><h1 style="text-align: center;">Welcome To TeamExertU</h1></div>
+            <div class="panel-body">Panel Content</div>
         </div>
+
+        <br>
     </div>
+    <div class="col-lg-5">
+            <div class="row">
+
+                    <div class="panel panel-login">
+
+
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12 ">
+                                    <a href="" class="active " id="login-form-link">Login</a>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form id="login-form" action="/attemptLogin" method="post" role="form" style="display: block;">
+                                        <div class="form-group">
+                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                            <label for="remember"> Remember Me</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-sm-offset-3">
+                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center">
+                                                        <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <h2><%=message%></h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
     </div>
 </header>
 
@@ -352,27 +354,27 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <h4><strong>TeamExert</strong>
+                <h4><strong>TeamExertU</strong>
                 </h4>
                 <hr class="small">
                 <p>
                     <br>Ames, IA 50010</p>
                 <ul class="list-unstyled">
-                    <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:teamexerthome@gmail.com">teamexerthome@gmail.com</a>
+                    <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:teamexerthome@gmail.com">teamexertu@gmail.com</a>
                     </li>
                 </ul>
                 <br>
                 <ul class="list-inline">
                     <li>
-                        <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        <a href="https://www.facebook.com/Team-Exert-U-462015010820605/"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        <a href="https://twitter.com/TeamExertU"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
                     </li>
 
                 </ul>
                 <hr class="small">
-               <p class="text-muted">Site owned and founded by Kyle Kempt</p>
+               <p class="text-muted">Site owned by Kyle Kempt</p>
             </div>
         </div>
     </div>
@@ -437,26 +439,7 @@
             }
         }
     });
-    // Disable Google Maps scrolling
-    // See http://stackoverflow.com/a/25904582/1607849
-    // Disable scroll zooming and bind back the click event
-    var onMapMouseleaveHandler = function(event) {
-        var that = $(this);
-        that.on('click', onMapClickHandler);
-        that.off('mouseleave', onMapMouseleaveHandler);
-        that.find('iframe').css("pointer-events", "none");
-    }
-    var onMapClickHandler = function(event) {
-        var that = $(this);
-        // Disable the click handler until the user leaves the map area
-        that.off('click', onMapClickHandler);
-        // Enable scrolling zoom
-        that.find('iframe').css("pointer-events", "auto");
-        // Handle the mouse leave event
-        that.on('mouseleave', onMapMouseleaveHandler);
-    }
-    // Enable map zooming with mouse scroll when the user clicks the map
-    $('.map').on('click', onMapClickHandler);
+
 </script>
 
 </body>

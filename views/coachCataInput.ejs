@@ -55,6 +55,20 @@
         }
     </script>
 
+    <script>
+        <!--
+        function isNumberKey(evt)
+        {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode !== 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        //-->
+    </script>
+
 
 
 </head>
@@ -236,10 +250,8 @@
                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                            class="form-inline" placeholder="Load">
                                     </input>
-                                    <input type="text" name = "workoutDuration"
-                                           onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                           class="form-inline" placeholder="Duration (Min.)">
-                                    </input>
+                                    <INPUT id="txtChar" onkeypress="return isNumberKey(event)"
+                                           type="text" name="workoutDuration" placeholder="Player Load Per Minute">
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <p class = "text-success" style="display: inline"><%= message %></p>

@@ -150,47 +150,39 @@
                                 <thead>
                                 <tr>
                                     <th rowspan="2">Group</th>
-                                    <th colspan="4">Week Total</th>
-                                    <th colspan="3">Sunday</th>
-                                    <th colspan="3">Monday</th>
-                                    <th colspan="3">Tuesday</th>
-                                    <th colspan="3">Wednesday</th>
-                                    <th colspan="3">Thursday</th>
-                                    <th colspan="3">Friday</th>
-                                    <th colspan="3">Saturday</th>
+                                    <th colspan="3">Week Total</th>
+                                    <th colspan="2">Sunday</th>
+                                    <th colspan="2">Monday</th>
+                                    <th colspan="2">Tuesday</th>
+                                    <th colspan="2">Wednesday</th>
+                                    <th colspan="2">Thursday</th>
+                                    <th colspan="2">Friday</th>
+                                    <th colspan="2">Saturday</th>
                                 </tr>
                                 <tr>
 
-                                    <th>Acute Duration (min.)</th>
                                     <th>Acute Load</th>
                                     <th>Chronic Load</th>
                                     <th>Relative A/C% Load</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
-                                    <th>Average Duration</th>
                                     <th>Average Load</th>
                                     <th>Average Load/Min.</th>
 
@@ -218,7 +210,6 @@
                                     <% for(var j = 0; j < team_acute.length; j++) {
 
                                         acuteLoad = team_acute[j].psum + acuteLoad;
-                                        acuteDuration = team_acute[j].dsum + acuteDuration;
                                     }
                                         for( j = 0; j < team_chronic.length; j++) {
 
@@ -228,7 +219,6 @@
                                         }
 
                                         chronicLoad = chronicLoad / 4;
-                                        acuteDuration = Math.round(acuteDuration * 10)/10; //nearest tenth
 
                                         adcpercent = (acuteLoad / chronicLoad) * 100;
                                         acuteLoad = Math.round(acuteLoad * 10)/10; //nearest tenth
@@ -237,7 +227,6 @@
                                     %>
                                     %>
 
-                                    <td><%= acuteDuration %></td>
                                     <td><%= acuteLoad %></td>
                                     <td><%= chronicLoad%></td>
                                     <td><%= adcpercent%>%</td>
@@ -246,9 +235,8 @@
                                     <%
                                     if(team_day[i].indexday == 1 ){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -256,30 +244,24 @@
                                     { %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
+
+
+                                    <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -288,7 +270,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -296,9 +277,8 @@
 
                                     if(team_day[i].indexday == 2){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -306,25 +286,20 @@
                                     { %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
                                     <td>0</td>
+                                    <td>0</td>
+
+
                                     <td>0</td>
                                     <td>0</td>
 
@@ -333,7 +308,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -341,9 +315,8 @@
 
                                     if(team_day[i].indexday == 3 ){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -352,20 +325,16 @@
 
                                     <td>0</td>
                                     <td>0</td>
+
+
+                                    <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -374,7 +343,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -382,9 +350,8 @@
 
                                     if(team_day[i].indexday == 4){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -394,15 +361,12 @@
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -411,7 +375,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -419,10 +382,9 @@
 
                                     if(team_day[i].indexday == 5 ){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
 
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -432,10 +394,8 @@
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -444,7 +404,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -452,16 +411,14 @@
 
                                     if(team_day[i].indexday == 6 ){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
                                     if(i == team_day.length)
                                     { %>
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -472,15 +429,13 @@
                                     %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
                                     <%
                                     }
 
                                     if(team_day[i].indexday == 7 ){
                                     %>
-                                    <td><%= team_day[i].dsum %></td>
                                     <td><%= team_day[i].psum %></td>
-                                    <td><%= ( Math.round((team_day[i].psum / team_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= team_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -490,7 +445,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -526,7 +480,6 @@
                                         if(position_acute[j].position === temp)
                                         {
                                             acuteLoad = position_acute[j].psum + acuteLoad;
-                                            acuteDuration = position_acute[j].dsum + acuteDuration;
                                         }
                                     }
                                         for( j = 0; j < position_chronic.length; j++) {
@@ -547,7 +500,6 @@
                                     %>
                                     %>
 
-                                    <td><%= acuteDuration %></td>
                                     <td><%= acuteLoad %></td>
                                     <td><%= chronicLoad%></td>
                                     <td><%= adcpercent%>%</td>
@@ -556,9 +508,8 @@
                                     <%
                                     if(position_day[i].indexday == 1 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -566,30 +517,24 @@
                                     { %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
+
+
+                                    <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -598,7 +543,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -606,9 +550,8 @@
 
                                     if(position_day[i].indexday == 2 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -616,25 +559,20 @@
                                     { %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
                                     <td>0</td>
+                                    <td>0</td>
+
+
                                     <td>0</td>
                                     <td>0</td>
 
@@ -643,7 +581,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -651,9 +588,8 @@
 
                                     if(position_day[i].indexday == 3 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -662,20 +598,16 @@
 
                                     <td>0</td>
                                     <td>0</td>
+
+
+                                    <td>0</td>
                                     <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -684,7 +616,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -692,9 +623,8 @@
 
                                     if(position_day[i].indexday == 4 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -704,15 +634,12 @@
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -721,7 +648,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -729,10 +655,9 @@
 
                                     if(position_day[i].indexday == 5 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
 
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -742,10 +667,8 @@
 
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
 
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -754,7 +677,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -762,16 +684,14 @@
 
                                     if(position_day[i].indexday == 6 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
                                     if(i == position_day.length)
                                     { %>
 
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
 
@@ -782,15 +702,13 @@
                                     %>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>0</td>
                                     <%
                                     }
 
                                     if(position_day[i].indexday == 7 && position_day[i].position == temp){
                                     %>
-                                    <td><%= position_day[i].dsum %></td>
                                     <td><%= position_day[i].psum %></td>
-                                    <td><%= ( Math.round((position_day[i].psum / position_day[i].dsum) * 100 ) / 100) %></td>
+                                    <td><%= position_day[i].lsum %></td>
 
                                     <%
                                         i = i+1;
@@ -800,7 +718,6 @@
                                     else
                                     {
                                     %>
-                                    <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
                                     <%
@@ -878,7 +795,7 @@
 
                                     if(team_chart[j].indexday === 1)
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -898,7 +815,7 @@
 
                                     if(team_chart[j].indexday === 2)
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -917,7 +834,7 @@
 
                                     if(team_chart[j].indexday === 3)
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -935,7 +852,7 @@
 
                                     if(team_chart[j].indexday === 4)
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -952,7 +869,7 @@
 
                                     if(team_chart[j].indexday === 5 )
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -968,7 +885,7 @@
 
                                     if(team_chart[j].indexday === 6 )
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {
@@ -983,7 +900,7 @@
 
                                     if(team_chart[j].indexday === 7 )
                                     {
-                                        chart_data.push((team_chart[j].psum / team_chart[j].dsum));
+                                        chart_data.push(team_chart[j].lsum);
                                         j = j+ 1;
                                         if(j === team_chart.length)
                                         {

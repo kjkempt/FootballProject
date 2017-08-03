@@ -58,7 +58,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
             sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
-                "w.pload, w.duration " +
+                "w.pload, w.loadpermin " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -84,7 +84,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
                 sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, " +
-                    "SUM(w.pload) as psum, SUM(w.duration) as dsum " +
+                    "SUM(w.pload) as psum " +
                     "FROM  master.cata_player_workouts w " +
                     "INNER JOIN master.user u ON u.username = w.username " +
                     "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -200,7 +200,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
             sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
-                "w.pload, w.duration " +
+                "w.pload, w.loadpermin " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -224,7 +224,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
                 sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, " +
-                    "SUM(w.pload) as psum, SUM(w.duration) as dsum " +
+                    "SUM(w.pload) as psum " +
                     "FROM  master.cata_player_workouts w " +
                     "INNER JOIN master.user u ON u.username = w.username " +
                     "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -267,7 +267,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
                         sql = "SELECT u.username, u.first_name, u.last_name, u.position, m.date, dayofweek(m.date) as indexday, " +
-                            "w.pload, w.duration " +
+                            "w.pload, w.loadpermin " +
                             "FROM  master.cata_player_workouts w " +
                             "INNER JOIN master.user u ON u.username = w.username " +
                             "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +

@@ -58,7 +58,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
             sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
-                "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                "AVG(w.pload) as psum, AVG(w.loadpermin) as lsum, count(distinct u.username) as pcount " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -86,7 +86,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
                 sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
-                    "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                    "AVG(w.pload) psum, count(distinct u.username) as pcount " +
                     "FROM  master.cata_player_workouts w " +
                     "INNER JOIN master.user u ON u.username = w.username " +
                     "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -147,7 +147,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
                             sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
-                                "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                                "AVG(w.pload) psum, AVG(w.loadpermin) as lsum, count(distinct u.username) as pcount " +
                                 "FROM  master.cata_player_workouts w " +
                                 "INNER JOIN master.user u ON u.username = w.username " +
                                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -256,7 +256,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
             sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
-                "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                "AVG(w.pload) psum, AVG(w.loadpermin) as lsum, count(distinct u.username) as pcount " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
                 "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -278,7 +278,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
                 sql = "SELECT u.username, m.date, dayofweek(m.date) as indexday, " +
-                    "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                    "AVG(w.pload) psum, count(distinct u.username) as pcount " +
                     "FROM  master.cata_player_workouts w " +
                     "INNER JOIN master.user u ON u.username = w.username " +
                     "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -319,7 +319,7 @@ router.post('/selectPlayer', function(req, res, next) {
 
 
                         sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
-                            "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                            "AVG(w.pload) psum, AVG(w.loadpermin) as lsum, count(distinct u.username) as pcount " +
                             "FROM  master.cata_player_workouts w " +
                             "INNER JOIN master.user u ON u.username = w.username " +
                             "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +
@@ -399,7 +399,7 @@ router.post('/selectPlayer', function(req, res, next) {
                                     }
                                     else {
                                         sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
-                                            "AVG(w.pload) psum, AVG(w.duration) as dsum, count(distinct u.username) as pcount " +
+                                            "AVG(w.pload) psum, AVG(w.loadpermin) as lsum, count(distinct u.username) as pcount " +
                                             "FROM  master.cata_player_workouts w " +
                                             "INNER JOIN master.user u ON u.username = w.username " +
                                             "INNER JOIN master.cata_workouts m ON w.workout_id = m.id " +

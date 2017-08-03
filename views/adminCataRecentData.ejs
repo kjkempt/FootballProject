@@ -142,7 +142,7 @@
                                     <th>First Name</th>
                                     <th>Postion</th>
                                     <th>Recent Load</th>
-                                    <th>Recent Duration</th>
+                                    <th>Recent Load/Min.</th>
                                     <th>Rolling 3 Day Load</th>
                                     <th>Acute Load</th>
                                     <th>Chronic Load</th>
@@ -165,7 +165,7 @@
 
                                     var acute = 0;
                                     var chronic = player_chronic[b].chronicSum;
-                                    var recent_duration = 0;
+                                    var recent_plm = 0;
                                     var recent_load = 0;
                                     var strain = 0;
                                     var three = 0;
@@ -198,7 +198,7 @@
                                         if(player_recent[t].username == player_chronic[b].username)
                                         {
                                             recent_load = player_recent[t].pload;
-                                            recent_duration = player_recent[t].duration;
+                                            recent_plm = player_recent[t].loadpermin;
                                         }
                                         session_load = player_recent[t].pload + session_load;
                                     }
@@ -269,14 +269,14 @@
                                     <td> <%= player_chronic[b].last_name %></td>
                                     <td><%= player_chronic[b].first_name%></td>
                                     <td><%= player_chronic[b].position%></td>
-                                    <td><%= recent_load%></td>
-                                    <td><%= recent_duration%></td>
-                                    <td><%= three%></td>
+                                    <td><%= recent_load %></td>
+                                    <td><%= recent_plm %></td>
+                                    <td><%= three %></td>
                                     <td><%= acute %></td>
                                     <td><%=  chronic %> </td>
-                                    <td><%= load_percentage%>%</td>
-                                    <td> <%= monotony%> </td>
-                                    <td><%= strain%></td>
+                                    <td><%= load_percentage %>%</td>
+                                    <td><%= monotony %> </td>
+                                    <td><%= strain %></td>
                                 </tr>
 
 

@@ -253,7 +253,6 @@
                                     <td>First Name</td>
                                     <td>Position</td>
                                     <td>Load</td>
-                                    <td>Duration</td>
                                     <td>Load/Min.</td>
                                 </tr>
                                 </thead>
@@ -266,8 +265,7 @@
                                     <td><%= pd[j].first_name %></td>
                                     <td><%= pd[j].position %></td>
                                     <td><%= pd[j].pload %></td>
-                                    <td><%= pd[j].duration %></td>
-                                    <td><%= (pd[j].pload / pd[j].duration) %></td>
+                                    <td><%= (pd[j].loadpermin) %></td>
                                 </tr>
                                 <% } %>
 

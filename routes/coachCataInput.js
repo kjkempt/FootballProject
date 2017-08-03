@@ -58,7 +58,7 @@ router.post('/entry', function(req, res, next) {
 
                     if (result.length === 0) {
 
-                        sql = "INSERT INTO cata_player_workouts(username, workout_id, pload, duration, teamid) " +
+                        sql = "INSERT INTO cata_player_workouts(username, workout_id, pload, loadpermin, teamid) " +
                             "VALUES('" + req.body.player + "', '" + workout[0].id + "' ,'" + req.body.workoutLoad + "', " +
                             " '" + req.body.workoutDuration + "', '" + teamid[0].teamID + "')";
 
@@ -76,7 +76,7 @@ router.post('/entry', function(req, res, next) {
                     }
                     else {
                         sql = "UPDATE master.cata_player_workouts " +
-                            "SET pload = '" + req.body.workoutLoad + "' AND duration = '" + req.body.workoutDuration + "' " +
+                            "SET pload = '" + req.body.workoutLoad + "' AND loadpermin = '" + req.body.workoutDuration + "' " +
                             "WHERE username = '" + req.user + "' " +
                             "AND id = '" + result[0].id + "' ";
 

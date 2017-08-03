@@ -1107,7 +1107,7 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
             date = date.toISOString().split('T')[0];
 
             sql = "SELECT u.username, u.position, m.date, " +
-                "SUM(w.pload) as psum, SUM(w.duration) as dsum, " +
+                "SUM(w.pload) as psum,  " +
                 "(SUM(w.pload)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
@@ -1146,7 +1146,7 @@ app.get('/coachCataRecentData', requireLogin, function(req, res, next) {
 
                     player_chronic = result;
 
-                    sql = "SELECT username, pload, duration FROM master.cata_player_workouts " +
+                    sql = "SELECT username, pload, loadpermin FROM master.cata_player_workouts " +
                         "WHERE teamid = '"+teamid[0].teamID+"' " +
                         "AND workout_id IN " +
                         "(SELECT MAX(workout_id) FROM master.cata_player_workouts " +
@@ -2481,7 +2481,7 @@ app.get('/adminCataRecentData', requireLogin, function(req, res, next) {
             date = date.toISOString().split('T')[0];
 
             sql = "SELECT u.username, u.position, m.date, " +
-                "SUM(w.pload) as psum, SUM(w.duration) as dsum, " +
+                "SUM(w.pload) as psum,  " +
                 "(SUM(w.pload)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                 "FROM  master.cata_player_workouts w " +
                 "INNER JOIN master.user u ON u.username = w.username " +
@@ -2520,7 +2520,7 @@ app.get('/adminCataRecentData', requireLogin, function(req, res, next) {
 
                     player_chronic = result;
 
-                    sql = "SELECT username, pload, duration FROM master.cata_player_workouts " +
+                    sql = "SELECT username, pload, loadpermin FROM master.cata_player_workouts " +
                         "WHERE teamid = '"+teamid[0].teamID+"' " +
                         "AND workout_id IN " +
                         "(SELECT MAX(workout_id) FROM master.cata_player_workouts " +
