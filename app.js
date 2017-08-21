@@ -830,10 +830,11 @@ app.get('/coachWeeklySummary', requireLogin, function(req, res, next) {
 
         var week_data = [];
         var chronic = [];
-        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+        sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
             "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
             "FROM master.workouts m " +
-            "WHERE m.teamID = '"+teamid[0].teamID+"';";
+            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
+            "ORDER BY date desc limit 10;";
 
 
         var week_set = [];
@@ -1653,10 +1654,11 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
 
         var week_data = [];
         var chronic = [];
-        var sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+        sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
             "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
             "FROM master.workouts m " +
-            "WHERE m.teamID = '"+teamid[0].teamID+"';";
+            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
+            "ORDER BY date desc limit 10;";
 
 
         var week_set = [];

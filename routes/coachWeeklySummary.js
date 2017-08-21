@@ -224,7 +224,8 @@ router.post('/selectWeek', function(req, res, next) {
                                             "AND w.workoutID = m.workoutid " +
                                             "AND u.group_chronic = 't' " +
                                             "AND m.date " +
-                                            "BETWEEN '" + req.body.week_select + "'- INTERVAL 1 WEEK AND '" + req.body.week_select + "' " +
+                                            "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                                            " '" + req.body.week_select + "' " +
                                             "GROUP BY u.username " +
                                             "ORDER BY u.position; " ;
 
@@ -247,7 +248,8 @@ router.post('/selectWeek', function(req, res, next) {
                                                 "AND w.workoutID = m.workoutid " +
                                                 "AND u.group_chronic = 't' " +
                                                 "AND m.date " +
-                                                "BETWEEN '" + req.body.week_select + "'- INTERVAL 1 WEEK AND '" + req.body.week_select + "' " +
+                                                "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                                                " '" + req.body.week_select + "' " +
                                                 "GROUP BY u.username " +
                                                 "ORDER BY u.username; " ;
 
@@ -256,6 +258,7 @@ router.post('/selectWeek', function(req, res, next) {
                                                 if (err) throw err;
 
                                                 acute_team = result;
+
 
 
                                                 sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
@@ -289,7 +292,8 @@ router.post('/selectWeek', function(req, res, next) {
                                                         "AND w.workoutID = m.workoutid " +
                                                         "AND NOT (u.group_chronic = 't') " +
                                                         "AND m.date " +
-                                                        "BETWEEN '" + req.body.week_select + "'- INTERVAL 1 WEEK AND '" + req.body.week_select + "' " +
+                                                        "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                                                        " '" + req.body.week_select + "' " +
                                                         "GROUP BY u.group_chronic " +
                                                         "ORDER BY u.group_chronic; ";
 
@@ -303,7 +307,8 @@ router.post('/selectWeek', function(req, res, next) {
                                                         sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
                                                             "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
                                                             "FROM master.workouts m " +
-                                                            "WHERE m.teamID = '" + teamid[0].teamID + "' ;";
+                                                            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
+                                                            "ORDER BY date desc limit 10;";
 
 
                                                         var week_set = [];
