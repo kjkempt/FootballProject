@@ -2762,7 +2762,7 @@ app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
 
 
 
-                res.render('adminGroupControl', {
+                res.render('adminDeleteAthlete', {
                     username: req.session.user,
                     players: players
                 });

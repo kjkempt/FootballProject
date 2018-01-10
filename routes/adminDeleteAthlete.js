@@ -4,6 +4,8 @@
 var express = require('express');
 var router = express.Router();
 
+module.exports = router;
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host     : 'footballdb.cr1jtswtem4i.us-west-2.rds.amazonaws.com',
@@ -13,29 +15,52 @@ var connection = mysql.createConnection({
 });
 
 
+router.post('/delete', function(req, res, next) {
 
 
 
-router.post('/addWorkout', function(req, res, next) {
-
-    //insert query below inserts form data into workouts database with the submitted workout info
-    var sql = "INSERT INTO workouts(name, date, duration, sRPE, trainingtype, notes) " +
-        "VALUES('"+req.body.workoutName+"', '"+req.body.workoutDate+"', '"+req.body.workoutDuration+"'," +
-        " '"+req.body.coachRPE+"', '"+req.body.workoutType+"', '"+req.body.notes+ "')";
+    var sql = "update master.user set group_chronic = '"+req.body.group_option+"' where username = '"+req.body.player+"';";
 
 
-    connection.query(sql, function (err, result) {
-        if (err) {
-            throw err;
-        } else
-            res.render('workoutManager', {
-                username: req.user,
-                message: 'Submission successful'
+    connection.query(sql, function(err , result)
+    {
+        if(err) throw err;
+
+        var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+        var teamid = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            teamid = result;
+
+
+            sql = "SELECT * from master.user " +
+                "where teamID = '"+teamid[0].teamID+"' " +
+                "and privileges = 'Player'" +
+                "ORDER BY last_name;";
+
+            var players = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                players = result;
+                
+                res.render('adminDeleteAthlete', {
+                    username: req.session.user,
+                    players: players
+                });
             });
+
+        });
+
     });
+
 
 
 });
 
 
-module.exports = router;
+
+
+

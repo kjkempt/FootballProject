@@ -111,22 +111,25 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+
+                     <span class = "text-nowrap">
+                                    <h1 class="page-header" >
+                                        Delete Member
+                                    </h1>
+                                    </span>
+
                     <div class="panel panel-default" >
 
 
 
-
-                        <div class="panel-heading" style="background-color: gold">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Change Player's Group</h3>
-                        </div>
                         <div class="panel-body">
 
-                            <form name="playerGroupChange"  class = "form-inline" action="/adminGroupControl/changeGroup" method="post" role="form"
+                            <form name="deleteMember"  class = "form-inline" action="/adminDeleteAthlete/delete" method="post" role="form"
                                   style=" display: block;">
                                 <label for="sel1">Select player:</label>
                                 <div class="form-group">
                                     <select class="form-control" id="mySelect" name="player">
-                                        <option disabled selected value> -- Select a player -- </option>
+                                        <option disabled selected value> ------- </option>
                                         <% for(var j = 0; j < players.length; j++){  %>
                                         <tr>
                                             <option value = "<%= players[j].username %>" ><%= players[j].last_name %>, <%= players[j].first_name%></option>
