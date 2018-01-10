@@ -19,8 +19,8 @@ router.post('/delete', function(req, res, next) {
 
 
 
-    var sql = "update master.user set group_chronic = '"+req.body.group_option+"' where username = '"+req.body.player+"';";
 
+    var sql = "delete from master.user where username = '"+req.body.player+"';";
 
     connection.query(sql, function(err , result)
     {
@@ -45,7 +45,7 @@ router.post('/delete', function(req, res, next) {
                 if (err) throw err;
 
                 players = result;
-                
+
                 res.render('adminDeleteAthlete', {
                     username: req.session.user,
                     players: players
