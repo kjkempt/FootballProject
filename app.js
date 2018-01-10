@@ -46,6 +46,7 @@ var adminCataDailySum = require('./routes/adminCataDailySum');
 var adminCataWeekSum = require('./routes/adminCataWeekSum');
 var adminCataRecentData = require('./routes/adminCataRecentData');
 var adminCataTeamWeekSum = require('./routes/adminCataTeamWeekSum');
+var adminDeleteAthlete = require('./routes/adminDeleteAthlete');
 
 
 
@@ -157,6 +158,7 @@ app.use('/adminCataDailySum', adminCataDailySum);
 app.use('/adminCataWeekSum', adminCataWeekSum);
 app.use('/adminCataRecentData', adminCataRecentData);
 app.use('/adminCataTeamWeekSum', adminCataTeamWeekSum);
+app.use('/adminDeleteAthlete', adminDeleteAthlete);
 
 //***Universe Pages
 
@@ -2732,6 +2734,43 @@ app.get('/adminCataRecentData', requireLogin, function(req, res, next) {
         });
     });
 });
+
+
+app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "SELECT * from master.user " +
+            "where teamID = '"+teamid[0].teamID+"' " +
+            "and privileges = 'Player'" +
+            "ORDER BY last_name;";
+
+        var players = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            players = result;
+
+
+
+
+
+                res.render('adminGroupControl', {
+                    username: req.session.user,
+                    players: players
+                });
+        });
+
+    });
+});
+
 
 
 //**************END ADMIN PAGES*****
