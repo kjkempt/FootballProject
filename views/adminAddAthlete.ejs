@@ -190,10 +190,7 @@
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                                             </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                <input id="meal" type="text" class="form-control" name="meal" placeholder="Meal Check-In ID">
-                                            </div>
+                                           
                                             <select name = "priv" class="form-control">
                                                 <option disabled selected value = "priv_def">Privelege Type</option>
                                                 <option value = "Player">Player</option>
@@ -201,20 +198,36 @@
                                                 <option value = "Admin">Admin</option>
                                             </select>
                                             <h5>Position - Leave blank if Admin/Coach</h5>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="QB">QB</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="RB">RB</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="TE">TE</label>
-                                            <br>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="OL">OL</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="WR">WR</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="DL">DL</label>
-                                            <br>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="LB">LB</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="DB">DB</label>
-                                            <label class="radio-inline"><input type="radio"  name="position" value="KPS">KPS</label>
+                                            <select name = "position" class="form-control">
+                                                <option disabled selected value = "selectSport">Select Position</option>
+                                                <option disabled  value = "football">---Football---</option>
+                                                <option value = "QB">QB</option>
+                                                <option value = "RB">RB</option>
+                                                <option value = "WR">WR</option>
+                                                <option value = "TE">TE</option>
+                                                <option value = "OL">OL</option>
+                                                <option value = "DL">DL</option>
+                                                <option value = "LB">LB</option>
+                                                <option value = "DB">DB</option>
+                                                <option value = "KPS">KPS</option>
+                                                <option disabled value = "bball">---Basketball---</option>
+                                                <option value = "Guard">Guard</option>
+                                                <option value = "Forward">Forward</option>
+                                                <option value = "Post">Post</option>
+                                                <option disabled value = "soccer">---Soccer---</option>
+                                                <option value = "R/L Att. Mid">R/L Att. Mid</option>
+                                                <option value = "Outside Back">Outside Back</option>
+                                                <option value = "Central Mid">Central Mid</option>
+                                                <option value = "Center Back">Center Back</option>
+                                                <option value = "Forward">Forward</option>
+                                                <option value = "Keeper">Keeper</option>
+
+
+                                            </select>
                                             <br>
                                             <br>
                                             <input type = "submit" name = "Submit" class="btn btn-default">
+
                                         </div>
                                     </form>
                                         </div>
