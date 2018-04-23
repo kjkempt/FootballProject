@@ -47,6 +47,9 @@ var adminCataWeekSum = require('./routes/adminCataWeekSum');
 var adminCataRecentData = require('./routes/adminCataRecentData');
 var adminCataTeamWeekSum = require('./routes/adminCataTeamWeekSum');
 var adminDeleteAthlete = require('./routes/adminDeleteAthlete');
+var isuwbbAdminHome = require('./routes/isuwbbAdminHome');
+var isuwbbAddAthlete = require('./routes/isuwbbAddAthlete');
+var isuwbbCreateWorkout = require('./routes/isuwbbCreateWorkout');
 
 
 
@@ -159,6 +162,11 @@ app.use('/adminCataWeekSum', adminCataWeekSum);
 app.use('/adminCataRecentData', adminCataRecentData);
 app.use('/adminCataTeamWeekSum', adminCataTeamWeekSum);
 app.use('/adminDeleteAthlete', adminDeleteAthlete);
+app.use('/isuwbbAdminHome', isuwbbAdminHome);
+app.use('/isuwbbAddAthlete', isuwbbAddAthlete);
+app.use('/isuwbbCreateWorkout', isuwbbCreateWorkout);
+
+
 
 //***Universe Pages
 
@@ -1769,23 +1777,32 @@ app.get('/adminDailySummary', requireLogin, function(req, res, next) {
 
 
 
+            sql = "select sport from master.team_info where team_id = '"+teamid[0].teamID+"';";
+
+            var sport = [];
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+
+                sport = result;
 
 
 
-            var workout = [];
-            var note = [];
+
+                var workout = [];
+                var note = [];
 
 
-            res.render('adminDailySummary', {
-                username: req.session.user,
-                recent: recent_dates,
-                workout: workout,
-                note: note,
-                message: ""
+                res.render('adminDailySummary', {
+                    username: req.session.user,
+                    recent: recent_dates,
+                    workout: workout,
+                    note: note,
+                    message: "",
+                    sport: sport
+                });
+
+
             });
-
-
-
 
         });
 
@@ -2777,6 +2794,36 @@ app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
 
 
 
+//*******Custom Pages
+
+//++ISU WBB
+
+//Admin Home Page
+app.get('/isuwbbAdminHome', requireLogin, function(req, res, next) {
+    res.render('isuwbbAdminHome', {
+        username: req.session.user
+    });
+});
+
+//Add Athlete Page
+app.get('/isuwbbAddAthlete', requireLogin, function(req, res, next) {
+    res.render('isuwbbAddAthlete', {
+        username: req.session.user,
+        message: ''});
+});
+
+//Create Workout Page
+app.get('/isuwbbCreateWorkout', requireLogin, function(req, res, next) {
+    res.render('isuwbbCreateWorkout', {
+        username: req.session.user,
+        message: ''});
+});
+
+
+//+++++++++++
+
+
+//End custom pages ***********
 
 
 
@@ -2849,7 +2896,7 @@ app.get('/login', function(req, res, next) {
 
 // Attempts to login a user. If successful, sets the session so the user can access the data.
 app.post('/attemptLogin', function(req, res) {
-    var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
+    var sql = "SELECT username, password, privileges, teamID FROM user WHERE username= " + "'" + req.body.username + "'";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
@@ -2858,10 +2905,18 @@ app.post('/attemptLogin', function(req, res) {
             req.session.user = req.body.username;
             if (result[0].privileges === "Admin") {
 
+                if (result[0].teamID === "isuwbb") {
+                    res.render('isuwbbAdminHome', {
+                        username: req.session.user
+                    });
+                }
+                else
+                {
+                    res.render('adminHome', {
+                        username: req.session.user
+                    });
+                }
 
-                res.render('adminHome', {
-                    username: req.session.user
-                });
 
             }
 
