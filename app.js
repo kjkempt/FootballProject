@@ -50,6 +50,7 @@ var adminDeleteAthlete = require('./routes/adminDeleteAthlete');
 var isuwbbAdminHome = require('./routes/isuwbbAdminHome');
 var isuwbbAddAthlete = require('./routes/isuwbbAddAthlete');
 var isuwbbCreateWorkout = require('./routes/isuwbbCreateWorkout');
+var isuwbbDailySummary = require('./routes/isuwbbDailySummary');
 
 
 
@@ -165,6 +166,7 @@ app.use('/adminDeleteAthlete', adminDeleteAthlete);
 app.use('/isuwbbAdminHome', isuwbbAdminHome);
 app.use('/isuwbbAddAthlete', isuwbbAddAthlete);
 app.use('/isuwbbCreateWorkout', isuwbbCreateWorkout);
+app.use('/isuwbbDailySummary', isuwbbDailySummary);
 
 
 
@@ -2798,7 +2800,7 @@ app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
 
 //++ISU WBB
 
-//Admin Home Page
+//Home Page
 app.get('/isuwbbAdminHome', requireLogin, function(req, res, next) {
     res.render('isuwbbAdminHome', {
         username: req.session.user
@@ -2818,6 +2820,70 @@ app.get('/isuwbbCreateWorkout', requireLogin, function(req, res, next) {
         username: req.session.user,
         message: ''});
 });
+
+
+//Daily Summary
+app.get('/isuwbbDailySummary', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+
+
+        sql = "SELECT * FROM workouts " +
+            "WHERE teamID = '"+teamid[0].teamID+"' " +
+            "ORDER BY date DESC LIMIT 10;";
+
+        var recent_dates = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            recent_dates = result;
+
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
+
+
+            }
+
+
+
+                var workout = [];
+                var note = [];
+
+
+                res.render('isuwbbDailySummary', {
+                    username: req.session.user,
+                    recent: recent_dates,
+                    workout: workout,
+                    note: note,
+                    message: ""
+                });
+
+
+
+        });
+
+
+    });
+
+
+});
+
+
 
 
 //+++++++++++

@@ -188,24 +188,24 @@
                                 </thead>
                                 <tbody>
 
-                                <% workout.forEach(function(player_daily){
-                                var load = note[0].duration * player_daily.player_sRPE;    %>
+                                <% for(var i = 0; i < workout.length; i++){
+                                var load = note[0].duration * workout[i].player_sRPE;    %>
 
                                 <tr>
-                                    <td><%= player_daily.last_name%></td>
-                                    <td><%= player_daily.first_name%></td>
-                                    <td><%= player_daily.player_sRPE%></td>
+                                    <td><%= workout[i].last_name%></td>
+                                    <td><%= workout[i].first_name%></td>
+                                    <td><%= workout[i].player_sRPE%></td>
                                     <td><%= note[0].duration%></td>
                                     <td><%= load%></td>
 
-                                    <% if(!player_daily.pwnotes){%>
+                                    <% if(!workout[i].pwnotes){%>
                                     <td> </td>
                                     <%}
                                     else{%>
                                     <td>
                                         <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
                                                 title="Player Note"
-                                                data-content="<%= player_daily.pwnotes%>">
+                                                data-content="<%= workout[i].pwnotes%>">
                                             <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
                                     </td>
                                     <%}%>
@@ -213,7 +213,7 @@
 
 
                                 </tr>
-                                <%})%>
+                                <%}%>
 
                                 <%if(note.length > 0)
                                 {%>

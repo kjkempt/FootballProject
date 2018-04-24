@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Daily Workout Summaries</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse" >
+            <ul class="nav navbar-nav side-nav" >
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Daily Workout Scores/Player Notes</h3>
+                        </div>
+                        <div class = "panel-body">
+                            <p class="text-success"><%= message%></p>
+
+                            <form name="dailySumForm"  class = "form-inline" action="/isuwbbDailySummary/dailySum" method="post" role="form"
+                                  style=" display: block;">
+
+
+                                <!-- Dropdown arrow selecting most recent workouts (10)
+                                 Shows the RPE scores of every player plus pre and post coach
+                                 scores and have a tab on the side that allows notes to be
+                                 put in on a player-->
+                                <label for="sel1">Select workout date:</label>
+                                <div class="form-group">
+                                    <select class="form-control" id="mySelect" name="date_select">
+                                        <option disabled selected value> -- select a workout -- </option>
+                                        <% recent.forEach(function (rec) { %>
+                                        <tr>
+                                            <option value = "<%= rec.workoutid %>" ><%= rec.date %></option>
+                                        </tr>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+
+
+
+                            <br>
+
+
+                            <%if(note.length > 0)
+                            {%>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Notes</h3>
+                                </div>
+                                <div class = "panel-body">
+
+                                    <p><%=note[0].notes%></p>
+
+                                </div>
+                            </div>
+                            <%}%>
+
+
+
+
+
+                            <br>
+
+
+
+                            <table id="daily_sum" class="display">
+                                <thead>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>First Name</td>
+                                    <td>sRPE</td>
+                                    <td>Duration (min.)</td>
+                                    <td>Load</td>
+                                    <td>Heart Rate</td>
+                                    <td>Notes</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <% for(var i = 0; i < workout.length; i++)
+                                {
+                                    var load = note[0].duration * workout[i].player_sRPE;    %>
+
+                                <tr>
+                                    <td><%= workout[i].last_name%></td>
+                                    <td><%= workout[i].first_name%></td>
+                                    <td><%= workout[i].player_sRPE%></td>
+                                    <td><%= note[0].duration%></td>
+                                    <td><%= load%></td>
+                                    <td><%= workout[i].heartrate%></td>
+
+                                    <% if(!workout[i].pwnotes){%>
+                                    <td> </td>
+                                    <%}
+                                    else{%>
+                                    <td>
+                                        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left" style="background-color: transparent"
+                                                title="Player Note"
+                                                data-content="<%= workout[i].pwnotes%>">
+                                            <span class="glyphicon glyphicon-exclamation-sign" style="color: red; font-size: x-large" aria-hidden="true"></span></button>
+                                    </td>
+                                    <%}%>
+
+
+
+                                </tr>
+                                <% } %>
+
+                                <%if(note.length > 0)
+                                {%>
+
+
+                                <tr>
+                                    <td>Coach</td>
+                                    <td> </td>
+                                    <td><%= note[0].sRPE%></td>
+                                    <td><%= note[0].duration%></td>
+                                    <td><%= (note[0].duration * note[0].sRPE)%></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+
+                                <%}%>
+
+                                </tbody>
+                            </table>
+
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready( function () {
+
+                                    $('#daily_sum').DataTable({
+                                        "columnDefs": [
+                                            {"width": "15%", "targets": 3}
+                                        ],
+                                        drawCallback: function() {
+                                            $('[data-toggle="popover"]').popover();
+                                        }
+                                    });
+                                } );
+
+
+
+
+                            </script>
+
+                            <br>
+
+                            <% if(workout.length > 0){%>
+
+
+                            <div class="row">
+
+
+                                <div class="col-sm-6" style = "border: #00B7FF; border-style: groove">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Notes to Player</h3>
+                                    </div>
+                                    <div class = "panel-body">
+
+
+
+                                        <!-- Dropdown arrow selects player and then a note is added
+                                         in for that player-->
+                                        <form name="playerNoteForm"  class = "form-group-sm" action="/isuwbbDailySummary/playerNote"
+                                              method="post" role="form" style=" display: block;">
+                                            <div class="form-group">
+                                                <input  name="workout_id" value="<%= workout[0].workoutID%>">
+                                                <br><label for="sel1">Select a player:</label>
+                                                <select class="form-control" id="playerSelect" name="player_note">
+                                                    <option disabled selected value> -- Select a player -- </option>
+                                                    <% workout.forEach(function (pselect) { %>
+                                                    <tr>
+                                                        <option value = "<%= pselect.username %>" >
+                                                            <%= pselect.last_name %>, <%= pselect.first_name%></option>
+                                                    </tr>
+                                                    <% }) %>
+                                                </select>
+                                                <h5>Player Note</h5>
+                                                <textarea class="form-control" rows="5" id="comment"
+                                                          name = "notes"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-default">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6" style = "border: #8f0000; border-style: groove">
+                                    <div class="row" style = "border: #00B7FF; border-style: groove">
+
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Delete Score</h3>
+                                        </div>
+                                        <div class = "panel-body">
+                                            <form name="deleteScoreForm"  class = "form-inline" action="/isuwbbDailySummary/deleteScore" method="post" role="form"
+                                                  style=" display: block;">
+
+
+                                                <!-- Dropdown arrow selecting most recent workouts (10)
+                                                 Shows the RPE scores of every player plus pre and post coach
+                                                 scores and have a tab on the side that allows notes to be
+                                                 put in on a player-->
+                                                <label for="sel1">Select player:</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="mySelect" name="delete_select">
+
+                                                        <option disabled selected value> -- select a player -- </option>
+                                                        <% for(var k = 0; k < workout.length; k++) {%>
+                                                        <tr>
+                                                            <option value = "<%= workout[k].id %>" ><%= workout[k].last_name %>, <%= workout[k].first_name %>: <%= workout[k].player_sRPE %></option>
+                                                        </tr>
+                                                        <% } %>
+                                                    </select>
+                                                    <input  name="workout_id" value="<%= workout[0].workoutID%>">
+                                                </div>
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style = "border: #00B7FF; border-style: groove">
+
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Score</h3>
+                                        </div>
+                                        <div class = "panel-body">
+                                            <form name="addScoreForm"  class = "form-inline" action="/isuwbbDailySummary/addScore" method="post" role="form"
+                                                  style=" display: block;">
+
+
+                                                <div class="form-inline">
+                                                    <label for="sel1">Select player:</label>
+                                                    <input name="un" type="text" class="form-inline" placeholder="Username">
+                                                    <select name = "playerRPE" class="form-control" id="mySelect" style="width: 20%;">
+                                                        <option disabled selected value = "rpeDefault">--sRPE--</option>
+                                                        <option value = "1">1 - Rest</option>
+                                                        <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
+                                                        <option value = "3">3 - Easy (Dynamic warm-up)</option>
+                                                        <option value = "4">4 - Moderate</option>
+                                                        <option value = "5">5 - Challenging (Can repeat, recover between reps & sets)</option>
+                                                        <option value = "6">6 - Hard</option>
+                                                        <option value = "7">7 - Very Hard - (You need to push hard, incomplete recovery between sets & reps)</option>
+                                                        <option value = "8">8 - Really Hard</option>
+                                                        <option value = "9">9 - Really, Really Hard</option>
+                                                        <option value = "10">10 - Maximal (Hardest session experienced to date)</option>
+                                                    </select>
+                                                    <input  name="workout_id" value="<%= workout[0].workoutID%>" class="form-inline">
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <%}%>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../js/plugins/morris/raphael.min.js"></script>
+<script src="../js/plugins/morris/morris.min.js"></script>
+<script src="../js/plugins/morris/morris-data.js"></script>
+
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
+</body>
+
+</html>

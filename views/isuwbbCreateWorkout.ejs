@@ -158,12 +158,12 @@
                                                            class="form-control">
                                                     </input>
 
-                                                    <h5>Time</h5>
-                                                    <select name="time" class="form-control">
-                                                        <option disabled selected value="timeDefault">Time Slot</option>
-                                                        <option value="AM">AM</option>
-                                                        <option value="PM">PM</option>
-                                                    </select>
+                                                    <h5>Workout Number (1, 2, 3, ect.)</h5>
+                                                    <input type="text" name = "time"
+                                                           onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                           class="form-control">
+                                                    </input>
+
                                                     <h5>Notes</h5>
                                                     <textarea class="form-control" rows="5" id="comment"
                                                               name = "notes"></textarea>
