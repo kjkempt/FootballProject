@@ -46,7 +46,7 @@ router.post('/addWorkout', function(req, res, next) {
             if (err) {
                 throw err;
             } else
-                res.render('isuwbbCreateWorkout', {
+                res.render('isuwsoc/isusocCreateWorkout', {
                     username: req.user,
                     message: 'Submission successful'
                 });

@@ -47,11 +47,15 @@ var adminCataWeekSum = require('./routes/adminCataWeekSum');
 var adminCataRecentData = require('./routes/adminCataRecentData');
 var adminCataTeamWeekSum = require('./routes/adminCataTeamWeekSum');
 var adminDeleteAthlete = require('./routes/adminDeleteAthlete');
-var isuwbbAdminHome = require('./routes/isuwbbAdminHome');
-var isuwbbAddAthlete = require('./routes/isuwbbAddAthlete');
-var isuwbbCreateWorkout = require('./routes/isuwbbCreateWorkout');
-var isuwbbDailySummary = require('./routes/isuwbbDailySummary');
-
+var isuwbbAdminHome = require('./routes/isuwbb/isuwbbAdminHome');
+var isuwbbAddAthlete = require('./routes/isuwbb/isuwbbAddAthlete');
+var isuwbbCreateWorkout = require('./routes/isuwbb/isuwbbCreateWorkout');
+var isuwbbDailySummary = require('./routes/isuwbb/isuwbbDailySummary');
+var isuwbbUpdatePlayerData = require('./routes/isuwbb/isuwbbUpdatePlayerData');
+var isuwsocAdminHome = require('./routes/isuwsoc/isuwsocAdminHome');
+var isuwsocAddAthlete = require('./routes/isuwsoc/isuwsocAddAthlete');
+var isuwsocCreateWorkout = require('./routes/isuwsoc/isuwsocCreateWorkout');
+var isuwsocDailySummary = require('./routes/isuwsoc/isuwsocDailySummary');
 
 
 
@@ -167,6 +171,12 @@ app.use('/isuwbbAdminHome', isuwbbAdminHome);
 app.use('/isuwbbAddAthlete', isuwbbAddAthlete);
 app.use('/isuwbbCreateWorkout', isuwbbCreateWorkout);
 app.use('/isuwbbDailySummary', isuwbbDailySummary);
+app.use('/isuwbbUpdatePlayerData', isuwbbUpdatePlayerData);
+app.use('/isuwsocAdminHome', isuwsocAdminHome);
+app.use('/isuwsocDailySummary', isuwsocDailySummary);
+app.use('/isuwsocCreateWorkout', isuwsocCreateWorkout);
+app.use('/isuwsocAddAthlete', isuwsocAddAthlete);
+
 
 
 
@@ -2802,21 +2812,21 @@ app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
 
 //Home Page
 app.get('/isuwbbAdminHome', requireLogin, function(req, res, next) {
-    res.render('isuwbbAdminHome', {
+    res.render('isuwbb/isuwbbAdminHome', {
         username: req.session.user
     });
 });
 
 //Add Athlete Page
 app.get('/isuwbbAddAthlete', requireLogin, function(req, res, next) {
-    res.render('isuwbbAddAthlete', {
+    res.render('isuwbb/isuwbbAddAthlete', {
         username: req.session.user,
         message: ''});
 });
 
 //Create Workout Page
 app.get('/isuwbbCreateWorkout', requireLogin, function(req, res, next) {
-    res.render('isuwbbCreateWorkout', {
+    res.render('isuwbb/isuwbbCreateWorkout', {
         username: req.session.user,
         message: ''});
 });
@@ -2865,7 +2875,7 @@ app.get('/isuwbbDailySummary', requireLogin, function(req, res, next) {
                 var note = [];
 
 
-                res.render('isuwbbDailySummary', {
+                res.render('isuwbb/isuwbbDailySummary', {
                     username: req.session.user,
                     recent: recent_dates,
                     workout: workout,
@@ -2884,9 +2894,189 @@ app.get('/isuwbbDailySummary', requireLogin, function(req, res, next) {
 });
 
 
+//Create Workout Page
+app.get('/isuwbbUpdatePlayerData', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+
+
+        sql = "SELECT * FROM workouts " +
+            "WHERE teamID = '"+teamid[0].teamID+"' " +
+            "ORDER BY date DESC LIMIT 1;";
+
+        var recent_dates = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            recent_dates = result;
+
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
+
+
+            }
+
+
+            sql = "SELECT * FROM master.workouts " +
+                "WHERE teamID = '" + teamid[0].teamID + "' " +
+                "AND workoutid = " +
+                "(select max(workoutid) from master.workouts " +
+                "WHERE teamID = '" + teamid[0].teamID + "')  ;";
+
+
+            var workoutid = [];
+            connection.query(sql, function (err, result) {
+
+                workoutid = result;
+
+                sql = "SELECT u.first_name, u.last_name, u.username " +
+                    "FROM master.player_workouts p, master.user u " +
+                    "where p.workoutID = '" + workoutid[0].workoutid + "' AND " +
+                    "u.username = p.username;";
+
+
+                var players = [];
+                connection.query(sql, function (err, result) {
+
+                    players = result;
+
+
+                    res.render('isuwbb/isuwbbUpdatePlayerData', {
+                        username: req.session.user,
+                        recent: recent_dates,
+                        message: "",
+                        players: players
+                    });
+
+                });
+
+
+            });
+
+
+
+        });
+
+
+    });
+
+
+});
 
 
 //+++++++++++
+
+
+
+
+//++++++++ISU Women's Soccer
+
+
+//Home Page
+app.get('/isuwsocAdminHome', requireLogin, function(req, res, next) {
+    res.render('isuwsoc/isuwsocAdminHome', {
+        username: req.session.user
+    });
+});
+
+//Add Athlete Page
+app.get('/isuwsocAddAthlete', requireLogin, function(req, res, next) {
+    res.render('isuwsoc/isuwsocAddAthlete', {
+        username: req.session.user,
+        message: ''});
+});
+
+//Create Workout Page
+app.get('/isuwsocCreateWorkout', requireLogin, function(req, res, next) {
+    res.render('isuwsoc/isuwsocCreateWorkout', {
+        username: req.session.user,
+        message: ''});
+});
+
+//Daily Summary
+app.get('/isuwsocDailySummary', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+
+
+        sql = "SELECT * FROM workouts " +
+            "WHERE teamID = '"+teamid[0].teamID+"' " +
+            "ORDER BY date DESC LIMIT 10;";
+
+        var recent_dates = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            recent_dates = result;
+
+            for(var i = 0; i < recent_dates.length; i++) {
+
+                var day = recent_dates[i].date;
+
+                day = day.toISOString().split('T')[0];
+
+                recent_dates[i].date = day;
+
+                recent_dates[i].date = recent_dates[i].date + " " + recent_dates[i].time + ", " + recent_dates[i].name;
+
+
+            }
+
+
+
+            var workout = [];
+            var note = [];
+
+
+            res.render('isuwsoc/isuwsocDailySummary', {
+                username: req.session.user,
+                recent: recent_dates,
+                workout: workout,
+                note: note,
+                message: ""
+            });
+
+
+
+        });
+
+
+    });
+
+
+});
+
+
+
+
+
+
+
+
+//+++++++++++++++++++++++
 
 
 //End custom pages ***********
@@ -2972,7 +3162,12 @@ app.post('/attemptLogin', function(req, res) {
             if (result[0].privileges === "Admin") {
 
                 if (result[0].teamID === "isuwbb") {
-                    res.render('isuwbbAdminHome', {
+                    res.render('isuwbb/isuwbbAdminHome', {
+                        username: req.session.user
+                    });
+                }
+                else if (result[0].teamID === "isuwsoc") {
+                    res.render('isuwsoc/isuwsocAdminHome', {
                         username: req.session.user
                     });
                 }

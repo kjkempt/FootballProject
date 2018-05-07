@@ -78,7 +78,7 @@ router.post('/dailySum', function(req, res, next) {
 
                     note = result;
 
-                    res.render('isuwbbDailySummary', {
+                    res.render('isuwbb/isuwbbDailySummary', {
                         username: req.user,
                         workout: workout,
                         recent: recent_dates,
@@ -166,7 +166,7 @@ router.post('/playerNote', function(req, res, next) {
 
                         note = result;
 
-                        res.render('isuwbbDailySummary', {
+                        res.render('isuwbb/isuwbbDailySummary', {
                             username: req.user,
                             workout: workout,
                             recent: recent_dates,
@@ -258,7 +258,7 @@ router.post('/deleteScore', function(req, res, next) {
 
                         note = result;
 
-                        res.render('isuwbbDailySummary', {
+                        res.render('isuwbb/isuwbbDailySummary', {
                             username: req.user,
                             workout: workout,
                             recent: recent_dates,
@@ -417,7 +417,7 @@ router.post('/addScore', function(req, res, next) {
 
                                 note = result;
 
-                                res.render('isuwbbDailySummary', {
+                                res.render('isuwbb/isuwbbDailySummary', {
                                     username: req.user,
                                     workout: workout,
                                     recent: recent_dates,

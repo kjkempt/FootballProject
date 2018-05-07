@@ -228,117 +228,126 @@
 
                             <% if(workout.length > 0){%>
 
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Custom</h3>
+                                </div>
+                                <div class = "panel-body">
 
-                            <div class="row">
-
-
-                                <div class="col-sm-6" style = "border: #00B7FF; border-style: groove">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Notes to Player</h3>
-                                    </div>
-                                    <div class = "panel-body">
+                                    <div class="row" >
 
 
-
-                                        <!-- Dropdown arrow selects player and then a note is added
-                                         in for that player-->
-                                        <form name="playerNoteForm"  class = "form-group-sm" action="/isuwbbDailySummary/playerNote"
-                                              method="post" role="form" style=" display: block;">
-                                            <div class="form-group">
-                                                <input  name="workout_id" value="<%= workout[0].workoutID%>">
-                                                <br><label for="sel1">Select a player:</label>
-                                                <select class="form-control" id="playerSelect" name="player_note">
-                                                    <option disabled selected value> -- Select a player -- </option>
-                                                    <% workout.forEach(function (pselect) { %>
-                                                    <tr>
-                                                        <option value = "<%= pselect.username %>" >
-                                                            <%= pselect.last_name %>, <%= pselect.first_name%></option>
-                                                    </tr>
-                                                    <% }) %>
-                                                </select>
-                                                <h5>Player Note</h5>
-                                                <textarea class="form-control" rows="5" id="comment"
-                                                          name = "notes"></textarea>
+                                        <div class="col-sm-6 bg-info" >
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Notes to Player</h3>
                                             </div>
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </form>
-                                    </div>
-                                </div>
+                                            <div class = "panel-body">
 
 
-                                <div class="col-sm-6" style = "border: #8f0000; border-style: groove">
-                                    <div class="row" style = "border: #00B7FF; border-style: groove">
 
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Delete Score</h3>
-                                        </div>
-                                        <div class = "panel-body">
-                                            <form name="deleteScoreForm"  class = "form-inline" action="/isuwbbDailySummary/deleteScore" method="post" role="form"
-                                                  style=" display: block;">
-
-
-                                                <!-- Dropdown arrow selecting most recent workouts (10)
-                                                 Shows the RPE scores of every player plus pre and post coach
-                                                 scores and have a tab on the side that allows notes to be
-                                                 put in on a player-->
-                                                <label for="sel1">Select player:</label>
-                                                <div class="form-group">
-                                                    <select class="form-control" id="mySelect" name="delete_select">
-
-                                                        <option disabled selected value> -- select a player -- </option>
-                                                        <% for(var k = 0; k < workout.length; k++) {%>
-                                                        <tr>
-                                                            <option value = "<%= workout[k].id %>" ><%= workout[k].last_name %>, <%= workout[k].first_name %>: <%= workout[k].player_sRPE %></option>
-                                                        </tr>
-                                                        <% } %>
-                                                    </select>
-                                                    <input  name="workout_id" value="<%= workout[0].workoutID%>">
-                                                </div>
-                                                <button type="submit" class="btn btn-default">Submit</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style = "border: #00B7FF; border-style: groove">
-
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Score</h3>
-                                        </div>
-                                        <div class = "panel-body">
-                                            <form name="addScoreForm"  class = "form-inline" action="/isuwbbDailySummary/addScore" method="post" role="form"
-                                                  style=" display: block;">
-
-
-                                                <div class="form-inline">
-                                                    <label for="sel1">Select player:</label>
-                                                    <input name="un" type="text" class="form-inline" placeholder="Username">
-                                                    <select name = "playerRPE" class="form-control" id="mySelect" style="width: 20%;">
-                                                        <option disabled selected value = "rpeDefault">--sRPE--</option>
-                                                        <option value = "1">1 - Rest</option>
-                                                        <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
-                                                        <option value = "3">3 - Easy (Dynamic warm-up)</option>
-                                                        <option value = "4">4 - Moderate</option>
-                                                        <option value = "5">5 - Challenging (Can repeat, recover between reps & sets)</option>
-                                                        <option value = "6">6 - Hard</option>
-                                                        <option value = "7">7 - Very Hard - (You need to push hard, incomplete recovery between sets & reps)</option>
-                                                        <option value = "8">8 - Really Hard</option>
-                                                        <option value = "9">9 - Really, Really Hard</option>
-                                                        <option value = "10">10 - Maximal (Hardest session experienced to date)</option>
-                                                    </select>
-                                                    <input  name="workout_id" value="<%= workout[0].workoutID%>" class="form-inline">
+                                                <!-- Dropdown arrow selects player and then a note is added
+                                                 in for that player-->
+                                                <form name="playerNoteForm"  class = "form-group-sm" action="/isuwbbDailySummary/playerNote"
+                                                      method="post" role="form" style=" display: block;">
+                                                    <div class="form-group">
+                                                        <input  name="workout_id" value="<%= workout[0].workoutID%>">
+                                                        <br><label for="sel1">Select a player:</label>
+                                                        <select class="form-control" id="playerSelect" name="player_note">
+                                                            <option disabled selected value> -- Select a player -- </option>
+                                                            <% workout.forEach(function (pselect) { %>
+                                                            <tr>
+                                                                <option value = "<%= pselect.username %>" >
+                                                                    <%= pselect.last_name %>, <%= pselect.first_name%></option>
+                                                            </tr>
+                                                            <% }) %>
+                                                        </select>
+                                                        <h5>Player Note</h5>
+                                                        <textarea class="form-control" rows="5" id="comment"
+                                                                  name = "notes"></textarea>
+                                                    </div>
                                                     <button type="submit" class="btn btn-default">Submit</button>
-                                                </div>
-
-                                            </form>
-
+                                                </form>
+                                            </div>
                                         </div>
+
+
+                                        <div class="col-sm-6 bg-danger" >
+                                            <div class="row align-items-center" >
+
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Delete Score</h3>
+                                                </div>
+                                                <div class = "panel-body">
+                                                    <form name="deleteScoreForm"  class = "form-inline" action="/isuwbbDailySummary/deleteScore" method="post" role="form"
+                                                          style=" display: block;">
+
+
+                                                        <!-- Dropdown arrow selecting most recent workouts (10)
+                                                         Shows the RPE scores of every player plus pre and post coach
+                                                         scores and have a tab on the side that allows notes to be
+                                                         put in on a player-->
+                                                        <label for="sel1">Select player:</label>
+                                                        <div class="form-group">
+                                                            <select class="form-control" id="mySelect" name="delete_select">
+
+                                                                <option disabled selected value> -- select a player -- </option>
+                                                                <% for(var k = 0; k < workout.length; k++) {%>
+                                                                <tr>
+                                                                    <option value = "<%= workout[k].id %>" ><%= workout[k].last_name %>, <%= workout[k].first_name %>: <%= workout[k].player_sRPE %></option>
+                                                                </tr>
+                                                                <% } %>
+                                                            </select>
+                                                            <input  name="workout_id" value="<%= workout[0].workoutID%>">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default">Submit</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row align-items-center bg-success">
+
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Add Score</h3>
+                                                </div>
+                                                <div class = "panel-body">
+                                                    <form name="addScoreForm"  class = "form-inline" action="/isuwbbDailySummary/addScore" method="post" role="form"
+                                                          style=" display: block;">
+
+
+                                                        <div class="form-inline">
+                                                            <label for="sel1">Select player:</label>
+                                                            <input name="un" type="text" class="form-inline" placeholder="Username">
+                                                            <select name = "playerRPE" class="form-control" id="mySelect" style="width: 20%;">
+                                                                <option disabled selected value = "rpeDefault">--sRPE--</option>
+                                                                <option value = "1">1 - Rest</option>
+                                                                <option value = "2">2 - Really Easy (Walk-thru pace/stretchig/mobility exercises)</option>
+                                                                <option value = "3">3 - Easy (Dynamic warm-up)</option>
+                                                                <option value = "4">4 - Moderate</option>
+                                                                <option value = "5">5 - Challenging (Can repeat, recover between reps & sets)</option>
+                                                                <option value = "6">6 - Hard</option>
+                                                                <option value = "7">7 - Very Hard - (You need to push hard, incomplete recovery between sets & reps)</option>
+                                                                <option value = "8">8 - Really Hard</option>
+                                                                <option value = "9">9 - Really, Really Hard</option>
+                                                                <option value = "10">10 - Maximal (Hardest session experienced to date)</option>
+                                                            </select>
+                                                            <input  name="workout_id" value="<%= workout[0].workoutID%>" class="form-inline">
+                                                            <button type="submit" class="btn btn-default">Submit</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
-
-
 
                             </div>
+
                             <%}%>
 
                         </div>

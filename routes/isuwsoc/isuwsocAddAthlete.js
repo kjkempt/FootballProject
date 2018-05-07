@@ -32,7 +32,7 @@ router.post('/addPerson', function(req, res, next) {
         connection.query(sql, function (err, result) {
             if (result.length > 0) {
                 message = "Error. Username already taken";
-                res.render('adminAddAthlete', {
+                res.render('isuwsoc/isuwsocAddAthlete', {
                     username: req.session.user,
                     message: message
                 });
@@ -56,7 +56,7 @@ router.post('/addPerson', function(req, res, next) {
         connection.query(sql, function (err, result) {
             if (err) throw err;
 
-            res.render('isuwbbAddAthlete', {
+            res.render('isuwsoc/isuwsocAddAthlete', {
                 username: req.session.user,
                 message: "Addition Successful"
             });
