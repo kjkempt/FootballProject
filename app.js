@@ -56,6 +56,7 @@ var isuwsocAdminHome = require('./routes/isuwsoc/isuwsocAdminHome');
 var isuwsocAddAthlete = require('./routes/isuwsoc/isuwsocAddAthlete');
 var isuwsocCreateWorkout = require('./routes/isuwsoc/isuwsocCreateWorkout');
 var isuwsocDailySummary = require('./routes/isuwsoc/isuwsocDailySummary');
+var isuwsocWeeklySummary = require('./routes/isuwsoc/isuwsocWeeklySummary');
 
 
 
@@ -176,6 +177,7 @@ app.use('/isuwsocAdminHome', isuwsocAdminHome);
 app.use('/isuwsocDailySummary', isuwsocDailySummary);
 app.use('/isuwsocCreateWorkout', isuwsocCreateWorkout);
 app.use('/isuwsocAddAthlete', isuwsocAddAthlete);
+app.use('/isuwsocWeeklySummary', isuwsocWeeklySummary);
 
 
 
@@ -3068,6 +3070,70 @@ app.get('/isuwsocDailySummary', requireLogin, function(req, res, next) {
 
 
 });
+
+//Weekly Summary
+app.get('/isuwsocWeeklySummary', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+
+        sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.workouts m " +
+            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
+            "ORDER BY date desc limit 10;";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+
+            var player_week_data = [];
+            var workouts = [];
+            res.render('isuwsoc/isuwsocWeeklySummary', {
+                username: req.user,
+                player_week_data: player_week_data,
+                workouts: workouts,
+                week_set: week_set,
+
+                message: ""
+            });
+
+
+        });
+
+
+    });
+
+
+
+});
+
 
 
 
