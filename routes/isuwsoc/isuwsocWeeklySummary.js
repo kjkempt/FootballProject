@@ -102,16 +102,40 @@ router.post('/selectWeek', function(req, res, next) {
 
 
 
+                    sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
+                        "(weekofyear('" + req.body.week_select + "') - weekofyear(m.date) + 1) as weekcount  " +
+                        "FROM master.user u, master.player_workouts w, master.workouts m " +
+                        "WHERE u.username = w.username " +
+                        "AND w.teamID = '"+teamid[0].teamID+"' " +
+                        "AND u.teamID = '"+teamid[0].teamID+"' " +
+                        "AND m.teamID = '"+teamid[0].teamID+"' " +
+                        "AND w.workoutID = m.workoutid " +
+                        "AND m.date " +
+                        "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                        "GROUP BY u.username;";
+
+                    var player_chronic = [];
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
 
 
-                   res.render('isuwsoc/isuwsocWeeklySummary', {
-                        username: req.user,
-                        player_week_data: player_week_data,
-                        workouts: workouts,
-                        week_set: week_set
+                        player_chronic = result;
+
+
+
+
+
+                        res.render('isuwsoc/isuwsocWeeklySummary', {
+                            username: req.user,
+                            player_week_data: player_week_data,
+                            workouts: workouts,
+                            week_set: week_set,
+                            player_chronic: player_chronic
+                        });
+
+
                     });
-
-
 
 
                 });
