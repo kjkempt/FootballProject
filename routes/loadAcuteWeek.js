@@ -82,12 +82,27 @@ console.log(req.body.players.length);
                     });
 
                 }
+                sql = "SELECT * from master.user " +
+                    "where teamID = '"+teamid[0].teamID+"' " +
+                    "and privileges = 'Player'" +
+                    "ORDER BY last_name;";
 
-                res.render('loadAcuteWeek', {
-                    username: req.user,
-                    message: 'Submission successful'
+                var players = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+                    players = result;
+
+
+
+
+
+                    res.render('loadAcuteWeek', {
+                        username: req.session.user,
+                        players: players,
+                        message: "Load Successful"
+                    });
                 });
-
             });
         });
 
