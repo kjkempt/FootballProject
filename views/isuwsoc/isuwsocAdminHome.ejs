@@ -112,12 +112,36 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
 
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Current Data</h3>
+                                        </div>
 
+                                        <div class = "panel-body">
+
+                                            <table id="current_players" class="display nowrap" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>Last Name</th>
+                                                    <th>First Name</th>
+                                                    <th>Chronic Load</th>
+                                                </tr>
+
+                                                </thead>
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
                                 </div>
+
+
+
                             </div>
 
                         </div>
@@ -135,6 +159,21 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+<!--  Datatable script -->
+<script>
+    var $ = jQuery;
+    $(document).ready(function() {
+        $('#current_players').DataTable({
+            "scrollX": true
+        });
+    } );
+
+
+
+
+</script>
 
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>

@@ -57,6 +57,7 @@ var isuwsocAddAthlete = require('./routes/isuwsoc/isuwsocAddAthlete');
 var isuwsocCreateWorkout = require('./routes/isuwsoc/isuwsocCreateWorkout');
 var isuwsocDailySummary = require('./routes/isuwsoc/isuwsocDailySummary');
 var isuwsocWeeklySummary = require('./routes/isuwsoc/isuwsocWeeklySummary');
+var loadAcuteWeek = require('./routes/loadAcuteWeek');
 
 
 
@@ -178,6 +179,8 @@ app.use('/isuwsocDailySummary', isuwsocDailySummary);
 app.use('/isuwsocCreateWorkout', isuwsocCreateWorkout);
 app.use('/isuwsocAddAthlete', isuwsocAddAthlete);
 app.use('/isuwsocWeeklySummary', isuwsocWeeklySummary);
+app.use('/loadAcuteWeek', loadAcuteWeek);
+
 
 
 
@@ -1863,6 +1866,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 var date = s[0].sunday;
 
                 date = date.toISOString().split('T')[0];
+                console.log(date);
 
 
                 //for Chronic load
@@ -2801,6 +2805,44 @@ app.get('/adminDeleteAthlete', requireLogin, function(req, res, next) {
 
     });
 });
+
+
+app.get('/loadAcuteWeek', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "SELECT * from master.user " +
+            "where teamID = '"+teamid[0].teamID+"' " +
+            "and privileges = 'Player'" +
+            "ORDER BY last_name;";
+
+        var players = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            players = result;
+
+
+
+
+
+            res.render('loadAcuteWeek', {
+                username: req.session.user,
+                players: players,
+                message: ""
+            });
+        });
+
+    });
+});
+
 
 
 

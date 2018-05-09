@@ -162,10 +162,21 @@ Individual week summary table
                                 <tbody>
                                 <%
                                 var cur_username = "c";
-                                var chronic_loop = -1;
                                 for(var i = 0; i < player_week_data.length; i++){
                                 cur_username = player_week_data[i].username;
-                                chronic_loop = chronic_loop + 1;
+
+                                var chronic_load = 0;
+
+                                for(var k = 0; k < player_chronic.length; k++)
+                                {
+                                    console.log(cur_username);
+                                    console.log(player_chronic[k].username);
+                                    if(cur_username === player_chronic[k].username)
+                                    {
+                                        chronic_load = Math.round(player_chronic[k].chronicSum / 4)
+                                    }
+                                }
+
 
 
                                 %>
@@ -201,7 +212,6 @@ Individual week summary table
                                                 }
                                             }
 
-                                            console.log(loop);
 
                                         }while(loop === 1);
 
@@ -209,7 +219,7 @@ Individual week summary table
                                     <td><%=averageRPE%>  </td>
                                     <td><%= acuteDuration%>  </td>
                                     <td><%= acuteLoad%>  </td>
-                                    <td><%= Math.round(player_chronic[chronic_loop].chronicSum / 4)%></td>
+                                    <td><%= chronic_load%></td>
 
 
 
