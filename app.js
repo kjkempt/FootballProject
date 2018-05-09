@@ -1679,8 +1679,8 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
         teamid = result;
 
 
-        var week_data = [];
-        var chronic = [];
+        var player_week_data = [];
+        var player_chronic = [];
         sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
             "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
             "FROM master.workouts m " +
@@ -1719,10 +1719,12 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
             var cdg = [];
             var chronic_team_previous = [];
             var chronic_position_previous = [];
+            var workouts = [];
             res.render('weeklySummary', {
                 username: req.user,
-                week_data: week_data,
-                chronic_week: chronic,
+                player_week_data: player_week_data,
+                player_chronic: player_chronic,
+                workouts: workouts,
                 week_set: week_set,
                 pos_week_data: pos_week_data,
                 team_week_data: team_week_data,

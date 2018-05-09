@@ -83,7 +83,7 @@ console.log(req.body.players.length);
 
                 }
 
-                res.render('workoutManager', {
+                res.render('loadAcuteWeek', {
                     username: req.user,
                     message: 'Submission successful'
                 });

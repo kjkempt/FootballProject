@@ -40,12 +40,12 @@ router.post('/selectWeek', function(req, res, next) {
 
 
 
-        var week_data = [];
+        var player_week_data = [];
         connection.query(sql, function (err, result) {
             if (err) throw err;
 
 
-            week_data = result;
+            player_week_data = result;
 
             sql = "SELECT DATE_SUB('" + req.body.week_select + "', INTERVAL 7 DAY) as date;";
 
@@ -76,12 +76,12 @@ router.post('/selectWeek', function(req, res, next) {
                     "BETWEEN '" + prev_week[0].date + "'- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                     "GROUP BY u.username;";
 
-                var chronic = [];
+                var player_chronic = [];
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
 
 
-                    chronic = result;
+                    player_chronic = result;
 
 
                     sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
@@ -348,21 +348,42 @@ router.post('/selectWeek', function(req, res, next) {
                                                                 }
 
 
-                                                                res.render('weeklySummary', {
-                                                                    username: req.user,
-                                                                    week_data: week_data,
-                                                                    chronic_week: chronic,
-                                                                    week_set: week_set,
-                                                                    pos_week_data: pos_week_data,
-                                                                    team_week_data: team_week_data,
-                                                                    chronic_position: chronic_position,
-                                                                    chronic_team: chronic_team,
-                                                                    acute_position: acute_position,
-                                                                    acute_team: acute_team,
-                                                                    cdg: cdg,
-                                                                    adg: adg,
-                                                                    chronic_position_previous: chronic_position_previous,
-                                                                    chronic_team_previous: chronic_team_previous
+
+
+                                                                sql = "SELECT * " +
+                                                                    "FROM  master.workouts " +
+                                                                    "WHERE teamID = '" + teamid[0].teamID + "' " +
+                                                                    "AND date " +
+                                                                    "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                                                                    " '" + req.body.week_select + "' " +
+                                                                    " ;";
+
+                                                                var workouts = [];
+                                                                connection.query(sql, function (err, result) {
+                                                                    if (err) throw err;
+
+
+                                                                    workouts = result;
+
+
+                                                                    res.render('weeklySummary', {
+                                                                        username: req.user,
+                                                                        player_week_data: player_week_data,
+                                                                        player_chronic: player_chronic,
+                                                                        workouts: workouts,
+                                                                        week_set: week_set,
+                                                                        pos_week_data: pos_week_data,
+                                                                        team_week_data: team_week_data,
+                                                                        chronic_position: chronic_position,
+                                                                        chronic_team: chronic_team,
+                                                                        acute_position: acute_position,
+                                                                        acute_team: acute_team,
+                                                                        cdg: cdg,
+                                                                        adg: adg,
+                                                                        chronic_position_previous: chronic_position_previous,
+                                                                        chronic_team_previous: chronic_team_previous
+                                                                    });
+
                                                                 });
 
                                                             });
