@@ -58,7 +58,7 @@ var isuwsocCreateWorkout = require('./routes/isuwsoc/isuwsocCreateWorkout');
 var isuwsocDailySummary = require('./routes/isuwsoc/isuwsocDailySummary');
 var isuwsocWeeklySummary = require('./routes/isuwsoc/isuwsocWeeklySummary');
 var loadAcuteWeek = require('./routes/loadAcuteWeek');
-
+var archives = require('./routes/archives');
 
 
 
@@ -180,6 +180,7 @@ app.use('/isuwsocCreateWorkout', isuwsocCreateWorkout);
 app.use('/isuwsocAddAthlete', isuwsocAddAthlete);
 app.use('/isuwsocWeeklySummary', isuwsocWeeklySummary);
 app.use('/loadAcuteWeek', loadAcuteWeek);
+app.use('/archives', archives);
 
 
 
@@ -2844,6 +2845,87 @@ app.get('/loadAcuteWeek', requireLogin, function(req, res, next) {
 
     });
 });
+
+app.get('/archives', requireLogin, function(req, res, next) {
+
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
+
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        var player_week_data = [];
+        var player_chronic = [];
+        sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
+            "FROM master.workouts m " +
+            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
+            "ORDER BY date desc limit 10;";
+
+
+        var week_set = [];
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+
+            week_set = result;
+
+
+            for (var i = 0; i < week_set.length; i++) {
+                var sun = week_set[i].sunday;
+
+                sun = sun.toISOString().split('T')[0];
+
+                var sat = week_set[i].saturday;
+
+                sat = sat.toISOString().split('T')[0];
+
+                week_set[i].sunday = sun;
+                week_set[i].saturday = sat;
+
+            }
+
+            var team_week_data = [];
+            var chronic_position = [];
+            var pos_week_data = [];
+            var chronic_team = [];
+            var acute_position = [];
+            var acute_team = [];
+            var adg = [];
+            var cdg = [];
+            var chronic_team_previous = [];
+            var chronic_position_previous = [];
+            var workouts = [];
+            res.render('archives', {
+                username: req.user,
+                player_week_data: player_week_data,
+                player_chronic: player_chronic,
+                workouts: workouts,
+                week_set: week_set,
+                pos_week_data: pos_week_data,
+                team_week_data: team_week_data,
+                chronic_position: chronic_position,
+                chronic_team: chronic_team,
+                acute_position: acute_position,
+                acute_team: acute_team,
+                adg: adg,
+                cdg: cdg,
+                chronic_team_previous: chronic_team_previous,
+                chronic_position_previous: chronic_position_previous
+            });
+
+
+        });
+
+
+    });
+
+
+
+});
+
 
 
 

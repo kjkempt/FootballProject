@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Archives</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- Datatables CSS and JS links  -->
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.css"/>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/adminHome">Admin Portal</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=username%><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/changePassword"><i class="fa fa-fw fa-lock"></i> Password</a>
+                    </li>
+                    <li>
+                        <a href="/adminSettings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse" >
+            <ul class="nav navbar-nav side-nav" >
+                <li>
+                    <a href="/coachDashboard"><i class="glyphicon  glyphicon-tasks"></i> Current RPE Data</a>
+                </li>
+                <li>
+                    <a href="/adminDailySummary"><i class="glyphicon glyphicon-tasks"></i> Daily RPE Summary</a>
+                </li>
+                <li>
+                    <a href="/weeklySummary"><i class="glyphicon glyphicon-tasks"></i> Weekly RPE Summary</a>
+                </li>
+                <li>
+                    <a href="/adminGroupControl"><i class="glyphicon glyphicon-tasks"></i> RPE Group Control</a>
+                </li>
+                <li>
+                    <a href="/workoutManager"><i class="glyphicon glyphicon-plus-sign"></i> Create RPE Workout</a>
+                </li>
+                <li>
+                    <a href="/updateWorkout"><i class="glyphicon glyphicon-edit"></i> Update RPE Workout</a>
+                </li>
+                <li>
+                    <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Member</a>
+                </li>
+                <li>
+                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                </li>
+                <li>
+                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                </li>
+                <li>
+                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
+                </li>
+                <li>
+                    <a href="/adminCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Weekly Summary</h3>
+                        </div>
+                        <div class = "panel-body">
+                            <%
+                            var dayofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                            %>
+
+                            <form name="weekSelectForm"  class = "form-inline" action="/archives/selectWeek" method="post" role="form"
+                                  style=" display: block;">
+
+
+
+
+                                <div class="nativeDatePicker">
+                                    <label for="bday">Enter your birthday:</label>
+                                    <input type="date" id="bday" name="bday">
+                                    <span class="validity"></span>
+                                </div>
+
+
+                            </form>
+
+
+
+                            <table id="individual_week" class="display nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2">Last Name</th>
+                                    <th rowspan="2">First Name</th>
+                                    <th colspan="5">Total</th>
+
+                                    <%  for(var i = 0; i < workouts.length; i++){    %>
+                                    <th colspan="3"><%= workouts[i].name%></th>
+                                    <%  } %>
+
+                                </tr>
+                                <tr>
+                                    <th>Avg RPE</th>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
+                                    <%  for(var i = 0; i < workouts.length; i++){    %>
+                                    <th> RPE </th>
+                                    <th>Duration</th>
+                                    <th>Load</th>
+                                    <%  } %>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                var cur_username = "c";
+                                for(var i = 0; i < player_week_data.length; i++){
+                                    cur_username = player_week_data[i].username;
+
+                                    var chronic_load = 0;
+
+                                    for(var k = 0; k < player_chronic.length; k++)
+                                    {
+
+                                        if(cur_username === player_chronic[k].username)
+                                        {
+                                            chronic_load = Math.round(player_chronic[k].chronicSum / 4)
+                                        }
+                                    }
+
+
+
+                                %>
+                                <tr>
+                                    <td><%= player_week_data[i].last_name%>  </td>
+                                    <td><%= player_week_data[i].first_name%>  </td>
+
+                                    <% //Use this section to go ahead and collect all of the players
+                                        //week data to come up with acute load, duration, average RPE
+                                        //instead of making another call
+                                        var acuteLoad = 0;
+                                        var acuteDuration = 0;
+                                        var averageRPE = 0;
+                                        var loop;
+                                        var iteration = i;
+                                        do{
+                                            console.log(iteration);
+                                            console.log(player_week_data.length);
+                                            console.log(player_week_data[iteration].player_sRPE);
+                                            console.log(player_week_data[iteration].username);
+                                            averageRPE = averageRPE + player_week_data[iteration].player_sRPE;
+                                            acuteDuration = acuteDuration + player_week_data[iteration].duration
+                                            acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].duration);
+                                            iteration = iteration + 1;
+                                            if(iteration != player_week_data.length)
+                                            {
+                                                if(player_week_data[iteration].username != cur_username)
+                                                {
+                                                    loop = 0;
+
+                                                }
+                                                else
+                                                {
+                                                    loop = 1;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                loop = 0;
+                                            }
+
+
+                                        }while(loop === 1);
+
+
+
+                                        var loadPercentage = (acuteLoad / chronic_load) * 100;
+                                        loadPercentage = Math.round(loadPercentage * 10)/10; //nearest tenth
+                                    %>
+
+
+
+                                    <td><%=averageRPE%>  </td>
+                                    <td><%= acuteDuration%>  </td>
+                                    <td><%= acuteLoad%>  </td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= loadPercentage%>%</td>
+
+
+
+
+
+                                    <%  for(var j = 0; j < workouts.length; j++){
+
+
+                                    if(workouts[j].date.getTime() === player_week_data[i].date.getTime() &&
+                                            workouts[j].time === player_week_data[i].time)
+                                    {
+                                    %>
+                                    <td><%= player_week_data[i].player_sRPE%>  </td>
+                                    <td><%= player_week_data[i].duration%>  </td>
+                                    <td><%= (player_week_data[i].player_sRPE * player_week_data[i].duration)%>  </td>
+
+
+                                    <%
+                                        if(i + 1 != player_week_data.length)
+                                        {
+                                            if(cur_username === player_week_data[i + 1].username)
+                                            {
+                                                i++;
+                                            }
+                                        }
+
+
+                                    }
+                                    else{ %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% } %>
+
+
+                                    <%  }
+
+                                    %>
+
+                                </tr>
+                                <%
+
+                                }
+
+
+
+
+
+                                %>
+
+
+
+                                </tbody>
+                            </table>
+
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready(function() {
+                                    $('#individual_week').DataTable({
+                                        "scrollX": true
+                                    });
+                                } );
+
+                            </script>
+
+                            <br><br>
+
+
+                            <table id="team_week" class="display nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th><p class="-bold">SUNDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">SUNDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">MONDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">MONDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">TUESDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">TUESDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">WEDNESDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">WEDNESDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">THURSDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">THURSDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">FRIDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">FRIDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">SATURDAY AM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">SATURDAY PM:</p> sRPE</th>
+                                    <th>Dur.</th>
+                                    <th>Load</th>
+                                    <th><p class="-bold">TOTAL:</p> sRPE AVG</th>
+                                    <th>Acute Duration (min.)</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <% if(pos_week_data.length > 0) {
+                                    var m = 0;
+                                        while(m < pos_week_data.length){
+
+
+                                    var posAcuteLoad= 0;
+                                    var pos_load_percentage = 0;
+                                    var pos_acuteDuration = 0;
+                                    var pos_rpeAVG = 0;
+                                    var pos_avg = 0;
+                                    var pos_chronic_load = 0;
+                                    var pcl = 0;
+                                    var pcount = 0;
+
+                                %>
+
+                                <tr>
+                                    <td><%= pos_week_data[m].position %></td>
+                                    <% var temp2 = pos_week_data[m].position;  %>
+
+
+                                    <%
+                                        var pos_count = 0;
+                                        for(var c = 0; c < chronic_position.length; c++) {
+                                            if (chronic_position[c].position == pos_week_data[m].position) {
+                                                pos_chronic_load = pos_chronic_load + chronic_position[c].chronicSum;
+                                                pos_count++;
+                                            }
+                                        }
+                                        for(var e = 0; e < chronic_position_previous.length; e++)
+                                        {
+                                            if (chronic_position_previous[e].position == pos_week_data[m].position) {
+                                                pcl = pcl + chronic_position_previous[e].chronicSum;
+                                                pcount++;
+                                            }
+                                        }
+                                        pos_chronic_load = pos_chronic_load / pos_count;
+                                        pcl = pcl / pcount;
+                                        pos_chronic_load = Math.round(pos_chronic_load);
+
+
+
+
+
+
+
+                                        var pos_count_acute = 0;
+                                        for(var f = 0; f < acute_position.length; f++)
+                                        {
+                                            if(acute_position[f].position == pos_week_data[m].position)
+                                            {
+                                                posAcuteLoad = posAcuteLoad + acute_position[f].chronicSum;
+                                                pos_count_acute++;
+                                            }
+                                        }
+
+                                        posAcuteLoad = posAcuteLoad / pos_count_acute;
+                                        posAcuteLoad = Math.round(posAcuteLoad);
+
+                                    %>
+
+
+                                    <%
+
+                                    if(pos_week_data[m].indexday == 1 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+
+                                        m = m + 1;
+
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+                                    <% break; }
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+                                    <% if(pos_week_data[m].indexday == 1 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+                                    <% break; }
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+
+                                    <% if(pos_week_data[m].indexday == 2 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                        console.log(m);
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 2 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 3 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 3 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 4 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 4 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <%  if(pos_week_data[m].indexday == 5 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <%  if(pos_week_data[m].indexday == 5 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <%  if(pos_week_data[m].indexday == 6 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(pos_week_data[m].indexday == 6 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(pos_week_data[m].indexday == 7 && pos_week_data[m].time == "AM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    {
+                                    %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <%
+                                        pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break; }
+
+
+                                    }
+                                    else{
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(pos_week_data[m].indexday == 7 && pos_week_data[m].time == "PM" &&
+                                            pos_week_data[m].position == temp2){
+                                        pos_rpeAVG = pos_rpeAVG + pos_week_data[m].pavg;
+                                        pos_avg++;
+                                        pos_acuteDuration = pos_acuteDuration + pos_week_data[m].duration;
+                                    %>
+
+                                    <td><%= pos_week_data[m].pavg %></td>
+                                    <td> <%= pos_week_data[m].duration %> </td>
+                                    <td><%= (pos_week_data[m].pavg * pos_week_data[m].duration ) %></td>
+                                    <%
+                                        m = m+1;
+                                    if(m == pos_week_data.length)
+                                    {
+                                        pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+                                    <% break; }
+
+
+                                    }
+                                    else{
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <%
+                                        pos_rpeAVG = pos_rpeAVG / pos_avg;
+                                        pos_rpeAVG = Math.round(pos_rpeAVG * 10)/10; //nearest tenth
+
+                                        pos_load_percentage = (posAcuteLoad / pcl) * 100;
+                                        pos_load_percentage = Math.round(pos_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= pos_rpeAVG%></td>
+                                    <td><%= pos_acuteDuration%></td>
+                                    <td><%= posAcuteLoad%></td>
+                                    <td><%= Math.round(pcl)%></td>
+                                    <td><%= pos_load_percentage%>%</td>
+
+
+
+
+                                </tr>
+
+
+
+
+
+
+
+
+                                <% } %>
+                                <% } %>
+
+
+
+
+
+
+                                <% if(team_week_data.length > 0) {
+
+                                    var mm = 0;
+
+
+
+                                        while(mm < team_week_data.length){
+
+
+                                    var teamAcuteLoad= 0;
+                                    var team_load_percentage = 0;
+                                    var team_acuteDuration = 0;
+                                    var team_rpeAVG = 0;
+                                    var team_avg = 0;
+                                    var team_chronic_load = 0;
+                                    var tcl = 0;
+
+                                %>
+
+                                <tr>
+                                    <td>+ Team</td>
+
+
+
+                                    <%
+                                        for(var d = 0; d < chronic_team.length; d++)
+                                        {
+
+                                            team_chronic_load = team_chronic_load + chronic_team[d].chronicSum;
+
+                                        }
+                                        for(var q = 0; q < chronic_team_previous.length; q++)
+                                        {
+
+                                            tcl = tcl + chronic_team_previous[q].chronicSum;
+
+                                        }
+
+                                        tcl = tcl / chronic_team_previous.length;
+                                        team_chronic_load = team_chronic_load / chronic_team.length;
+                                        team_chronic_load = Math.round(team_chronic_load);
+
+
+
+
+                                        for(var g = 0; g < acute_team.length; g++)
+                                        {
+                                            teamAcuteLoad = teamAcuteLoad + acute_team[g].chronicSum;
+                                        }
+
+                                        teamAcuteLoad = teamAcuteLoad / acute_team.length;
+                                        teamAcuteLoad = Math.round(teamAcuteLoad);
+
+
+                                    %>
+
+
+                                    <% if(team_week_data[mm].indexday == 1 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(m == team_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+                                    <% break; }
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+                                    <% if(team_week_data[mm].indexday == 1 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+                                    <% break; }
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 2 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 2 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 3 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(team_week_data[mm].indexday == 3 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 4 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 4 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <% if(team_week_data[mm].indexday == 5 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+
+                                    <% if(team_week_data[mm].indexday == 5 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <% if(team_week_data[mm].indexday == 6 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <% if(team_week_data[mm].indexday == 6 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break;}
+
+
+                                    }
+                                    else{ %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(team_week_data[mm].indexday == 7 && team_week_data[mm].time == "AM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm+1;
+                                    if(mm == team_week_data.length)
+                                    { %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break; }
+
+
+                                    }
+                                    else{
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+
+                                    <% if(team_week_data[mm].indexday == 7 && team_week_data[mm].time == "PM"){
+                                        team_rpeAVG = team_rpeAVG + team_week_data[mm].pavg;
+                                        team_avg++;
+                                        team_acuteDuration = team_acuteDuration + team_week_data[mm].duration;
+                                    %>
+
+                                    <td><%= team_week_data[mm].pavg %></td>
+                                    <td> <%= team_week_data[mm].duration %> </td>
+                                    <td><%= (team_week_data[mm].pavg * team_week_data[mm].duration ) %></td>
+                                    <%
+                                        mm = mm + 1;
+                                    if(mm == team_week_data.length)
+                                    {
+                                        team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+                                    <% break; }
+
+
+                                    }
+                                    else{
+                                    %>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <% } %>
+
+
+                                    <% team_rpeAVG = team_rpeAVG / team_avg;
+                                        team_rpeAVG = Math.round(team_rpeAVG * 10)/10; //nearest tenth
+                                        team_load_percentage = (teamAcuteLoad / tcl) * 100;
+                                        team_load_percentage = Math.round(team_load_percentage * 10)/10; //nearest tenth
+                                    %>
+
+                                    <td><%= team_rpeAVG%></td>
+                                    <td><%= team_acuteDuration%></td>
+                                    <td><%= teamAcuteLoad%></td>
+                                    <td><%= Math.round(tcl)%></td>
+                                    <td><%= team_load_percentage%>%</td>
+
+
+
+                                </tr>
+
+
+
+
+
+
+
+
+                                <% } %>
+                                <% } %>
+
+
+                                <%if(cdg.length > 0){
+
+                                for(var t = 0; t < cdg.length; t++)
+                                {
+                                %>
+                                <tr>
+                                    <td>- <%= cdg[t].group_chronic%></td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <%
+                                        var groupCL = cdg[t].chronicSum;
+                                        groupCL = groupCL / cdg[t].playerCount;
+                                        var groupAL = 0;
+                                        if(adg.length > 0) {
+                                            for(var w = 0; w < adg.length; w++) {
+                                                if(adg[w].group_chronic == cdg[t].group_chronic) {
+                                                    groupAL = adg[t].chronicSum;
+                                                    groupAL = groupAL / adg[t].playerCount;
+                                                }
+                                            }
+
+                                        }
+                                        groupLP = (groupAL / groupCL) * 100;
+                                        groupLP = Math.round(groupLP * 10)/10; //nearest tenth
+                                        groupCL = Math.round(groupCL);
+                                        groupAL = Math.round(groupAL);
+                                    %>
+                                    <td><%= groupAL%></td>
+                                    <td><%= groupCL%></td>
+                                    <td><%= groupLP%>%</td>
+
+                                </tr>
+
+
+                                <%
+                                }
+
+                                }%>
+
+
+
+                                </tbody>
+                            </table>
+
+
+                            <br><br>
+
+                            <%
+                            var cl = 0;
+                            for(var n = 0; n < chronic_team.length; n++)
+                            {
+
+                                cl = cl + chronic_team[n].chronicSum;
+
+                            }
+
+                            cl = cl / chronic_team.length;
+                            cl = Math.round(cl);
+
+                            %>
+
+                            <h3>Team Chronic Load of the Week <span class="label label-default"><%= cl %></span></h3>
+
+
+
+                            <script>
+                                var $ = jQuery;
+                                $(document).ready( function () {
+                                    $('#team_week').DataTable({
+                                        responsive: true,
+                                        "scrollX": true,
+                                        colReorder: {
+                                            order: [  0, 43, 44, 45, 46, 47, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                                                16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+                                                37, 38, 39, 40, 41, 42]
+                                        }
+
+                                    });
+
+
+                                } );
+
+
+                            </script>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../js/plugins/morris/raphael.min.js"></script>
+<script src="../js/plugins/morris/morris.min.js"></script>
+<script src="../js/plugins/morris/morris-data.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.js"></script>
+
+
+</body>
+
+</html>
