@@ -1,10 +1,10 @@
 /**
- * Created by kemptk on 6/21/17.
+ * Created by kemptk on 6/20/17.
  */
 
 var express = require('express');
 var router = express.Router();
-var app = require('../app.js');
+var app = require('../../app.js');
 
 
 /* GET home page. */
@@ -22,6 +22,5 @@ var connection = mysql.createConnection({
     password : 'HNuxJSEjqXUS!auk-eRV6CG8+!^JJAt2M?-Lc4y#+',
     database : 'master'
 });
-
 
 

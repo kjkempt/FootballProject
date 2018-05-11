@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var app = require('../app.js');
+var app = require('../../app.js');
 
 
 /* GET home page. */
@@ -25,10 +25,50 @@ var connection = mysql.createConnection({
 
 
 
+var nodemailer = require('nodemailer');
 
 
 
 router.post('/register', function(req, res, next) {
+
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'teamexertuservice@gmail.com',
+            pass: '7qK-744-z9w-kRY'
+        }
+    });
+
+    var mailOptions = {
+        from: 'teamexertuservice@gmail.com',
+        to: 'kyle.kempt@gmail.com',
+        subject: 'Welcome to TeamExert U',
+        text: '' + req.body.first_name + ', ' +
+        'Thank you for signing up and if you have any questions or technical concerns, please ' +
+        'use this email to contact our technician. If you have questions regarding customization ' +
+        'and would like to set up a meeting with him, contact his email at kyle.kempt@gmail.com. Thank you' +
+        'again for signing up with us and we hope to make this experience as benefical and useful to your team' +
+        'as possible! ' +
+        '' +
+        'TeamExert U'
+    };
+
+
+
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
+    res.send("Gmail");
+
+
+    /*
 
     var sql = "SELECT teamID from master.user where teamID = '" + req.body.teamid + "';";
 
@@ -51,7 +91,7 @@ router.post('/register', function(req, res, next) {
         connection.query(sql, function (err, result) {
             if (result.length > 0) {
                 message = "Error. Username already taken";
-                res.render('universityRegister', {
+                res.render('home/universityRegister', {
                     message: message
                 });
             }
@@ -67,14 +107,14 @@ router.post('/register', function(req, res, next) {
         connection.query(sql, function (err, result) {
             if (err) throw err;
 
-            res.render('universeRegister', {
+            res.render('home/universeRegister', {
             });
         });
 
 
 
 
-
+*/
 
 
 

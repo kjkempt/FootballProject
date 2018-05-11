@@ -24,9 +24,9 @@ var coachHome = require('./routes/coachHome');
 var coachRecentData = require('./routes/coachRecentData');
 var adminAddAthlete = require('./routes/adminAddAthlete');
 var coachWeeklySummary = require('./routes/coachWeeklySummary');
-var universeHome = require('./routes/universeHome');
-var universeRegister = require('./routes/universeRegister');
-var universeThanks = require('./routes/universeThanks');
+var universeHome = require('./routes/home/universeHome');
+var universeRegister = require('./routes/home/universeRegister');
+var universeThanks = require('./routes/home/universeThanks');
 var changePassword = require('./routes/changePassword');
 var nutritionHome = require('./routes/nutritionHome');
 var nutritionCreateSession = require('./routes/nutritionCreateSession');
@@ -186,26 +186,34 @@ app.use('/archives', archives);
 
 
 
-//***Universe Pages
+//***Home Pages
 
 app.get('/universeHome', function(req, res, next) {
-    res.render('universeHome', { message: '' });
+    res.render('home/universeHome', { message: '' });
 });
 
 app.get('/universeRegister', function(req, res, next) {
-    res.render('universeRegister', { message: ""});
+    res.render('home/universeRegister', { message: ""});
 });
 
 app.get('/universeThanks', function(req, res, next) {
-    res.render('universeThanks', { });
+    res.render('home/universeThanks', { });
 });
+
+
+//***********
+
+//Utility pages
 
 app.get('/changePassword', requireLogin, function(req, res, next) {
     res.render('changePassword', { username: req.session.user});
 });
 
 
-//END Universe Pages
+//***********
+
+
+
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
@@ -2857,36 +2865,8 @@ app.get('/archives', requireLogin, function(req, res, next) {
         teamid = result;
 
 
-        var player_week_data = [];
-        var player_chronic = [];
-        sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
-            "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
-            "FROM master.workouts m " +
-            "WHERE m.teamID = '" + teamid[0].teamID + "' " +
-            "ORDER BY date desc limit 10;";
-
-
-        var week_set = [];
-        connection.query(sql, function (err, result) {
-            if (err) throw err;
-
-            week_set = result;
-
-
-            for (var i = 0; i < week_set.length; i++) {
-                var sun = week_set[i].sunday;
-
-                sun = sun.toISOString().split('T')[0];
-
-                var sat = week_set[i].saturday;
-
-                sat = sat.toISOString().split('T')[0];
-
-                week_set[i].sunday = sun;
-                week_set[i].saturday = sat;
-
-            }
-
+            var player_week_data = [];
+            var player_chronic = [];
             var team_week_data = [];
             var chronic_position = [];
             var pos_week_data = [];
@@ -2903,7 +2883,6 @@ app.get('/archives', requireLogin, function(req, res, next) {
                 player_week_data: player_week_data,
                 player_chronic: player_chronic,
                 workouts: workouts,
-                week_set: week_set,
                 pos_week_data: pos_week_data,
                 team_week_data: team_week_data,
                 chronic_position: chronic_position,
@@ -2920,7 +2899,6 @@ app.get('/archives', requireLogin, function(req, res, next) {
         });
 
 
-    });
 
 
 

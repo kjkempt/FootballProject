@@ -37,6 +37,38 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/cr-1.3.3/datatables.min.css"/>
 
+
+
+
+
+
+    <script>
+        function isValidDate(dateString) {
+            var regEx = /^\d{4}-\d{2}-\d{2}$/;
+            return dateString.match(regEx) != null;
+        }
+    </script>
+
+
+    <script>
+        function validateForm() {
+            var x1 = document.forms["archivesForm"]["d"].value;
+
+
+            if(!isValidDate(x1))
+            {
+                alert("Incorrect date syntax");
+                return false;
+            }
+
+        }
+    </script>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -127,20 +159,22 @@
                             var dayofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                             %>
 
-                            <form name="weekSelectForm"  class = "form-inline" action="/archives/selectWeek" method="post" role="form"
-                                  style=" display: block;">
+                            <form name="archivesForm"  class = "form-inline" action="/archives/selectWeek" method="post" role="form"
+                                  onsubmit="return validateForm()" style=" display: block;">
 
 
 
 
                                 <div class="nativeDatePicker">
-                                    <label for="bday">Enter your birthday:</label>
-                                    <input type="date" id="bday" name="bday">
+                                    <label for="d">Enter date of week you'd like to see:</label>
+                                    <input type="date" id="d" name="d">
                                     <span class="validity"></span>
                                 </div>
 
 
                             </form>
+
+                            <hr>
 
 
 
