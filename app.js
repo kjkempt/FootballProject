@@ -1851,6 +1851,8 @@ app.get('/updateWorkout', requireLogin, function(req, res, next) {
     });
 });
 
+
+//Speed up somehow??
 //Admin Recent Data Page
 app.get('/coachDashboard', requireLogin, function(req, res, next) {
     var sql = "SELECT username, password, privileges FROM user WHERE username= " + "'" + req.body.username + "'";
@@ -1880,10 +1882,23 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                 console.log(date);
 
 
+
+
+
+                sql = "SELECT DATE_SUB('" + date + "', INTERVAL 1 DAY) as date;";
+
+                var prev_week = [];
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+
+
+                    prev_week = result;
+                    console.log(prev_week);
+
                 //for Chronic load
 
-                sql = "SELECT u.username, " +
-                    "SUM(w.player_sRPE * m.duration) / 4 as chronicSum, m.date " +
+                sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                    "SUM(w.player_sRPE * m.duration) / 4 as chronicSum " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.workoutID = m.workoutid " +
@@ -1891,7 +1906,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                     "AND u.teamID = '"+teamid[0].teamID+"' " +
                     "AND m.date " +
-                    "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
+                    "BETWEEN '" + prev_week[0].date + "'- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                     " GROUP BY u.username;";
 
 
@@ -1905,7 +1920,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                     //for acute load and weekly Acute mean sum
 
-                    sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
+                    sql = "SELECT u.username,  " +
                         "SUM(w.player_sRPE * m.duration) as acuteSum, " +
                         "(SUM(w.player_sRPE * m.duration)/dayofweek( CURRENT_DATE() - 1 ) )  as acuteMeanSum " +
                         "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -1971,7 +1986,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                 //rolling three day load query
 
-                                sql = "SELECT u.username,u.first_name,w.player_sRPE, m.duration, m.date, " +
+                                sql = "SELECT u.username, w.player_sRPE, m.duration, " +
                                     "(w.player_sRPE * m.duration) as dayLoad " +
                                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                                     "WHERE u.username = w.username " +
@@ -2011,7 +2026,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                         //Team Chronic Load Sum - t group designation
                                         sql = " SELECT u.username, " +
-                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                        "SUM(w.player_sRPE * m.duration) as chronicSum, SUM(m.duration) as duration_sum," +
                                             " COUNT(distinct u.username) as player_count " +
                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
                                         "WHERE u.username = w.username " +
@@ -2021,7 +2036,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                         "AND u.teamID = '"+teamid[0].teamID+"' " +
                                         "AND u.group_chronic = 't' " +
                                         "AND m.date " +
-                                        "BETWEEN '" + date + "'- INTERVAL 4 WEEK AND '" + date + "' " +
+                                        "BETWEEN '" + prev_week[0].date + "'- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                                         "; ";
 
 
@@ -2039,7 +2054,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
                                             //Team Acute Load with t designation
                                             sql = "SELECT u.username, "+
-                                            "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, SUM(m.duration) as duration_sum," +
+                                            "SUM(w.player_sRPE * m.duration) as chronicSum, SUM(m.duration) as duration_sum," +
                                             " COUNT(distinct u.username) as player_count " +
                                             "FROM master.user u, master.player_workouts w, master.workouts m " +
                                             "WHERE u.username = w.username " +
@@ -2142,7 +2157,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
                                                                 sql = "SELECT u.username, u.position, "+
-                                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                    "SUM(w.player_sRPE * m.duration) as chronicSum, " +
                                                                     "COUNT(distinct u.username) as player_count, " +
                                                                     "SUM(m.duration) as duration_sum " +
                                                                     "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -2165,7 +2180,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
                                                                     sql = "SELECT u.username, "+
-                                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, m.date, " +
+                                                                        "SUM(w.player_sRPE * m.duration) as chronicSum, " +
                                                                         "COUNT(distinct u.username) as player_count, " +
                                                                         "SUM(m.duration) as duration_sum " +
                                                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
@@ -2186,7 +2201,7 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
 
 
 
-                                                                       res.render('coachDashboard', {
+                                                                        res.render('coachDashboard', {
                                                                             username: req.session.user,
                                                                             chronicPlayerLoad: four_week_data,
                                                                             one_week_data: one_week_data,
@@ -2203,6 +2218,8 @@ app.get('/coachDashboard', requireLogin, function(req, res, next) {
                                                                             threeDayPosition: threeDayPosition,
                                                                             threeDayTeam: threeDayTeam
                                                                         });
+
+                                                                    });
 
 
                                                                     });

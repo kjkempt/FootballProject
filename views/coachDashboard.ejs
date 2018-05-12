@@ -167,16 +167,19 @@ flag_rpe = [];%>
 
                                 <%
 
-                                for(var b = 0; b < one_week_data.length; b++)
+                                for(var b = 0; b < chronicPlayerLoad.length; b++)
                                 {
 
-                                     var acute = one_week_data[b].acuteSum;
-                                    var chronic = 0;
-                              for(var j = 0; j < chronicPlayerLoad.length; j++)
+                                     var acute = 0;
+                                    var chronic = chronicPlayerLoad[b].chronicSum;
+                                    var acuteMean = 0;
+                              for(var j = 0; j < one_week_data.length; j++)
                               {
-                                  if(chronicPlayerLoad[j].username == one_week_data[b].username)
+                                  if(one_week_data[j].username == chronicPlayerLoad[b].username)
                                   {
-                                      chronic = chronicPlayerLoad[j].chronicSum;
+                                       acute = one_week_data[j].acuteSum;
+                                       acuteMean = one_week_data[j].acuteMeanSum
+                                       break;
                                   }
                               }
 
@@ -189,7 +192,7 @@ flag_rpe = [];%>
 
 
                                     //These two variables are need for standard deviation calcs
-                                var acuteMean = one_week_data[b].acuteMeanSum
+
                                 var variance = 0;
 
 
@@ -198,9 +201,10 @@ flag_rpe = [];%>
                                 {
                                     //dload is a set of all players daily loads from the week so we need the if
                                     // statement to choose the right player's daily loads that we need
-                                    if(daily_load[c].username == one_week_data[b].username)
+                                    if(daily_load[c].username == chronicPlayerLoad[b].username)
                                     {
                                         variance = variance + Math.pow((acuteMean - daily_load[c].dayLoad), 2);
+                                        break;
                                     }
                                 }
 
@@ -217,23 +221,23 @@ flag_rpe = [];%>
 
 
                                 //sessions has the most current single session load, which is put into day_load
-                                session.forEach(function(single)
+                                for(var i = 0; i < session.length; i++)
                                 {
-                                    day_load = single.sessionLoad;
+                                    day_load = session[i].sessionLoad;
 
-                                    current_rpe.forEach(function(current)
+                                    for(var j = 0; j < current_rpe.length; j++)
                                     {
-                                        var flag_check = single.sessionRPE;
-                                        flag_check = flag_check - current.player_sRPE; //player is flagged if +/-2
+                                        var flag_check = session[i].sessionRPE;
+                                        flag_check = flag_check - current_rpe[j].player_sRPE; //player is flagged if +/-2
 
                                         if(flag_check >= 2 || flag_check <= -2)
                                         {
-                                            flags.push(current.username); //push the username of the flagged player into
+                                            flags.push(current_rpe[j].username); //push the username of the flagged player into
                                             //the array variable
-                                            flag_rpe.push(current.player_sRPE);
+                                            flag_rpe.push(current_rpe[j].player_sRPE);
                                         }
-                                    })
-                                })
+                                    }
+                                }
 
 
                                 //monotony score is calculated and rounded to the nearest tenth - subject to change
@@ -253,7 +257,7 @@ flag_rpe = [];%>
                                 var check = 0;
 
                                for(var r = 0; r < three_day_load.length; r++){
-                                    if(three_day_load[r].username == one_week_data[b].username)
+                                    if(three_day_load[r].username == chronicPlayerLoad[b].username)
                                     {
                                         three = three + three_day_load[r].dayLoad;
                                         check++;
@@ -270,7 +274,7 @@ flag_rpe = [];%>
                                 var recent_load = 0;
 
                                     for(var t = 0; t < recent_rpe.length; t++){
-                                    if(recent_rpe[t].username == one_week_data[b].username)
+                                    if(recent_rpe[t].username == chronicPlayerLoad[b].username)
                                     {
                                         player_recent_rpe = recent_rpe[t].player_sRPE;
                                         recent_duration = recent_rpe[t].duration;
@@ -290,9 +294,9 @@ flag_rpe = [];%>
 
 
 
-                                    <td> <%= one_week_data[b].last_name %></td>
-                                    <td><%= one_week_data[b].first_name%></td>
-                                    <td><%= one_week_data[b].position%></td>
+                                    <td> <%= chronicPlayerLoad[b].last_name %></td>
+                                    <td><%= chronicPlayerLoad[b].first_name%></td>
+                                    <td><%= chronicPlayerLoad[b].position%></td>
                                     <td><%= player_recent_rpe%></td>
                                     <td><%= recent_duration%></td>
                                     <td><%= recent_load%></td>
