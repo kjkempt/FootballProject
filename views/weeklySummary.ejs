@@ -98,17 +98,12 @@
                     <a href="/adminAddAthlete"><i class="glyphicon glyphicon-plus-sign"></i> Add Member</a>
                 </li>
                 <li>
-                    <a href="/adminCataRecentData"><i class="glyphicon glyphicon-globe"></i> Current Catapult Data</a>
+                    <a href="/loadAcuteWeek"><i class="glyphicon glyphicon-plus-sign"></i> Pre-load Data</a>
                 </li>
                 <li>
-                    <a href="/adminCataDailySum"><i class="glyphicon glyphicon-globe"></i> Daily Catapult Summary</a>
+                    <a href="/archives"><i class="glyphicon glyphicon-plus-sign"></i> Archives</a>
                 </li>
-                <li>
-                    <a href="/adminCataWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Individual</a>
-                </li>
-                <li>
-                    <a href="/adminCataTeamWeekSum"><i class="glyphicon glyphicon-globe"></i> Weekly Catapult Summary - Position/Team</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -161,7 +156,10 @@
                                     <th rowspan="2">First Name</th>
                                     <th colspan="5">Total</th>
 
-                                    <%  for(var i = 0; i < workouts.length; i++){    %>
+                                    <%  for(var i = 0; i < workouts.length; i++){
+
+
+                                        %>
                                     <th colspan="3"><%= workouts[i].name%></th>
                                     <%  } %>
 
@@ -212,10 +210,7 @@
                                         var loop;
                                         var iteration = i;
                                         do{
-                                            console.log(iteration);
-                                            console.log(player_week_data.length);
-                                            console.log(player_week_data[iteration].player_sRPE);
-                                            console.log(player_week_data[iteration].username);
+
                                             averageRPE = averageRPE + player_week_data[iteration].player_sRPE;
                                             acuteDuration = acuteDuration + player_week_data[iteration].duration
                                             acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].duration);
