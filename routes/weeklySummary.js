@@ -129,6 +129,7 @@ router.post('/selectWeek', function(req, res, next) {
 
                             team_week_data = result;
 
+                            //res.send(team_week_data);
 
 
 

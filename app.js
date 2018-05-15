@@ -13,7 +13,6 @@ var coachDashboard = require('./routes/coachDashboard');
 var playerDashboard = require('./routes/playerDashboard');
 var login = require('./routes/login');
 var workoutManager = require('./routes/workoutManager');
-var playerData = require('./routes/playerData');
 var teamData = require('./routes/teamData');
 var weeklySummary = require('./routes/weeklySummary');
 var updateWorkout = require('./routes/updateWorkout');
@@ -132,7 +131,6 @@ app.use('/attemptLogin', login);
 app.use('/workoutManager', workoutManager);
 app.use('/coachDashboard', coachDashboard);
 app.use('/playerDashboard', playerDashboard);
-app.use('/playerData', playerData);
 app.use('/workoutManager', workoutManager);
 app.use('/playerInput', playerDashboard);
 app.use('/teamData', teamData);
@@ -3254,13 +3252,6 @@ app.get('/isuwsocWeeklySummary', requireLogin, function(req, res, next) {
 
 
 });
-
-
-
-
-
-
-
 
 
 //+++++++++++++++++++++++
