@@ -319,35 +319,278 @@
 
 
 
+                            <table id="group_week" class="display nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2">Last Name</th>
+                                    <th rowspan="2">First Name</th>
+                                    <th colspan="4">Total</th>
+                                    <%  for(var i = 0; i < workouts.length; i++){
+                                    %>
+                                    <th colspan="3"><%= workouts[i].name%></th>
+                                    <%  } %>
+
+
+                                </tr>
+                                <tr>
+                                    <th>Acute Duration</th>
+                                    <th>Acute Load</th>
+                                    <th>Chronic Load</th>
+                                    <th>Relative A/C% Load</th>
+                                    <%  for(var i = 0; i < workouts.length; i++){    %>
+                                    <th> RPE </th>
+                                    <th>Duration</th>
+                                    <th>Load</th>
+                                    <%  } %>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+
+                                <%if(team_week_data.length > 0) {
+                                    var teamChronicLoad = 0;
+                                    var teamAcuteLoad = 0;
+                                    var teamAcuteDuration = 0;
+
+                                for(i = 0; i < chronic_team.length; i++)
+                                {
+                                    teamChronicLoad = teamChronicLoad + chronic_team[i].chronicSum;
+                                }
+                                teamChronicLoad = Math.round(teamChronicLoad / chronic_team.length);
+
+
+                                for(i = 0; i < acute_team.length; i++)
+                                {
+                                    teamAcuteLoad = teamAcuteLoad + acute_team[i].chronicSum;
+                                    teamAcuteDuration = teamAcuteDuration + acute_team[i].durationSum;
+
+
+                                }
+                                    teamAcuteLoad = Math.round(teamAcuteLoad / acute_team.length);
+                                    teamAcuteDuration = Math.round(teamAcuteDuration / acute_team.length);
+                                    var teamLoadPercentage = (teamAcuteLoad / teamChronicLoad) * 100;
+                                    console.log(teamLoadPercentage);
+                                    teamLoadPercentage = Math.round(teamLoadPercentage * 10)/10; //nearest tenth
+
+
+                                %>
+
+                                <td>+Team</td>
+                                <td> </td>
+                                <td><%= teamAcuteDuration%></td>
+                                <td><%= teamAcuteLoad%></td>
+                                <td><%= teamChronicLoad%></td>
+                                <td><%= teamLoadPercentage%>%</td>
+
+                                <% for(j = 0; j < team_week_data.length; j++){ %>
+                                <td><%= team_week_data[j].pavg %></td>
+                                <td><%= team_week_data[j].duration %></td>
+                                <td><%= Math.round(team_week_data[j].pavg *  team_week_data[j].duration )%></td>
+                                <%
+                                }
+                                } %>
+
+                                </tr>
+
+                                <% for( i = 0; i < pos_week_data.length; i++){
+                                cur_position = pos_week_data[i].position;
+
+                                acuteLoad = 0;
+                                acuteDuration = 0;
+                                chronic_load = 0;
+
+
+                                for(j = 0; j < acute_position.length; j++)
+                                {
+                                    if(acute_position[j].position === cur_position)
+                                    {
+                                        acuteLoad =  Math.round(acute_position[j].acuteSum / acute_position[j].c) ;
+                                        acuteDuration =   Math.round(acute_position[j].acuteDuration / acute_position[j].c);
+                                    }
+                                }
+                                for(j = 0; j < chronic_position.length; j++)
+                                {
+                                    if(chronic_position[j].position === cur_position)
+                                    {
+                                        chronic_load = chronic_position[j].chronicSum;
+
+                                    }
+                                }
+                                    loadPercentage = (acuteLoad / chronic_load) * 100;
+                                    loadPercentage = Math.round(loadPercentage * 10)/10; //nearest tenth
+
+
+                                %>
+                                <tr>
+                                    <td><%= pos_week_data[i].position%>  </td>
+                                    <td>  </td>
+
+
+
+
+
+
+                                    <td><%= acuteDuration%> </td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= loadPercentage%>% </td>
+
+
+
+
+
+
+                                    <%  for( j = 0; j < workouts.length; j++){
+
+
+                                    if(workouts[j].date.getTime() === pos_week_data[i].date.getTime() &&
+                                            workouts[j].time === pos_week_data[i].time)
+                                    {
+                                    %>
+                                    <td><%= pos_week_data[i].pavg%>  </td>
+                                    <td><%= pos_week_data[i].duration%>  </td>
+                                    <td><%= Math.round(pos_week_data[i].pavg * pos_week_data[i].duration)%>  </td>
+
+
+                                    <%
+                                        if(i + 1 != pos_week_data.length)
+                                        {
+                                            if(cur_position === pos_week_data[i + 1].position)
+                                            {
+                                                i++;
+                                            }
+                                        }
+
+
+                                    }
+                                    else{ %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% } %>
+
+
+                                    <%  }
+
+                                    %>
+
+                                </tr>
+                                <%
+
+                                } %>
+
+                                <% for( i = 0; i < group_week_data.length; i++){
+                                    cur_position = group_week_data[i].group_chronic;
+
+                                    acuteLoad = 0;
+                                    acuteDuration = 0;
+                                    chronic_load = 0;
+
+
+                                    for(j = 0; j < acute_group.length; j++)
+                                    {
+                                        if(acute_group[j].group_chronic === cur_position)
+                                        {
+                                            acuteLoad =  Math.round(acute_group[j].acuteSum / acute_group[j].c) ;
+                                            acuteDuration =   Math.round(acute_group[j].acuteDuration / acute_group[j].c);
+                                        }
+                                    }
+                                    for(j = 0; j < chronic_group.length; j++)
+                                    {
+                                        if(chronic_group[j].group_chronic === cur_position)
+                                        {
+                                            chronic_load = Math.round(chronic_group[j].chronicSum / chronic_group[j].c);
+
+                                        }
+                                    }
+                                    loadPercentage = (acuteLoad / chronic_load) * 100;
+                                    loadPercentage = Math.round(loadPercentage * 10)/10; //nearest tenth
+
+
+                                %>
+                                <tr>
+                                    <td>-<%= group_week_data[i].group_chronic%>  </td>
+                                    <td>  </td>
+
+
+
+
+
+
+                                    <td><%= acuteDuration%> </td>
+                                    <td><%= acuteLoad%></td>
+                                    <td><%= chronic_load%></td>
+                                    <td><%= loadPercentage%>% </td>
+
+
+
+
+
+
+                                    <%  for( j = 0; j < workouts.length; j++){
+
+
+                                    if(workouts[j].date.getTime() === group_week_data[i].date.getTime() &&
+                                            workouts[j].time === group_week_data[i].time)
+                                    {
+                                    %>
+                                    <td><%= group_week_data[i].pavg%>  </td>
+                                    <td><%= group_week_data[i].duration%>  </td>
+                                    <td><%= Math.round(group_week_data[i].pavg * group_week_data[i].duration)%>  </td>
+
+
+                                    <%
+                                        if(i + 1 != group_week_data.length)
+                                        {
+                                            if(cur_position === group_week_data[i + 1].group_chronic)
+                                            {
+                                                i++;
+                                            }
+                                        }
+
+
+                                    }
+                                    else{ %>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <% } %>
+
+
+                                    <%  }
+
+                                    %>
+
+                                </tr>
+                                <%
+
+                                } %>
+
+
+
+                                </tbody>
+                            </table>
 
 
                             <br><br>
 
-                            <%
-                                var cl = 0;
-                            for(var n = 0; n < chronic_team.length; n++)
-                            {
 
-                                cl = cl + chronic_team[n].chronicSum;
-
-                            }
-
-                            cl = cl / chronic_team.length;
-                            cl = Math.round(cl);
-
-                             %>
-
-                            <h3>Team Chronic Load of the Week <span class="label label-default"><%= cl %></span></h3>
+                            <h3>Team Chronic Load of the Week <span class="label label-default"><%= teamChronicLoad %></span></h3>
 
 
 
                             <script>
                                 var $ = jQuery;
                                 $(document).ready( function () {
-                                    $('#team_week').DataTable({
-                                        responsive: true,
+                                    $('#group_week').DataTable({
                                         "scrollX": true
                                     });
+
+
 
 
                                 } );

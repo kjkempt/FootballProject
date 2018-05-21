@@ -64,8 +64,7 @@ router.post('/selectWeek', function(req, res, next) {
 
 
                 sql = "SELECT u.username, u.first_name, u.last_name, u.position, " +
-                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date," +
-                    "(weekofyear('" + req.body.week_select + "') - weekofyear(m.date) + 1) as weekcount  " +
+                    "SUM(w.player_sRPE * m.duration) as chronicSum, m.date " +
                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                     "WHERE u.username = w.username " +
                     "AND w.teamID = '"+teamid[0].teamID+"' " +
@@ -73,8 +72,9 @@ router.post('/selectWeek', function(req, res, next) {
                     "AND m.teamID = '"+teamid[0].teamID+"' " +
                     "AND w.workoutID = m.workoutid " +
                     "AND m.date " +
-                    "BETWEEN '" + prev_week[0].date + "'- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
+                    "BETWEEN DATE_ADD('" + prev_week[0].date + "', INTERVAL 1 DAY)- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                     "GROUP BY u.username;";
+
 
                 var player_chronic = [];
                 connection.query(sql, function (err, result) {
@@ -96,8 +96,8 @@ router.post('/selectWeek', function(req, res, next) {
                         "AND m.date " +
                         "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
                         " '" + req.body.week_select + "' " +
-                        "group by u.position, indexday, m.time " +
-                        "ORDER BY u.position, indexday, m.time; ";
+                        "group by u.position, m.date, m.time " +
+                        "ORDER BY u.position, m.date, m.time; ";
 
 
                     var pos_week_data = [];
@@ -106,8 +106,9 @@ router.post('/selectWeek', function(req, res, next) {
 
                         pos_week_data = result;
 
+                        //res.send(pos_week_data);
 
-                        sql = "SELECT u.position, m.date, dayofweek(m.date) as indexday, " +
+                        sql = "SELECT u.position, m.date, " +
                             "AVG(w.player_sRPE) as pavg, m.duration, m.time " +
                             "FROM  master.player_workouts w " +
                             "INNER JOIN master.user u ON u.username = w.username " +
@@ -119,9 +120,11 @@ router.post('/selectWeek', function(req, res, next) {
                             "AND m.date " +
                             "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
                             " '" + req.body.week_select + "' " +
-                            "group by m.date, indexday, m.time " +
-                            "ORDER BY m.date, indexday, m.time; ";
+                            "group by m.date, m.time " +
+                            "ORDER BY m.date, m.time; ";
 
+
+                        //All workouts of the week (averages for team)
 
                         var team_week_data = [];
                         connection.query(sql, function (err, result) {
@@ -129,7 +132,6 @@ router.post('/selectWeek', function(req, res, next) {
 
                             team_week_data = result;
 
-                            //res.send(team_week_data);
 
 
 
@@ -143,7 +145,7 @@ router.post('/selectWeek', function(req, res, next) {
                                 "AND w.workoutID = m.workoutid " +
                                 "AND u.group_chronic = 't' " +
                                 "AND m.date " +
-                                "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                                "BETWEEN DATE_ADD('" + prev_week[0].date + "', INTERVAL 1 DAY)- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                                 "GROUP BY u.username " +
                                 "ORDER BY u.position; " ;
 
@@ -164,7 +166,7 @@ router.post('/selectWeek', function(req, res, next) {
                                     "AND w.workoutID = m.workoutid " +
                                     "AND u.group_chronic = 't' " +
                                     "AND m.date " +
-                                    "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                                    "BETWEEN DATE_ADD('" + prev_week[0].date + "', INTERVAL 1 DAY)- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                                     "GROUP BY u.username " +
                                     "ORDER BY u.username; " ;
 
@@ -174,49 +176,6 @@ router.post('/selectWeek', function(req, res, next) {
 
                                     chronic_team = result;
 
-                                    sql  = "SELECT u.username, u.position, m.date, m.time, u.group_chronic, " +
-                                        "SUM(w.player_sRPE * m.duration) / 4 as chronicSum " +
-                                        "FROM master.user u, master.player_workouts w, master.workouts m " +
-                                        "WHERE u.username = w.username " +
-                                        "AND w.teamID = '" + teamid[0].teamID + "' " +
-                                        "AND u.teamID = '" + teamid[0].teamID + "' " +
-                                        "AND m.teamID = '" + teamid[0].teamID + "' " +
-                                        "AND w.workoutID = m.workoutid " +
-                                        "AND u.group_chronic = 't' " +
-                                        "AND m.date " +
-                                        "BETWEEN '" + req.body.week_select + "'- INTERVAL 5 WEEK AND" +
-                                        " '" + req.body.week_select + "' - INTERVAL 1 WEEK " +
-                                        "GROUP BY u.username " +
-                                        "ORDER BY u.position; " ;
-
-                                    var chronic_position_previous = [];
-                                    connection.query(sql, function (err, result) {
-                                        if (err) throw err;
-
-                                        chronic_position_previous = result;
-
-
-
-                                        sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
-                                            "SUM(w.player_sRPE * m.duration) / 4 as chronicSum " +
-                                            "FROM master.user u, master.player_workouts w, master.workouts m " +
-                                            "WHERE u.username = w.username " +
-                                            "AND w.teamID = '" + teamid[0].teamID + "' " +
-                                            "AND u.teamID = '" + teamid[0].teamID + "' " +
-                                            "AND m.teamID = '" + teamid[0].teamID + "' " +
-                                            "AND w.workoutID = m.workoutid " +
-                                            "AND u.group_chronic = 't' " +
-                                            "AND m.date " +
-                                            "BETWEEN '" + req.body.week_select + "'- INTERVAL 5 WEEK AND " +
-                                            " '" + req.body.week_select + "' - INTERVAL 1 WEEK " +
-                                            "GROUP BY u.username " +
-                                            "ORDER BY u.username; " ;
-
-                                        var chronic_team_previous = [];
-                                        connection.query(sql, function (err, result) {
-                                            if (err) throw err;
-
-                                            chronic_team_previous = result;
 
 
 
@@ -229,8 +188,10 @@ router.post('/selectWeek', function(req, res, next) {
 
 
 
-                                            sql  = "SELECT u.username, u.position, m.date, m.time, u.group_chronic, " +
-                                                "SUM(w.player_sRPE * m.duration) as chronicSum " +
+
+
+                                            sql  = "SELECT COUNT(distinct u.username) as c, u.position, u.group_chronic, " +
+                                                "SUM(w.player_sRPE * m.duration) as acuteSum, SUM(m.duration) as acuteDuration " +
                                                 "FROM master.user u, master.player_workouts w, master.workouts m " +
                                                 "WHERE u.username = w.username " +
                                                 "AND w.teamID = '" + teamid[0].teamID + "' " +
@@ -241,7 +202,7 @@ router.post('/selectWeek', function(req, res, next) {
                                                 "AND m.date " +
                                                 "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
                                                 " '" + req.body.week_select + "' " +
-                                                "GROUP BY u.username " +
+                                                "GROUP BY u.position " +
                                                 "ORDER BY u.position; " ;
 
 
@@ -253,8 +214,9 @@ router.post('/selectWeek', function(req, res, next) {
                                                 acute_position = result;
 
 
+
                                                 sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
-                                                    "SUM(w.player_sRPE * m.duration)  as chronicSum " +
+                                                    "SUM(w.player_sRPE * m.duration)  as chronicSum, SUM(m.duration) as durationSum " +
                                                     "FROM master.user u, master.player_workouts w, master.workouts m " +
                                                     "WHERE u.username = w.username " +
                                                     "AND w.teamID = '" + teamid[0].teamID + "' " +
@@ -274,10 +236,8 @@ router.post('/selectWeek', function(req, res, next) {
 
                                                     acute_team = result;
 
-
-
                                                     sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
-                                                        "SUM(w.player_sRPE * m.duration) / 4 as chronicSum,  count(distinct u.username) as playerCount " +
+                                                        "SUM(w.player_sRPE * m.duration) / 4 as chronicSum,  count(distinct u.username) as c " +
                                                         "FROM master.user u, master.player_workouts w, master.workouts m " +
                                                         "WHERE u.username = w.username " +
                                                         "AND w.teamID = '" + teamid[0].teamID + "' " +
@@ -286,19 +246,19 @@ router.post('/selectWeek', function(req, res, next) {
                                                         "AND w.workoutID = m.workoutid " +
                                                         "AND NOT (u.group_chronic = 't') " +
                                                         "AND m.date " +
-                                                        "BETWEEN '" + req.body.week_select + "'- INTERVAL 4 WEEK AND '" + req.body.week_select + "' " +
+                                                        "BETWEEN DATE_ADD('" + prev_week[0].date + "', INTERVAL 1 DAY)- INTERVAL 4 WEEK AND '" + prev_week[0].date + "' " +
                                                         "GROUP BY u.group_chronic " +
                                                         "ORDER BY u.group_chronic; ";
 
-                                                    var cdg = [];
+                                                    var chronic_group = [];
                                                     connection.query(sql, function (err, result) {
                                                         if (err) throw err;
 
-                                                        cdg = result;
+                                                        chronic_group = result;
 
 
                                                         sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
-                                                            "SUM(w.player_sRPE * m.duration)  as chronicSum, count(distinct u.username) as playerCount " +
+                                                            "SUM(w.player_sRPE * m.duration)  as acuteSum, SUM(m.duration) as acuteDuration, count(distinct u.username) as c " +
                                                             "FROM master.user u, master.player_workouts w, master.workouts m " +
                                                             "WHERE u.username = w.username " +
                                                             "AND w.teamID = '" + teamid[0].teamID + "' " +
@@ -312,14 +272,43 @@ router.post('/selectWeek', function(req, res, next) {
                                                             "GROUP BY u.group_chronic " +
                                                             "ORDER BY u.group_chronic; ";
 
-                                                        var adg = [];
+                                                        var acute_group = [];
                                                         connection.query(sql, function (err, result) {
                                                             if (err) throw err;
 
-                                                            adg = result;
+                                                            acute_group = result;
 
 
-                                                            sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
+
+
+                                                            sql = "SELECT u.group_chronic, m.date, dayofweek(m.date) as indexday, " +
+                                                                "AVG(w.player_sRPE) as pavg, m.duration, m.time " +
+                                                                "FROM  master.player_workouts w " +
+                                                                "INNER JOIN master.user u ON u.username = w.username " +
+                                                                "INNER JOIN master.workouts m ON w.workoutID = m.workoutid " +
+                                                                "WHERE w.teamID = '" + teamid[0].teamID + "' " +
+                                                                "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                                                "AND m.teamID = '" + teamid[0].teamID + "' " +
+                                                                "AND NOT (u.group_chronic = 't') " +
+                                                                "AND m.date " +
+                                                                "BETWEEN  DATE(DATE_ADD('" + req.body.week_select + "', INTERVAL(1-DAYOFWEEK('" + req.body.week_select + "')) DAY))  AND " +
+                                                                " '" + req.body.week_select + "' " +
+                                                                "group by u.group_chronic, m.date, m.time " +
+                                                                "ORDER BY u.group_chronic, m.date, m.time; ";
+
+
+                                                            var group_week_data = [];
+                                                            connection.query(sql, function (err, result) {
+                                                                if (err) throw err;
+
+                                                                group_week_data = result;
+
+
+
+
+
+
+                                                                sql = "SELECT distinct DATE(DATE_ADD(m.date, INTERVAL(1-DAYOFWEEK(m.date)) DAY)) as sunday, " +
                                                                 "DATE(DATE_ADD(m.date, INTERVAL(7-DAYOFWEEK(m.date)) DAY)) as saturday " +
                                                                 "FROM master.workouts m " +
                                                                 "WHERE m.teamID = '" + teamid[0].teamID + "' " +
@@ -349,8 +338,6 @@ router.post('/selectWeek', function(req, res, next) {
                                                                 }
 
 
-
-
                                                                 sql = "SELECT * " +
                                                                     "FROM  master.workouts " +
                                                                     "WHERE teamID = '" + teamid[0].teamID + "' " +
@@ -367,28 +354,30 @@ router.post('/selectWeek', function(req, res, next) {
                                                                     workouts = result;
 
 
-                                                                    res.render('weeklySummary', {
-                                                                        username: req.user,
-                                                                        player_week_data: player_week_data,
-                                                                        player_chronic: player_chronic,
-                                                                        workouts: workouts,
-                                                                        week_set: week_set,
-                                                                        pos_week_data: pos_week_data,
-                                                                        team_week_data: team_week_data,
-                                                                        chronic_position: chronic_position,
-                                                                        chronic_team: chronic_team,
-                                                                        acute_position: acute_position,
-                                                                        acute_team: acute_team,
-                                                                        cdg: cdg,
-                                                                        adg: adg,
-                                                                        chronic_position_previous: chronic_position_previous,
-                                                                        chronic_team_previous: chronic_team_previous
-                                                                    });
+                                                                     res.render('weeklySummary', {
+                                                                            username: req.user,
+                                                                            player_week_data: player_week_data,
+                                                                            player_chronic: player_chronic,
+                                                                            workouts: workouts,
+                                                                            week_set: week_set,
+                                                                            pos_week_data: pos_week_data,
+                                                                            team_week_data: team_week_data,
+                                                                            chronic_position: chronic_position,
+                                                                            chronic_team: chronic_team,
+                                                                            acute_position: acute_position,
+                                                                            acute_team: acute_team,
+                                                                            chronic_group: chronic_group,
+                                                                            acute_group: acute_group,
+                                                                            group_week_data: group_week_data
+                                                                     });
 
                                                                 });
 
+
                                                             });
-                                                        });
+
+
+
                                                     });
                                                 });
 
