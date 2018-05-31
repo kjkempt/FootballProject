@@ -354,23 +354,45 @@ router.post('/selectWeek', function(req, res, next) {
                                                                 workouts = result;
 
 
-                                                                res.render('isuwsoc/isuwsocWeeklySummary', {
-                                                                    username: req.user,
-                                                                    player_week_data: player_week_data,
-                                                                    player_chronic: player_chronic,
-                                                                    workouts: workouts,
-                                                                    week_set: week_set,
-                                                                    pos_week_data: pos_week_data,
-                                                                    team_week_data: team_week_data,
-                                                                    chronic_position: chronic_position,
-                                                                    chronic_team: chronic_team,
-                                                                    acute_position: acute_position,
-                                                                    acute_team: acute_team,
-                                                                    chronic_group: chronic_group,
-                                                                    acute_group: acute_group,
-                                                                    group_week_data: group_week_data
-                                                                });
+                                                                sql = "SELECT u.username , m.date, m.time, u.group_chronic, " +
+                                                                    "SUM(w.player_sRPE * m.duration)  as chronicSum " +
+                                                                    "FROM master.user u, master.player_workouts w, master.workouts m " +
+                                                                    "WHERE u.username = w.username " +
+                                                                    "AND w.teamID = '" + teamid[0].teamID + "' " +
+                                                                    "AND u.teamID = '" + teamid[0].teamID + "' " +
+                                                                    "AND m.teamID = '" + teamid[0].teamID + "' " +
+                                                                    "AND w.workoutID = m.workoutid " +
+                                                                    "AND u.group_chronic = 't' " +
+                                                                    "AND m.date " +
+                                                                    "BETWEEN DATE_ADD('" + prev_week[0].date + "', INTERVAL 1 DAY)- INTERVAL 3 WEEK AND '" + prev_week[0].date + "' " +
+                                                                    "GROUP BY u.username " +
+                                                                    "ORDER BY u.username; " ;
 
+                                                                var total_chronic = [];
+                                                                connection.query(sql, function (err, result) {
+                                                                    if (err) throw err;
+
+                                                                    total_chronic = result;
+
+
+                                                                    res.render('isuwsoc/isuwsocWeeklySummary', {
+                                                                        username: req.user,
+                                                                        player_week_data: player_week_data,
+                                                                        player_chronic: player_chronic,
+                                                                        workouts: workouts,
+                                                                        week_set: week_set,
+                                                                        pos_week_data: pos_week_data,
+                                                                        team_week_data: team_week_data,
+                                                                        chronic_position: chronic_position,
+                                                                        chronic_team: chronic_team,
+                                                                        acute_position: acute_position,
+                                                                        acute_team: acute_team,
+                                                                        chronic_group: chronic_group,
+                                                                        acute_group: acute_group,
+                                                                        group_week_data: group_week_data,
+                                                                        total_chronic: total_chronic
+                                                                    });
+                                                                });
                                                             });
 
 

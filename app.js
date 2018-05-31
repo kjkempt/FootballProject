@@ -1560,6 +1560,7 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
             var acute_group = [];
             var group_week_data = [];
             var workouts = [];
+            var total_chronic = [];
             res.render('weeklySummary', {
                 username: req.user,
                 player_week_data: player_week_data,
@@ -1574,7 +1575,8 @@ app.get('/weeklySummary', requireLogin, function(req, res, next) {
                 acute_team: acute_team,
                 chronic_group: chronic_group,
                 acute_group: acute_group,
-                group_week_data: group_week_data
+                group_week_data: group_week_data,
+                total_chronic: total_chronic
             });
 
 
@@ -3074,6 +3076,7 @@ app.get('/isuwsocWeeklySummary', requireLogin, function(req, res, next) {
             var acute_group = [];
             var group_week_data = [];
             var workouts = [];
+            var total_chronic = [];
             res.render('isuwsoc/isuwsocWeeklySummary', {
                 username: req.user,
                 player_week_data: player_week_data,
@@ -3088,7 +3091,8 @@ app.get('/isuwsocWeeklySummary', requireLogin, function(req, res, next) {
                 acute_team: acute_team,
                 chronic_group: chronic_group,
                 acute_group: acute_group,
-                group_week_data: group_week_data
+                group_week_data: group_week_data,
+                total_chronic: total_chronic
             });
 
 

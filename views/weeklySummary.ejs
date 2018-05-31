@@ -209,8 +209,9 @@
                                         var averageRPE = 0;
                                         var loop;
                                         var iteration = i;
+                                        var workCount = 0;
                                         do{
-
+                                            workCount++;
                                             averageRPE = averageRPE + player_week_data[iteration].player_sRPE;
                                             acuteDuration = acuteDuration + player_week_data[iteration].duration
                                             acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].duration);
@@ -243,7 +244,7 @@
 
 
 
-                                    <td><%=averageRPE%>  </td>
+                                    <td><%=averageRPE / workCount  %>  </td>
                                     <td><%= acuteDuration%>  </td>
                                     <td><%= acuteLoad%>  </td>
                                     <td><%= chronic_load%></td>
@@ -579,7 +580,29 @@
                             <br><br>
 
 
-                            <h3>Team Chronic Load of the Week <span class="label label-default"><%= teamChronicLoad %></span></h3>
+
+                            <%
+
+                            if(total_chronic.length > 0){
+
+                                var totalChronic = 0;
+
+                            for(i = 0; i < total_chronic.length; i++)
+                            {
+                                totalChronic = totalChronic + total_chronic[i].chronicSum;
+                            }
+                                totalChronic = Math.round(totalChronic / total_chronic.length);
+
+                                totalChronic = Math.round((totalChronic + teamAcuteLoad) / 4);
+
+
+
+                            %>
+
+
+                            <h3>End of The Week Team Chronic Load <span class="label label-default"><%= totalChronic %></span></h3>
+
+                            <% } %>
 
 
 
