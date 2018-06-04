@@ -49,7 +49,8 @@ router.post('/changeGroup', function(req, res, next) {
                     players = result;
 
 
-                    sql = "select * from master.group_designation;";
+                    sql = "select * from master.group_designation " +
+                        "where teamID = '"+teamid[0].teamID+"';";
 
                     var groups = [];
                     connection.query(sql, function(err, result) {

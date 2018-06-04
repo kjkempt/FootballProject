@@ -2127,7 +2127,9 @@ app.get('/adminGroupControl', requireLogin, function(req, res, next) {
             players = result;
 
 
-            sql = "select * from master.group_designation;";
+            sql = "select * from master.group_designation " +
+                "where teamID = '"+teamid[0].teamID+"';";
+
 
             var groups = [];
             connection.query(sql, function(err, result) {
@@ -2149,18 +2151,35 @@ app.get('/adminGroupControl', requireLogin, function(req, res, next) {
 //Admin Settings
 app.get('/adminSettings', requireLogin, function(req, res, next) {
 
-    var sql = "select * from master.group_designation;";
 
-    var groups = [];
-    connection.query(sql, function(err, result) {
-        groups = result;
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-        res.render('adminSettings', {
-            username: req.session.user,
-            message_add: "",
-            groups: groups,
-            message_delete: ""
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+
+        teamid = result;
+
+
+        sql = "select * from master.group_designation " +
+            "where teamID = '" + teamid[0].teamID + "' " +
+            "and dgroup <> 'Team' ;";
+
+
+
+        var groups = [];
+        connection.query(sql, function (err, result) {
+            groups = result;
+
+            res.render('adminSettings', {
+                username: req.session.user,
+                message_add: "",
+                groups: groups,
+                message_delete: ""
+            });
+
         });
+
 
     });
 });
@@ -3129,7 +3148,9 @@ app.get('/isuwsocGroupControl', requireLogin, function(req, res, next) {
             players = result;
 
 
-            sql = "select * from master.group_designation;";
+            sql = "select * from master.group_designation " +
+                "where teamID = '"+teamid[0].teamID+"';";
+
 
             var groups = [];
             connection.query(sql, function(err, result) {
@@ -3569,18 +3590,33 @@ app.get('/isuwsocCurrentData', requireLogin, function(req, res, next) {
 //Admin Settings
 app.get('/isuwsocSettings', requireLogin, function(req, res, next) {
 
-    var sql = "select * from master.group_designation;";
+    var sql = "SELECT teamID from master.user where username = '" + req.session.user + "';";
 
-    var groups = [];
-    connection.query(sql, function(err, result) {
-        groups = result;
+    var teamid = [];
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
 
-        res.render('isuwsoc/isuwsocSettings', {
-            username: req.session.user,
-            message_add: "",
-            groups: groups,
-            message_delete: ""
+        teamid = result;
+
+
+        sql = "select * from master.group_designation " +
+            "where teamID = '" + teamid[0].teamID + "' " +
+            "and dgroup <> 'Team' ;";
+
+
+        var groups = [];
+        connection.query(sql, function (err, result) {
+            groups = result;
+
+            res.render('isuwsoc/isuwsocSettings', {
+                username: req.session.user,
+                message_add: "",
+                groups: groups,
+                message_delete: ""
+            });
+
         });
+
 
     });
 });
