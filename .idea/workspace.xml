@@ -2,11 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbCurrentData.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbGroupControl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbSettings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbCurrentData.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbGroupControl.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbSettings.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/adminGroupControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/adminGroupControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/adminSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/adminSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/isuwsoc/isuwsocSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/isuwsoc/isuwsocSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/changePassword.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/changePassword.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs" afterDir="false" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +39,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="2161" lean-forward="true" selection-start-line="2161" selection-end-line="2161" />
+            <state relative-caret-position="439">
+              <caret line="3077" column="41" selection-start-line="3077" selection-start-column="41" selection-end-line="3077" selection-end-column="41" />
               <folding>
                 <element signature="e#3582#3772#0" />
                 <element signature="e#3809#3867#0" />
@@ -182,6 +193,7 @@
                 <element signature="e#85649#86117#0" />
                 <element signature="e#85863#86105#0" />
                 <element signature="e#85948#86088#0" />
+                <element signature="e#86358#87037#0" />
                 <element signature="e#86410#86549#0" />
                 <element signature="e#86652#87732#0" />
                 <element signature="e#86819#87725#0" />
@@ -242,6 +254,12 @@
                 <element signature="e#111899#112653#0" />
                 <element signature="e#112308#112635#0" />
                 <element signature="e#112415#112614#0" />
+                <element signature="e#113758#116065#0" />
+                <element signature="e#114591#114901#0" />
+                <element signature="e#116992#117132#0" />
+                <element signature="e#117249#139649#0" />
+                <element signature="e#139737#140465#0" />
+                <element signature="e#140279#140438#0" />
                 <element signature="e#112818#112909#0" />
                 <element signature="e#112863#112905#0" />
                 <element signature="e#113001#113109#0" />
@@ -278,6 +296,7 @@
                 <element signature="e#135776#139813#0" />
                 <element signature="e#137644#139739#0" />
                 <element signature="e#137963#139662#0" />
+                <element signature="e#141161#141849#0" />
                 <element signature="e#140673#140895#0" />
                 <element signature="e#140747#140886#0" />
                 <element signature="e#141014#141070#0" />
@@ -290,19 +309,10 @@
                 <element signature="e#142150#142445#0" />
                 <element signature="e#142282#142425#0" />
                 <element signature="e#142598#142642#0" />
-                <element signature="e#142786#147699#0" />
-                <element signature="e#142960#147695#0" />
-                <element signature="e#143068#147616#0" />
-                <element signature="e#143170#143784#0" />
-                <element signature="e#143224#143377#0" />
                 <element signature="e#143283#143357#0" />
-                <element signature="e#143435#143590#0" />
                 <element signature="e#143496#143570#0" />
-                <element signature="e#143628#143768#0" />
                 <element signature="e#143674#143748#0" />
-                <element signature="e#143852#143976#0" />
                 <element signature="e#143894#143960#0" />
-                <element signature="e#144048#145816#0" />
                 <element signature="e#144250#145800#0" />
                 <element signature="e#144575#145780#0" />
                 <element signature="e#144736#145007#0" />
@@ -310,15 +320,7 @@
                 <element signature="e#145037#145758#0" />
                 <element signature="e#145332#145730#0" />
                 <element signature="e#145499#145698#0" />
-                <element signature="e#145835#147606#0" />
-                <element signature="e#146037#147590#0" />
-                <element signature="e#146362#147570#0" />
-                <element signature="e#146525#146796#0" />
                 <element signature="e#146585#146768#0" />
-                <element signature="e#146826#147548#0" />
-                <element signature="e#147122#147520#0" />
-                <element signature="e#147289#147488#0" />
-                <element signature="e#147622#147689#0" />
                 <element signature="e#147786#147877#0" />
                 <element signature="e#147807#147846#0" />
                 <element signature="e#147852#147875#0" />
@@ -330,29 +332,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="isuwsocWeeklySummary.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocWeeklySummary.js">
+      <file leaf-file-name="isuwbbAdminHome.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="392" column="100" lean-forward="true" selection-start-line="392" selection-start-column="100" selection-end-line="392" selection-end-column="100" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="isuwsocGroupControl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="52" column="52" lean-forward="true" selection-start-line="52" selection-start-column="52" selection-end-line="52" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="isuwsocGroupControl.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocGroupControl.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-702">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="189">
+              <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
+              <folding>
+                <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -362,6 +349,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="isuwbbWeeklySummary.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="104" selection-start-line="104" selection-end-line="104" />
+              <folding>
+                <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -394,20 +393,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/routes/isuwbbUpdatePlayerData.js" />
-        <option value="$PROJECT_DIR$/views/isuwsocDailySummary.ejs" />
-        <option value="$PROJECT_DIR$/views/isuwsocCreateWorkout.ejs" />
-        <option value="$PROJECT_DIR$/views/isuwsocAdminHome.ejs" />
-        <option value="$PROJECT_DIR$/routes/isuwsocAdminHome.js" />
-        <option value="$PROJECT_DIR$/routes/isuwsocCreateWorkout.js" />
-        <option value="$PROJECT_DIR$/routes/isuwsocDailySummary.js" />
-        <option value="$PROJECT_DIR$/routes/isuwsocAddAthlete.js" />
-        <option value="$PROJECT_DIR$/views/isuwsocAddAthlete.ejs" />
-        <option value="$PROJECT_DIR$/routes/isuwbbAddAthlete.js" />
-        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbAddAthlete.js" />
-        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbCreateWorkout.js" />
-        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbDailySummary.js" />
-        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocAddAthlete.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocCreateWorkout.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocDailySummary.js" />
@@ -441,9 +426,23 @@
         <option value="$PROJECT_DIR$/views/weeklySummary.ejs" />
         <option value="$PROJECT_DIR$/routes/adminGroupControl.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocSettings.js" />
         <option value="$PROJECT_DIR$/routes/adminSettings.js" />
+        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbCurrentData.js" />
+        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbSettings.js" />
+        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbGroupControl.js" />
+        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbCurrentData.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbGroupControl.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbSettings.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs" />
+        <option value="$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/changePassword.ejs" />
         <option value="$PROJECT_DIR$/bin/www" />
       </list>
     </option>
@@ -462,7 +461,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="13" />
     <option name="y" value="23" />
     <option name="width" value="1409" />
@@ -501,12 +500,24 @@
               <item name="FootballProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="FootballProject" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="isuwbb" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FootballProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FootballProject" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
               <item name="isuwsoc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FootballProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="FootballProject" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FootballProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FootballProject" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="isuwbb" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FootballProject" type="b2602c69:ProjectViewProjectNode" />
@@ -697,12 +708,12 @@
       <workItem from="1525660557053" duration="64648000" />
       <workItem from="1526849773510" duration="8076000" />
       <workItem from="1526875334653" duration="2363000" />
-      <workItem from="1527727419546" duration="5522000" />
+      <workItem from="1527727419546" duration="9516000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="547118000" />
+    <option name="totallyTimeSpent" value="551112000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -787,27 +798,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>3708</line>
+          <line>4295</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>3730</line>
+          <line>4317</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1859</line>
+          <line>1867</line>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1887</line>
+          <line>1895</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>2013</line>
+          <line>2021</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -822,28 +833,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>3861</line>
+          <line>4448</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>3768</line>
+          <line>4355</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/isuwsoc/isuwsocWeeklySummary.js</url>
           <line>101</line>
           <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1511</line>
-          <option name="timeStamp" value="126" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>1589</line>
-          <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/weeklySummary.js</url>
@@ -870,140 +871,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocSettings.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
-          <caret line="170" column="106" selection-start-line="170" selection-start-column="106" selection-end-line="170" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocWeeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/weeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6075">
-          <caret line="405" column="42" selection-start-line="405" selection-start-column="42" selection-end-line="405" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbDailySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-138">
-          <caret line="419" column="51" selection-start-line="419" selection-start-column="51" selection-end-line="419" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbCreateWorkout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbAdminHome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbAddAthlete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="58" column="31" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocAddAthlete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-318">
-          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocCreateWorkout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="52" column="11" lean-forward="true" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/workoutManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="56" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/playerDashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="62" column="74" lean-forward="true" selection-start-line="58" selection-start-column="27" selection-end-line="62" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/loadAcuteWeek.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="102" column="49" selection-start-line="102" selection-start-column="49" selection-end-line="102" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/archives.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="358" column="92" selection-start-line="358" selection-start-column="92" selection-end-line="358" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/home/universeRegister.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="47" column="49" selection-start-line="47" selection-start-column="49" selection-end-line="47" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/playerData.ejs" />
-    <entry file="file://$PROJECT_DIR$/views/adminCataDailySum.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="230" column="43" lean-forward="true" selection-start-line="230" selection-end-line="231" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/login.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="7" column="85" selection-start-line="7" selection-start-column="85" selection-end-line="7" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocDailySummary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminAddAthlete.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminDailySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="111" selection-start-line="111" selection-end-line="111" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/archives.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1043,13 +910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" lean-forward="true" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocCurrentData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -1101,24 +961,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocCurrentData.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="101" selection-start-line="101" selection-end-line="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocDailySummary.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
           <caret line="98" selection-start-line="98" selection-end-line="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocAdminHome.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1146,13 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocWeeklySummary.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="587" lean-forward="true" selection-start-line="587" selection-end-line="587" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/adminGroupControl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
@@ -1167,24 +1006,209 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocSettings.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocCurrentData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-end-line="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocSettings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="143" column="3" lean-forward="true" selection-start-line="143" selection-start-column="3" selection-end-line="143" selection-end-column="3" />
+        <state relative-caret-position="393">
+          <caret line="165" lean-forward="true" selection-end-line="182" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1610">
+          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbGroupControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="44" column="16" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocWeeklySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="383" column="36" selection-end-line="441" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbCurrentData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbDailySummary.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbCreateWorkout.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbAdminHome.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocWeeklySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="571" lean-forward="true" selection-start-line="571" selection-end-line="571" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+          <folding>
+            <element signature="e#450#23565#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocAdminHome.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="95" column="21" lean-forward="true" selection-start-line="78" selection-start-column="14" selection-end-line="95" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocCurrentData.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="106" lean-forward="true" selection-end-line="600" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocGroupControl.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="124" column="71" lean-forward="true" selection-start-line="124" selection-start-column="71" selection-end-line="124" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocSettings.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="164" lean-forward="true" selection-end-line="216" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbAddAthlete.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="126" column="4" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="4" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="127" selection-start-line="127" selection-end-line="127" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbCurrentData.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbGroupControl.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbSettings.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="2161" lean-forward="true" selection-start-line="2161" selection-end-line="2161" />
+        <state relative-caret-position="439">
+          <caret line="3077" column="41" selection-start-line="3077" selection-start-column="41" selection-end-line="3077" selection-end-column="41" />
           <folding>
             <element signature="e#3582#3772#0" />
             <element signature="e#3809#3867#0" />
@@ -1337,6 +1361,7 @@
             <element signature="e#85649#86117#0" />
             <element signature="e#85863#86105#0" />
             <element signature="e#85948#86088#0" />
+            <element signature="e#86358#87037#0" />
             <element signature="e#86410#86549#0" />
             <element signature="e#86652#87732#0" />
             <element signature="e#86819#87725#0" />
@@ -1397,6 +1422,12 @@
             <element signature="e#111899#112653#0" />
             <element signature="e#112308#112635#0" />
             <element signature="e#112415#112614#0" />
+            <element signature="e#113758#116065#0" />
+            <element signature="e#114591#114901#0" />
+            <element signature="e#116992#117132#0" />
+            <element signature="e#117249#139649#0" />
+            <element signature="e#139737#140465#0" />
+            <element signature="e#140279#140438#0" />
             <element signature="e#112818#112909#0" />
             <element signature="e#112863#112905#0" />
             <element signature="e#113001#113109#0" />
@@ -1433,6 +1464,7 @@
             <element signature="e#135776#139813#0" />
             <element signature="e#137644#139739#0" />
             <element signature="e#137963#139662#0" />
+            <element signature="e#141161#141849#0" />
             <element signature="e#140673#140895#0" />
             <element signature="e#140747#140886#0" />
             <element signature="e#141014#141070#0" />
@@ -1445,19 +1477,10 @@
             <element signature="e#142150#142445#0" />
             <element signature="e#142282#142425#0" />
             <element signature="e#142598#142642#0" />
-            <element signature="e#142786#147699#0" />
-            <element signature="e#142960#147695#0" />
-            <element signature="e#143068#147616#0" />
-            <element signature="e#143170#143784#0" />
-            <element signature="e#143224#143377#0" />
             <element signature="e#143283#143357#0" />
-            <element signature="e#143435#143590#0" />
             <element signature="e#143496#143570#0" />
-            <element signature="e#143628#143768#0" />
             <element signature="e#143674#143748#0" />
-            <element signature="e#143852#143976#0" />
             <element signature="e#143894#143960#0" />
-            <element signature="e#144048#145816#0" />
             <element signature="e#144250#145800#0" />
             <element signature="e#144575#145780#0" />
             <element signature="e#144736#145007#0" />
@@ -1465,15 +1488,7 @@
             <element signature="e#145037#145758#0" />
             <element signature="e#145332#145730#0" />
             <element signature="e#145499#145698#0" />
-            <element signature="e#145835#147606#0" />
-            <element signature="e#146037#147590#0" />
-            <element signature="e#146362#147570#0" />
-            <element signature="e#146525#146796#0" />
             <element signature="e#146585#146768#0" />
-            <element signature="e#146826#147548#0" />
-            <element signature="e#147122#147520#0" />
-            <element signature="e#147289#147488#0" />
-            <element signature="e#147622#147689#0" />
             <element signature="e#147786#147877#0" />
             <element signature="e#147807#147846#0" />
             <element signature="e#147852#147875#0" />
@@ -1484,24 +1499,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocWeeklySummary.js">
+    <entry file="file://$PROJECT_DIR$/routes/changePassword.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="392" column="100" lean-forward="true" selection-start-line="392" selection-start-column="100" selection-end-line="392" selection-end-column="100" />
-        </state>
+        <state relative-caret-position="-575" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwsoc/isuwsocGroupControl.js">
+    <entry file="file://$PROJECT_DIR$/views/changePassword.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="52" lean-forward="true" selection-start-line="52" selection-start-column="52" selection-end-line="52" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwsoc/isuwsocGroupControl.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-702">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="42">
+          <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
         </state>
       </provider>
     </entry>
