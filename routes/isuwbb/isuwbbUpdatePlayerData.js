@@ -22,17 +22,32 @@ router.post('/update', function(req, res, next) {
 
         teamid = result;
 
+
+
+        var sql = "select id from master.player_workouts where teamID = '" + teamid[0].teamID + "' " +
+        "and username = '" + req.body.player + "' " +
+        "and workoutID = '"+ req.body.date_select +"'; ";
+
+        var updateWork = [];
+        connection.query(sql, function(err, result) {
+
+            updateWork = result;
+
+
+
+
         sql = "UPDATE master.player_workouts " +
-            "SET duration = " + req.body.minutes + " " +
-            "AND heartrate = " + req.body.heartrate + " " +
-            "WHERE username = '" + req.body.player + "' " +
-            "AND workoutID = '"+ req.body.date_select +"'; ";
+            "SET duration = " + req.body.minutes + ", " +
+            "heartrate = " + req.body.heartrate + " " +
+            "WHERE id = '"+ updateWork[0].id +"'; ";
 
 
         connection.query(sql, function (err, result) {
+            if (err) throw err;
+
 
             sql = "SELECT * FROM workouts " +
-                "WHERE teamID = '"+teamid[0].teamID+"' " +
+                "WHERE teamID = '" + teamid[0].teamID + "' " +
                 "ORDER BY date DESC LIMIT 1;";
 
             var recent_dates = [];
@@ -41,7 +56,7 @@ router.post('/update', function(req, res, next) {
 
                 recent_dates = result;
 
-                for(var i = 0; i < recent_dates.length; i++) {
+                for (var i = 0; i < recent_dates.length; i++) {
 
                     var day = recent_dates[i].date;
 
@@ -92,11 +107,10 @@ router.post('/update', function(req, res, next) {
                 });
 
 
-
             });
 
 
-
+        });
 
         });
 

@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1783f675-b87c-42c4-bdc2-6778795aa3f5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbCurrentData.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbGroupControl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbSettings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbCurrentData.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbGroupControl.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbSettings.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbWeeklySummary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/changePassword.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/changePassword.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbAddAthlete.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbCreateWorkout.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbDailySummary.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js" afterDir="false" />
     </list>
     <ignored path="FootballProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -332,35 +318,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="isuwbbAdminHome.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs">
+      <file leaf-file-name="isuwbbUpdatePlayerData.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
-              <folding>
-                <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-              </folding>
+            <state relative-caret-position="-206">
+              <caret line="120" selection-start-line="120" selection-end-line="120" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="www" pinned="false" current-in-tab="true">
+      <file leaf-file-name="isuwbbUpdatePlayerData.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="www" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="isuwbbWeeklySummary.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
-              <folding>
-                <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-              </folding>
+              <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -393,7 +373,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocAddAthlete.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocCreateWorkout.js" />
         <option value="$PROJECT_DIR$/routes/isuwsoc/isuwsocDailySummary.js" />
         <option value="$PROJECT_DIR$/routes/loadAcuteWeek.js" />
@@ -444,6 +423,7 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/changePassword.ejs" />
         <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js" />
       </list>
     </option>
   </component>
@@ -461,7 +441,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="13" />
     <option name="y" value="23" />
     <option name="width" value="1409" />
@@ -708,12 +688,12 @@
       <workItem from="1525660557053" duration="64648000" />
       <workItem from="1526849773510" duration="8076000" />
       <workItem from="1526875334653" duration="2363000" />
-      <workItem from="1527727419546" duration="9516000" />
+      <workItem from="1527727419546" duration="11108000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="551112000" />
+    <option name="totallyTimeSpent" value="552704000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1048,9 +1028,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbCurrentData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1175,30 +1152,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/changePassword.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-          <folding>
-            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
+        <state relative-caret-position="-575" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs">
+    <entry file="file://$PROJECT_DIR$/views/changePassword.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
-          <folding>
-            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="42">
+          <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbWeeklySummary.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="235">
           <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbAdminHome.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
           <folding>
             <element signature="n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
           </folding>
@@ -1499,22 +1485,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/changePassword.js">
+    <entry file="file://$PROJECT_DIR$/views/isuwbb/isuwbbUpdatePlayerData.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-575" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/changePassword.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+        <state relative-caret-position="-206">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
+    <entry file="file://$PROJECT_DIR$/routes/isuwbb/isuwbbUpdatePlayerData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+        <state relative-caret-position="347">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
         </state>
       </provider>
     </entry>
