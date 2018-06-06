@@ -45,6 +45,7 @@ router.post('/dailySum', function(req, res, next) {
 
 
 
+
             sql = "SELECT * FROM workouts " +
                 "WHERE teamID = '"+teamid[0].teamID+"' " +
                 "ORDER BY date DESC LIMIT 10;";
