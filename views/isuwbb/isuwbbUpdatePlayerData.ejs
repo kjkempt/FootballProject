@@ -44,9 +44,9 @@
             var x2 = document.forms["updateData"]["heartrate"].value;
 
 
-            if (x1 === "" || x2 === "")
+            if (x1 === "" && x2 === "")
             {
-                alert("One or more field(s) is empty");
+                alert("Both fields are empty");
                 return false;
             }
 
