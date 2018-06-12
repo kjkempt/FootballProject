@@ -181,14 +181,14 @@
                                 {
                                     var load = 0;
                                     var d = 0
-                                    if(workout[i].duration === 0)
+                                    if(workout[i].ind_duration === 0)
                                     {
                                         load = note[0].duration * workout[i].player_sRPE;
                                         d = note[0].duration;
                                     }
                                     else{
-                                        load = workout[i].duration * workout[i].player_sRPE;
-                                        d = workout[i].duration;
+                                        load = workout[i].ind_duration * workout[i].player_sRPE;
+                                        d = workout[i].ind_duration;
                                     }
 
 

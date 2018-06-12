@@ -56,8 +56,8 @@ router.post('/playerInput', function(req, res, next) {
 
                         if(result.length === 0) {
 
-                            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID, heartrate) " +
-                                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "', 0)";
+                            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID, heartrate, ind_duration) " +
+                                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "', 0, 0)";
 
                             var double = [];
                             connection.query(sql, function (err, result) {
@@ -121,8 +121,8 @@ router.post('/playerInput', function(req, res, next) {
 
                             if (result.length === 0) {
 
-                                sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
-                                    "VALUES('" + req.user + "', '" + req.body.double_select + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "')";
+                                sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID, heartrate, ind_duration) " +
+                                    "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "', 0, 0)";
 
                                 connection.query(sql, function (err, result) {
                                     if (err) {
@@ -189,8 +189,8 @@ router.post('/playerInput', function(req, res, next) {
 
                         if(result.length === 0) {
 
-                            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
-                                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "')";
+                            sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID, heartrate, ind_duration) " +
+                                "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "', 0, 0)";
 
                             var double = [];
                             connection.query(sql, function (err, result) {
@@ -254,8 +254,8 @@ router.post('/playerInput', function(req, res, next) {
 
                             if (result.length === 0) {
 
-                                sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID) " +
-                                    "VALUES('" + req.user + "', '" + req.body.double_select + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "')";
+                                sql = "INSERT INTO player_workouts(username, workoutID, player_sRPE, teamID, heartrate, ind_duration) " +
+                                    "VALUES('" + req.user + "', '" + workout[0].workoutid + "' ,'" + req.body.playerRPE + "', '" + teamid[0].teamID + "', 0, 0)";
 
                                 connection.query(sql, function (err, result) {
                                     if (err) {

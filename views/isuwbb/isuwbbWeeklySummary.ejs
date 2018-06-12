@@ -221,8 +221,22 @@
                                             workCount++;
                                             console.log(workCount);
                                             averageRPE = averageRPE + player_week_data[iteration].player_sRPE;
-                                            acuteDuration = acuteDuration + player_week_data[iteration].duration
-                                            acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].duration);
+                                            if(player_week_data[iteration].ind_duration === 0)
+                                            {
+                                                acuteDuration = acuteDuration + player_week_data[iteration].duration;
+                                            }
+                                            else
+                                            {
+                                                acuteDuration = acuteDuration + player_week_data[iteration].ind_duration;
+                                            }
+                                            if(player_week_data[iteration].ind_duration === 0)
+                                            {
+                                                acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].duration);
+                                            }
+                                            else
+                                            {
+                                                acuteLoad = acuteLoad + (player_week_data[iteration].player_sRPE * player_week_data[iteration].ind_duration);
+                                            }
                                             iteration = iteration + 1;
                                             if(iteration != player_week_data.length)
                                             {
@@ -268,9 +282,19 @@
                                     if(workouts[j].date.getTime() === player_week_data[i].date.getTime() &&
                                             workouts[j].time === player_week_data[i].time)
                                     {
+                                        var dur = 0;
+                                        if(player_week_data[i].ind_duration === 0)
+                                        {
+                                            dur = player_week_data[i].duration;
+                                        }
+                                        else {
+                                            dur = player_week_data[i].ind_duration;
+                                        }
+
+
                                     %>
                                     <td><%= player_week_data[i].player_sRPE%>  </td>
-                                    <td><%= player_week_data[i].duration%>  </td>
+                                    <td><%= dur %>  </td>
                                     <td><%= (player_week_data[i].player_sRPE * player_week_data[i].duration)%>  </td>
 
 

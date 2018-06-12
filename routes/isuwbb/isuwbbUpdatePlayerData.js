@@ -37,7 +37,7 @@ router.post('/update', function(req, res, next) {
 
 
         sql = "UPDATE master.player_workouts " +
-            "SET duration = " + req.body.minutes + ", " +
+            "SET ind_duration = " + req.body.minutes + ", " +
             "heartrate = " + req.body.heartrate + " " +
             "WHERE id = '"+ updateWork[0].id +"'; ";
 
